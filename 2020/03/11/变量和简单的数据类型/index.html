@@ -7,16 +7,41 @@
   
   
   
-  <title>Xgp &amp; Blog</title>
+  <title>变量和简单的数据类型 | Xgp &amp; Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Small steel gun article">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Xgp &amp; Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="一、安装ipython 1C:\WINDOWS\system32&gt;pip3 install ipython   12C:\WINDOWS\system32&gt;pip3 list&#x2F;&#x2F;查看一下   1234C:\WINDOWS\system32&gt;python -m pip install --upgrade pip&#x2F;&#x2F;更新下载源C:\WINDOW">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变量和简单的数据类型">
+<meta property="og:url" content="http://yoursite.com/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Xgp &amp; Blog">
-<meta property="og:description" content="Small steel gun article">
+<meta property="og:description" content="一、安装ipython 1C:\WINDOWS\system32&gt;pip3 install ipython   12C:\WINDOWS\system32&gt;pip3 list&#x2F;&#x2F;查看一下   1234C:\WINDOWS\system32&gt;python -m pip install --upgrade pip&#x2F;&#x2F;更新下载源C:\WINDOW">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/3e3f455611b5723650c0325d2456ae21.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/20631d65ae1fb37d728c5b4bdcb8dd17.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/4938656b2bbb939decf6362c5bb5c99c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/db4a95e56b941dcb45a290e7d1235148.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/b2e1e821a209ad6cce73b9d496289ddb.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/2e236d88aaa9d18b2dbdee4c5123408d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/a58ef7b2c550d266f01e1345ff37829f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/5c9ee19e20730e4e708f343ac3ab0faf.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/b4033769ab57b54b1fafb8f44c45ba1f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/ae94f6d8bcfaa1f8c02eab4fbb07c179.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/213e5a7343889769090e90c05ec0ec6f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/f4267e419d9a509247156d3fb9dcdfba.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/59ae99c04d8cae1cfdafcc63e54dd467.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/bd13c93325d926c04df38dcf17d8e00c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/67101e06f2c1345ddf3f7167ce0cd76e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/d57777f357680a20980e7039c685c22d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/716b3592768924fc37c07b4533a3e06e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/79844387be03219bbe18f96263b9d952.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/22f50e199da03ece8cf73d5f10c755d6.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/9b43f71e41b49ac9f8b27115b8638ca8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/88d754d077cd7c8433ecdfa41f1f7cd2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="og:image" content="https://s1.51cto.com/images/blog/202003/10/2a50eaeda45f0dc2ed58138b5c881755.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
+<meta property="article:published_time" content="2020-03-11T12:59:28.568Z">
+<meta property="article:modified_time" content="2020-03-11T13:00:03.962Z">
 <meta property="article:author" content="Wu Shao Dong">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.51cto.com/images/blog/202003/10/3e3f455611b5723650c0325d2456ae21.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=">
   
     <link rel="alternative" href="/atom.xml" title="Xgp &amp; Blog" type="application/atom+xml">
   
@@ -34,9 +59,6 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-    
-    
-  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -47,8 +69,8 @@
       var yiliaConfig = {
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -280,9 +302,7 @@
         </header>
     </div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-变量和简单的数据类型" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-变量和简单的数据类型" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a  href="/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="article-date">
@@ -299,13 +319,20 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">变量和简单的数据类型</a>
+    <h1 class="article-title" itemprop="name">
+      变量和简单的数据类型
     </h1>
   
 
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -407,226 +434,153 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a  href="/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">变量和简单的数据类型</a></p>
+        <p><span>文章作者:</span><a  href="/" title="访问 Wu Shao Dong 的个人博客">Wu Shao Dong</a></p>
+        <p><span>发布时间:</span>2020年03月11日 - 20时59分</p>
+        <p><span>最后更新:</span>2020年03月11日 - 21时00分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="变量和简单的数据类型">http://yoursite.com/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/　　作者: Wu Shao Dong" title=""></span>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license noopener" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" target="_blank" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a  href="/2020/03/11/Python%20%E5%88%97%E8%A1%A8(List)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python 列表(List)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+
   
 </article>
 
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、安装ipython"><span class="toc-number">1.</span> <span class="toc-text">一、安装ipython</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建一个目录"><span class="toc-number">1.0.1.</span> <span class="toc-text">创建一个目录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、变量和简单的数据类型"><span class="toc-number">2.</span> <span class="toc-text">二、变量和简单的数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、变量"><span class="toc-number">2.1.</span> <span class="toc-text">一、变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、变量命名规则"><span class="toc-number">2.1.1.</span> <span class="toc-text">1、变量命名规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）只能包含的字母、数字、下划线，但是不能以数字打头"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">（1）只能包含的字母、数字、下划线，但是不能以数字打头</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）不能包含空格，但是可以用下划线分隔其中的单词"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">（2）不能包含空格，但是可以用下划线分隔其中的单词</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）不能使用Python关键字和函数的名称用做变量"><span class="toc-number">2.1.1.3.</span> <span class="toc-text">（3）不能使用Python关键字和函数的名称用做变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）变量名应该简短并且见名知意"><span class="toc-number">2.1.1.4.</span> <span class="toc-text">（3）变量名应该简短并且见名知意</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（4）慎用大写字母I（i），小写字母l（L）和小写字母o"><span class="toc-number">2.1.1.5.</span> <span class="toc-text">（4）慎用大写字母I（i），小写字母l（L）和小写字母o</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（5）变量的表达形式"><span class="toc-number">2.1.1.6.</span> <span class="toc-text">（5）变量的表达形式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、字符串"><span class="toc-number">2.1.2.</span> <span class="toc-text">2、字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）修改字符串大小写"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">（1）修改字符串大小写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）拼接字符"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">（2）拼接字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）换行-n"><span class="toc-number">2.1.2.3.</span> <span class="toc-text">（3）换行\n</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（4）去空格"><span class="toc-number">2.1.2.4.</span> <span class="toc-text">（4）去空格</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、数字的加减乘除"><span class="toc-number">2.1.3.</span> <span class="toc-text">3、数字的加减乘除</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#小测试"><span class="toc-number">3.</span> <span class="toc-text">小测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、将用户的姓名存到一个变量中，并向该用户显示一条信息，显示内容为：“你好，xgp，今天的Python课你学到东西了吗？”"><span class="toc-number">3.1.</span> <span class="toc-text">1、将用户的姓名存到一个变量中，并向该用户显示一条信息，显示内容为：“你好，xgp，今天的Python课你学到东西了吗？”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、将一个人的名字存到变量中，再以小写、大写和首字母大写的方式显示这个人的名字。"><span class="toc-number">3.2.</span> <span class="toc-text">2、将一个人的名字存到变量中，再以小写、大写和首字母大写的方式显示这个人的名字。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、按一下格式打印诗词："><span class="toc-number">3.3.</span> <span class="toc-text">3、按一下格式打印诗词：</span></a></li></ol></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
 
 
 
 
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
 
 
 
 
-
-
-  
-    <article id="post-Python 列表(List)" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a  href="/2020/03/11/Python%20%E5%88%97%E8%A1%A8(List)/" class="article-date">
-      <time datetime="2020-03-11T12:51:29.744Z" itemprop="datePublished">2020-03-11</time>
-</a>
-
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
+        <section class="changyan" id="comments">
+  <!--<div id="uyan_frame"></div>-->
+  <div id="SOHUCS"></div>
+  <script charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/changyan.js"></script>
+  <script type="text/javascript">
+    window.changyan.api.config({
+      appid: 'xxxx',
+      conf: 'xxxxxxxxx'
+    });
+  </script>
+</section>
     
-    
-      <header class="article-header">
+
+
+
+    <div class="scroll" id="post-nav-button">
         
-  
-    <h1 itemprop="name">
-      <a  class="article-title" href="/2020/03/11/Python%20%E5%88%97%E8%A1%A8(List)/">Python 列表(List)</a>
-    </h1>
-  
-
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h1 id="Python-列表-List"><a href="#Python-列表-List" class="headerlink" title="Python 列表(List)"></a>Python 列表(List)</h1><p><strong>Python的基本数据类型有整数，浮点数，布尔，字符串，它们是最基本的数据。在实际编程中，我们要经常组织由很多基本数据组成的集合，这些集合的不同组织方式就是：数据结构，今天讲的是数据结构中的Python list(列表)。数据结构就是一些数据组合得到的“复合”数据类型。</strong></p>
-<p><img src="https://s1.51cto.com/images/blog/202003/11/137b021999e8e998f17432d47b30f2a4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="Python内置的数据结构有："><a href="#Python内置的数据结构有：" class="headerlink" title="Python内置的数据结构有："></a>Python内置的数据结构有：</h2><ul>
-<li><strong>列表(list)</strong></li>
-<li><strong>元组(tuple)</strong></li>
-<li><strong>字典(dict)</strong></li>
-<li><strong>集合(set)</strong></li>
-</ul>
-<p><strong>在Python语言中，以上4种数据结构和基础数据类型（整数、浮点数等）统称为“内置类型”（Built-in Types）。</strong></p>
-<h1 id="一、什么是列表"><a href="#一、什么是列表" class="headerlink" title="一、什么是列表"></a>一、什么是列表</h1><p><strong>序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，第二个索引是1，依此类推。</strong></p>
-<p><strong>Python有6个序列的内置类型，但最常见的是列表和元组。</strong></p>
-<p><strong>序列都可以进行的操作包括索引，切片，加，乘，检查成员。</strong></p>
-<p><strong>此外，Python已经内置确定序列的长度以及确定最大和最小的元素的方法。</strong></p>
-<p><strong>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。</strong></p>
-<p><strong>列表的数据项不需要具有相同的类型</strong></p>
-<h2 id="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："><a href="#（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：" class="headerlink" title="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："></a>（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 定义列表</span><br><span class="line">name &#x3D; [&#39;Tom&#39;,&#39;Jack&#39;,&#39;John&#39;]</span><br><span class="line">pet &#x3D; [&#39;cat&#39;,&#39;dog&#39;,&#39;bird&#39;]</span><br><span class="line"></span><br><span class="line"># 打印列表</span><br><span class="line">print(name)</span><br><span class="line">print(pet)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/d3d174c5845ce80de87d059e22e963bc.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="（2）用索引访问列表元素"><a href="#（2）用索引访问列表元素" class="headerlink" title="（2）用索引访问列表元素"></a>（2）用索引访问列表元素</h2><p><strong>使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 通过索引读取列表中的元素，索引从0开始，-1代表最后一个元素</span><br><span class="line"></span><br><span class="line">print(name[0])     #查看列表中第一个</span><br><span class="line">print(pet[2])      #查看列表中第二个</span><br><span class="line">print(name[-1])    #查看列表中最后一个</span><br><span class="line">print(pet[-2])    #查看列表中倒数第二个</span><br><span class="line">print (name[0:2])  #查看索引2之前的元素</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/9d84b048d3fe5fa616b14fcedcd90f70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h1 id="二、基本操作"><a href="#二、基本操作" class="headerlink" title="二、基本操作"></a>二、基本操作</h1><h2 id="1、通过素引获取元素-进行修改"><a href="#1、通过素引获取元素-进行修改" class="headerlink" title="1、通过素引获取元素,进行修改"></a>1、通过素引获取元素,进行修改</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#修改列表的元素</span><br><span class="line">name[1] &#x3D; &#39;Sean&#39;   #修改name列表，索引1的内容为Sean</span><br><span class="line">print(name)		   #打印列表</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/085e2a55fb2e9567e220bf49802b7505.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="2、-向列表里面加元素"><a href="#2、-向列表里面加元素" class="headerlink" title="2、 向列表里面加元素"></a>2、 向列表里面加元素</h2><p><strong>向python列表里面添加元素主要有三种方法：</strong></p>
-<h3 id="（1）append（）"><a href="#（1）append（）" class="headerlink" title="（1）append（）"></a><strong>（1）append（）</strong></h3><p><strong>append()对于列表的操作主要实现的是在特定的列表最后添加一个元素，并且只能一次添加一个元素，并且只能在列表最后；</strong></p>
-<p><code>name.append(元素A)</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 在列表末尾添加新元素</span><br><span class="line">name.append(&#39;Bob&#39;)</span><br><span class="line">print(name)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/b9f5217ecdae270c7d713aab7f7e667b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h3 id="（2）extend（）"><a href="#（2）extend（）" class="headerlink" title="（2）extend（）"></a><strong>（2）extend（）</strong></h3><p><strong>extend（）对于列表的操作主要实现的是对于特定列表的扩展和增长，可以一次添加多个元素，不过也只能添加在列表的最后；</strong></p>
-<pre><code>`name.extend([元素A，元素B，……])`</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name.extend([&#39;Xgp&#39;,&#39;Wsd&#39;])</span><br><span class="line">print(name)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/6d7f2f3cc974dc445679b3488a1b7866.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h3 id="（3）insert（）"><a href="#（3）insert（）" class="headerlink" title="（3）insert（）"></a><strong>（3）insert（）</strong></h3><p><strong>insert（）对于列表的操作主要是在列表的特定位置添加想要添加的特定元素，比较常用，这里的特定位置是指元素所在列表中的位置索引号，需要注意的是这里的索引号都是从0开始的，不是从1开始的，这个大家需要特别注意。</strong></p>
-<pre><code>`pet.insert(A,元素B)：表示在列表m里面的第A+1处加入元素B`</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 在列表指定位置添加新元素</span><br><span class="line">print(pet)</span><br><span class="line">pet.insert(0,&#39;penguin&#39;)   #在列表最前面添加数据</span><br><span class="line">print(pet)</span><br><span class="line">pet.insert(-2,&#39;pig&#39;)      #在列表倒数第三个添加数据</span><br><span class="line">print(pet)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/ea1415a888f8e57c43526808b7a17d81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="3、删减列表中的一些元素；"><a href="#3、删减列表中的一些元素；" class="headerlink" title="3、删减列表中的一些元素；"></a>3、删减列表中的一些元素；</h2><p><strong>与之前python列表的添加元素相对，删减列表里面的一些元素也有三种方法：</strong></p>
-<h3 id="（1）del-pet-n"><a href="#（1）del-pet-n" class="headerlink" title="（1）del pet[n]"></a>（1）del pet[n]</h3><p><strong>它的作用是删除掉列表里面的索引号位置为n 的元素，这里需要注意的是del是一种操作语句。</strong></p>
-<p> <code>del m[n]</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 根据索引从列表中删除元素</span><br><span class="line">print(pet)</span><br><span class="line">del pet[0]      #删除开头的元素</span><br><span class="line">print (pet)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/292edbb8c3095c07fc72f79295d51ca7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h3 id="（2）pet-pop（）"><a href="#（2）pet-pop（）" class="headerlink" title="（2）pet.pop（）"></a>（2）pet.pop（）</h3><p><strong>它的作用是将列表m的最后一个元素返回，并且在此基础上进行删除掉</strong></p>
-<p><code>Temp=pet.pop()  %这里temp就会直接等于吗列表里最后一个元素。</code></p>
-<p> <code>Print(pet)    %这里再次输出m的时候已经是删掉最后一个元素的m列表</code></p>
-<h4 id="pop-弹出列表末尾的元素"><a href="#pop-弹出列表末尾的元素" class="headerlink" title="pop():弹出列表末尾的元素"></a>pop():弹出列表末尾的元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(pet)</span><br><span class="line">new_pet&#x3D;pet.pop()</span><br><span class="line">print(new_pet)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/08733dd7c72202d207f028b84a1fbb85.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h4 id="弹出指定位置的元素"><a href="#弹出指定位置的元素" class="headerlink" title="弹出指定位置的元素"></a>弹出指定位置的元素</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 弹出指定位置的元素</span><br><span class="line">print(pet)</span><br><span class="line">pet.pop(2)</span><br><span class="line">print(pet)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/2b1641c4a69affa851abf2c5e2909c81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h3 id="（3）pet-remove"><a href="#（3）pet-remove" class="headerlink" title="（3）pet.remove()"></a>（3）pet.remove()</h3><p><strong>m.remove的作用是移除掉列表m里面的特定元素；</strong></p>
-<p><code>m.remove(元素A)</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 根据元素的值进行删除：remove()</span><br><span class="line">print(pet)            #查看源列表</span><br><span class="line">pet.remove(&#39;cat&#39;)     #删除cat</span><br><span class="line">print(pet)            #打印列表</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/dda2c5caf4e83b6478d289b6adf2916d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h1 id="三、排序"><a href="#三、排序" class="headerlink" title="三、排序"></a>三、排序</h1><h3 id="（1）永久排序（正索引，从头到尾）"><a href="#（1）永久排序（正索引，从头到尾）" class="headerlink" title="（1）永久排序（正索引，从头到尾）"></a>（1）永久排序（正索引，从头到尾）</h3><p><strong>sort()排序方法：此<a href="https://www.iplaypy.com/jichu/function.html" target="_blank" rel="noopener">函数</a>方法对列表内容进行正向排序，排序后的新列表会覆盖原列表（id不变），也就是sort排序方法是直接修改原列表list排序方法。</strong></p>
-<h3 id="（2）临时排序（正索引，从头到尾）"><a href="#（2）临时排序（正索引，从头到尾）" class="headerlink" title="（2）临时排序（正索引，从头到尾）"></a>（2）临时排序（正索引，从头到尾）</h3><p><strong>sorted()方法：即可以保留原列表，又能得到已经排序好的列表</strong></p>
-<h3 id="（3）倒序（从头到尾从尾到头）"><a href="#（3）倒序（从头到尾从尾到头）" class="headerlink" title="（3）倒序（从头到尾从尾到头）"></a>（3）倒序（从头到尾从尾到头）</h3><p><strong>reverse列表反转排序：是把原列表中的元素顺序从左至右的重新存放，而不会对列表中的参数进行排序整理。如果需要对列表中的参数进行整理，就需要用到列表的另一种排序方式sort正序排序。</strong></p>
-<h3 id="（4）列表长度"><a href="#（4）列表长度" class="headerlink" title="（4）列表长度"></a>（4）列表长度</h3><p><strong>len() 方法返回列表元素个数。</strong></p>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 定义列表：汽车的品牌</span><br><span class="line">print(&#39;原始排序：&#39;)</span><br><span class="line">brand &#x3D; [&#39;audi&#39;,&#39;bmw&#39;,&#39;toyota&#39;,&#39;luhu&#39;]</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line">#临时排序</span><br><span class="line">print(&#39;临时排序：&#39;)</span><br><span class="line">print(sorted(brand))</span><br><span class="line"></span><br><span class="line"># 永久排序: sort()</span><br><span class="line">print(&#39;正序排序：&#39;)</span><br><span class="line">brand.sort()</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line"># 倒序排序</span><br><span class="line">print(&#39;倒序排序:&#39;)</span><br><span class="line">brand.sort(reverse&#x3D;True)</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line"># 获取列表长度</span><br><span class="line">print(&#39;列表长度:&#39;)</span><br><span class="line">print(len(brand))</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/3a203bc5e8e00faf71575a178c890558.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h1 id="四、小练习"><a href="#四、小练习" class="headerlink" title="四、小练习"></a>四、小练习</h1><h2 id="列表练习（一）"><a href="#列表练习（一）" class="headerlink" title="列表练习（一）"></a>列表练习（一）</h2><ul>
-<li><strong>定义一个列表，存储5个科目名称</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu &#x3D; [&#39;语文&#39;,&#39;数学&#39;,&#39;英语&#39;,&#39;地理&#39;,&#39;生物&#39;]</span><br><span class="line">print(kemu)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/0a892af8758dd19c970d7de47437ff8a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>新增科目（末尾新增）</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu.append(&#39;化学&#39;)</span><br><span class="line">print(kemu)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/0f0b406f8c28ebebc57ae634d49a2ee7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>修改科目</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu[2] &#x3D; &#39;计算机&#39;</span><br><span class="line">print(kemu)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/5ab12537306589f9162bb67547c7f51e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>删除科目，并且在打印科目列表的时候，能够显示删除了哪个科目</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(kemu)</span><br><span class="line">new_kemu&#x3D;kemu.pop(3)</span><br><span class="line">print(new_kemu)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/138b490d7841d85b817813e52a89420c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>删除第2个科目</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu.pop(1)</span><br><span class="line">print(kemu)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/a4947680d6baa4bd676067502617b085.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>指定位置新增</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu.insert(0,&#39;科学&#39;)</span><br><span class="line">print(kemu)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/7acdad95a50906f7ff9db554a238de19.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>删除指定名称的科目</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu.remove(&#39;生物&#39;)</span><br><span class="line">print(kemu)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/34711348de69c3a3b32c902360ddf6ae.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="列表练习（二）"><a href="#列表练习（二）" class="headerlink" title="列表练习（二）"></a>列表练习（二）</h2><ul>
-<li><strong>将5个城市的名称存储到列表中，并且保证名称不是按照字母顺序排列的</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">city &#x3D; [&#39;北京&#39;,&#39;上海&#39;,&#39;广州&#39;,&#39;深圳&#39;,&#39;山西&#39;]</span><br><span class="line">print(city)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/497b287216835fe7a5c9d5e61dea641d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>打印出原始的城市列表信息</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(city)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/ecf3236daafbd4344684a6545552b3bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>使用sorted()方法按字母顺序打印城市列表，但是不要修改列表元素的顺序</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(sorted(city))</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/ef74e3a4b39c7ff64f81b85b5354fa03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>打印该列表，确认城市名称排列顺序没有被修改</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(city)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/8dcbfbba443ae0eef3e8842efa798a5f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>使用sort()方法排列城市名称，确保永久性修改排列顺序</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">city.sort()</span><br><span class="line">print(city)</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/d3fc524785b3984393f8d919fd34ddb2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-
-      
+            <a  href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a  href="/2020/03/11/Python%20%E5%88%97%E8%A1%A8(List)/" title="下一篇: Python 列表(List)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">变量和简单的数据类型</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/11/Python%20%E5%88%97%E8%A1%A8(List)/">Python 列表(List)</a></li></ul>
     
-    <div class="article-info article-info-index">
-      
-      
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+    <script>
+        $(".post-list").addClass("toc-article");
+        // $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
 
 
 
 
-
-
-
-
-
-
-
-  
-  
+    <script>
+        
+    </script>
 
 </div>
       <footer id="footer">
