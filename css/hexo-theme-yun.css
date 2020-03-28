@@ -559,16 +559,6 @@ body {
   color: #fff;
   cursor: default;
 }
-.post-body p a {
-  color: #0593d3;
-  border-bottom: none;
-  border-bottom: 1px solid #0593d3;
-}
-.post-body p a:hover {
-  color: #fc6423;
-  border-bottom: none;
-  border-bottom: 1px solid #fc6423;
-}
 .post-block,
 .post-comment {
   margin: 0 1rem;
@@ -623,6 +613,16 @@ body {
   border-left: 3px solid #f8722a;
   background-color: #fafbfc;
   list-style: none;
+}
+.post-body p a {
+  color: #0593d3;
+  border-bottom: none;
+  border-bottom: 1px solid #0593d3;
+}
+.post-body p a:hover {
+  color: #fc6423;
+  border-bottom: none;
+  border-bottom: 1px solid #fc6423;
 }
 .tag-name {
   padding-left: 0.1rem;
