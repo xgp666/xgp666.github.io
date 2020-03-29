@@ -7,27 +7,27 @@
 
 
 
-<h1 id="一、PyCharm基本设置"><a href="#一、PyCharm基本设置" class="headerlink" title="一、PyCharm基本设置"></a>一、PyCharm基本设置</h1><h2 id="1、用Ctrl-鼠标滚轮–放大或缩小字体"><a href="#1、用Ctrl-鼠标滚轮–放大或缩小字体" class="headerlink" title="1、用Ctrl+鼠标滚轮–放大或缩小字体"></a>1、用Ctrl+鼠标滚轮–放大或缩小字体</h2><p><img src="https://s4.51cto.com/images/blog/202003/20/1f57a6244ec1fa71c6a56e7c02bb814d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<h1 id="一、PyCharm基本设置"><a href="#一、PyCharm基本设置" class="headerlink" title="一、PyCharm基本设置"></a>一、PyCharm基本设置</h1><h2 id="1、用Ctrl-鼠标滚轮–放大或缩小字体"><a href="#1、用Ctrl-鼠标滚轮–放大或缩小字体" class="headerlink" title="1、用Ctrl+鼠标滚轮–放大或缩小字体"></a>1、用Ctrl+鼠标滚轮–放大或缩小字体</h2><p><img src="https://s4.51cto.com/images/blog/202003/20/1f57a6244ec1fa71c6a56e7c02bb814d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p>搜索zoom</p>
-<p><img src="https://s4.51cto.com/images/blog/202003/20/38c69b2c6690f139e3bf195d1c4e0ccd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<p><img src="https://s4.51cto.com/images/blog/202003/20/086bbdb64099c35d4ae0fc993200ce6c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h2 id="2、在Windows资源管理器打开文件或目录"><a href="#2、在Windows资源管理器打开文件或目录" class="headerlink" title="2、在Windows资源管理器打开文件或目录"></a>2、在Windows资源管理器打开文件或目录</h2><p><img src="https://s4.51cto.com/images/blog/202003/20/8ca85cb687f89ffef8a7fe085df577e8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/20/38c69b2c6690f139e3bf195d1c4e0ccd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/20/086bbdb64099c35d4ae0fc993200ce6c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="2、在Windows资源管理器打开文件或目录"><a href="#2、在Windows资源管理器打开文件或目录" class="headerlink" title="2、在Windows资源管理器打开文件或目录"></a>2、在Windows资源管理器打开文件或目录</h2><p><img src="https://s4.51cto.com/images/blog/202003/20/8ca85cb687f89ffef8a7fe085df577e8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong>搜索keymap</strong></p>
-<p><img src="https://s4.51cto.com/images/blog/202003/20/c5eebf71897358d5b7b88a521502a6ff.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/20/c5eebf71897358d5b7b88a521502a6ff.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong>设置成不常用的键即可，如F3。</strong></p>
-<h2 id="3、代码提示"><a href="#3、代码提示" class="headerlink" title="3、代码提示"></a>3、代码提示</h2><p><img src="https://s4.51cto.com/images/blog/202003/20/46741a8aeb6d969822350ba892bef10a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<h2 id="3、代码提示"><a href="#3、代码提示" class="headerlink" title="3、代码提示"></a>3、代码提示</h2><p><img src="https://s4.51cto.com/images/blog/202003/20/46741a8aeb6d969822350ba892bef10a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong>搜索letter</strong></p>
-<p><img src="https://s4.51cto.com/images/blog/202003/20/7130cc0cb40cc81270cc4c7fc06ceadd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h1 id="二、自定义函数"><a href="#二、自定义函数" class="headerlink" title="二、自定义函数"></a>二、自定义函数</h1><p><img src="https://s4.51cto.com/images/blog/202003/20/e8b43bf4b62598f756a281114896a2ab.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/20/7130cc0cb40cc81270cc4c7fc06ceadd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="二、自定义函数"><a href="#二、自定义函数" class="headerlink" title="二、自定义函数"></a>二、自定义函数</h1><p><img src="https://s4.51cto.com/images/blog/202003/20/e8b43bf4b62598f756a281114896a2ab.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="1-为什么要使用函数"><a href="#1-为什么要使用函数" class="headerlink" title="1.为什么要使用函数"></a>1.为什么要使用函数</h2><blockquote>
 <p><strong>函数中的代码一次编写,多处运行;</strong><br><strong>函数可以让代码复用，减少代码冗余。</strong></p>
 </blockquote>
 <p><strong>函数是组织好的，可重复使用的，用来实现单一，或相关联功能的代码段。</strong></p>
 <p><strong>函数能提高应用的模块性，和代码的重复利用率。你已经知道Python提供了许多内建函数，比如print()。但你也可以自己创建函数，这被叫做用户自定义函数。</strong></p>
 <p><strong>假设我有这样的需求：</strong></p>
-<p><img src="https://s4.51cto.com/images/blog/202003/20/8bc2a80576652649c412dc5fed808c18.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/20/8bc2a80576652649c412dc5fed808c18.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong>但是我还是觉得太麻烦了，每次想吃饭的时候都要重复这样的步骤。此时，我希望有这样的机器：</strong></p>
-<p>　　<img src="https://s4.51cto.com/images/blog/202003/20/177fb9fe518cdffcb817f5fe09f399df.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p>　　<img src="https://s4.51cto.com/images/blog/202003/20/177fb9fe518cdffcb817f5fe09f399df.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p> <strong>将重复的工作封装到一起，我们只要向机器里放入东西，就能得到我们想要的。</strong></p>
 <p><strong>这也就是所谓的代码重用。</strong></p>
 <h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment"># 定义方法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_nums</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""此处是函数功能的描述"""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">11</span>):</span><br><span class="line">        print(i,end=<span class="string">" "</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.三角形 2.正方形 3.梯形</span></span><br><span class="line">key = int(input(<span class="string">'请输入要打印的图形：'</span>))</span><br><span class="line"><span class="keyword">if</span> key == <span class="number">1</span>:</span><br><span class="line">    <span class="comment"># 打印三角形的代码</span></span><br><span class="line">    print_nums()</span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">elif</span> key == <span class="number">2</span>:</span><br><span class="line">    <span class="comment"># 打印梯形的代码</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="keyword">elif</span> key == <span class="number">3</span>:</span><br><span class="line">    <span class="comment"># 正方形的代码</span></span><br><span class="line">    <span class="keyword">pass</span></span><br></pre></td></tr></tbody></table></figure>
@@ -35,8 +35,8 @@
 <h5 id="输出结果如下："><a href="#输出结果如下：" class="headerlink" title="输出结果如下："></a>输出结果如下：</h5><blockquote>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">请输入要打印的图形：<span class="number">1</span></span><br><span class="line"><span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span> <span class="number">7</span> <span class="number">8</span> <span class="number">9</span> <span class="number">10</span> </span><br><span class="line">进程已结束，退出代码 <span class="number">0</span></span><br></pre></td></tr></tbody></table></figure>
 </blockquote>
-<h3 id="分析一下"><a href="#分析一下" class="headerlink" title="分析一下"></a><strong>分析一下</strong></h3><p><img src="https://s4.51cto.com/images/blog/202003/20/84cc500e9b23537c5583b7875a5362a7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<p><img src="https://s4.51cto.com/images/blog/202003/20/0086731c41cc958f0f974ae984cd3bf0.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<h3 id="分析一下"><a href="#分析一下" class="headerlink" title="分析一下"></a><strong>分析一下</strong></h3><p><img src="https://s4.51cto.com/images/blog/202003/20/84cc500e9b23537c5583b7875a5362a7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/20/0086731c41cc958f0f974ae984cd3bf0.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="2、定义函数"><a href="#2、定义函数" class="headerlink" title="2、定义函数"></a>2、定义函数</h2><h4 id="你可以定义一个由自己想要功能的函数，以下是简单的规则："><a href="#你可以定义一个由自己想要功能的函数，以下是简单的规则：" class="headerlink" title="你可以定义一个由自己想要功能的函数，以下是简单的规则："></a><strong>你可以定义一个由自己想要功能的函数，以下是简单的规则：</strong></h4><blockquote>
 <p><strong>关键字: def</strong></p>
 <p><strong>函数代码块以 def 关键词开头，后接函数标识符名称和圆括号()，结尾处有冒号。</strong></p>
@@ -255,7 +255,7 @@
 <p><strong>初学时对类的理解是从类的字面上，可以片面的认为它是一个种类，它是相似特征的抽像，也就是相似的东西，可以把相似特征的事务抽象成一个类。（事务可以是具体的物体或行为）</strong></p>
 <p><strong>以圆为例，圆是具有圆周率(pi)和半径(r)两个相似特征的属性。根据相似特征抽象出圆类，每个圆的半径可以不同，那么半径可以作为圆的实例属性；而每个圆的圆周率pi是相同的，那么圆周率pi就可以作为类属性，这样就定义出了一个圆类。而我们要知道圆的面积，周长等可以通过类方法计算出来。</strong></p>
 <p><strong>（看完整篇文章，还是对类不理解，回过头在来看这部分，对照列子多理解。）</strong></p>
-<p><img src="https://s4.51cto.com/images/blog/202003/26/153357f05b5ca2d9870761c7bc0f7234.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/26/153357f05b5ca2d9870761c7bc0f7234.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h3 id="类的应用场景："><a href="#类的应用场景：" class="headerlink" title="类的应用场景："></a><strong>类的应用场景：</strong></h3><blockquote>
 <p><strong>零散代码(代码块)–&gt;函数(方法)–&gt;类–&gt;模块(文件)</strong><br><strong>类:表示抽象(模糊)的事物</strong><br><strong>对象:表示具体(清晰)的事物</strong></p>
 </blockquote>
@@ -312,7 +312,7 @@
 <h5 id="输出结果如下：-4"><a href="#输出结果如下：-4" class="headerlink" title="输出结果如下："></a>输出结果如下：</h5><blockquote>
 <figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">小名的电脑配置：“品牌：联想,cpu：<span class="number">8</span>核,固态硬盘：<span class="number">512</span>固态硬盘,鼠标：双飞燕”。</span><br><span class="line">小名的电脑配置：“品牌：机械师,cpu：<span class="number">4</span>核,固态硬盘：<span class="number">256</span>G固态硬盘,机械硬盘<span class="number">1</span>T普通硬盘,鼠标：机械师鼠标”。</span><br></pre></td></tr></tbody></table></figure>
 </blockquote>
-<h2 id="5、类的继承"><a href="#5、类的继承" class="headerlink" title="5、类的继承"></a>5、类的继承</h2><p><img src="https://s4.51cto.com/images/blog/202003/27/2ad26adbbbec89a9aba2520c7ff15344.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<h2 id="5、类的继承"><a href="#5、类的继承" class="headerlink" title="5、类的继承"></a>5、类的继承</h2><p><img src="https://s4.51cto.com/images/blog/202003/27/2ad26adbbbec89a9aba2520c7ff15344.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong>面向对象的编程带来的主要好处之一是代码的重用，实现这种重用的方法之一是通过继承机制。</strong></p>
 <p><strong>通过继承创建的新类称为<code>子类</code>或派生类，被继承的类称为<code>基类</code>、<code>父类</code>或<code>超类</code>。</strong></p>
 <p><strong>继承语法</strong></p>
@@ -341,7 +341,7 @@
 <h3 id="（3）方法重写（员工自我介绍）"><a href="#（3）方法重写（员工自我介绍）" class="headerlink" title="（3）方法重写（员工自我介绍）"></a>（3）方法重写（员工自我介绍）</h3><figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empoyee</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""员工类"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,years_old,money)</span>:</span></span><br><span class="line">        <span class="string">"""初始化普通员工属性"""</span></span><br><span class="line">        self.user_name = name</span><br><span class="line">        self.user_years_old = years_old</span><br><span class="line">        self.user_money = money</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hi</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""模拟员工自我介绍的方法"""</span></span><br><span class="line">        print(<span class="string">'我叫'</span>+self.user_name</span><br><span class="line">              +<span class="string">',工龄'</span> + self.user_years_old</span><br><span class="line">              +<span class="string">'年，年工资为'</span> + self.user_money</span><br><span class="line">              +<span class="string">'元。'</span></span><br><span class="line">              )</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SE</span><span class="params">(Empoyee)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,years_old,money)</span>:</span></span><br><span class="line">        super().__init__(name,years_old,money)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hi</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""模拟员工自我介绍的方法"""</span></span><br><span class="line">        print(<span class="string">'我叫'</span>+self.user_name</span><br><span class="line">              +<span class="string">',工龄'</span> + self.user_years_old</span><br><span class="line">              +<span class="string">'年，年工资为'</span> + self.user_money</span><br><span class="line">              +<span class="string">'元。'</span></span><br><span class="line">              )</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PM</span><span class="params">(Empoyee)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,years_old,money,bonus)</span>:</span></span><br><span class="line">        super().__init__(name,years_old,money)</span><br><span class="line">        <span class="comment"># 编写子类特有的属性</span></span><br><span class="line">        self.pm_bonus = bonus</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hi</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""模拟项目经理自我介绍的方法"""</span></span><br><span class="line">        print(<span class="string">'我叫'</span>+self.user_name</span><br><span class="line">              +<span class="string">',工龄'</span> + self.user_years_old</span><br><span class="line">              +<span class="string">'年，月工资为'</span> + self.user_money</span><br><span class="line">              +<span class="string">'元，'</span></span><br><span class="line">              + <span class="string">'管理奖金'</span> + self.pm_bonus + <span class="string">'元。'</span></span><br><span class="line">              )</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CTO</span><span class="params">(Empoyee)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self,name,years_old,money,bonus,annual_bonus)</span>:</span></span><br><span class="line">        super().__init__(name,years_old,money)</span><br><span class="line">        self.cto_bonus = bonus</span><br><span class="line">        self.cto_annual_bonus = annual_bonus</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hi</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""模拟项目经理自我介绍的方法"""</span></span><br><span class="line">        print(<span class="string">'我叫'</span>+self.user_name</span><br><span class="line">              +<span class="string">',工龄'</span> + self.user_years_old</span><br><span class="line">              +<span class="string">'年，月工资为'</span> + self.user_money</span><br><span class="line">              +<span class="string">'元，'</span></span><br><span class="line">              + <span class="string">'管理奖金'</span> + self.cto_bonus + <span class="string">'元，'</span></span><br><span class="line">              + <span class="string">'年终奖'</span> + self.cto_annual_bonus + <span class="string">'元。'</span></span><br><span class="line">              )</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用类：实例化对象</span></span><br><span class="line">se = SE(<span class="string">'xgp'</span>,<span class="string">'4'</span>,<span class="string">'8k'</span>)</span><br><span class="line">se.say_hi()</span><br><span class="line"></span><br><span class="line">pm = PM(<span class="string">'wsd'</span>,<span class="string">'6'</span>,<span class="string">'10000'</span>,<span class="string">'5000'</span>)</span><br><span class="line">pm.say_hi()</span><br><span class="line"></span><br><span class="line">cto = CTO(<span class="string">'xgp'</span>,<span class="string">'10'</span>,<span class="string">'30000'</span>,<span class="string">'6000'</span>,<span class="string">'12000'</span>)</span><br><span class="line">cto.say_hi()</span><br></pre></td></tr></tbody></table></figure>
 
 <h5 id="输出结果如下：-7"><a href="#输出结果如下：-7" class="headerlink" title="输出结果如下："></a>输出结果如下：</h5><figure class="highlight python"><table><tbody><tr><td class="code"><pre><span class="line">我叫xgp,工龄<span class="number">4</span>年，年工资为<span class="number">8</span>k元。</span><br><span class="line">我叫wsd,工龄<span class="number">6</span>年，月工资为<span class="number">10000</span>元，管理奖金<span class="number">5000</span>元。</span><br><span class="line">我叫xgp,工龄<span class="number">10</span>年，月工资为<span class="number">30000</span>元，管理奖金<span class="number">6000</span>元，年终奖<span class="number">12000</span>元。</span><br></pre></td></tr></tbody></table></figure>
-<h4 id="分析以上代码"><a href="#分析以上代码" class="headerlink" title="分析以上代码"></a>分析以上代码</h4><p><img src="https://s4.51cto.com/images/blog/202003/27/a0687de23fb422c1ef1630711c289e52.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"><br><img src="https://s4.51cto.com/images/blog/202003/27/4a70deba09d0062d863a238d2d7a955d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<h4 id="分析以上代码"><a href="#分析以上代码" class="headerlink" title="分析以上代码"></a>分析以上代码</h4><p><img src="https://s4.51cto.com/images/blog/202003/27/a0687de23fb422c1ef1630711c289e52.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br><img src="https://s4.51cto.com/images/blog/202003/27/4a70deba09d0062d863a238d2d7a955d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="6、Python内置类属性"><a href="#6、Python内置类属性" class="headerlink" title="6、Python内置类属性"></a>6、Python内置类属性</h2><ul>
 <li><strong><code>__dict__</code> : 类的属性（包含一个字典，由类的数据属性组成）</strong></li>
 <li><strong>~ :类的文档字符串</strong></li>
@@ -369,7 +369,7 @@
 
 <p><strong>注意：</strong>通常你需要在单独的文件中定义一个类</p>
 <h2 id="8、总结"><a href="#8、总结" class="headerlink" title="8、总结"></a>8、总结</h2><p><strong>参数的传递图，翻译与<a href="https://link.zhihu.com/?target=http%3A//pythoncentral.io/difference-between-staticmethod-and-classmethod-in-python/">pythoncentral</a>网</strong></p>
-<p><img src="https://s4.51cto.com/images/blog/202003/26/3c37921be4cb4b65679ec9c267d9114f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/26/3c37921be4cb4b65679ec9c267d9114f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <ul>
 <li><strong>In 1 and 2,</strong> the arguments are passed to the method.</li>
 <li><strong>1和2</strong>参数传递给<strong><strong>init</strong></strong>方法中的<strong>data参数</strong>。</li>
@@ -378,7 +378,7 @@
 <li><strong>At 4,</strong> we do not need to provide the instance to the method, as it is handled by the interpretor itself.</li>
 <li><strong>4</strong> 我们不需要传递实例自身给方法，Python解释器自己会做这些操作的；<strong>ik14</strong> 会自动作为第一个实例参数(<strong>self</strong>)传入方法中。</li>
 </ul>
-<p><img src="https://s4.51cto.com/images/blog/202003/27/65a735ee169452f401eb0a7cd320a594.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s4.51cto.com/images/blog/202003/27/65a735ee169452f401eb0a7cd320a594.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -412,7 +412,7 @@
 <h3 id="（1）通过仓库安装"><a href="#（1）通过仓库安装" class="headerlink" title="（1）通过仓库安装"></a>（1）通过仓库安装</h3><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master mychare]# helm search redis</span><br><span class="line">//搜索chare包</span><br></pre></td></tr></tbody></table></figure>
 
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master mychare]# helm repo list</span><br><span class="line">//查看是否有能访问仓库</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="https://s1.51cto.com/images/blog/202003/04/20389715f270929a825a18f36b6f08c4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/20389715f270929a825a18f36b6f08c4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master mychare]# helm install stable/redis</span><br><span class="line">//安装</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="（2）通过tar包安装"><a href="#（2）通过tar包安装" class="headerlink" title="（2）通过tar包安装"></a>（2）通过tar包安装</h3><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# helm fetch stable/redis</span><br><span class="line">//直接下载chare包</span><br><span class="line">[root@master ~]# tar -zxf redis-1.1.15.tgz</span><br><span class="line">//解压下载的chare包</span><br><span class="line">[root@master ~]# tree -C redis</span><br><span class="line">redis</span><br><span class="line">├── Chart.yaml</span><br><span class="line">├── README.md</span><br><span class="line">├── templates</span><br><span class="line">│   ├── deployment.yaml</span><br><span class="line">│   ├── _helpers.tpl</span><br><span class="line">│   ├── networkpolicy.yaml</span><br><span class="line">│   ├── NOTES.txt</span><br><span class="line">│   ├── pvc.yaml</span><br><span class="line">│   ├── secrets.yaml</span><br><span class="line">│   └── svc.yaml</span><br><span class="line">└── values.yaml</span><br></pre></td></tr></tbody></table></figure>
@@ -433,47 +433,47 @@
 
 <h3 id="5、添加新的repo仓库"><a href="#5、添加新的repo仓库" class="headerlink" title="5、添加新的repo仓库"></a>5、添加新的repo仓库</h3><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# helm repo add xgp http://192.168.1.22:8080/charts</span><br><span class="line">[root@master ~]# helm repo list</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/a2e1f46e4005d33c4ea6c5c8180b8ad9.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/a2e1f46e4005d33c4ea6c5c8180b8ad9.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000"><a href="#2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000" class="headerlink" title="2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000"></a>2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</h2><h4 id="自定义一个chart包"><a href="#自定义一个chart包" class="headerlink" title="自定义一个chart包"></a>自定义一个chart包</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# helm create wsd</span><br><span class="line">//创建一个名为wsd的chares包</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="按照要求修改配置文件"><a href="#按照要求修改配置文件" class="headerlink" title="按照要求修改配置文件"></a>按照要求修改配置文件</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# cd wsd/</span><br><span class="line">//进入这个chart包</span><br><span class="line">[root@master wsd]# vim values.yaml</span><br><span class="line">//修改wsd的配置文件</span><br><span class="line">replicaCount: 3                         #三个副本</span><br><span class="line"></span><br><span class="line">image:</span><br><span class="line">  repository: 192.168.1.21:5000/web      #更改镜像为私有镜像</span><br><span class="line">  tag: v1                                #镜像标签v1</span><br><span class="line">  pullPolicy: IfNotPresent              </span><br><span class="line"></span><br><span class="line">imagePullSecrets: []</span><br><span class="line">nameOverride: ""</span><br><span class="line">fullnameOverride: ""</span><br><span class="line"></span><br><span class="line">service:</span><br><span class="line">  type: NodePort              #修改模式为映射端口</span><br><span class="line">  port: 80</span><br><span class="line">  nodePort: 30000             #添加端口</span><br><span class="line"></span><br><span class="line">[root@master wsd]# vim templates/service.yaml </span><br><span class="line"></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: {{ include "wsd.fullname" . }}</span><br><span class="line">  labels:</span><br><span class="line">{{ include "wsd.labels" . | indent 4 }}</span><br><span class="line">spec:</span><br><span class="line">  type: {{ .Values.service.type }}</span><br><span class="line">  ports:</span><br><span class="line">    - port: {{ .Values.service.port }}</span><br><span class="line">      targetPort: http</span><br><span class="line">      protocol: TCP</span><br><span class="line">      name: http</span><br><span class="line">      nodePort: {{ .Values.service.nodePort }}    #“添加”能让服务识别到nodePort的端口</span><br><span class="line">  selector:</span><br><span class="line">    app.kubernetes.io/name: {{ include "wsd.name" . }}</span><br><span class="line">    app.kubernetes.io/instance: {{ .Release.Name }}</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# helm install -n wsd  wsd/ -f wsd/values.yaml</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/b18f74519a95d138bdae8e525e4f98f5.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/b18f74519a95d138bdae8e525e4f98f5.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h4 id="查看一下镜像版本"><a href="#查看一下镜像版本" class="headerlink" title="查看一下镜像版本"></a>查看一下镜像版本</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# kubectl get deployments. -o wide</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/a57cd4abe5b96d92ac16450ed53fa79c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/a57cd4abe5b96d92ac16450ed53fa79c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# curl 127.0.0.1:30000</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/7d9e241ceb6a8d0829803e1d0e5ddb8e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/7d9e241ceb6a8d0829803e1d0e5ddb8e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="3-将实例进行更新，要求镜像生产v2版本。"><a href="#3-将实例进行更新，要求镜像生产v2版本。" class="headerlink" title="3)  将实例进行更新，要求镜像生产v2版本。"></a>3)  将实例进行更新，要求镜像生产v2版本。</h2><p><strong>私有镜像和官方镜像升级有所不同，官方的只需通过 （helm upgrade –set imageTag=“标签” 服务名称 charts包名 ）进行更改标签即可，而私有镜像需通过更改values.yaml中的标签才行比较麻烦一点。</strong></p>
 <h3 id="1、修改values-yaml"><a href="#1、修改values-yaml" class="headerlink" title="1、修改values.yaml"></a>1、修改values.yaml</h3><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# vim wsd/values.yaml </span><br><span class="line"></span><br><span class="line"># Default values for wsd.</span><br><span class="line"># This is a YAML-formatted file.</span><br><span class="line"># Declare variables to be passed into your templates.</span><br><span class="line"></span><br><span class="line">replicaCount: 3</span><br><span class="line"></span><br><span class="line">image:</span><br><span class="line">  repository: 192.168.1.21:5000/web</span><br><span class="line">  tag: v2                            #修改标签为v2</span><br><span class="line">  pullPolicy: IfNotPresent</span><br><span class="line">[root@master ~]# helm upgrade wsd wsd/ -f wsd/values.yaml</span><br><span class="line">//基于配置文件刷新一下wsd服务</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# kubectl get deployments. -o wide</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/904155e6a55a22dc169ab2b991c3a19a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/904155e6a55a22dc169ab2b991c3a19a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h4 id="访问一下-1"><a href="#访问一下-1" class="headerlink" title="访问一下"></a>访问一下</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# curl 127.0.0.1:30000</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/a739f12e8be562ce407bb9a739b0734f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/a739f12e8be562ce407bb9a739b0734f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h3 id="2、使用edit进行版本更新"><a href="#2、使用edit进行版本更新" class="headerlink" title="2、使用edit进行版本更新"></a>2、使用edit进行版本更新</h3><p><strong><em>确定wsd这个服务开启</em></strong></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# kubectl edit deployments. wsd</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/e418604d73fee964440211b46a7a143c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/e418604d73fee964440211b46a7a143c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# kubectl get deployments. -o wide</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/bd177f123d471ed674ed0cc40d51ee70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/bd177f123d471ed674ed0cc40d51ee70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h4 id="访问一下-2"><a href="#访问一下-2" class="headerlink" title="访问一下"></a>访问一下</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# curl 127.0.0.1:30000</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/4755f15c01775053bd10434a90a87637.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/4755f15c01775053bd10434a90a87637.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中-需要用helm-repo-update命玲更新本地的index文件。"><a href="#4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中-需要用helm-repo-update命玲更新本地的index文件。" class="headerlink" title="4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中,需要用helm repo update命玲更新本地的index文件。"></a>4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中,需要用helm repo update命玲更新本地的index文件。</h2><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# helm repo list</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/6a6e8d003c8986fab01bab76ba1473d4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/6a6e8d003c8986fab01bab76ba1473d4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# helm create xgp-wsd</span><br><span class="line">//创建一个名为xgp-wsd的charts包</span><br><span class="line"></span><br><span class="line">[root@master ~]# helm package xgp-wsd/</span><br><span class="line">//将xgp-wsd打包在当前目录</span><br><span class="line"></span><br><span class="line">[root@master ~]# mv xgp-wsd-0.1.0.tgz xgprepo/</span><br><span class="line">//把打包文件放到仓库目录</span><br><span class="line"></span><br><span class="line">[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts</span><br><span class="line">//把仓库目录新加入的charts包信息记录在index.yaml中，使得其他加入的主机可以识别到，仓库的charts包</span><br><span class="line"></span><br><span class="line">[root@master ~]# scp xgprepo/* node01:/var/xgp/charts</span><br><span class="line">//将仓库目录的文件移动到httpd服务上，使各个主机可以访问，下载仓库的charts包</span><br><span class="line"></span><br><span class="line">[root@master ~]# helm repo update </span><br><span class="line">//更新一下chart存储库</span><br><span class="line"></span><br><span class="line">[root@master myrepo]# helm install http://192.168.1.22:8080/charts/xgp-wsd-0.1.0.tgz</span><br><span class="line">//基于仓库的xgp-wsd-0.1.0.tgz包创建一个服务</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h3><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">[root@master ~]# helm search xgp-wsd</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/11da050bfeec791fe57f179ae8854044.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/04/11da050bfeec791fe57f179ae8854044.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -497,45 +497,45 @@
   <entry>
     <title>变量和简单的数据类型</title>
     <url>/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="一、安装ipython"><a href="#一、安装ipython" class="headerlink" title="一、安装ipython"></a>一、安装ipython</h1><p><img src="https://s1.51cto.com/images/blog/202003/10/3e3f455611b5723650c0325d2456ae21.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+    <content><![CDATA[<h1 id="一、安装ipython"><a href="#一、安装ipython" class="headerlink" title="一、安装ipython"></a>一、安装ipython</h1><p><img src="https://s1.51cto.com/images/blog/202003/10/3e3f455611b5723650c0325d2456ae21.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;pip3 install ipython</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/20631d65ae1fb37d728c5b4bdcb8dd17.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/20631d65ae1fb37d728c5b4bdcb8dd17.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;pip3 list</span><br><span class="line">//查看一下</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/4938656b2bbb939decf6362c5bb5c99c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/4938656b2bbb939decf6362c5bb5c99c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;python -m pip install --upgrade pip</span><br><span class="line">//更新下载源</span><br><span class="line">C:\WINDOWS\system32&gt;python -m pip install --upgrade pip -i https://pypi.douban.com/simple</span><br><span class="line">//更新下载源（比上面的快）</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/db4a95e56b941dcb45a290e7d1235148.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/db4a95e56b941dcb45a290e7d1235148.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;pip3 install -i  https://pypi.douban.com/simple ipython</span><br><span class="line">//安装ipython</span><br><span class="line">C:\WINDOWS\system32&gt;pip3 install -i  https://pypi.douban.com/simple jupyte</span><br><span class="line">//安装jupyte</span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="创建一个目录"><a href="#创建一个目录" class="headerlink" title="创建一个目录"></a>创建一个目录</h3><p><img src="https://s1.51cto.com/images/blog/202003/10/b2e1e821a209ad6cce73b9d496289ddb.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<h3 id="创建一个目录"><a href="#创建一个目录" class="headerlink" title="创建一个目录"></a>创建一个目录</h3><p><img src="https://s1.51cto.com/images/blog/202003/10/b2e1e821a209ad6cce73b9d496289ddb.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;jupyter notebook</span><br><span class="line">//启动编辑器jupyter</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/2e236d88aaa9d18b2dbdee4c5123408d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/2e236d88aaa9d18b2dbdee4c5123408d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong>按住shift键右击选择cmd窗口</strong></p>
-<p><img src="https://s1.51cto.com/images/blog/202003/10/a58ef7b2c550d266f01e1345ff37829f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h1 id="二、变量和简单的数据类型"><a href="#二、变量和简单的数据类型" class="headerlink" title="二、变量和简单的数据类型"></a>二、变量和简单的数据类型</h1><p><img src="https://s1.51cto.com/images/blog/202003/10/5c9ee19e20730e4e708f343ac3ab0faf.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/a58ef7b2c550d266f01e1345ff37829f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="二、变量和简单的数据类型"><a href="#二、变量和简单的数据类型" class="headerlink" title="二、变量和简单的数据类型"></a>二、变量和简单的数据类型</h1><p><img src="https://s1.51cto.com/images/blog/202003/10/5c9ee19e20730e4e708f343ac3ab0faf.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="一、变量"><a href="#一、变量" class="headerlink" title="一、变量"></a>一、变量</h2><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt;jupyter notebook</span><br><span class="line">//启动编辑器jupyter，会自动跳到默认浏览器或让你选择一个浏览器。</span><br></pre></td></tr></tbody></table></figure>
 
 <p><strong>创建一个python3的文件</strong></p>
-<p><img src="https://s1.51cto.com/images/blog/202003/10/b4033769ab57b54b1fafb8f44c45ba1f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/b4033769ab57b54b1fafb8f44c45ba1f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h3 id="1、变量命名规则"><a href="#1、变量命名规则" class="headerlink" title="1、变量命名规则"></a>1、变量命名规则</h3><p><strong><em>变量要先定义才能使用</em></strong></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">message = '北京欢迎你'  #定义变量</span><br><span class="line">print (message)       #输出变量</span><br><span class="line">北京欢迎你              #输出成功</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="（1）只能包含的字母、数字、下划线，但是不能以数字打头"><a href="#（1）只能包含的字母、数字、下划线，但是不能以数字打头" class="headerlink" title="（1）只能包含的字母、数字、下划线，但是不能以数字打头"></a>（1）只能包含的字母、数字、下划线，但是不能以数字打头</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">$xpg = 'hello'   #定义变量以特殊符号开头</span><br><span class="line">print ($xgp)     #输出变量</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/ae94f6d8bcfaa1f8c02eab4fbb07c179.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/ae94f6d8bcfaa1f8c02eab4fbb07c179.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong><em>语法错误，所以不能使用特殊符号和数字开头</em></strong></p>
 <h4 id="（2）不能包含空格，但是可以用下划线分隔其中的单词"><a href="#（2）不能包含空格，但是可以用下划线分隔其中的单词" class="headerlink" title="（2）不能包含空格，但是可以用下划线分隔其中的单词"></a>（2）不能包含空格，但是可以用下划线分隔其中的单词</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">a b=666     #定义变量名称以空格间隔</span><br><span class="line">a b         #输出变量</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/213e5a7343889769090e90c05ec0ec6f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/213e5a7343889769090e90c05ec0ec6f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong><em>语法错误，所以定义变量名称不能以空格间隔</em></strong></p>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">a_b=666      #定义变量名称以空格间隔</span><br><span class="line">a_b          #输出变量</span><br><span class="line">666          #输出成功</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="（3）不能使用Python关键字和函数的名称用做变量"><a href="#（3）不能使用Python关键字和函数的名称用做变量" class="headerlink" title="（3）不能使用Python关键字和函数的名称用做变量"></a>（3）不能使用Python关键字和函数的名称用做变量</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">import = 'ere'    #以Python关键字定义变量名称</span><br><span class="line">import            #输出变量</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/f4267e419d9a509247156d3fb9dcdfba.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/f4267e419d9a509247156d3fb9dcdfba.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong><em>可以看出输出失败了，并且只要是<code>Python关键字</code>他会变成<code>绿色</code>的</em></strong></p>
 <h4 id="（3）变量名应该简短并且见名知意"><a href="#（3）变量名应该简短并且见名知意" class="headerlink" title="（3）变量名应该简短并且见名知意"></a>（3）变量名应该简短并且见名知意</h4><p><strong>应该把自己要说明情况以简短明了的方式在变量名称体现出来</strong></p>
 <p><strong>如 name：</strong></p>
@@ -546,35 +546,35 @@
 <h4 id="（4）慎用大写字母I（i），小写字母l（L）和小写字母o"><a href="#（4）慎用大写字母I（i），小写字母l（L）和小写字母o" class="headerlink" title="（4）慎用大写字母I（i），小写字母l（L）和小写字母o"></a>（4）慎用大写字母I（i），小写字母l（L）和小写字母o</h4><p><strong>因为I、l和1非常像，还有0和0也非常像，到你要引用的时候非常麻烦（傻傻看不清）</strong></p>
 <h4 id="（5）变量的表达形式"><a href="#（5）变量的表达形式" class="headerlink" title="（5）变量的表达形式"></a>（5）变量的表达形式</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">str1 = 'hello'       #单引号示范</span><br><span class="line">str2 = "world"		 #双引号示范</span><br><span class="line">str3 = """			 #三引号示范</span><br><span class="line">1+1=2</span><br><span class="line">2+2=4</span><br><span class="line">4+4=8</span><br><span class="line">"""</span><br><span class="line">print(str1)			 #输出变量</span><br><span class="line">print(str2)			 #输出变量</span><br><span class="line">print(str3)			 #输出变量</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/59ae99c04d8cae1cfdafcc63e54dd467.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/59ae99c04d8cae1cfdafcc63e54dd467.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p><strong>变量str1使用单引号，变量str2使用双引号，变量str3使用三引号，他们都是合法的Python字符串类型，需要注意的是，单引号和双引号的作用是一样的，可以根据习惯使用，但是定义多行文字时，必须要使用三引号。</strong></p>
 <h3 id="2、字符串"><a href="#2、字符串" class="headerlink" title="2、字符串"></a>2、字符串</h3><h4 id="（1）修改字符串大小写"><a href="#（1）修改字符串大小写" class="headerlink" title="（1）修改字符串大小写"></a>（1）修改字符串大小写</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">name = 'xgp wsd'</span><br><span class="line">print(name.title())  #以首写字母大写的方式显示每个单词</span><br><span class="line">print(name.upper())  #将所有字母都以大写的方式显示</span><br><span class="line">print(name.lower())  #将所有字母都以小写的方式显示</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/bd13c93325d926c04df38dcf17d8e00c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/bd13c93325d926c04df38dcf17d8e00c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h4 id="（2）拼接字符"><a href="#（2）拼接字符" class="headerlink" title="（2）拼接字符"></a>（2）拼接字符</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">age = 18					#定义变量 </span><br><span class="line">print('我叫'+name.title()+',今年'+str(age)+'岁。')   #输出变量&lt;str()引用变量&gt;</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/67101e06f2c1345ddf3f7167ce0cd76e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/67101e06f2c1345ddf3f7167ce0cd76e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <p>这种方式最常用、直观、易懂，是入门级的实现方式。但是，它也存在两处让人容易犯错的地方。</p>
 <p>首先，新入门编程的同学容易犯错，他们不知道字符串是不可变类型，新的字符串会独占一块新的内存，而原来的字符串保持不变。上例中，拼接前有两段字符串，拼接后实际有三段字符串。</p>
 <p>其次，一些有经验的老程序员也容易犯错，他们以为当拼接次数不超过3时，使用+号连接符就会比其它方式快（ps：不少Python教程都是如此建议），但这没有任何合理根据。</p>
 <p>事实上，在拼接短的字面值时，由于CPython中的 <code>常数折叠</code> （constant folding）功能，这些字面值会被转换成更短的形式，例如’a’+’b’+’c’ 被转换成’abc’，’hello’+’world’也会被转换成’hello world’。这种转换是在编译期完成的，而到了运行期时就不会再发生任何拼接操作，因此会加快整体计算的速度。</p>
 <p>常数折叠优化有一个限度，它要求拼接结果的长度不超过20。所以，<strong>当拼接的最终字符串长度不超过20时，+号操作符的方式，会比后面提到的join等方式快得多，这与+号的使用次数无关。</strong></p>
-<p><img src="https://s1.51cto.com/images/blog/202003/10/d57777f357680a20980e7039c685c22d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/d57777f357680a20980e7039c685c22d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h4 id="（3）换行-n"><a href="#（3）换行-n" class="headerlink" title="（3）换行\n"></a>（3）换行\n</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">age = 18</span><br><span class="line">print('我叫'+name.title()+',\n今年'+str(age)+'岁。')</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/716b3592768924fc37c07b4533a3e06e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/716b3592768924fc37c07b4533a3e06e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h4 id="（4）去空格"><a href="#（4）去空格" class="headerlink" title="（4）去空格"></a>（4）去空格</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">conten = ' wsd xgp '</span><br><span class="line">print(conten.lstrip())     #去前面的空格</span><br><span class="line">print(conten.rstrip())	   #去后面的空格</span><br><span class="line">print(conten.strip())	   #去前面和后面的空格</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/79844387be03219bbe18f96263b9d952.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/79844387be03219bbe18f96263b9d952.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h3 id="3、数字的加减乘除"><a href="#3、数字的加减乘除" class="headerlink" title="3、数字的加减乘除"></a>3、数字的加减乘除</h3><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">num1 = 8</span><br><span class="line">num2 = 0.5</span><br><span class="line">print(num1+num2)</span><br><span class="line">print(num1-num2)</span><br><span class="line">print(num1*num2)</span><br><span class="line">print(num1/num2)</span><br><span class="line">print(num1%num2)</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/22f50e199da03ece8cf73d5f10c755d6.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/22f50e199da03ece8cf73d5f10c755d6.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h1 id="小测试"><a href="#小测试" class="headerlink" title="小测试"></a>小测试</h1><h2 id="1、将用户的姓名存到一个变量中，并向该用户显示一条信息，显示内容为：“你好，xgp，今天的Python课你学到东西了吗？”"><a href="#1、将用户的姓名存到一个变量中，并向该用户显示一条信息，显示内容为：“你好，xgp，今天的Python课你学到东西了吗？”" class="headerlink" title="1、将用户的姓名存到一个变量中，并向该用户显示一条信息，显示内容为：“你好，xgp，今天的Python课你学到东西了吗？”"></a>1、将用户的姓名存到一个变量中，并向该用户显示一条信息，显示内容为：“你好，xgp，今天的Python课你学到东西了吗？”</h2><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">name = 'xgp'</span><br><span class="line">print('你好，'+str(name)+'\n今天的Python课你学到东西了吗？')</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/9b43f71e41b49ac9f8b27115b8638ca8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/9b43f71e41b49ac9f8b27115b8638ca8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="2、将一个人的名字存到变量中，再以小写、大写和首字母大写的方式显示这个人的名字。"><a href="#2、将一个人的名字存到变量中，再以小写、大写和首字母大写的方式显示这个人的名字。" class="headerlink" title="2、将一个人的名字存到变量中，再以小写、大写和首字母大写的方式显示这个人的名字。"></a>2、将一个人的名字存到变量中，再以小写、大写和首字母大写的方式显示这个人的名字。</h2><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">name = 'wsd'</span><br><span class="line">print(name.lower())</span><br><span class="line">print(name.upper())</span><br><span class="line">print(name.title())</span><br></pre></td></tr></tbody></table></figure>
 
-<p><img src="https://s1.51cto.com/images/blog/202003/10/88d754d077cd7c8433ecdfa41f1f7cd2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/88d754d077cd7c8433ecdfa41f1f7cd2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="3、按一下格式打印诗词："><a href="#3、按一下格式打印诗词：" class="headerlink" title="3、按一下格式打印诗词："></a>3、按一下格式打印诗词：</h2><blockquote>
 <p>《自由》 </p>
 <p>为人进出的门紧锁着;</p>
@@ -588,7 +588,7 @@
 <p>再关十几天就自由了！</p>
 </blockquote>
 <figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">biaoti = '《自由》 '</span><br><span class="line">print(str(biaoti)+'\n为人进出的门紧锁着;'+</span><br><span class="line">'\n想死的门敞开着。'+</span><br><span class="line">'\n有个病毒在外面高喊着:'+</span><br><span class="line">'\n“出来玩吧，给你自由！”'+</span><br><span class="line">'\n但我深深地知道……'+</span><br><span class="line">'\n出去了，不一定还能回来。'+</span><br><span class="line">'\n人的生命只有一次，'+</span><br><span class="line">'\n算球了，'+</span><br><span class="line">'\n再关十几天就自由了！')</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="https://s1.51cto.com/images/blog/202003/10/2a50eaeda45f0dc2ed58138b5c881755.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/10/2a50eaeda45f0dc2ed58138b5c881755.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -608,6 +608,173 @@
             document.body.appendChild(img);
           });
       </script>]]></content>
+  </entry>
+  <entry>
+    <title>Python列表</title>
+    <url>/2017/05/26/Python%20%E5%88%97%E8%A1%A8(List)/</url>
+    <content><![CDATA[<h1 id="Python-列表"><a href="#Python-列表" class="headerlink" title="Python 列表"></a>Python 列表</h1><p><strong>Python的基本数据类型有整数，浮点数，布尔，字符串，它们是最基本的数据。在实际编程中，我们要经常组织由很多基本数据组成的集合，这些集合的不同组织方式就是：数据结构，今天讲的是数据结构中的Python list(列表)。数据结构就是一些数据组合得到的“复合”数据类型。</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/11/137b021999e8e998f17432d47b30f2a4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="Python内置的数据结构有："><a href="#Python内置的数据结构有：" class="headerlink" title="Python内置的数据结构有："></a>Python内置的数据结构有：</h2><ul>
+<li><strong>列表(list)</strong></li>
+<li><strong>元组(tuple)</strong></li>
+<li><strong>字典(dict)</strong></li>
+<li><strong>集合(set)</strong></li>
+</ul>
+<p><strong>在Python语言中，以上4种数据结构和基础数据类型（整数、浮点数等）统称为“内置类型”（Built-in Types）。</strong></p>
+<h1 id="一、什么是列表"><a href="#一、什么是列表" class="headerlink" title="一、什么是列表"></a>一、什么是列表</h1><p><strong>序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，第二个索引是1，依此类推。</strong></p>
+<p><strong>Python有6个序列的内置类型，但最常见的是列表和元组。</strong></p>
+<p><strong>序列都可以进行的操作包括索引，切片，加，乘，检查成员。</strong></p>
+<p><strong>此外，Python已经内置确定序列的长度以及确定最大和最小的元素的方法。</strong></p>
+<p><strong>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。</strong></p>
+<p><strong>列表的数据项不需要具有相同的类型</strong></p>
+<h2 id="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："><a href="#（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：" class="headerlink" title="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："></a>（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</h2><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 定义列表</span><br><span class="line">name = ['Tom','Jack','John']</span><br><span class="line">pet = ['cat','dog','bird']</span><br><span class="line"></span><br><span class="line"># 打印列表</span><br><span class="line">print(name)</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/d3d174c5845ce80de87d059e22e963bc.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="（2）用索引访问列表元素"><a href="#（2）用索引访问列表元素" class="headerlink" title="（2）用索引访问列表元素"></a>（2）用索引访问列表元素</h2><p><strong>使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 通过索引读取列表中的元素，索引从0开始，-1代表最后一个元素</span><br><span class="line"></span><br><span class="line">print(name[0])     #查看列表中第一个</span><br><span class="line">print(pet[2])      #查看列表中第二个</span><br><span class="line">print(name[-1])    #查看列表中最后一个</span><br><span class="line">print(pet[-2])    #查看列表中倒数第二个</span><br><span class="line">print (name[0:2])  #查看索引2之前的元素</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/9d84b048d3fe5fa616b14fcedcd90f70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="二、基本操作"><a href="#二、基本操作" class="headerlink" title="二、基本操作"></a>二、基本操作</h1><h2 id="1、通过素引获取元素-进行修改"><a href="#1、通过素引获取元素-进行修改" class="headerlink" title="1、通过素引获取元素,进行修改"></a>1、通过素引获取元素,进行修改</h2><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">#修改列表的元素</span><br><span class="line">name[1] = 'Sean'   #修改name列表，索引1的内容为Sean</span><br><span class="line">print(name)		   #打印列表</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/085e2a55fb2e9567e220bf49802b7505.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="2、-向列表里面加元素"><a href="#2、-向列表里面加元素" class="headerlink" title="2、 向列表里面加元素"></a>2、 向列表里面加元素</h2><p><strong>向python列表里面添加元素主要有三种方法：</strong></p>
+<h3 id="（1）append（）"><a href="#（1）append（）" class="headerlink" title="（1）append（）"></a><strong>（1）append（）</strong></h3><p><strong>append()对于列表的操作主要实现的是在特定的列表最后添加一个元素，并且只能一次添加一个元素，并且只能在列表最后；</strong></p>
+<p><code>name.append(元素A)</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 在列表末尾添加新元素</span><br><span class="line">name.append('Bob')</span><br><span class="line">print(name)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/b9f5217ecdae270c7d713aab7f7e667b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（2）extend（）"><a href="#（2）extend（）" class="headerlink" title="（2）extend（）"></a><strong>（2）extend（）</strong></h3><p><strong>extend（）对于列表的操作主要实现的是对于特定列表的扩展和增长，可以一次添加多个元素，不过也只能添加在列表的最后；</strong></p>
+<pre><code>`name.extend([元素A，元素B，……])`</code></pre><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">name.extend(['Xgp','Wsd'])</span><br><span class="line">print(name)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/6d7f2f3cc974dc445679b3488a1b7866.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（3）insert（）"><a href="#（3）insert（）" class="headerlink" title="（3）insert（）"></a><strong>（3）insert（）</strong></h3><p><strong>insert（）对于列表的操作主要是在列表的特定位置添加想要添加的特定元素，比较常用，这里的特定位置是指元素所在列表中的位置索引号，需要注意的是这里的索引号都是从0开始的，不是从1开始的，这个大家需要特别注意。</strong></p>
+<pre><code>`pet.insert(A,元素B)：表示在列表m里面的第A+1处加入元素B`</code></pre><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 在列表指定位置添加新元素</span><br><span class="line">print(pet)</span><br><span class="line">pet.insert(0,'penguin')   #在列表最前面添加数据</span><br><span class="line">print(pet)</span><br><span class="line">pet.insert(-2,'pig')      #在列表倒数第三个添加数据</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/ea1415a888f8e57c43526808b7a17d81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="3、删减列表中的一些元素；"><a href="#3、删减列表中的一些元素；" class="headerlink" title="3、删减列表中的一些元素；"></a>3、删减列表中的一些元素；</h2><p><strong>与之前python列表的添加元素相对，删减列表里面的一些元素也有三种方法：</strong></p>
+<h3 id="（1）del-pet-n"><a href="#（1）del-pet-n" class="headerlink" title="（1）del pet[n]"></a>（1）del pet[n]</h3><p><strong>它的作用是删除掉列表里面的索引号位置为n 的元素，这里需要注意的是del是一种操作语句。</strong></p>
+<p> <code>del m[n]</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 根据索引从列表中删除元素</span><br><span class="line">print(pet)</span><br><span class="line">del pet[0]      #删除开头的元素</span><br><span class="line">print (pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/292edbb8c3095c07fc72f79295d51ca7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（2）pet-pop（）"><a href="#（2）pet-pop（）" class="headerlink" title="（2）pet.pop（）"></a>（2）pet.pop（）</h3><p><strong>它的作用是将列表m的最后一个元素返回，并且在此基础上进行删除掉</strong></p>
+<p><code>Temp=pet.pop()  %这里temp就会直接等于吗列表里最后一个元素。</code></p>
+<p> <code>Print(pet)    %这里再次输出m的时候已经是删掉最后一个元素的m列表</code></p>
+<h4 id="pop-弹出列表末尾的元素"><a href="#pop-弹出列表末尾的元素" class="headerlink" title="pop():弹出列表末尾的元素"></a>pop():弹出列表末尾的元素</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(pet)</span><br><span class="line">new_pet=pet.pop()</span><br><span class="line">print(new_pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/08733dd7c72202d207f028b84a1fbb85.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h4 id="弹出指定位置的元素"><a href="#弹出指定位置的元素" class="headerlink" title="弹出指定位置的元素"></a>弹出指定位置的元素</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 弹出指定位置的元素</span><br><span class="line">print(pet)</span><br><span class="line">pet.pop(2)</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/2b1641c4a69affa851abf2c5e2909c81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（3）pet-remove"><a href="#（3）pet-remove" class="headerlink" title="（3）pet.remove()"></a>（3）pet.remove()</h3><p><strong>m.remove的作用是移除掉列表m里面的特定元素；</strong></p>
+<p><code>m.remove(元素A)</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 根据元素的值进行删除：remove()</span><br><span class="line">print(pet)            #查看源列表</span><br><span class="line">pet.remove('cat')     #删除cat</span><br><span class="line">print(pet)            #打印列表</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/dda2c5caf4e83b6478d289b6adf2916d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="三、排序"><a href="#三、排序" class="headerlink" title="三、排序"></a>三、排序</h1><h3 id="（1）永久排序（正索引，从头到尾）"><a href="#（1）永久排序（正索引，从头到尾）" class="headerlink" title="（1）永久排序（正索引，从头到尾）"></a>（1）永久排序（正索引，从头到尾）</h3><p><strong>sort()排序方法：此<a href="https://www.iplaypy.com/jichu/function.html" target="_blank" rel="noopener">函数</a>方法对列表内容进行正向排序，排序后的新列表会覆盖原列表（id不变），也就是sort排序方法是直接修改原列表list排序方法。</strong></p>
+<h3 id="（2）临时排序（正索引，从头到尾）"><a href="#（2）临时排序（正索引，从头到尾）" class="headerlink" title="（2）临时排序（正索引，从头到尾）"></a>（2）临时排序（正索引，从头到尾）</h3><p><strong>sorted()方法：即可以保留原列表，又能得到已经排序好的列表</strong></p>
+<h3 id="（3）倒序（从头到尾从尾到头）"><a href="#（3）倒序（从头到尾从尾到头）" class="headerlink" title="（3）倒序（从头到尾从尾到头）"></a>（3）倒序（从头到尾从尾到头）</h3><p><strong>reverse列表反转排序：是把原列表中的元素顺序从左至右的重新存放，而不会对列表中的参数进行排序整理。如果需要对列表中的参数进行整理，就需要用到列表的另一种排序方式sort正序排序。</strong></p>
+<h3 id="（4）列表长度"><a href="#（4）列表长度" class="headerlink" title="（4）列表长度"></a>（4）列表长度</h3><p><strong>len() 方法返回列表元素个数。</strong></p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 定义列表：汽车的品牌</span><br><span class="line">print('原始排序：')</span><br><span class="line">brand = ['audi','bmw','toyota','luhu']</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line">#临时排序</span><br><span class="line">print('临时排序：')</span><br><span class="line">print(sorted(brand))</span><br><span class="line"></span><br><span class="line"># 永久排序: sort()</span><br><span class="line">print('正序排序：')</span><br><span class="line">brand.sort()</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line"># 倒序排序</span><br><span class="line">print('倒序排序:')</span><br><span class="line">brand.sort(reverse=True)</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line"># 获取列表长度</span><br><span class="line">print('列表长度:')</span><br><span class="line">print(len(brand))</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/3a203bc5e8e00faf71575a178c890558.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="四、小练习"><a href="#四、小练习" class="headerlink" title="四、小练习"></a>四、小练习</h1><h2 id="列表练习（一）"><a href="#列表练习（一）" class="headerlink" title="列表练习（一）"></a>列表练习（一）</h2><ul>
+<li><strong>定义一个列表，存储5个科目名称</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu = ['语文','数学','英语','地理','生物']</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/0a892af8758dd19c970d7de47437ff8a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>新增科目（末尾新增）</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu.append('化学')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/0f0b406f8c28ebebc57ae634d49a2ee7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>修改科目</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu[2] = '计算机'</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/5ab12537306589f9162bb67547c7f51e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除科目，并且在打印科目列表的时候，能够显示删除了哪个科目</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(kemu)</span><br><span class="line">new_kemu=kemu.pop(3)</span><br><span class="line">print(new_kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/138b490d7841d85b817813e52a89420c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除第2个科目</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu.pop(1)</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/a4947680d6baa4bd676067502617b085.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>指定位置新增</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu.insert(0,'科学')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/7acdad95a50906f7ff9db554a238de19.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除指定名称的科目</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu.remove('生物')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/34711348de69c3a3b32c902360ddf6ae.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="列表练习（二）"><a href="#列表练习（二）" class="headerlink" title="列表练习（二）"></a>列表练习（二）</h2><ul>
+<li><strong>将5个城市的名称存储到列表中，并且保证名称不是按照字母顺序排列的</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">city = ['北京','上海','广州','深圳','山西']</span><br><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/497b287216835fe7a5c9d5e61dea641d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>打印出原始的城市列表信息</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/ecf3236daafbd4344684a6545552b3bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>使用sorted()方法按字母顺序打印城市列表，但是不要修改列表元素的顺序</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(sorted(city))</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/ef74e3a4b39c7ff64f81b85b5354fa03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>打印该列表，确认城市名称排列顺序没有被修改</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/8dcbfbba443ae0eef3e8842efa798a5f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>使用sort()方法排列城市名称，确保永久性修改排列顺序</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">city.sort()</span><br><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/d3fc524785b3984393f8d919fd34ddb2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>python列表</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
   </entry>
   <entry>
     <title>HEXO分类和标签的使用</title>
@@ -675,147 +842,9 @@
       </tags>
   </entry>
   <entry>
-    <title>Python列表</title>
-    <url>/2017/05/26/Python%20%E5%88%97%E8%A1%A8(List)/</url>
-    <content><![CDATA[<h1 id="Python-列表"><a href="#Python-列表" class="headerlink" title="Python 列表"></a>Python 列表</h1><p><strong>Python的基本数据类型有整数，浮点数，布尔，字符串，它们是最基本的数据。在实际编程中，我们要经常组织由很多基本数据组成的集合，这些集合的不同组织方式就是：数据结构，今天讲的是数据结构中的Python list(列表)。数据结构就是一些数据组合得到的“复合”数据类型。</strong></p>
-<p><img src="https://s1.51cto.com/images/blog/202003/11/137b021999e8e998f17432d47b30f2a4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h2 id="Python内置的数据结构有："><a href="#Python内置的数据结构有：" class="headerlink" title="Python内置的数据结构有："></a>Python内置的数据结构有：</h2><ul>
-<li><strong>列表(list)</strong></li>
-<li><strong>元组(tuple)</strong></li>
-<li><strong>字典(dict)</strong></li>
-<li><strong>集合(set)</strong></li>
-</ul>
-<p><strong>在Python语言中，以上4种数据结构和基础数据类型（整数、浮点数等）统称为“内置类型”（Built-in Types）。</strong></p>
-<h1 id="一、什么是列表"><a href="#一、什么是列表" class="headerlink" title="一、什么是列表"></a>一、什么是列表</h1><p><strong>序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，第二个索引是1，依此类推。</strong></p>
-<p><strong>Python有6个序列的内置类型，但最常见的是列表和元组。</strong></p>
-<p><strong>序列都可以进行的操作包括索引，切片，加，乘，检查成员。</strong></p>
-<p><strong>此外，Python已经内置确定序列的长度以及确定最大和最小的元素的方法。</strong></p>
-<p><strong>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。</strong></p>
-<p><strong>列表的数据项不需要具有相同的类型</strong></p>
-<h2 id="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："><a href="#（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：" class="headerlink" title="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："></a>（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</h2><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 定义列表</span><br><span class="line">name = ['Tom','Jack','John']</span><br><span class="line">pet = ['cat','dog','bird']</span><br><span class="line"></span><br><span class="line"># 打印列表</span><br><span class="line">print(name)</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/d3d174c5845ce80de87d059e22e963bc.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h2 id="（2）用索引访问列表元素"><a href="#（2）用索引访问列表元素" class="headerlink" title="（2）用索引访问列表元素"></a>（2）用索引访问列表元素</h2><p><strong>使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：</strong></p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 通过索引读取列表中的元素，索引从0开始，-1代表最后一个元素</span><br><span class="line"></span><br><span class="line">print(name[0])     #查看列表中第一个</span><br><span class="line">print(pet[2])      #查看列表中第二个</span><br><span class="line">print(name[-1])    #查看列表中最后一个</span><br><span class="line">print(pet[-2])    #查看列表中倒数第二个</span><br><span class="line">print (name[0:2])  #查看索引2之前的元素</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/9d84b048d3fe5fa616b14fcedcd90f70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h1 id="二、基本操作"><a href="#二、基本操作" class="headerlink" title="二、基本操作"></a>二、基本操作</h1><h2 id="1、通过素引获取元素-进行修改"><a href="#1、通过素引获取元素-进行修改" class="headerlink" title="1、通过素引获取元素,进行修改"></a>1、通过素引获取元素,进行修改</h2><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">#修改列表的元素</span><br><span class="line">name[1] = 'Sean'   #修改name列表，索引1的内容为Sean</span><br><span class="line">print(name)		   #打印列表</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/085e2a55fb2e9567e220bf49802b7505.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h2 id="2、-向列表里面加元素"><a href="#2、-向列表里面加元素" class="headerlink" title="2、 向列表里面加元素"></a>2、 向列表里面加元素</h2><p><strong>向python列表里面添加元素主要有三种方法：</strong></p>
-<h3 id="（1）append（）"><a href="#（1）append（）" class="headerlink" title="（1）append（）"></a><strong>（1）append（）</strong></h3><p><strong>append()对于列表的操作主要实现的是在特定的列表最后添加一个元素，并且只能一次添加一个元素，并且只能在列表最后；</strong></p>
-<p><code>name.append(元素A)</code></p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 在列表末尾添加新元素</span><br><span class="line">name.append('Bob')</span><br><span class="line">print(name)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/b9f5217ecdae270c7d713aab7f7e667b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h3 id="（2）extend（）"><a href="#（2）extend（）" class="headerlink" title="（2）extend（）"></a><strong>（2）extend（）</strong></h3><p><strong>extend（）对于列表的操作主要实现的是对于特定列表的扩展和增长，可以一次添加多个元素，不过也只能添加在列表的最后；</strong></p>
-<pre><code>`name.extend([元素A，元素B，……])`</code></pre><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">name.extend(['Xgp','Wsd'])</span><br><span class="line">print(name)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/6d7f2f3cc974dc445679b3488a1b7866.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h3 id="（3）insert（）"><a href="#（3）insert（）" class="headerlink" title="（3）insert（）"></a><strong>（3）insert（）</strong></h3><p><strong>insert（）对于列表的操作主要是在列表的特定位置添加想要添加的特定元素，比较常用，这里的特定位置是指元素所在列表中的位置索引号，需要注意的是这里的索引号都是从0开始的，不是从1开始的，这个大家需要特别注意。</strong></p>
-<pre><code>`pet.insert(A,元素B)：表示在列表m里面的第A+1处加入元素B`</code></pre><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 在列表指定位置添加新元素</span><br><span class="line">print(pet)</span><br><span class="line">pet.insert(0,'penguin')   #在列表最前面添加数据</span><br><span class="line">print(pet)</span><br><span class="line">pet.insert(-2,'pig')      #在列表倒数第三个添加数据</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/ea1415a888f8e57c43526808b7a17d81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h2 id="3、删减列表中的一些元素；"><a href="#3、删减列表中的一些元素；" class="headerlink" title="3、删减列表中的一些元素；"></a>3、删减列表中的一些元素；</h2><p><strong>与之前python列表的添加元素相对，删减列表里面的一些元素也有三种方法：</strong></p>
-<h3 id="（1）del-pet-n"><a href="#（1）del-pet-n" class="headerlink" title="（1）del pet[n]"></a>（1）del pet[n]</h3><p><strong>它的作用是删除掉列表里面的索引号位置为n 的元素，这里需要注意的是del是一种操作语句。</strong></p>
-<p> <code>del m[n]</code></p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 根据索引从列表中删除元素</span><br><span class="line">print(pet)</span><br><span class="line">del pet[0]      #删除开头的元素</span><br><span class="line">print (pet)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/292edbb8c3095c07fc72f79295d51ca7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h3 id="（2）pet-pop（）"><a href="#（2）pet-pop（）" class="headerlink" title="（2）pet.pop（）"></a>（2）pet.pop（）</h3><p><strong>它的作用是将列表m的最后一个元素返回，并且在此基础上进行删除掉</strong></p>
-<p><code>Temp=pet.pop()  %这里temp就会直接等于吗列表里最后一个元素。</code></p>
-<p> <code>Print(pet)    %这里再次输出m的时候已经是删掉最后一个元素的m列表</code></p>
-<h4 id="pop-弹出列表末尾的元素"><a href="#pop-弹出列表末尾的元素" class="headerlink" title="pop():弹出列表末尾的元素"></a>pop():弹出列表末尾的元素</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(pet)</span><br><span class="line">new_pet=pet.pop()</span><br><span class="line">print(new_pet)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/08733dd7c72202d207f028b84a1fbb85.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h4 id="弹出指定位置的元素"><a href="#弹出指定位置的元素" class="headerlink" title="弹出指定位置的元素"></a>弹出指定位置的元素</h4><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 弹出指定位置的元素</span><br><span class="line">print(pet)</span><br><span class="line">pet.pop(2)</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/2b1641c4a69affa851abf2c5e2909c81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h3 id="（3）pet-remove"><a href="#（3）pet-remove" class="headerlink" title="（3）pet.remove()"></a>（3）pet.remove()</h3><p><strong>m.remove的作用是移除掉列表m里面的特定元素；</strong></p>
-<p><code>m.remove(元素A)</code></p>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 根据元素的值进行删除：remove()</span><br><span class="line">print(pet)            #查看源列表</span><br><span class="line">pet.remove('cat')     #删除cat</span><br><span class="line">print(pet)            #打印列表</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/dda2c5caf4e83b6478d289b6adf2916d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h1 id="三、排序"><a href="#三、排序" class="headerlink" title="三、排序"></a>三、排序</h1><h3 id="（1）永久排序（正索引，从头到尾）"><a href="#（1）永久排序（正索引，从头到尾）" class="headerlink" title="（1）永久排序（正索引，从头到尾）"></a>（1）永久排序（正索引，从头到尾）</h3><p><strong>sort()排序方法：此<a href="https://www.iplaypy.com/jichu/function.html" target="_blank" rel="noopener">函数</a>方法对列表内容进行正向排序，排序后的新列表会覆盖原列表（id不变），也就是sort排序方法是直接修改原列表list排序方法。</strong></p>
-<h3 id="（2）临时排序（正索引，从头到尾）"><a href="#（2）临时排序（正索引，从头到尾）" class="headerlink" title="（2）临时排序（正索引，从头到尾）"></a>（2）临时排序（正索引，从头到尾）</h3><p><strong>sorted()方法：即可以保留原列表，又能得到已经排序好的列表</strong></p>
-<h3 id="（3）倒序（从头到尾从尾到头）"><a href="#（3）倒序（从头到尾从尾到头）" class="headerlink" title="（3）倒序（从头到尾从尾到头）"></a>（3）倒序（从头到尾从尾到头）</h3><p><strong>reverse列表反转排序：是把原列表中的元素顺序从左至右的重新存放，而不会对列表中的参数进行排序整理。如果需要对列表中的参数进行整理，就需要用到列表的另一种排序方式sort正序排序。</strong></p>
-<h3 id="（4）列表长度"><a href="#（4）列表长度" class="headerlink" title="（4）列表长度"></a>（4）列表长度</h3><p><strong>len() 方法返回列表元素个数。</strong></p>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line"># 定义列表：汽车的品牌</span><br><span class="line">print('原始排序：')</span><br><span class="line">brand = ['audi','bmw','toyota','luhu']</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line">#临时排序</span><br><span class="line">print('临时排序：')</span><br><span class="line">print(sorted(brand))</span><br><span class="line"></span><br><span class="line"># 永久排序: sort()</span><br><span class="line">print('正序排序：')</span><br><span class="line">brand.sort()</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line"># 倒序排序</span><br><span class="line">print('倒序排序:')</span><br><span class="line">brand.sort(reverse=True)</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line"># 获取列表长度</span><br><span class="line">print('列表长度:')</span><br><span class="line">print(len(brand))</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/3a203bc5e8e00faf71575a178c890558.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h1 id="四、小练习"><a href="#四、小练习" class="headerlink" title="四、小练习"></a>四、小练习</h1><h2 id="列表练习（一）"><a href="#列表练习（一）" class="headerlink" title="列表练习（一）"></a>列表练习（一）</h2><ul>
-<li><strong>定义一个列表，存储5个科目名称</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu = ['语文','数学','英语','地理','生物']</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/0a892af8758dd19c970d7de47437ff8a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>新增科目（末尾新增）</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu.append('化学')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/0f0b406f8c28ebebc57ae634d49a2ee7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>修改科目</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu[2] = '计算机'</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/5ab12537306589f9162bb67547c7f51e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>删除科目，并且在打印科目列表的时候，能够显示删除了哪个科目</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(kemu)</span><br><span class="line">new_kemu=kemu.pop(3)</span><br><span class="line">print(new_kemu)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/138b490d7841d85b817813e52a89420c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>删除第2个科目</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu.pop(1)</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/a4947680d6baa4bd676067502617b085.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>指定位置新增</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu.insert(0,'科学')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/7acdad95a50906f7ff9db554a238de19.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>删除指定名称的科目</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">kemu.remove('生物')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/34711348de69c3a3b32c902360ddf6ae.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<h2 id="列表练习（二）"><a href="#列表练习（二）" class="headerlink" title="列表练习（二）"></a>列表练习（二）</h2><ul>
-<li><strong>将5个城市的名称存储到列表中，并且保证名称不是按照字母顺序排列的</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">city = ['北京','上海','广州','深圳','山西']</span><br><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/497b287216835fe7a5c9d5e61dea641d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>打印出原始的城市列表信息</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/ecf3236daafbd4344684a6545552b3bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>使用sorted()方法按字母顺序打印城市列表，但是不要修改列表元素的顺序</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(sorted(city))</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/ef74e3a4b39c7ff64f81b85b5354fa03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>打印该列表，确认城市名称排列顺序没有被修改</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/8dcbfbba443ae0eef3e8842efa798a5f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<ul>
-<li><strong>使用sort()方法排列城市名称，确保永久性修改排列顺序</strong></li>
-</ul>
-<figure class="highlight plain"><table><tbody><tr><td class="code"><pre><span class="line">city.sort()</span><br><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/11/d3fc524785b3984393f8d919fd34ddb2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="" loading="lazy"></p>
-<script>
+    <title>categories</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -834,12 +863,6 @@
             document.body.appendChild(img);
           });
       </script>]]></content>
-      <categories>
-        <category>python列表</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
   </entry>
   <entry>
     <title>tags</title>
@@ -865,44 +888,19 @@
       </script>]]></content>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
-    <content><![CDATA[<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-  </entry>
-  <entry>
     <title></title>
-    <url>/lib/canvas-nest/README.html</url>
-    <content><![CDATA[<h1 id="Theme-NexT-Canvas-Nest"><a href="#Theme-NexT-Canvas-Nest" class="headerlink" title="Theme NexT Canvas Nest"></a>Theme NexT Canvas Nest</h1><p><img src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square" alt="Theme Version" loading="lazy"></p>
-<p><a href="https://github.com/hustcc/canvas-nest.js" target="_blank" rel="noopener">canvas-nest.js</a> for <a href="https://github.com/theme-next" target="_blank" rel="noopener">NexT</a>.</p>
-<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><h3 id="Step-1-rarr-Go-to-Hexo-dir"><a href="#Step-1-rarr-Go-to-Hexo-dir" class="headerlink" title="Step 1 → Go to Hexo dir"></a>Step 1 → Go to Hexo dir</h3><p>Change dir to <strong>Hexo</strong> directory. There must be <code>scaffolds</code>, <code>source</code>, <code>themes</code> and other directories:</p>
-<figure class="highlight sh"><table><tbody><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> hexo</span><br><span class="line">$ ls</span><br><span class="line">scaffolds  <span class="built_in">source</span>  themes  _config.yml  package.json</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="Step-2-rarr-Create-footer-swig"><a href="#Step-2-rarr-Create-footer-swig" class="headerlink" title="Step 2 → Create footer.swig"></a>Step 2 → Create <code>footer.swig</code></h3><p>Create a file named <code>footer.swig</code> in <code>hexo/source/_data</code> directory (create <code>_data</code> directory if it does not exist).</p>
-<p>Edit this file and add the following content:</p>
-<figure class="highlight xml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">color</span>=<span class="string">"0,0,255"</span> <span class="attr">opacity</span>=<span class="string">"0.5"</span> <span class="attr">zIndex</span>=<span class="string">"-1"</span> <span class="attr">count</span>=<span class="string">"99"</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
-
-<p>You can customize these options.</p>
-<h3 id="Step-3-rarr-Set-it-up"><a href="#Step-3-rarr-Set-it-up" class="headerlink" title="Step 3 → Set it up"></a>Step 3 → Set it up</h3><p>In the NexT <code>_config.yml</code>, uncomment <code>footer</code> under the <code>custom_file_path</code> section.</p>
-<figure class="highlight yml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="attr">footer:</span> <span class="string">source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="comment">#style: source/_data/styles.styl</span></span><br></pre></td></tr></tbody></table></figure>
-<script>
+    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
+    <content><![CDATA[!function(){
+	var userAgentInfo = navigator.userAgent;
+    var Agents = ["iPad", "iPhone", "Android", 
+          "SymbianOS", "Windows Phone",
+           "iPod", "webOS", "BlackBerry", "IEMobile"];
+    for (var v = 0; v &lt; Agents.length; v++) {
+      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
+        return;
+      }
+    }
+	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -947,18 +945,20 @@
   </entry>
   <entry>
     <title></title>
-    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
-    <content><![CDATA[!function(){
-	var userAgentInfo = navigator.userAgent;
-    var Agents = ["iPad", "iPhone", "Android", 
-          "SymbianOS", "Windows Phone",
-           "iPod", "webOS", "BlackBerry", "IEMobile"];
-    for (var v = 0; v &lt; Agents.length; v++) {
-      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
-        return;
-      }
-    }
-	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+    <url>/lib/canvas-nest/README.html</url>
+    <content><![CDATA[<h1 id="Theme-NexT-Canvas-Nest"><a href="#Theme-NexT-Canvas-Nest" class="headerlink" title="Theme NexT Canvas Nest"></a>Theme NexT Canvas Nest</h1><p><img src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square" alt="Theme Version"></p>
+<p><a href="https://github.com/hustcc/canvas-nest.js" target="_blank" rel="noopener">canvas-nest.js</a> for <a href="https://github.com/theme-next" target="_blank" rel="noopener">NexT</a>.</p>
+<h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><h3 id="Step-1-rarr-Go-to-Hexo-dir"><a href="#Step-1-rarr-Go-to-Hexo-dir" class="headerlink" title="Step 1 → Go to Hexo dir"></a>Step 1 → Go to Hexo dir</h3><p>Change dir to <strong>Hexo</strong> directory. There must be <code>scaffolds</code>, <code>source</code>, <code>themes</code> and other directories:</p>
+<figure class="highlight sh"><table><tbody><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> hexo</span><br><span class="line">$ ls</span><br><span class="line">scaffolds  <span class="built_in">source</span>  themes  _config.yml  package.json</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="Step-2-rarr-Create-footer-swig"><a href="#Step-2-rarr-Create-footer-swig" class="headerlink" title="Step 2 → Create footer.swig"></a>Step 2 → Create <code>footer.swig</code></h3><p>Create a file named <code>footer.swig</code> in <code>hexo/source/_data</code> directory (create <code>_data</code> directory if it does not exist).</p>
+<p>Edit this file and add the following content:</p>
+<figure class="highlight xml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">color</span>=<span class="string">"0,0,255"</span> <span class="attr">opacity</span>=<span class="string">"0.5"</span> <span class="attr">zIndex</span>=<span class="string">"-1"</span> <span class="attr">count</span>=<span class="string">"99"</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>You can customize these options.</p>
+<h3 id="Step-3-rarr-Set-it-up"><a href="#Step-3-rarr-Set-it-up" class="headerlink" title="Step 3 → Set it up"></a>Step 3 → Set it up</h3><p>In the NexT <code>_config.yml</code>, uncomment <code>footer</code> under the <code>custom_file_path</code> section.</p>
+<figure class="highlight yml"><table><tbody><tr><td class="code"><pre><span class="line"><span class="comment"># Define custom file paths.</span></span><br><span class="line"><span class="comment"># Create your custom files in site directory `source/_data` and uncomment needed files below.</span></span><br><span class="line"><span class="attr">custom_file_path:</span></span><br><span class="line">  <span class="comment">#head: source/_data/head.swig</span></span><br><span class="line">  <span class="comment">#header: source/_data/header.swig</span></span><br><span class="line">  <span class="comment">#sidebar: source/_data/sidebar.swig</span></span><br><span class="line">  <span class="comment">#postMeta: source/_data/post-meta.swig</span></span><br><span class="line">  <span class="comment">#postBodyEnd: source/_data/post-body-end.swig</span></span><br><span class="line">  <span class="attr">footer:</span> <span class="string">source/_data/footer.swig</span></span><br><span class="line">  <span class="comment">#bodyEnd: source/_data/body-end.swig</span></span><br><span class="line">  <span class="comment">#variable: source/_data/variables.styl</span></span><br><span class="line">  <span class="comment">#mixin: source/_data/mixins.styl</span></span><br><span class="line">  <span class="comment">#style: source/_data/styles.styl</span></span><br></pre></td></tr></tbody></table></figure>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
