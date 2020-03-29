@@ -1,0 +1,157 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Small steel gun article"><title>Python列表 | Xgp &amp; Blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.1/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script><link rel="icon" mask="" sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script type="text/javascript" src="//lib.baomitu.com/clipboard.js/2.0.4/clipboard.min.js"></script><script type="text/javascript" src="//lib.baomitu.com/toastr.js/2.1.4/toastr.min.js"></script><link rel="stylesheet" href="//lib.baomitu.com/toastr.js/2.1.4/toastr.min.css"><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Python列表</h1><a id="logo" href="/.">Xgp &amp; Blog</a><p class="description">Today is still beautiful</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Home</i></a><a href="/archives/"><i class="fa fa-archive"> Archive</i></a><a href="/about/"><i class="fa fa-user"> About</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Python列表</h1><div class="post-meta">2017-05-26<span> | </span><span class="category"><a href="/categories/python%E5%88%97%E8%A1%A8/">python列表</a></span></div><div class="post-content"><h1 id="Python-列表"><a href="#Python-列表" class="headerlink" title="Python 列表"></a>Python 列表</h1><p><strong>Python的基本数据类型有整数，浮点数，布尔，字符串，它们是最基本的数据。在实际编程中，我们要经常组织由很多基本数据组成的集合，这些集合的不同组织方式就是：数据结构，今天讲的是数据结构中的Python list(列表)。数据结构就是一些数据组合得到的“复合”数据类型。</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/11/137b021999e8e998f17432d47b30f2a4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="Python内置的数据结构有："><a href="#Python内置的数据结构有：" class="headerlink" title="Python内置的数据结构有："></a>Python内置的数据结构有：</h2><ul>
+<li><strong>列表(list)</strong></li>
+<li><strong>元组(tuple)</strong></li>
+<li><strong>字典(dict)</strong></li>
+<li><strong>集合(set)</strong></li>
+</ul>
+<p><strong>在Python语言中，以上4种数据结构和基础数据类型（整数、浮点数等）统称为“内置类型”（Built-in Types）。</strong></p>
+<h1 id="一、什么是列表"><a href="#一、什么是列表" class="headerlink" title="一、什么是列表"></a>一、什么是列表</h1><p><strong>序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，第二个索引是1，依此类推。</strong></p>
+<p><strong>Python有6个序列的内置类型，但最常见的是列表和元组。</strong></p>
+<p><strong>序列都可以进行的操作包括索引，切片，加，乘，检查成员。</strong></p>
+<p><strong>此外，Python已经内置确定序列的长度以及确定最大和最小的元素的方法。</strong></p>
+<p><strong>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。</strong></p>
+<p><strong>列表的数据项不需要具有相同的类型</strong></p>
+<h2 id="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："><a href="#（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：" class="headerlink" title="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："></a>（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 定义列表</span><br><span class="line">name = ['Tom','Jack','John']</span><br><span class="line">pet = ['cat','dog','bird']</span><br><span class="line"></span><br><span class="line"># 打印列表</span><br><span class="line">print(name)</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/d3d174c5845ce80de87d059e22e963bc.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="（2）用索引访问列表元素"><a href="#（2）用索引访问列表元素" class="headerlink" title="（2）用索引访问列表元素"></a>（2）用索引访问列表元素</h2><p><strong>使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：</strong></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 通过索引读取列表中的元素，索引从0开始，-1代表最后一个元素</span><br><span class="line"></span><br><span class="line">print(name[0])     #查看列表中第一个</span><br><span class="line">print(pet[2])      #查看列表中第二个</span><br><span class="line">print(name[-1])    #查看列表中最后一个</span><br><span class="line">print(pet[-2])    #查看列表中倒数第二个</span><br><span class="line">print (name[0:2])  #查看索引2之前的元素</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/9d84b048d3fe5fa616b14fcedcd90f70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="二、基本操作"><a href="#二、基本操作" class="headerlink" title="二、基本操作"></a>二、基本操作</h1><h2 id="1、通过素引获取元素-进行修改"><a href="#1、通过素引获取元素-进行修改" class="headerlink" title="1、通过素引获取元素,进行修改"></a>1、通过素引获取元素,进行修改</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#修改列表的元素</span><br><span class="line">name[1] = 'Sean'   #修改name列表，索引1的内容为Sean</span><br><span class="line">print(name)		   #打印列表</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/085e2a55fb2e9567e220bf49802b7505.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="2、-向列表里面加元素"><a href="#2、-向列表里面加元素" class="headerlink" title="2、 向列表里面加元素"></a>2、 向列表里面加元素</h2><p><strong>向python列表里面添加元素主要有三种方法：</strong></p>
+<h3 id="（1）append（）"><a href="#（1）append（）" class="headerlink" title="（1）append（）"></a><strong>（1）append（）</strong></h3><p><strong>append()对于列表的操作主要实现的是在特定的列表最后添加一个元素，并且只能一次添加一个元素，并且只能在列表最后；</strong></p>
+<p><code>name.append(元素A)</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 在列表末尾添加新元素</span><br><span class="line">name.append('Bob')</span><br><span class="line">print(name)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/b9f5217ecdae270c7d713aab7f7e667b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（2）extend（）"><a href="#（2）extend（）" class="headerlink" title="（2）extend（）"></a><strong>（2）extend（）</strong></h3><p><strong>extend（）对于列表的操作主要实现的是对于特定列表的扩展和增长，可以一次添加多个元素，不过也只能添加在列表的最后；</strong></p>
+<pre><code>`name.extend([元素A，元素B，……])`</code></pre><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name.extend(['Xgp','Wsd'])</span><br><span class="line">print(name)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/6d7f2f3cc974dc445679b3488a1b7866.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（3）insert（）"><a href="#（3）insert（）" class="headerlink" title="（3）insert（）"></a><strong>（3）insert（）</strong></h3><p><strong>insert（）对于列表的操作主要是在列表的特定位置添加想要添加的特定元素，比较常用，这里的特定位置是指元素所在列表中的位置索引号，需要注意的是这里的索引号都是从0开始的，不是从1开始的，这个大家需要特别注意。</strong></p>
+<pre><code>`pet.insert(A,元素B)：表示在列表m里面的第A+1处加入元素B`</code></pre><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 在列表指定位置添加新元素</span><br><span class="line">print(pet)</span><br><span class="line">pet.insert(0,'penguin')   #在列表最前面添加数据</span><br><span class="line">print(pet)</span><br><span class="line">pet.insert(-2,'pig')      #在列表倒数第三个添加数据</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/ea1415a888f8e57c43526808b7a17d81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="3、删减列表中的一些元素；"><a href="#3、删减列表中的一些元素；" class="headerlink" title="3、删减列表中的一些元素；"></a>3、删减列表中的一些元素；</h2><p><strong>与之前python列表的添加元素相对，删减列表里面的一些元素也有三种方法：</strong></p>
+<h3 id="（1）del-pet-n"><a href="#（1）del-pet-n" class="headerlink" title="（1）del pet[n]"></a>（1）del pet[n]</h3><p><strong>它的作用是删除掉列表里面的索引号位置为n 的元素，这里需要注意的是del是一种操作语句。</strong></p>
+<p> <code>del m[n]</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 根据索引从列表中删除元素</span><br><span class="line">print(pet)</span><br><span class="line">del pet[0]      #删除开头的元素</span><br><span class="line">print (pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/292edbb8c3095c07fc72f79295d51ca7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（2）pet-pop（）"><a href="#（2）pet-pop（）" class="headerlink" title="（2）pet.pop（）"></a>（2）pet.pop（）</h3><p><strong>它的作用是将列表m的最后一个元素返回，并且在此基础上进行删除掉</strong></p>
+<p><code>Temp=pet.pop()  %这里temp就会直接等于吗列表里最后一个元素。</code></p>
+<p> <code>Print(pet)    %这里再次输出m的时候已经是删掉最后一个元素的m列表</code></p>
+<h4 id="pop-弹出列表末尾的元素"><a href="#pop-弹出列表末尾的元素" class="headerlink" title="pop():弹出列表末尾的元素"></a>pop():弹出列表末尾的元素</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(pet)</span><br><span class="line">new_pet=pet.pop()</span><br><span class="line">print(new_pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/08733dd7c72202d207f028b84a1fbb85.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h4 id="弹出指定位置的元素"><a href="#弹出指定位置的元素" class="headerlink" title="弹出指定位置的元素"></a>弹出指定位置的元素</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 弹出指定位置的元素</span><br><span class="line">print(pet)</span><br><span class="line">pet.pop(2)</span><br><span class="line">print(pet)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/2b1641c4a69affa851abf2c5e2909c81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（3）pet-remove"><a href="#（3）pet-remove" class="headerlink" title="（3）pet.remove()"></a>（3）pet.remove()</h3><p><strong>m.remove的作用是移除掉列表m里面的特定元素；</strong></p>
+<p><code>m.remove(元素A)</code></p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 根据元素的值进行删除：remove()</span><br><span class="line">print(pet)            #查看源列表</span><br><span class="line">pet.remove('cat')     #删除cat</span><br><span class="line">print(pet)            #打印列表</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/dda2c5caf4e83b6478d289b6adf2916d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="三、排序"><a href="#三、排序" class="headerlink" title="三、排序"></a>三、排序</h1><h3 id="（1）永久排序（正索引，从头到尾）"><a href="#（1）永久排序（正索引，从头到尾）" class="headerlink" title="（1）永久排序（正索引，从头到尾）"></a>（1）永久排序（正索引，从头到尾）</h3><p><strong>sort()排序方法：此<a href="https://www.iplaypy.com/jichu/function.html" target="_blank" rel="noopener">函数</a>方法对列表内容进行正向排序，排序后的新列表会覆盖原列表（id不变），也就是sort排序方法是直接修改原列表list排序方法。</strong></p>
+<h3 id="（2）临时排序（正索引，从头到尾）"><a href="#（2）临时排序（正索引，从头到尾）" class="headerlink" title="（2）临时排序（正索引，从头到尾）"></a>（2）临时排序（正索引，从头到尾）</h3><p><strong>sorted()方法：即可以保留原列表，又能得到已经排序好的列表</strong></p>
+<h3 id="（3）倒序（从头到尾从尾到头）"><a href="#（3）倒序（从头到尾从尾到头）" class="headerlink" title="（3）倒序（从头到尾从尾到头）"></a>（3）倒序（从头到尾从尾到头）</h3><p><strong>reverse列表反转排序：是把原列表中的元素顺序从左至右的重新存放，而不会对列表中的参数进行排序整理。如果需要对列表中的参数进行整理，就需要用到列表的另一种排序方式sort正序排序。</strong></p>
+<h3 id="（4）列表长度"><a href="#（4）列表长度" class="headerlink" title="（4）列表长度"></a>（4）列表长度</h3><p><strong>len() 方法返回列表元素个数。</strong></p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># 定义列表：汽车的品牌</span><br><span class="line">print('原始排序：')</span><br><span class="line">brand = ['audi','bmw','toyota','luhu']</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line">#临时排序</span><br><span class="line">print('临时排序：')</span><br><span class="line">print(sorted(brand))</span><br><span class="line"></span><br><span class="line"># 永久排序: sort()</span><br><span class="line">print('正序排序：')</span><br><span class="line">brand.sort()</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line"># 倒序排序</span><br><span class="line">print('倒序排序:')</span><br><span class="line">brand.sort(reverse=True)</span><br><span class="line">print(brand)</span><br><span class="line"></span><br><span class="line"># 获取列表长度</span><br><span class="line">print('列表长度:')</span><br><span class="line">print(len(brand))</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/3a203bc5e8e00faf71575a178c890558.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="四、小练习"><a href="#四、小练习" class="headerlink" title="四、小练习"></a>四、小练习</h1><h2 id="列表练习（一）"><a href="#列表练习（一）" class="headerlink" title="列表练习（一）"></a>列表练习（一）</h2><ul>
+<li><strong>定义一个列表，存储5个科目名称</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu = ['语文','数学','英语','地理','生物']</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/0a892af8758dd19c970d7de47437ff8a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>新增科目（末尾新增）</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu.append('化学')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/0f0b406f8c28ebebc57ae634d49a2ee7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>修改科目</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu[2] = '计算机'</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/5ab12537306589f9162bb67547c7f51e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除科目，并且在打印科目列表的时候，能够显示删除了哪个科目</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(kemu)</span><br><span class="line">new_kemu=kemu.pop(3)</span><br><span class="line">print(new_kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/138b490d7841d85b817813e52a89420c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除第2个科目</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu.pop(1)</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/a4947680d6baa4bd676067502617b085.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>指定位置新增</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu.insert(0,'科学')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/7acdad95a50906f7ff9db554a238de19.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除指定名称的科目</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kemu.remove('生物')</span><br><span class="line">print(kemu)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/34711348de69c3a3b32c902360ddf6ae.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="列表练习（二）"><a href="#列表练习（二）" class="headerlink" title="列表练习（二）"></a>列表练习（二）</h2><ul>
+<li><strong>将5个城市的名称存储到列表中，并且保证名称不是按照字母顺序排列的</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">city = ['北京','上海','广州','深圳','山西']</span><br><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/497b287216835fe7a5c9d5e61dea641d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>打印出原始的城市列表信息</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/ecf3236daafbd4344684a6545552b3bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>使用sorted()方法按字母顺序打印城市列表，但是不要修改列表元素的顺序</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(sorted(city))</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/ef74e3a4b39c7ff64f81b85b5354fa03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>打印该列表，确认城市名称排列顺序没有被修改</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/8dcbfbba443ae0eef3e8842efa798a5f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>使用sort()方法排列城市名称，确保永久性修改排列顺序</strong></li>
+</ul>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">city.sort()</span><br><span class="line">print(city)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><img src="https://s1.51cto.com/images/blog/202003/11/d3fc524785b3984393f8d919fd34ddb2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></div><div class="tags"><a href="/tags/Python/"><i class="fa fa-tag"></i>Python</a></div><div class="post-nav"><a class="pre" href="/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">变量和简单的数据类型</a><a class="next" href="/2017/05/26/HEXO%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/">HEXO分类和标签的使用</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="http://yoursite.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Categories</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/HEXO%E7%9A%84%E4%BD%BF%E7%94%A8/">HEXO的使用</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python%E5%88%97%E8%A1%A8/">python列表</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/HEXO/" style="font-size: 15px;">HEXO</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Recent</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/03/28/title%20Python%E5%88%97%E8%A1%A8%20date%202017-05-26%20121257%20categories%20%20%20-%20python%E5%88%97%E8%A1%A8%20%20%20tags%20-%20Python/">title Python列表 date 2017-05-26 121257 categories   - python列表   tags - Python</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/28/Python%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E7%B1%BB%EF%BC%8C%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%EF%BC%89/">Python 面向对象（类，类的继承）</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/12/a/">a</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/03/11/%E5%8F%98%E9%87%8F%E5%92%8C%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">变量和简单的数据类型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/Python%20%E5%88%97%E8%A1%A8(List)/">Python列表</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/26/HEXO%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/">HEXO分类和标签的使用</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Links</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Xgp &amp; Blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="Copy Successed!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
