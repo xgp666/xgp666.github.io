@@ -30,7 +30,7 @@
     <script src="/libs/jquery/jquery.min.js"></script>
     
 <meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
-</head>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 <body>
@@ -459,77 +459,141 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h1 id="charts的四种安装方式"><a href="#charts的四种安装方式" class="headerlink" title="charts的四种安装方式"></a>charts的四种安装方式</h1><p><a href="https://hub.helm.sh/" target="_blank" rel="noopener">https://hub.helm.sh/</a></p>
-<h2 id="1、开发自己的chare包"><a href="#1、开发自己的chare包" class="headerlink" title="1、开发自己的chare包"></a>1、开发自己的chare包</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm create mychare</span><br><span class="line">//创建一个名为mychare的chare包</span><br><span class="line">[root@master ~]# tree -C mychare/</span><br><span class="line">//以树状图查看一下chare包</span><br><span class="line">mychare/</span><br><span class="line">├── charts</span><br><span class="line">├── Chart.yaml</span><br><span class="line">├── templates</span><br><span class="line">│   ├── deployment.yaml</span><br><span class="line">│   ├── _helpers.tpl</span><br><span class="line">│   ├── ingress.yaml</span><br><span class="line">│   ├── NOTES.txt</span><br><span class="line">│   ├── service.yaml</span><br><span class="line">│   └── tests</span><br><span class="line">│       └── test-connection.yaml</span><br><span class="line">└── values.yaml</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="1、开发自己的chare包"><a href="#1、开发自己的chare包" class="headerlink" title="1、开发自己的chare包"></a>1、开发自己的chare包</h2><pre><code>[root@master ~]# helm create mychare
+//创建一个名为mychare的chare包
+[root@master ~]# tree -C mychare/
+//以树状图查看一下chare包
+mychare/
+├── charts
+├── Chart.yaml
+├── templates
+│   ├── deployment.yaml
+│   ├── _helpers.tpl
+│   ├── ingress.yaml
+│   ├── NOTES.txt
+│   ├── service.yaml
+│   └── tests
+│       └── test-connection.yaml
+└── values.yaml</code></pre><h2 id="2、调试chart"><a href="#2、调试chart" class="headerlink" title="2、调试chart"></a>2、调试chart</h2><pre><code>[root@master mychare]# cd
+[root@master ~]# helm install --dry-run --debug mychare
+//检查这个mychare是否有问题</code></pre><h2 id="3、安装chart"><a href="#3、安装chart" class="headerlink" title="3、安装chart"></a>3、安装chart</h2><pre><code>[root@node02 ~]# docker pull nginx:stable</code></pre><h3 id="（1）通过仓库安装"><a href="#（1）通过仓库安装" class="headerlink" title="（1）通过仓库安装"></a>（1）通过仓库安装</h3><pre><code>[root@master mychare]# helm search redis
+//搜索chare包</code></pre><pre><code>[root@master mychare]# helm repo list
+//查看是否有能访问仓库</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/20389715f270929a825a18f36b6f08c4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<pre><code>[root@master mychare]# helm install stable/redis
+//安装</code></pre><h3 id="（2）通过tar包安装"><a href="#（2）通过tar包安装" class="headerlink" title="（2）通过tar包安装"></a>（2）通过tar包安装</h3><pre><code>[root@master ~]# helm fetch stable/redis
+//直接下载chare包
+[root@master ~]# tar -zxf redis-1.1.15.tgz
+//解压下载的chare包
+[root@master ~]# tree -C redis
+redis
+├── Chart.yaml
+├── README.md
+├── templates
+│   ├── deployment.yaml
+│   ├── _helpers.tpl
+│   ├── networkpolicy.yaml
+│   ├── NOTES.txt
+│   ├── pvc.yaml
+│   ├── secrets.yaml
+│   └── svc.yaml
+└── values.yaml</code></pre><h3 id="（3）通过chare本地目录安装"><a href="#（3）通过chare本地目录安装" class="headerlink" title="（3）通过chare本地目录安装"></a>（3）通过chare本地目录安装</h3><pre><code>[root@master ~]# helm fetch stable/redis
+//直接下载chare包
+[root@master ~]# tar -zxf redis-1.1.15.tgz
+//解压下载的chare包
+[root@master ~]# helm install redis</code></pre><h3 id="（4）通过URL安装"><a href="#（4）通过URL安装" class="headerlink" title="（4）通过URL安装"></a>（4）通过URL安装</h3><pre><code>[root@master ~]# helm install https://example.com/charts/foo-1.2.3.tgz</code></pre><h1 id="创建自己的Repo仓库"><a href="#创建自己的Repo仓库" class="headerlink" title="创建自己的Repo仓库"></a>创建自己的Repo仓库</h1><h2 id="1）创建helm的私有仓库，以自己的名字命名。"><a href="#1）创建helm的私有仓库，以自己的名字命名。" class="headerlink" title="1）创建helm的私有仓库，以自己的名字命名。"></a>1）创建helm的私有仓库，以自己的名字命名。</h2><h3 id="1、node01启动一个httpd的容器"><a href="#1、node01启动一个httpd的容器" class="headerlink" title="1、node01启动一个httpd的容器"></a>1、node01启动一个httpd的容器</h3><pre><code>[root@node01 ~]# mkdir /var/xgp
+//创建一个目录
+[root@node01 ~]# docker pull httpd
+//下载httpd镜像
+[root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
+//启动一个httpd的容器</code></pre><h3 id="3、生成仓库的index文件。"><a href="#3、生成仓库的index文件。" class="headerlink" title="3、生成仓库的index文件。"></a>3、生成仓库的index文件。</h3><pre><code>[root@master ~]# mkdir xgprepo
+//创建一个目录存放打包的chare
+[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
+//生成仓库的index文件</code></pre><h3 id="4、将生成的index-yaml上传到node01的-var-www-charts目录下"><a href="#4、将生成的index-yaml上传到node01的-var-www-charts目录下" class="headerlink" title="4、将生成的index.yaml上传到node01的/var/www/charts目录下."></a>4、将生成的index.yaml上传到node01的/var/www/charts目录下.</h3><h4 id="node01创建目录"><a href="#node01创建目录" class="headerlink" title="node01创建目录"></a>node01创建目录</h4><pre><code>[root@node01 ~]# mkdir /var/xgp/charts</code></pre><h4 id="master移动动到"><a href="#master移动动到" class="headerlink" title="master移动动到"></a>master移动动到</h4><pre><code>[root@master ~]# scp xgprepo/* node01:/var/xgp/charts/</code></pre><h4 id="node01查看一下"><a href="#node01查看一下" class="headerlink" title="node01查看一下"></a>node01查看一下</h4><pre><code>[root@node01 ~]# ls /var/xgp/charts/
+index.yaml  </code></pre><h3 id="5、添加新的repo仓库"><a href="#5、添加新的repo仓库" class="headerlink" title="5、添加新的repo仓库"></a>5、添加新的repo仓库</h3><pre><code>[root@master ~]# helm repo add xgp http://192.168.1.22:8080/charts
+[root@master ~]# helm repo list </code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/a2e1f46e4005d33c4ea6c5c8180b8ad9.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000"><a href="#2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000" class="headerlink" title="2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000"></a>2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</h2><h4 id="自定义一个chart包"><a href="#自定义一个chart包" class="headerlink" title="自定义一个chart包"></a>自定义一个chart包</h4><pre><code>[root@master ~]# helm create wsd
+//创建一个名为wsd的chares包</code></pre><h4 id="按照要求修改配置文件"><a href="#按照要求修改配置文件" class="headerlink" title="按照要求修改配置文件"></a>按照要求修改配置文件</h4><pre><code>[root@master ~]# cd wsd/
+//进入这个chart包
+[root@master wsd]# vim values.yaml
+//修改wsd的配置文件
+replicaCount: 3                         #三个副本
 
-<h2 id="2、调试chart"><a href="#2、调试chart" class="headerlink" title="2、调试chart"></a>2、调试chart</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master mychare]# cd</span><br><span class="line">[root@master ~]# helm install --dry-run --debug mychare</span><br><span class="line">//检查这个mychare是否有问题</span><br></pre></td></tr></tbody></table></figure>
+image:
+  repository: 192.168.1.21:5000/web      #更改镜像为私有镜像
+  tag: v1                                #镜像标签v1
+  pullPolicy: IfNotPresent              
 
-<h2 id="3、安装chart"><a href="#3、安装chart" class="headerlink" title="3、安装chart"></a>3、安装chart</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node02 ~]# docker pull nginx:stable</span><br></pre></td></tr></tbody></table></figure>
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
 
-<h3 id="（1）通过仓库安装"><a href="#（1）通过仓库安装" class="headerlink" title="（1）通过仓库安装"></a>（1）通过仓库安装</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master mychare]# helm search redis</span><br><span class="line">//搜索chare包</span><br></pre></td></tr></tbody></table></figure>
+service:
+  type: NodePort              #修改模式为映射端口
+  port: 80
+  nodePort: 30000             #添加端口
 
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master mychare]# helm repo list</span><br><span class="line">//查看是否有能访问仓库</span><br></pre></td></tr></tbody></table></figure>
-<p><img src="https://s1.51cto.com/images/blog/202003/04/20389715f270929a825a18f36b6f08c4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master mychare]# helm install stable/redis</span><br><span class="line">//安装</span><br></pre></td></tr></tbody></table></figure>
+[root@master wsd]# vim templates/service.yaml 
 
-<h3 id="（2）通过tar包安装"><a href="#（2）通过tar包安装" class="headerlink" title="（2）通过tar包安装"></a>（2）通过tar包安装</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm fetch stable/redis</span><br><span class="line">//直接下载chare包</span><br><span class="line">[root@master ~]# tar -zxf redis-1.1.15.tgz</span><br><span class="line">//解压下载的chare包</span><br><span class="line">[root@master ~]# tree -C redis</span><br><span class="line">redis</span><br><span class="line">├── Chart.yaml</span><br><span class="line">├── README.md</span><br><span class="line">├── templates</span><br><span class="line">│   ├── deployment.yaml</span><br><span class="line">│   ├── _helpers.tpl</span><br><span class="line">│   ├── networkpolicy.yaml</span><br><span class="line">│   ├── NOTES.txt</span><br><span class="line">│   ├── pvc.yaml</span><br><span class="line">│   ├── secrets.yaml</span><br><span class="line">│   └── svc.yaml</span><br><span class="line">└── values.yaml</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="（3）通过chare本地目录安装"><a href="#（3）通过chare本地目录安装" class="headerlink" title="（3）通过chare本地目录安装"></a>（3）通过chare本地目录安装</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm fetch stable/redis</span><br><span class="line">//直接下载chare包</span><br><span class="line">[root@master ~]# tar -zxf redis-1.1.15.tgz</span><br><span class="line">//解压下载的chare包</span><br><span class="line">[root@master ~]# helm install redis</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="（4）通过URL安装"><a href="#（4）通过URL安装" class="headerlink" title="（4）通过URL安装"></a>（4）通过URL安装</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm install https://example.com/charts/foo-1.2.3.tgz</span><br></pre></td></tr></tbody></table></figure>
-
-<h1 id="创建自己的Repo仓库"><a href="#创建自己的Repo仓库" class="headerlink" title="创建自己的Repo仓库"></a>创建自己的Repo仓库</h1><h2 id="1）创建helm的私有仓库，以自己的名字命名。"><a href="#1）创建helm的私有仓库，以自己的名字命名。" class="headerlink" title="1）创建helm的私有仓库，以自己的名字命名。"></a>1）创建helm的私有仓库，以自己的名字命名。</h2><h3 id="1、node01启动一个httpd的容器"><a href="#1、node01启动一个httpd的容器" class="headerlink" title="1、node01启动一个httpd的容器"></a>1、node01启动一个httpd的容器</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# mkdir /var/xgp</span><br><span class="line">//创建一个目录</span><br><span class="line">[root@node01 ~]# docker pull httpd</span><br><span class="line">//下载httpd镜像</span><br><span class="line">[root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd</span><br><span class="line">//启动一个httpd的容器</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="3、生成仓库的index文件。"><a href="#3、生成仓库的index文件。" class="headerlink" title="3、生成仓库的index文件。"></a>3、生成仓库的index文件。</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# mkdir xgprepo</span><br><span class="line">//创建一个目录存放打包的chare</span><br><span class="line">[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts</span><br><span class="line">//生成仓库的index文件</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="4、将生成的index-yaml上传到node01的-var-www-charts目录下"><a href="#4、将生成的index-yaml上传到node01的-var-www-charts目录下" class="headerlink" title="4、将生成的index.yaml上传到node01的/var/www/charts目录下."></a>4、将生成的index.yaml上传到node01的/var/www/charts目录下.</h3><h4 id="node01创建目录"><a href="#node01创建目录" class="headerlink" title="node01创建目录"></a>node01创建目录</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# mkdir /var/xgp/charts</span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="master移动动到"><a href="#master移动动到" class="headerlink" title="master移动动到"></a>master移动动到</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# scp xgprepo/* node01:/var/xgp/charts/</span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="node01查看一下"><a href="#node01查看一下" class="headerlink" title="node01查看一下"></a>node01查看一下</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@node01 ~]# ls /var/xgp/charts/</span><br><span class="line">index.yaml</span><br></pre></td></tr></tbody></table></figure>
-
-<h3 id="5、添加新的repo仓库"><a href="#5、添加新的repo仓库" class="headerlink" title="5、添加新的repo仓库"></a>5、添加新的repo仓库</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm repo add xgp http://192.168.1.22:8080/charts</span><br><span class="line">[root@master ~]# helm repo list</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/04/a2e1f46e4005d33c4ea6c5c8180b8ad9.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000"><a href="#2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000" class="headerlink" title="2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000"></a>2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</h2><h4 id="自定义一个chart包"><a href="#自定义一个chart包" class="headerlink" title="自定义一个chart包"></a>自定义一个chart包</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm create wsd</span><br><span class="line">//创建一个名为wsd的chares包</span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="按照要求修改配置文件"><a href="#按照要求修改配置文件" class="headerlink" title="按照要求修改配置文件"></a>按照要求修改配置文件</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# cd wsd/</span><br><span class="line">//进入这个chart包</span><br><span class="line">[root@master wsd]# vim values.yaml</span><br><span class="line">//修改wsd的配置文件</span><br><span class="line">replicaCount: 3                         #三个副本</span><br><span class="line"></span><br><span class="line">image:</span><br><span class="line">  repository: 192.168.1.21:5000/web      #更改镜像为私有镜像</span><br><span class="line">  tag: v1                                #镜像标签v1</span><br><span class="line">  pullPolicy: IfNotPresent              </span><br><span class="line"></span><br><span class="line">imagePullSecrets: []</span><br><span class="line">nameOverride: ""</span><br><span class="line">fullnameOverride: ""</span><br><span class="line"></span><br><span class="line">service:</span><br><span class="line">  type: NodePort              #修改模式为映射端口</span><br><span class="line">  port: 80</span><br><span class="line">  nodePort: 30000             #添加端口</span><br><span class="line"></span><br><span class="line">[root@master wsd]# vim templates/service.yaml </span><br><span class="line"></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: {{ include "wsd.fullname" . }}</span><br><span class="line">  labels:</span><br><span class="line">{{ include "wsd.labels" . | indent 4 }}</span><br><span class="line">spec:</span><br><span class="line">  type: {{ .Values.service.type }}</span><br><span class="line">  ports:</span><br><span class="line">    - port: {{ .Values.service.port }}</span><br><span class="line">      targetPort: http</span><br><span class="line">      protocol: TCP</span><br><span class="line">      name: http</span><br><span class="line">      nodePort: {{ .Values.service.nodePort }}    #“添加”能让服务识别到nodePort的端口</span><br><span class="line">  selector:</span><br><span class="line">    app.kubernetes.io/name: {{ include "wsd.name" . }}</span><br><span class="line">    app.kubernetes.io/instance: {{ .Release.Name }}</span><br></pre></td></tr></tbody></table></figure>
-
-<h4 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm install -n wsd  wsd/ -f wsd/values.yaml</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/04/b18f74519a95d138bdae8e525e4f98f5.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h4 id="查看一下镜像版本"><a href="#查看一下镜像版本" class="headerlink" title="查看一下镜像版本"></a>查看一下镜像版本</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get deployments. -o wide</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/04/a57cd4abe5b96d92ac16450ed53fa79c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# curl 127.0.0.1:30000</span><br></pre></td></tr></tbody></table></figure>
-
-<p><img src="https://s1.51cto.com/images/blog/202003/04/7d9e241ceb6a8d0829803e1d0e5ddb8e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wsd.fullname" . }}
+  labels:
+{{ include "wsd.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+      nodePort: {{ .Values.service.nodePort }}    #“添加”能让服务识别到nodePort的端口
+  selector:
+    app.kubernetes.io/name: {{ include "wsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}</code></pre><h4 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h4><pre><code>[root@master ~]# helm install -n wsd  wsd/ -f wsd/values.yaml </code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/b18f74519a95d138bdae8e525e4f98f5.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h4 id="查看一下镜像版本"><a href="#查看一下镜像版本" class="headerlink" title="查看一下镜像版本"></a>查看一下镜像版本</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/a57cd4abe5b96d92ac16450ed53fa79c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/7d9e241ceb6a8d0829803e1d0e5ddb8e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h2 id="3-将实例进行更新，要求镜像生产v2版本。"><a href="#3-将实例进行更新，要求镜像生产v2版本。" class="headerlink" title="3)  将实例进行更新，要求镜像生产v2版本。"></a>3)  将实例进行更新，要求镜像生产v2版本。</h2><p><strong>私有镜像和官方镜像升级有所不同，官方的只需通过 （helm upgrade –set imageTag=“标签” 服务名称 charts包名 ）进行更改标签即可，而私有镜像需通过更改values.yaml中的标签才行比较麻烦一点。</strong></p>
-<h3 id="1、修改values-yaml"><a href="#1、修改values-yaml" class="headerlink" title="1、修改values.yaml"></a>1、修改values.yaml</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# vim wsd/values.yaml </span><br><span class="line"></span><br><span class="line"># Default values for wsd.</span><br><span class="line"># This is a YAML-formatted file.</span><br><span class="line"># Declare variables to be passed into your templates.</span><br><span class="line"></span><br><span class="line">replicaCount: 3</span><br><span class="line"></span><br><span class="line">image:</span><br><span class="line">  repository: 192.168.1.21:5000/web</span><br><span class="line">  tag: v2                            #修改标签为v2</span><br><span class="line">  pullPolicy: IfNotPresent</span><br><span class="line">[root@master ~]# helm upgrade wsd wsd/ -f wsd/values.yaml</span><br><span class="line">//基于配置文件刷新一下wsd服务</span><br></pre></td></tr></tbody></table></figure>
+<h3 id="1、修改values-yaml"><a href="#1、修改values-yaml" class="headerlink" title="1、修改values.yaml"></a>1、修改values.yaml</h3><pre><code>[root@master ~]# vim wsd/values.yaml 
 
-<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get deployments. -o wide</span><br></pre></td></tr></tbody></table></figure>
+# Default values for wsd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/904155e6a55a22dc169ab2b991c3a19a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h4 id="访问一下-1"><a href="#访问一下-1" class="headerlink" title="访问一下"></a>访问一下</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# curl 127.0.0.1:30000</span><br></pre></td></tr></tbody></table></figure>
+replicaCount: 3
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/a739f12e8be562ce407bb9a739b0734f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+image:
+  repository: 192.168.1.21:5000/web
+  tag: v2                            #修改标签为v2
+  pullPolicy: IfNotPresent
+[root@master ~]# helm upgrade wsd wsd/ -f wsd/values.yaml
+//基于配置文件刷新一下wsd服务</code></pre><h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/904155e6a55a22dc169ab2b991c3a19a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h4 id="访问一下-1"><a href="#访问一下-1" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/a739f12e8be562ce407bb9a739b0734f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <h3 id="2、使用edit进行版本更新"><a href="#2、使用edit进行版本更新" class="headerlink" title="2、使用edit进行版本更新"></a>2、使用edit进行版本更新</h3><p><strong><em>确定wsd这个服务开启</em></strong></p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl edit deployments. wsd</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>[root@master ~]# kubectl edit deployments. wsd</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/e418604d73fee964440211b46a7a143c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/bd177f123d471ed674ed0cc40d51ee70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h4 id="访问一下-2"><a href="#访问一下-2" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/4755f15c01775053bd10434a90a87637.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中-需要用helm-repo-update命玲更新本地的index文件。"><a href="#4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中-需要用helm-repo-update命玲更新本地的index文件。" class="headerlink" title="4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中,需要用helm repo update命玲更新本地的index文件。"></a>4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中,需要用helm repo update命玲更新本地的index文件。</h2><pre><code>[root@master ~]# helm repo list </code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/6a6e8d003c8986fab01bab76ba1473d4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<pre><code>[root@master ~]# helm create xgp-wsd
+//创建一个名为xgp-wsd的charts包
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/e418604d73fee964440211b46a7a143c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# kubectl get deployments. -o wide</span><br></pre></td></tr></tbody></table></figure>
+[root@master ~]# helm package xgp-wsd/
+//将xgp-wsd打包在当前目录
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/bd177f123d471ed674ed0cc40d51ee70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h4 id="访问一下-2"><a href="#访问一下-2" class="headerlink" title="访问一下"></a>访问一下</h4><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# curl 127.0.0.1:30000</span><br></pre></td></tr></tbody></table></figure>
+[root@master ~]# mv xgp-wsd-0.1.0.tgz xgprepo/
+//把打包文件放到仓库目录
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/4755f15c01775053bd10434a90a87637.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中-需要用helm-repo-update命玲更新本地的index文件。"><a href="#4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中-需要用helm-repo-update命玲更新本地的index文件。" class="headerlink" title="4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中,需要用helm repo update命玲更新本地的index文件。"></a>4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中,需要用helm repo update命玲更新本地的index文件。</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm repo list</span><br></pre></td></tr></tbody></table></figure>
+[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
+//把仓库目录新加入的charts包信息记录在index.yaml中，使得其他加入的主机可以识别到，仓库的charts包
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/6a6e8d003c8986fab01bab76ba1473d4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm create xgp-wsd</span><br><span class="line">//创建一个名为xgp-wsd的charts包</span><br><span class="line"></span><br><span class="line">[root@master ~]# helm package xgp-wsd/</span><br><span class="line">//将xgp-wsd打包在当前目录</span><br><span class="line"></span><br><span class="line">[root@master ~]# mv xgp-wsd-0.1.0.tgz xgprepo/</span><br><span class="line">//把打包文件放到仓库目录</span><br><span class="line"></span><br><span class="line">[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts</span><br><span class="line">//把仓库目录新加入的charts包信息记录在index.yaml中，使得其他加入的主机可以识别到，仓库的charts包</span><br><span class="line"></span><br><span class="line">[root@master ~]# scp xgprepo/* node01:/var/xgp/charts</span><br><span class="line">//将仓库目录的文件移动到httpd服务上，使各个主机可以访问，下载仓库的charts包</span><br><span class="line"></span><br><span class="line">[root@master ~]# helm repo update </span><br><span class="line">//更新一下chart存储库</span><br><span class="line"></span><br><span class="line">[root@master myrepo]# helm install http://192.168.1.22:8080/charts/xgp-wsd-0.1.0.tgz</span><br><span class="line">//基于仓库的xgp-wsd-0.1.0.tgz包创建一个服务</span><br></pre></td></tr></tbody></table></figure>
+[root@master ~]# scp xgprepo/* node01:/var/xgp/charts
+//将仓库目录的文件移动到httpd服务上，使各个主机可以访问，下载仓库的charts包
 
-<h3 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h3><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]# helm search xgp-wsd</span><br></pre></td></tr></tbody></table></figure>
+[root@master ~]# helm repo update 
+//更新一下chart存储库
 
-<p><img src="https://s1.51cto.com/images/blog/202003/04/11da050bfeec791fe57f179ae8854044.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+[root@master myrepo]# helm install http://192.168.1.22:8080/charts/xgp-wsd-0.1.0.tgz
+//基于仓库的xgp-wsd-0.1.0.tgz包创建一个服务</code></pre><h3 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# helm search xgp-wsd</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/04/11da050bfeec791fe57f179ae8854044.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -790,11 +854,16 @@
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            12345678title: Python列表date: 2017-05-26 12:12:57categories: - python列表tags:- Python
+                            
+title: Python列表
+date: 2017-05-26 12:12:57
+categories: 
 
+- python列表
+tags:
+- Python
+Python 面向对象记住一句话：类是模板，而实例则是根据类创建的对象。
 
-
-Python 面向对象记住一句话：类是模板，而实例则是根据类创建的
                         
                     </div>
                     <div class="publish-info">
@@ -832,13 +901,10 @@ Python 面向对象记住一句话：类是模板，而实例则是根据类创�
                     <div class="summary block-with-text">
                         
                             一、安装ipython
-1C:\WINDOWS\system32&gt;pip3 install ipython
-
-
-12C:\WINDOWS\system32&gt;pip3 list//查看一下
-
-
-1234C:\WINDOWS\sys
+C:\WINDOWS\system32&gt;pip3 install ipython
+C:\WINDOWS\system32&gt;pip3 list
+//查看一下
+C:\WINDOWS\system32&gt;p
                         
                     </div>
                     <div class="publish-info">
