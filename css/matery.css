@@ -256,6 +256,7 @@ mark {
 
 .text-color {
     color: #ff3300 !important;
+    opacity: 0.5;
 }
 
 .white-color {
