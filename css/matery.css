@@ -250,12 +250,12 @@ mark {
 }
 
 .bg-color {
-    background-image: linear-gradient(to right, #4cbf30 0%, #0f9d58 100%); //修改成自己喜欢的颜色值
-    opacity: 0.8;  //透明效果 值范围 0~1，看情况自己修改
+    background-image: linear-gradient(to right, #3399ff 0%, #6600cc 100%); //修改成自己喜欢的颜色值
+    opacity: 0.4;  //透明效果 值范围 0~1，看情况自己修改
 }
 
 .text-color {
-    color: #515151 !important;
+    color: #0f9d58 !important;
     opacity: 0.7;  //透明效果 值范围 0~1，看情况自己修改
 }
 
