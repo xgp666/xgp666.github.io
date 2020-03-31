@@ -255,8 +255,8 @@ mark {
 }
 
 .text-color {
-    color: #0f9d58 !important;
-    opacity: 0.6;  //透明效果 值范围 0~1，看情况自己修改
+    color: #ff3300 !important;
+    opacity: 0.9;  //透明效果 值范围 0~1，看情况自己修改
 }
 
 .white-color {
