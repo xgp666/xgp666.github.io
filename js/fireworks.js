@@ -1,1 +1,114 @@
-"use strict";function updateCoords(e){pointerX=(e.clientX||e.touches[0].clientX)-canvasEl.getBoundingClientRect().left,pointerY=e.clientY||e.touches[0].clientY-canvasEl.getBoundingClientRect().top}function setParticuleDirection(e){var t=anime.random(0,360)*Math.PI/180,a=anime.random(50,180),n=[-1,1][anime.random(0,1)]*a;return{x:e.x+n*Math.cos(t),y:e.y+n*Math.sin(t)}}function createParticule(e,t){var a={};return a.x=e,a.y=t,a.color=colors[anime.random(0,colors.length-1)],a.radius=anime.random(16,32),a.endPos=setParticuleDirection(a),a.draw=function(){ctx.beginPath(),ctx.arc(a.x,a.y,a.radius,0,2*Math.PI,!0),ctx.fillStyle=a.color,ctx.fill()},a}function createCircle(e,t){var a={};return a.x=e,a.y=t,a.color="#F00",a.radius=0.1,a.alpha=0.5,a.lineWidth=6,a.draw=function(){ctx.globalAlpha=a.alpha,ctx.beginPath(),ctx.arc(a.x,a.y,a.radius,0,2*Math.PI,!0),ctx.lineWidth=a.lineWidth,ctx.strokeStyle=a.color,ctx.stroke(),ctx.globalAlpha=1},a}function renderParticule(e){for(var t=0;t<e.animatables.length;t++){e.animatables[t].target.draw()}}function animateParticules(e,t){for(var a=createCircle(e,t),n=[],i=0;i<numberOfParticules;i++){n.push(createParticule(e,t))}anime.timeline().add({targets:n,x:function(e){return e.endPos.x},y:function(e){return e.endPos.y},radius:0.1,duration:anime.random(1200,1800),easing:"easeOutExpo",update:renderParticule}).add({targets:a,radius:anime.random(80,160),lineWidth:0,alpha:{value:0,easing:"linear",duration:anime.random(600,800)},duration:anime.random(1200,1800),easing:"easeOutExpo",update:renderParticule,offset:0})}function debounce(e,t){var a;return function(){var n=this,i=arguments;clearTimeout(a),a=setTimeout(function(){e.apply(n,i)},t)}}var canvasEl=document.querySelector(".fireworks");if(canvasEl){var ctx=canvasEl.getContext("2d"),numberOfParticules=30,pointerX=0,pointerY=0,tap="mousedown",colors=["#FF1461","#18FF92","#5A87FF","#FBF38C"],setCanvasSize=debounce(function(){canvasEl.width=2*window.innerWidth,canvasEl.height=2*window.innerHeight,canvasEl.style.width=window.innerWidth+"px",canvasEl.style.height=window.innerHeight+"px",canvasEl.getContext("2d").scale(2,2)},500),render=anime({duration:1/0,update:function(){ctx.clearRect(0,0,canvasEl.width,canvasEl.height)}});document.addEventListener(tap,function(e){"sidebar"!==e.target.id&&"toggle-sidebar"!==e.target.id&&"A"!==e.target.nodeName&&"IMG"!==e.target.nodeName&&(render.play(),updateCoords(e),animateParticules(pointerX,pointerY))},!1),setCanvasSize(),window.addEventListener("resize",setCanvasSize,!1)}"use strict";function updateCoords(e){pointerX=(e.clientX||e.touches[0].clientX)-canvasEl.getBoundingClientRect().left,pointerY=e.clientY||e.touches[0].clientY-canvasEl.getBoundingClientRect().top}function setParticuleDirection(e){var t=anime.random(0,360)*Math.PI/180,a=anime.random(50,180),n=[-1,1][anime.random(0,1)]*a;return{x:e.x+n*Math.cos(t),y:e.y+n*Math.sin(t)}}function createParticule(e,t){var a={};return a.x=e,a.y=t,a.color=colors[anime.random(0,colors.length-1)],a.radius=anime.random(16,32),a.endPos=setParticuleDirection(a),a.draw=function(){ctx.beginPath(),ctx.arc(a.x,a.y,a.radius,0,2*Math.PI,!0),ctx.fillStyle=a.color,ctx.fill()},a}function createCircle(e,t){var a={};return a.x=e,a.y=t,a.color="#F00",a.radius=0.1,a.alpha=0.5,a.lineWidth=6,a.draw=function(){ctx.globalAlpha=a.alpha,ctx.beginPath(),ctx.arc(a.x,a.y,a.radius,0,2*Math.PI,!0),ctx.lineWidth=a.lineWidth,ctx.strokeStyle=a.color,ctx.stroke(),ctx.globalAlpha=1},a}function renderParticule(e){for(var t=0;t<e.animatables.length;t++){e.animatables[t].target.draw()}}function animateParticules(e,t){for(var a=createCircle(e,t),n=[],i=0;i<numberOfParticules;i++){n.push(createParticule(e,t))}anime.timeline().add({targets:n,x:function(e){return e.endPos.x},y:function(e){return e.endPos.y},radius:0.1,duration:anime.random(1200,1800),easing:"easeOutExpo",update:renderParticule}).add({targets:a,radius:anime.random(80,160),lineWidth:0,alpha:{value:0,easing:"linear",duration:anime.random(600,800)},duration:anime.random(1200,1800),easing:"easeOutExpo",update:renderParticule,offset:0})}function debounce(e,t){var a;return function(){var n=this,i=arguments;clearTimeout(a),a=setTimeout(function(){e.apply(n,i)},t)}}var canvasEl=document.querySelector(".fireworks");if(canvasEl){var ctx=canvasEl.getContext("2d"),numberOfParticules=30,pointerX=0,pointerY=0,tap="mousedown",colors=["#FF1461","#18FF92","#5A87FF","#FBF38C"],setCanvasSize=debounce(function(){canvasEl.width=2*window.innerWidth,canvasEl.height=2*window.innerHeight,canvasEl.style.width=window.innerWidth+"px",canvasEl.style.height=window.innerHeight+"px",canvasEl.getContext("2d").scale(2,2)},500),render=anime({duration:1/0,update:function(){ctx.clearRect(0,0,canvasEl.width,canvasEl.height)}});document.addEventListener(tap,function(e){"sidebar"!==e.target.id&&"toggle-sidebar"!==e.target.id&&"A"!==e.target.nodeName&&"IMG"!==e.target.nodeName&&(render.play(),updateCoords(e),animateParticules(pointerX,pointerY))},!1),setCanvasSize(),window.addEventListener("resize",setCanvasSize,!1)};
+var fgm = {
+    on: function (element, type, handler) {
+        return element.addEventListener ? element.addEventListener(type, handler, false) : element.attachEvent("on" + type, handler)
+    },
+    un: function (element, type, handler) {
+        return element.removeEventListener ? element.removeEventListener(type, handler, false) : element.detachEvent("on" + type, handler)
+    },
+    bind: function (object, handler) {
+        return function () {
+            return handler.apply(object, arguments)
+        }
+    },
+    randomRange: function (lower, upper) {//产生范围在lower~upper的随机数
+        return Math.floor(Math.random() * (upper - lower + 1) + lower)
+    },
+    getRanColor: function () {//随机获得十六进制颜色
+        var str = this.randomRange(0, 0xFFFFFF).toString(16);
+        while (str.length < 6) str = "0" + str;
+        return "#" + str
+    }
+};
+//初始化对象
+function FireWorks() {
+    this.type = 0;
+    this.timer = null;
+    this.fnManual = fgm.bind(this, this.manual)
+}
+FireWorks.prototype = {
+    initialize: function () {
+        clearTimeout(this.timer);
+        fgm.un(document, "click", this.fnManual);
+        switch (this.type) {
+            case 1:
+                fgm.on(document, "click", this.fnManual);
+                break;
+        }
+        ;
+    },
+    manual: function (event) {
+        event = event || window.event;
+        this.__create__({
+            x: event.clientX,
+            y: event.clientY
+        });
+    },
+    __create__: function (param) {
+        //param即鼠标点击点（即烟花爆炸点）
+        var that = this;
+        var oChip = null;
+        var aChip = [];
+        var timer = null;
+        var oFrag = document.createDocumentFragment();
+        (function () {
+            //在50-100之间随机生成碎片
+            //由于IE浏览器处理效率低, 随机范围缩小至20-30
+            //自动放烟花时, 随机范围缩小至20-30
+            var len = (/msie/i.test(navigator.userAgent) || that.type == 2) ? fgm.randomRange(20, 30) : fgm.randomRange(50, 100)
+            //产生所有烟花爆炸颗粒实体
+            for (i = 0; i < len; i++) {
+                //烟花颗粒形态实体
+                oChip = document.createElement("div");
+                with (oChip.style) {
+                    position = "absolute";
+                    top = param.y + document.body.scrollTop + "px";
+                    left = param.x + "px";
+                    width = "4px";
+                    height = "4px";
+                    overflow = "hidden";
+                    borderRadius = "4px";
+                    background = fgm.getRanColor();
+                }
+                ;
+                oChip.speedX = fgm.randomRange(-20, 20);
+                oChip.speedY = fgm.randomRange(-20, 20);
+                oFrag.appendChild(oChip);
+                aChip[i] = oChip
+            }
+            ;
+            document.body.appendChild(oFrag);
+            timer = setInterval(function () {
+                for (i = 0; i < aChip.length; i++) {
+                    var obj = aChip[i];
+                    with (obj.style) {
+                        // top = obj.y + obj.speedY + "px";
+                        // console.log(document.body.scrollTop);
+                        // console.log(document.body.scrollHeight+"ww");
+                        // console.log(obj.offsetTop);
+                        top = obj.offsetTop + obj.speedY  + "px";
+                        left = obj.offsetLeft + obj.speedX + "px";
+                    }
+                    ;
+                    obj.speedY++;
+                    //判断烟花爆炸颗粒是否掉落至窗体之外，为真则remove
+                    //splice() 方法可删除从 index 处开始的零个或多个元素
+                    (obj.offsetTop < 0 || obj.offsetLeft < 0 || obj.offsetTop > document.documentElement.clientHeight + document.body.scrollTop || obj.offsetLeft > document.documentElement.clientWidth) && (document.body.removeChild(obj), aChip.splice(i, 1))
+                }
+                ;
+                //判断烟花爆炸颗粒是否全部remove，为真则clearInterval(timer);
+                !aChip[0] && clearInterval(timer);
+            }, 30)
+        })();
+    }
+};
+ 
+fgm.on(window, "load", function () {
+    var oFireWorks = new FireWorks();
+    oFireWorks.type = 1;
+    oFireWorks.initialize();
+});
+ 
+fgm.on(document, "contextmenu", function (event) {
+    var oEvent = event || window.event;
+    oEvent.preventDefault ? oEvent.preventDefault() : oEvent.returnValue = false
+});
