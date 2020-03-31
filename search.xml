@@ -1418,8 +1418,8 @@ print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/
       </tags>
   </entry>
   <entry>
-    <title>contact</title>
-    <url>/contact/index.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1441,8 +1441,8 @@ print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/
       </script>]]></content>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>contact</title>
+    <url>/contact/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
