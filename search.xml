@@ -739,6 +739,272 @@ print(str(biaoti)+'\n为人进出的门紧锁着;'+
       </script>]]></content>
   </entry>
   <entry>
+    <title>HEXO分类和标签的使用</title>
+    <url>/2017/05/26/HEXO%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<h1 id="Hexo使用攻略-添加分类及标签"><a href="#Hexo使用攻略-添加分类及标签" class="headerlink" title="Hexo使用攻略-添加分类及标签"></a>Hexo使用攻略-添加分类及标签</h1><h2 id="1、创建“分类”选项"><a href="#1、创建“分类”选项" class="headerlink" title="1、创建“分类”选项"></a>1、创建“分类”选项</h2><h3 id="1-1-生成“分类”页并添加tpye属性"><a href="#1-1-生成“分类”页并添加tpye属性" class="headerlink" title="1.1 生成“分类”页并添加tpye属性"></a>1.1 生成“分类”页并添加tpye属性</h3><p><strong>打开命令行，进入博客所在文件夹。执行命令</strong></p>
+<pre class=" language-cpp"><code class="language-cpp">hexo <span class="token keyword">new</span> page categories</code></pre>
+<p><strong>成功后会提示：</strong></p>
+<pre class=" language-bash"><code class="language-bash">INFO  Created: ~/Documents/blog/source/categories/index.md</code></pre>
+<p><strong>根据上面的路径，找到<code>index.md</code>这个文件，打开后默认内容是这样的：</strong></p>
+<pre class=" language-css"><code class="language-css">---
+<span class="token property">title</span><span class="token punctuation">:</span> 文章分类
+<span class="token property">date</span><span class="token punctuation">:</span> <span class="token number">2017</span>-<span class="token number">05</span>-<span class="token number">27</span> <span class="token property">13</span><span class="token punctuation">:</span><span class="token property">47</span><span class="token punctuation">:</span><span class="token number">40</span>
+---</code></pre>
+<p><strong>添加<code>type: "categories"</code>到内容中，添加后是这样的：</strong></p>
+<pre class=" language-bash"><code class="language-bash">---
+title: 文章分类
+date: 2017-05-27 13:47:40
+type: <span class="token string">"categories"</span>
+---</code></pre>
+<p><strong>保存并关闭文件。</strong></p>
+<h4 id="1-2-给文章添加“categories”属性"><a href="#1-2-给文章添加“categories”属性" class="headerlink" title="1.2 给文章添加“categories”属性"></a>1.2 给文章添加“categories”属性</h4><p><strong>打开需要添加分类的文章，为其添加categories属性。下方的<code>categories: web前端</code>表示添加这篇文章到“web前端”这个分类。注意：hexo一篇文章只能属于一个分类，也就是说如果在“- web前端”下方添加“-xxx”，hexo不会产生两个分类，而是把分类嵌套（即该文章属于 “- web前端”下的 “-xxx ”分类）。</strong></p>
+<pre class=" language-css"><code class="language-css">---
+<span class="token property">title</span><span class="token punctuation">:</span> jQuery对表单的操作及更多应用  #这个网页上不会显示，用于自己分辨
+<span class="token property">date</span><span class="token punctuation">:</span> <span class="token number">2017</span>-<span class="token number">05</span>-<span class="token number">26</span> <span class="token property">12</span><span class="token punctuation">:</span><span class="token property">12</span><span class="token punctuation">:</span><span class="token number">57</span>
+<span class="token property">categories</span><span class="token punctuation">:</span> 
+- web前端                         #这个是分类名称
+---</code></pre>
+<p><strong>至此，成功给文章添加分类，点击首页的“分类”可以看到该分类下的所有文章。当然，只有添加了<code>categories: xxx</code>的文章才会被收录到首页的“分类”中。</strong></p>
+<h3 id="2、创建“标签”选项"><a href="#2、创建“标签”选项" class="headerlink" title="2、创建“标签”选项"></a>2、创建“标签”选项</h3><h4 id="2-1-生成“标签”页并添加tpye属性"><a href="#2-1-生成“标签”页并添加tpye属性" class="headerlink" title="2.1 生成“标签”页并添加tpye属性"></a>2.1 生成“标签”页并添加tpye属性</h4><p><strong>打开命令行，进入博客所在文件夹。执行命令</strong></p>
+<pre class=" language-cpp"><code class="language-cpp"> hexo <span class="token keyword">new</span> page tags</code></pre>
+<p><strong>成功后会提示：</strong></p>
+<pre class=" language-bash"><code class="language-bash">INFO  Created: ~/Documents/blog/source/tags/index.md</code></pre>
+<p><strong>根据上面的路径，找到<code>index.md</code>这个文件，打开后默认内容是这样的：</strong></p>
+<pre class=" language-css"><code class="language-css">---
+<span class="token property">title</span><span class="token punctuation">:</span> 标签
+<span class="token property">date</span><span class="token punctuation">:</span> <span class="token number">2017</span>-<span class="token number">05</span>-<span class="token number">27</span> <span class="token property">14</span><span class="token punctuation">:</span><span class="token property">22</span><span class="token punctuation">:</span><span class="token number">08</span>
+---</code></pre>
+<p><strong>添加<code>type: "tags"</code>到内容中，添加后是这样的：</strong></p>
+<pre class=" language-bash"><code class="language-bash">---
+title: 文章分类
+date: 2017-05-27 13:47:40
+type: <span class="token string">"tags"</span>
+---</code></pre>
+<p><strong>保存并关闭文件。</strong></p>
+<h4 id="2-2-给文章添加“tags”属性"><a href="#2-2-给文章添加“tags”属性" class="headerlink" title="2.2 给文章添加“tags”属性"></a>2.2 给文章添加“tags”属性</h4><p><strong>打开需要添加标签的文章，为其添加tags属性。下方的<code>tags:</code>下方的<code>- jQuery</code> <code>- 表格</code><br> <code>- 表单验证</code>就是这篇文章的标签了</strong></p>
+<pre class=" language-css"><code class="language-css">---
+<span class="token property">title</span><span class="token punctuation">:</span> jQuery对表单的操作及更多应用
+<span class="token property">date</span><span class="token punctuation">:</span> <span class="token number">2017</span>-<span class="token number">05</span>-<span class="token number">26</span> <span class="token property">12</span><span class="token punctuation">:</span><span class="token property">12</span><span class="token punctuation">:</span><span class="token number">57</span>
+<span class="token property">categories</span><span class="token punctuation">:</span> 
+- web前端
+<span class="token property">tags</span><span class="token punctuation">:</span>
+- jQuery               #标签名称
+---</code></pre>
+<p><strong>至此，成功给文章添加分类，点击首页的“标签”可以看到该标签下的所有文章。当然，只有添加了<code>tags: xxx</code>的文章才会被收录到首页的“标签”中。</strong></p>
+<p><strong>细心的朋友可能已经发现，这两个的设置几乎一模一样！是的，没错，思路都是一样的。所以我们可以打开scaffolds/post.md文件，在tages:上面加入categories:,保存后，之后执行<code>hexo new 文章名</code>命令生成的文件，页面里就有<code>categories:</code>项了。</strong></p>
+<p><strong>scaffolds目录下，是新建页面的模板，执行新建命令时，是根据这里的模板页来完成的，所以可以在这里根据你自己的需求添加一些默认值。</strong></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>HEXO的使用</category>
+      </categories>
+      <tags>
+        <tag>HEXO</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Python列表</title>
+    <url>/2017/05/26/Python%20%E5%88%97%E8%A1%A8(List)/</url>
+    <content><![CDATA[<h1 id="Python-列表"><a href="#Python-列表" class="headerlink" title="Python 列表"></a>Python 列表</h1><p><strong>Python的基本数据类型有整数，浮点数，布尔，字符串，它们是最基本的数据。在实际编程中，我们要经常组织由很多基本数据组成的集合，这些集合的不同组织方式就是：数据结构，今天讲的是数据结构中的Python list(列表)。数据结构就是一些数据组合得到的“复合”数据类型。</strong></p>
+<p><img src="https://s1.51cto.com/images/blog/202003/11/137b021999e8e998f17432d47b30f2a4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="Python内置的数据结构有："><a href="#Python内置的数据结构有：" class="headerlink" title="Python内置的数据结构有："></a>Python内置的数据结构有：</h2><ul>
+<li><strong>列表(list)</strong></li>
+<li><strong>元组(tuple)</strong></li>
+<li><strong>字典(dict)</strong></li>
+<li><strong>集合(set)</strong></li>
+</ul>
+<p><strong>在Python语言中，以上4种数据结构和基础数据类型（整数、浮点数等）统称为“内置类型”（Built-in Types）。</strong></p>
+<h1 id="一、什么是列表"><a href="#一、什么是列表" class="headerlink" title="一、什么是列表"></a>一、什么是列表</h1><p><strong>序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，第二个索引是1，依此类推。</strong></p>
+<p><strong>Python有6个序列的内置类型，但最常见的是列表和元组。</strong></p>
+<p><strong>序列都可以进行的操作包括索引，切片，加，乘，检查成员。</strong></p>
+<p><strong>此外，Python已经内置确定序列的长度以及确定最大和最小的元素的方法。</strong></p>
+<p><strong>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。</strong></p>
+<p><strong>列表的数据项不需要具有相同的类型</strong></p>
+<h2 id="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："><a href="#（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：" class="headerlink" title="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："></a>（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</h2><pre><code># 定义列表
+name = ['Tom','Jack','John']
+pet = ['cat','dog','bird']
+
+# 打印列表
+print(name)
+print(pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/d3d174c5845ce80de87d059e22e963bc.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="（2）用索引访问列表元素"><a href="#（2）用索引访问列表元素" class="headerlink" title="（2）用索引访问列表元素"></a>（2）用索引访问列表元素</h2><p><strong>使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：</strong></p>
+<pre><code># 通过索引读取列表中的元素，索引从0开始，-1代表最后一个元素
+
+print(name[0])     #查看列表中第一个
+print(pet[2])      #查看列表中第二个
+print(name[-1])    #查看列表中最后一个
+print(pet[-2])    #查看列表中倒数第二个
+print (name[0:2])  #查看索引2之前的元素</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/9d84b048d3fe5fa616b14fcedcd90f70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="二、基本操作"><a href="#二、基本操作" class="headerlink" title="二、基本操作"></a>二、基本操作</h1><h2 id="1、通过素引获取元素-进行修改"><a href="#1、通过素引获取元素-进行修改" class="headerlink" title="1、通过素引获取元素,进行修改"></a>1、通过素引获取元素,进行修改</h2><pre><code>#修改列表的元素
+name[1] = 'Sean'   #修改name列表，索引1的内容为Sean
+print(name)           #打印列表</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/085e2a55fb2e9567e220bf49802b7505.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="2、-向列表里面加元素"><a href="#2、-向列表里面加元素" class="headerlink" title="2、 向列表里面加元素"></a>2、 向列表里面加元素</h2><p><strong>向python列表里面添加元素主要有三种方法：</strong></p>
+<h3 id="（1）append（）"><a href="#（1）append（）" class="headerlink" title="（1）append（）"></a><strong>（1）append（）</strong></h3><p><strong>append()对于列表的操作主要实现的是在特定的列表最后添加一个元素，并且只能一次添加一个元素，并且只能在列表最后；</strong></p>
+<p><code>name.append(元素A)</code></p>
+<pre><code># 在列表末尾添加新元素
+name.append('Bob')
+print(name)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/b9f5217ecdae270c7d713aab7f7e667b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（2）extend（）"><a href="#（2）extend（）" class="headerlink" title="（2）extend（）"></a><strong>（2）extend（）</strong></h3><p><strong>extend（）对于列表的操作主要实现的是对于特定列表的扩展和增长，可以一次添加多个元素，不过也只能添加在列表的最后；</strong></p>
+<pre><code>`name.extend([元素A，元素B，……])`</code></pre><pre><code>name.extend(['Xgp','Wsd'])
+print(name)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/6d7f2f3cc974dc445679b3488a1b7866.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（3）insert（）"><a href="#（3）insert（）" class="headerlink" title="（3）insert（）"></a><strong>（3）insert（）</strong></h3><p><strong>insert（）对于列表的操作主要是在列表的特定位置添加想要添加的特定元素，比较常用，这里的特定位置是指元素所在列表中的位置索引号，需要注意的是这里的索引号都是从0开始的，不是从1开始的，这个大家需要特别注意。</strong></p>
+<pre><code>`pet.insert(A,元素B)：表示在列表m里面的第A+1处加入元素B`</code></pre><pre><code># 在列表指定位置添加新元素
+print(pet)
+pet.insert(0,'penguin')   #在列表最前面添加数据
+print(pet)
+pet.insert(-2,'pig')      #在列表倒数第三个添加数据
+print(pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/ea1415a888f8e57c43526808b7a17d81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="3、删减列表中的一些元素；"><a href="#3、删减列表中的一些元素；" class="headerlink" title="3、删减列表中的一些元素；"></a>3、删减列表中的一些元素；</h2><p><strong>与之前python列表的添加元素相对，删减列表里面的一些元素也有三种方法：</strong></p>
+<h3 id="（1）del-pet-n"><a href="#（1）del-pet-n" class="headerlink" title="（1）del pet[n]"></a>（1）del pet[n]</h3><p><strong>它的作用是删除掉列表里面的索引号位置为n 的元素，这里需要注意的是del是一种操作语句。</strong></p>
+<p> <code>del m[n]</code></p>
+<pre><code># 根据索引从列表中删除元素
+print(pet)
+del pet[0]      #删除开头的元素
+print (pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/292edbb8c3095c07fc72f79295d51ca7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（2）pet-pop（）"><a href="#（2）pet-pop（）" class="headerlink" title="（2）pet.pop（）"></a>（2）pet.pop（）</h3><p><strong>它的作用是将列表m的最后一个元素返回，并且在此基础上进行删除掉</strong></p>
+<p><code>Temp=pet.pop()  %这里temp就会直接等于吗列表里最后一个元素。</code></p>
+<p> <code>Print(pet)    %这里再次输出m的时候已经是删掉最后一个元素的m列表</code></p>
+<h4 id="pop-弹出列表末尾的元素"><a href="#pop-弹出列表末尾的元素" class="headerlink" title="pop():弹出列表末尾的元素"></a>pop():弹出列表末尾的元素</h4><pre><code>print(pet)
+new_pet=pet.pop()
+print(new_pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/08733dd7c72202d207f028b84a1fbb85.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h4 id="弹出指定位置的元素"><a href="#弹出指定位置的元素" class="headerlink" title="弹出指定位置的元素"></a>弹出指定位置的元素</h4><pre><code># 弹出指定位置的元素
+print(pet)
+pet.pop(2)
+print(pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/2b1641c4a69affa851abf2c5e2909c81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h3 id="（3）pet-remove"><a href="#（3）pet-remove" class="headerlink" title="（3）pet.remove()"></a>（3）pet.remove()</h3><p><strong>m.remove的作用是移除掉列表m里面的特定元素；</strong></p>
+<p><code>m.remove(元素A)</code></p>
+<pre><code># 根据元素的值进行删除：remove()
+print(pet)            #查看源列表
+pet.remove('cat')     #删除cat
+print(pet)            #打印列表</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/dda2c5caf4e83b6478d289b6adf2916d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="三、排序"><a href="#三、排序" class="headerlink" title="三、排序"></a>三、排序</h1><h3 id="（1）永久排序（正索引，从头到尾）"><a href="#（1）永久排序（正索引，从头到尾）" class="headerlink" title="（1）永久排序（正索引，从头到尾）"></a>（1）永久排序（正索引，从头到尾）</h3><p><strong>sort()排序方法：此<a href="https://www.iplaypy.com/jichu/function.html" target="_blank" rel="noopener">函数</a>方法对列表内容进行正向排序，排序后的新列表会覆盖原列表（id不变），也就是sort排序方法是直接修改原列表list排序方法。</strong></p>
+<h3 id="（2）临时排序（正索引，从头到尾）"><a href="#（2）临时排序（正索引，从头到尾）" class="headerlink" title="（2）临时排序（正索引，从头到尾）"></a>（2）临时排序（正索引，从头到尾）</h3><p><strong>sorted()方法：即可以保留原列表，又能得到已经排序好的列表</strong></p>
+<h3 id="（3）倒序（从头到尾从尾到头）"><a href="#（3）倒序（从头到尾从尾到头）" class="headerlink" title="（3）倒序（从头到尾从尾到头）"></a>（3）倒序（从头到尾从尾到头）</h3><p><strong>reverse列表反转排序：是把原列表中的元素顺序从左至右的重新存放，而不会对列表中的参数进行排序整理。如果需要对列表中的参数进行整理，就需要用到列表的另一种排序方式sort正序排序。</strong></p>
+<h3 id="（4）列表长度"><a href="#（4）列表长度" class="headerlink" title="（4）列表长度"></a>（4）列表长度</h3><p><strong>len() 方法返回列表元素个数。</strong></p>
+<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><pre><code># 定义列表：汽车的品牌
+print('原始排序：')
+brand = ['audi','bmw','toyota','luhu']
+print(brand)
+
+#临时排序
+print('临时排序：')
+print(sorted(brand))
+
+# 永久排序: sort()
+print('正序排序：')
+brand.sort()
+print(brand)
+
+# 倒序排序
+print('倒序排序:')
+brand.sort(reverse=True)
+print(brand)
+
+# 获取列表长度
+print('列表长度:')
+print(len(brand))</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/3a203bc5e8e00faf71575a178c890558.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h1 id="四、小练习"><a href="#四、小练习" class="headerlink" title="四、小练习"></a>四、小练习</h1><h2 id="列表练习（一）"><a href="#列表练习（一）" class="headerlink" title="列表练习（一）"></a>列表练习（一）</h2><ul>
+<li><strong>定义一个列表，存储5个科目名称</strong></li>
+</ul>
+<pre><code>kemu = ['语文','数学','英语','地理','生物']
+print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/0a892af8758dd19c970d7de47437ff8a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>新增科目（末尾新增）</strong></li>
+</ul>
+<pre><code>kemu.append('化学')
+print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/0f0b406f8c28ebebc57ae634d49a2ee7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>修改科目</strong></li>
+</ul>
+<pre><code>kemu[2] = '计算机'
+print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/5ab12537306589f9162bb67547c7f51e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除科目，并且在打印科目列表的时候，能够显示删除了哪个科目</strong></li>
+</ul>
+<pre><code>print(kemu)
+new_kemu=kemu.pop(3)
+print(new_kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/138b490d7841d85b817813e52a89420c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除第2个科目</strong></li>
+</ul>
+<pre><code>kemu.pop(1)
+print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/a4947680d6baa4bd676067502617b085.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>指定位置新增</strong></li>
+</ul>
+<pre><code>kemu.insert(0,'科学')
+print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/7acdad95a50906f7ff9db554a238de19.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>删除指定名称的科目</strong></li>
+</ul>
+<pre><code>kemu.remove('生物')
+print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/34711348de69c3a3b32c902360ddf6ae.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<h2 id="列表练习（二）"><a href="#列表练习（二）" class="headerlink" title="列表练习（二）"></a>列表练习（二）</h2><ul>
+<li><strong>将5个城市的名称存储到列表中，并且保证名称不是按照字母顺序排列的</strong></li>
+</ul>
+<pre><code>city = ['北京','上海','广州','深圳','山西']
+print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/497b287216835fe7a5c9d5e61dea641d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>打印出原始的城市列表信息</strong></li>
+</ul>
+<pre><code>print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/ecf3236daafbd4344684a6545552b3bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>使用sorted()方法按字母顺序打印城市列表，但是不要修改列表元素的顺序</strong></li>
+</ul>
+<pre><code>print(sorted(city))</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/ef74e3a4b39c7ff64f81b85b5354fa03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>打印该列表，确认城市名称排列顺序没有被修改</strong></li>
+</ul>
+<pre><code>print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/8dcbfbba443ae0eef3e8842efa798a5f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<ul>
+<li><strong>使用sort()方法排列城市名称，确保永久性修改排列顺序</strong></li>
+</ul>
+<pre><code>city.sort()
+print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/d3fc524785b3984393f8d919fd34ddb2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+      <categories>
+        <category>python列表</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python面向对象</title>
     <url>/2017/05/26/Python%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E7%B1%BB%EF%BC%8C%E7%B1%BB%E7%9A%84%E7%BB%A7%E6%89%BF%EF%BC%89/</url>
     <content><![CDATA[<h1 id="Python-面向对象"><a href="#Python-面向对象" class="headerlink" title="Python 面向对象"></a>Python 面向对象</h1><p><strong>记住一句话：类是模板，而实例则是根据类创建的对象。</strong></p>
@@ -1150,272 +1416,6 @@ Point 销毁</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>Python列表</title>
-    <url>/2017/05/26/Python%20%E5%88%97%E8%A1%A8(List)/</url>
-    <content><![CDATA[<h1 id="Python-列表"><a href="#Python-列表" class="headerlink" title="Python 列表"></a>Python 列表</h1><p><strong>Python的基本数据类型有整数，浮点数，布尔，字符串，它们是最基本的数据。在实际编程中，我们要经常组织由很多基本数据组成的集合，这些集合的不同组织方式就是：数据结构，今天讲的是数据结构中的Python list(列表)。数据结构就是一些数据组合得到的“复合”数据类型。</strong></p>
-<p><img src="https://s1.51cto.com/images/blog/202003/11/137b021999e8e998f17432d47b30f2a4.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="Python内置的数据结构有："><a href="#Python内置的数据结构有：" class="headerlink" title="Python内置的数据结构有："></a>Python内置的数据结构有：</h2><ul>
-<li><strong>列表(list)</strong></li>
-<li><strong>元组(tuple)</strong></li>
-<li><strong>字典(dict)</strong></li>
-<li><strong>集合(set)</strong></li>
-</ul>
-<p><strong>在Python语言中，以上4种数据结构和基础数据类型（整数、浮点数等）统称为“内置类型”（Built-in Types）。</strong></p>
-<h1 id="一、什么是列表"><a href="#一、什么是列表" class="headerlink" title="一、什么是列表"></a>一、什么是列表</h1><p><strong>序列是Python中最基本的数据结构。序列中的每个元素都分配一个数字 - 它的位置，或索引，第一个索引是0，第二个索引是1，依此类推。</strong></p>
-<p><strong>Python有6个序列的内置类型，但最常见的是列表和元组。</strong></p>
-<p><strong>序列都可以进行的操作包括索引，切片，加，乘，检查成员。</strong></p>
-<p><strong>此外，Python已经内置确定序列的长度以及确定最大和最小的元素的方法。</strong></p>
-<p><strong>列表是最常用的Python数据类型，它可以作为一个方括号内的逗号分隔值出现。</strong></p>
-<p><strong>列表的数据项不需要具有相同的类型</strong></p>
-<h2 id="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："><a href="#（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：" class="headerlink" title="（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示："></a>（1）创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</h2><pre><code># 定义列表
-name = ['Tom','Jack','John']
-pet = ['cat','dog','bird']
-
-# 打印列表
-print(name)
-print(pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/d3d174c5845ce80de87d059e22e963bc.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="（2）用索引访问列表元素"><a href="#（2）用索引访问列表元素" class="headerlink" title="（2）用索引访问列表元素"></a>（2）用索引访问列表元素</h2><p><strong>使用下标索引来访问列表中的值，同样你也可以使用方括号的形式截取字符，如下所示：</strong></p>
-<pre><code># 通过索引读取列表中的元素，索引从0开始，-1代表最后一个元素
-
-print(name[0])     #查看列表中第一个
-print(pet[2])      #查看列表中第二个
-print(name[-1])    #查看列表中最后一个
-print(pet[-2])    #查看列表中倒数第二个
-print (name[0:2])  #查看索引2之前的元素</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/9d84b048d3fe5fa616b14fcedcd90f70.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h1 id="二、基本操作"><a href="#二、基本操作" class="headerlink" title="二、基本操作"></a>二、基本操作</h1><h2 id="1、通过素引获取元素-进行修改"><a href="#1、通过素引获取元素-进行修改" class="headerlink" title="1、通过素引获取元素,进行修改"></a>1、通过素引获取元素,进行修改</h2><pre><code>#修改列表的元素
-name[1] = 'Sean'   #修改name列表，索引1的内容为Sean
-print(name)           #打印列表</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/085e2a55fb2e9567e220bf49802b7505.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="2、-向列表里面加元素"><a href="#2、-向列表里面加元素" class="headerlink" title="2、 向列表里面加元素"></a>2、 向列表里面加元素</h2><p><strong>向python列表里面添加元素主要有三种方法：</strong></p>
-<h3 id="（1）append（）"><a href="#（1）append（）" class="headerlink" title="（1）append（）"></a><strong>（1）append（）</strong></h3><p><strong>append()对于列表的操作主要实现的是在特定的列表最后添加一个元素，并且只能一次添加一个元素，并且只能在列表最后；</strong></p>
-<p><code>name.append(元素A)</code></p>
-<pre><code># 在列表末尾添加新元素
-name.append('Bob')
-print(name)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/b9f5217ecdae270c7d713aab7f7e667b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h3 id="（2）extend（）"><a href="#（2）extend（）" class="headerlink" title="（2）extend（）"></a><strong>（2）extend（）</strong></h3><p><strong>extend（）对于列表的操作主要实现的是对于特定列表的扩展和增长，可以一次添加多个元素，不过也只能添加在列表的最后；</strong></p>
-<pre><code>`name.extend([元素A，元素B，……])`</code></pre><pre><code>name.extend(['Xgp','Wsd'])
-print(name)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/6d7f2f3cc974dc445679b3488a1b7866.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h3 id="（3）insert（）"><a href="#（3）insert（）" class="headerlink" title="（3）insert（）"></a><strong>（3）insert（）</strong></h3><p><strong>insert（）对于列表的操作主要是在列表的特定位置添加想要添加的特定元素，比较常用，这里的特定位置是指元素所在列表中的位置索引号，需要注意的是这里的索引号都是从0开始的，不是从1开始的，这个大家需要特别注意。</strong></p>
-<pre><code>`pet.insert(A,元素B)：表示在列表m里面的第A+1处加入元素B`</code></pre><pre><code># 在列表指定位置添加新元素
-print(pet)
-pet.insert(0,'penguin')   #在列表最前面添加数据
-print(pet)
-pet.insert(-2,'pig')      #在列表倒数第三个添加数据
-print(pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/ea1415a888f8e57c43526808b7a17d81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="3、删减列表中的一些元素；"><a href="#3、删减列表中的一些元素；" class="headerlink" title="3、删减列表中的一些元素；"></a>3、删减列表中的一些元素；</h2><p><strong>与之前python列表的添加元素相对，删减列表里面的一些元素也有三种方法：</strong></p>
-<h3 id="（1）del-pet-n"><a href="#（1）del-pet-n" class="headerlink" title="（1）del pet[n]"></a>（1）del pet[n]</h3><p><strong>它的作用是删除掉列表里面的索引号位置为n 的元素，这里需要注意的是del是一种操作语句。</strong></p>
-<p> <code>del m[n]</code></p>
-<pre><code># 根据索引从列表中删除元素
-print(pet)
-del pet[0]      #删除开头的元素
-print (pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/292edbb8c3095c07fc72f79295d51ca7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h3 id="（2）pet-pop（）"><a href="#（2）pet-pop（）" class="headerlink" title="（2）pet.pop（）"></a>（2）pet.pop（）</h3><p><strong>它的作用是将列表m的最后一个元素返回，并且在此基础上进行删除掉</strong></p>
-<p><code>Temp=pet.pop()  %这里temp就会直接等于吗列表里最后一个元素。</code></p>
-<p> <code>Print(pet)    %这里再次输出m的时候已经是删掉最后一个元素的m列表</code></p>
-<h4 id="pop-弹出列表末尾的元素"><a href="#pop-弹出列表末尾的元素" class="headerlink" title="pop():弹出列表末尾的元素"></a>pop():弹出列表末尾的元素</h4><pre><code>print(pet)
-new_pet=pet.pop()
-print(new_pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/08733dd7c72202d207f028b84a1fbb85.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h4 id="弹出指定位置的元素"><a href="#弹出指定位置的元素" class="headerlink" title="弹出指定位置的元素"></a>弹出指定位置的元素</h4><pre><code># 弹出指定位置的元素
-print(pet)
-pet.pop(2)
-print(pet)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/2b1641c4a69affa851abf2c5e2909c81.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h3 id="（3）pet-remove"><a href="#（3）pet-remove" class="headerlink" title="（3）pet.remove()"></a>（3）pet.remove()</h3><p><strong>m.remove的作用是移除掉列表m里面的特定元素；</strong></p>
-<p><code>m.remove(元素A)</code></p>
-<pre><code># 根据元素的值进行删除：remove()
-print(pet)            #查看源列表
-pet.remove('cat')     #删除cat
-print(pet)            #打印列表</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/dda2c5caf4e83b6478d289b6adf2916d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h1 id="三、排序"><a href="#三、排序" class="headerlink" title="三、排序"></a>三、排序</h1><h3 id="（1）永久排序（正索引，从头到尾）"><a href="#（1）永久排序（正索引，从头到尾）" class="headerlink" title="（1）永久排序（正索引，从头到尾）"></a>（1）永久排序（正索引，从头到尾）</h3><p><strong>sort()排序方法：此<a href="https://www.iplaypy.com/jichu/function.html" target="_blank" rel="noopener">函数</a>方法对列表内容进行正向排序，排序后的新列表会覆盖原列表（id不变），也就是sort排序方法是直接修改原列表list排序方法。</strong></p>
-<h3 id="（2）临时排序（正索引，从头到尾）"><a href="#（2）临时排序（正索引，从头到尾）" class="headerlink" title="（2）临时排序（正索引，从头到尾）"></a>（2）临时排序（正索引，从头到尾）</h3><p><strong>sorted()方法：即可以保留原列表，又能得到已经排序好的列表</strong></p>
-<h3 id="（3）倒序（从头到尾从尾到头）"><a href="#（3）倒序（从头到尾从尾到头）" class="headerlink" title="（3）倒序（从头到尾从尾到头）"></a>（3）倒序（从头到尾从尾到头）</h3><p><strong>reverse列表反转排序：是把原列表中的元素顺序从左至右的重新存放，而不会对列表中的参数进行排序整理。如果需要对列表中的参数进行整理，就需要用到列表的另一种排序方式sort正序排序。</strong></p>
-<h3 id="（4）列表长度"><a href="#（4）列表长度" class="headerlink" title="（4）列表长度"></a>（4）列表长度</h3><p><strong>len() 方法返回列表元素个数。</strong></p>
-<h3 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h3><pre><code># 定义列表：汽车的品牌
-print('原始排序：')
-brand = ['audi','bmw','toyota','luhu']
-print(brand)
-
-#临时排序
-print('临时排序：')
-print(sorted(brand))
-
-# 永久排序: sort()
-print('正序排序：')
-brand.sort()
-print(brand)
-
-# 倒序排序
-print('倒序排序:')
-brand.sort(reverse=True)
-print(brand)
-
-# 获取列表长度
-print('列表长度:')
-print(len(brand))</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/3a203bc5e8e00faf71575a178c890558.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h1 id="四、小练习"><a href="#四、小练习" class="headerlink" title="四、小练习"></a>四、小练习</h1><h2 id="列表练习（一）"><a href="#列表练习（一）" class="headerlink" title="列表练习（一）"></a>列表练习（一）</h2><ul>
-<li><strong>定义一个列表，存储5个科目名称</strong></li>
-</ul>
-<pre><code>kemu = ['语文','数学','英语','地理','生物']
-print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/0a892af8758dd19c970d7de47437ff8a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>新增科目（末尾新增）</strong></li>
-</ul>
-<pre><code>kemu.append('化学')
-print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/0f0b406f8c28ebebc57ae634d49a2ee7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>修改科目</strong></li>
-</ul>
-<pre><code>kemu[2] = '计算机'
-print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/5ab12537306589f9162bb67547c7f51e.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>删除科目，并且在打印科目列表的时候，能够显示删除了哪个科目</strong></li>
-</ul>
-<pre><code>print(kemu)
-new_kemu=kemu.pop(3)
-print(new_kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/138b490d7841d85b817813e52a89420c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>删除第2个科目</strong></li>
-</ul>
-<pre><code>kemu.pop(1)
-print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/a4947680d6baa4bd676067502617b085.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>指定位置新增</strong></li>
-</ul>
-<pre><code>kemu.insert(0,'科学')
-print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/7acdad95a50906f7ff9db554a238de19.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>删除指定名称的科目</strong></li>
-</ul>
-<pre><code>kemu.remove('生物')
-print(kemu)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/34711348de69c3a3b32c902360ddf6ae.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<h2 id="列表练习（二）"><a href="#列表练习（二）" class="headerlink" title="列表练习（二）"></a>列表练习（二）</h2><ul>
-<li><strong>将5个城市的名称存储到列表中，并且保证名称不是按照字母顺序排列的</strong></li>
-</ul>
-<pre><code>city = ['北京','上海','广州','深圳','山西']
-print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/497b287216835fe7a5c9d5e61dea641d.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>打印出原始的城市列表信息</strong></li>
-</ul>
-<pre><code>print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/ecf3236daafbd4344684a6545552b3bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>使用sorted()方法按字母顺序打印城市列表，但是不要修改列表元素的顺序</strong></li>
-</ul>
-<pre><code>print(sorted(city))</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/ef74e3a4b39c7ff64f81b85b5354fa03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>打印该列表，确认城市名称排列顺序没有被修改</strong></li>
-</ul>
-<pre><code>print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/8dcbfbba443ae0eef3e8842efa798a5f.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<ul>
-<li><strong>使用sort()方法排列城市名称，确保永久性修改排列顺序</strong></li>
-</ul>
-<pre><code>city.sort()
-print(city)</code></pre><p><img src="https://s1.51cto.com/images/blog/202003/11/d3fc524785b3984393f8d919fd34ddb2.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>python列表</category>
-      </categories>
-      <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>HEXO分类和标签的使用</title>
-    <url>/2017/05/26/HEXO%E5%88%86%E7%B1%BB%E5%92%8C%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F/</url>
-    <content><![CDATA[<h1 id="Hexo使用攻略-添加分类及标签"><a href="#Hexo使用攻略-添加分类及标签" class="headerlink" title="Hexo使用攻略-添加分类及标签"></a>Hexo使用攻略-添加分类及标签</h1><h2 id="1、创建“分类”选项"><a href="#1、创建“分类”选项" class="headerlink" title="1、创建“分类”选项"></a>1、创建“分类”选项</h2><h3 id="1-1-生成“分类”页并添加tpye属性"><a href="#1-1-生成“分类”页并添加tpye属性" class="headerlink" title="1.1 生成“分类”页并添加tpye属性"></a>1.1 生成“分类”页并添加tpye属性</h3><p><strong>打开命令行，进入博客所在文件夹。执行命令</strong></p>
-<pre class=" language-cpp"><code class="language-cpp">hexo <span class="token keyword">new</span> page categories</code></pre>
-<p><strong>成功后会提示：</strong></p>
-<pre class=" language-bash"><code class="language-bash">INFO  Created: ~/Documents/blog/source/categories/index.md</code></pre>
-<p><strong>根据上面的路径，找到<code>index.md</code>这个文件，打开后默认内容是这样的：</strong></p>
-<pre class=" language-css"><code class="language-css">---
-<span class="token property">title</span><span class="token punctuation">:</span> 文章分类
-<span class="token property">date</span><span class="token punctuation">:</span> <span class="token number">2017</span>-<span class="token number">05</span>-<span class="token number">27</span> <span class="token property">13</span><span class="token punctuation">:</span><span class="token property">47</span><span class="token punctuation">:</span><span class="token number">40</span>
----</code></pre>
-<p><strong>添加<code>type: "categories"</code>到内容中，添加后是这样的：</strong></p>
-<pre class=" language-bash"><code class="language-bash">---
-title: 文章分类
-date: 2017-05-27 13:47:40
-type: <span class="token string">"categories"</span>
----</code></pre>
-<p><strong>保存并关闭文件。</strong></p>
-<h4 id="1-2-给文章添加“categories”属性"><a href="#1-2-给文章添加“categories”属性" class="headerlink" title="1.2 给文章添加“categories”属性"></a>1.2 给文章添加“categories”属性</h4><p><strong>打开需要添加分类的文章，为其添加categories属性。下方的<code>categories: web前端</code>表示添加这篇文章到“web前端”这个分类。注意：hexo一篇文章只能属于一个分类，也就是说如果在“- web前端”下方添加“-xxx”，hexo不会产生两个分类，而是把分类嵌套（即该文章属于 “- web前端”下的 “-xxx ”分类）。</strong></p>
-<pre class=" language-css"><code class="language-css">---
-<span class="token property">title</span><span class="token punctuation">:</span> jQuery对表单的操作及更多应用  #这个网页上不会显示，用于自己分辨
-<span class="token property">date</span><span class="token punctuation">:</span> <span class="token number">2017</span>-<span class="token number">05</span>-<span class="token number">26</span> <span class="token property">12</span><span class="token punctuation">:</span><span class="token property">12</span><span class="token punctuation">:</span><span class="token number">57</span>
-<span class="token property">categories</span><span class="token punctuation">:</span> 
-- web前端                         #这个是分类名称
----</code></pre>
-<p><strong>至此，成功给文章添加分类，点击首页的“分类”可以看到该分类下的所有文章。当然，只有添加了<code>categories: xxx</code>的文章才会被收录到首页的“分类”中。</strong></p>
-<h3 id="2、创建“标签”选项"><a href="#2、创建“标签”选项" class="headerlink" title="2、创建“标签”选项"></a>2、创建“标签”选项</h3><h4 id="2-1-生成“标签”页并添加tpye属性"><a href="#2-1-生成“标签”页并添加tpye属性" class="headerlink" title="2.1 生成“标签”页并添加tpye属性"></a>2.1 生成“标签”页并添加tpye属性</h4><p><strong>打开命令行，进入博客所在文件夹。执行命令</strong></p>
-<pre class=" language-cpp"><code class="language-cpp"> hexo <span class="token keyword">new</span> page tags</code></pre>
-<p><strong>成功后会提示：</strong></p>
-<pre class=" language-bash"><code class="language-bash">INFO  Created: ~/Documents/blog/source/tags/index.md</code></pre>
-<p><strong>根据上面的路径，找到<code>index.md</code>这个文件，打开后默认内容是这样的：</strong></p>
-<pre class=" language-css"><code class="language-css">---
-<span class="token property">title</span><span class="token punctuation">:</span> 标签
-<span class="token property">date</span><span class="token punctuation">:</span> <span class="token number">2017</span>-<span class="token number">05</span>-<span class="token number">27</span> <span class="token property">14</span><span class="token punctuation">:</span><span class="token property">22</span><span class="token punctuation">:</span><span class="token number">08</span>
----</code></pre>
-<p><strong>添加<code>type: "tags"</code>到内容中，添加后是这样的：</strong></p>
-<pre class=" language-bash"><code class="language-bash">---
-title: 文章分类
-date: 2017-05-27 13:47:40
-type: <span class="token string">"tags"</span>
----</code></pre>
-<p><strong>保存并关闭文件。</strong></p>
-<h4 id="2-2-给文章添加“tags”属性"><a href="#2-2-给文章添加“tags”属性" class="headerlink" title="2.2 给文章添加“tags”属性"></a>2.2 给文章添加“tags”属性</h4><p><strong>打开需要添加标签的文章，为其添加tags属性。下方的<code>tags:</code>下方的<code>- jQuery</code> <code>- 表格</code><br> <code>- 表单验证</code>就是这篇文章的标签了</strong></p>
-<pre class=" language-css"><code class="language-css">---
-<span class="token property">title</span><span class="token punctuation">:</span> jQuery对表单的操作及更多应用
-<span class="token property">date</span><span class="token punctuation">:</span> <span class="token number">2017</span>-<span class="token number">05</span>-<span class="token number">26</span> <span class="token property">12</span><span class="token punctuation">:</span><span class="token property">12</span><span class="token punctuation">:</span><span class="token number">57</span>
-<span class="token property">categories</span><span class="token punctuation">:</span> 
-- web前端
-<span class="token property">tags</span><span class="token punctuation">:</span>
-- jQuery               #标签名称
----</code></pre>
-<p><strong>至此，成功给文章添加分类，点击首页的“标签”可以看到该标签下的所有文章。当然，只有添加了<code>tags: xxx</code>的文章才会被收录到首页的“标签”中。</strong></p>
-<p><strong>细心的朋友可能已经发现，这两个的设置几乎一模一样！是的，没错，思路都是一样的。所以我们可以打开scaffolds/post.md文件，在tages:上面加入categories:,保存后，之后执行<code>hexo new 文章名</code>命令生成的文件，页面里就有<code>categories:</code>项了。</strong></p>
-<p><strong>scaffolds目录下，是新建页面的模板，执行新建命令时，是根据这里的模板页来完成的，所以可以在这里根据你自己的需求添加一些默认值。</strong></p>
-<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-      <categories>
-        <category>HEXO的使用</category>
-      </categories>
-      <tags>
-        <tag>HEXO</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>categories</title>
     <url>/categories/index.html</url>
     <content><![CDATA[<script>
@@ -1486,6 +1486,39 @@ type: <span class="token string">"tags"</span>
   </entry>
   <entry>
     <title></title>
+    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
+    <content><![CDATA[!function(){
+	var userAgentInfo = navigator.userAgent;
+    var Agents = ["iPad", "iPhone", "Android", 
+          "SymbianOS", "Windows Phone",
+           "iPod", "webOS", "BlackBerry", "IEMobile"];
+    for (var v = 0; v &lt; Agents.length; v++) {
+      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
+        return;
+      }
+    }
+	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
+    <title></title>
     <url>/lib/canvas-nest/README.html</url>
     <content><![CDATA[<h1 id="Theme-NexT-Canvas-Nest"><a href="#Theme-NexT-Canvas-Nest" class="headerlink" title="Theme NexT Canvas Nest"></a>Theme NexT Canvas Nest</h1><p><img src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square" alt="Theme Version"></p>
 <p><a href="https://github.com/hustcc/canvas-nest.js" target="_blank" rel="noopener">canvas-nest.js</a> for <a href="https://github.com/theme-next" target="_blank" rel="noopener">NexT</a>.</p>
@@ -1512,39 +1545,6 @@ custom_file_path:
   #mixin: source/_data/mixins.styl
   #style: source/_data/styles.styl</code></pre>
 <script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
-    <content><![CDATA[!function(){
-	var userAgentInfo = navigator.userAgent;
-    var Agents = ["iPad", "iPhone", "Android", 
-          "SymbianOS", "Windows Phone",
-           "iPod", "webOS", "BlackBerry", "IEMobile"];
-    for (var v = 0; v &lt; Agents.length; v++) {
-      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
-        return;
-      }
-    }
-	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
