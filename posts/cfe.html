@@ -477,12 +477,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/HEXO/">
+                                <span class="chip bg-color">HEXO</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/HEXO%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-category">
+                                HEXO的使用
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -528,13 +541,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <pre class=" language-title:"><code class="language-title:">categories:
-  - HEXO的使用
-tags:
-  - HEXO
-abbrlink: bf18
-date: 2020-04-21</code></pre>
-<h1 id="Nginx优化与防盗链"><a href="#Nginx优化与防盗链" class="headerlink" title="Nginx优化与防盗链"></a>Nginx优化与防盗链</h1><p>Nginx 是俄罗斯人编写的十分轻量级的 HTTP 服务器,Nginx， 它的发音为“engine X”， 是一个高<br>性能的 HTTP 和反向代理服务器，同时也是一个 IMAP/POP3/SMTP 代理服务器． Nginx 是由<br>俄罗斯人 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发.<br>Nginx 以事件驱动（epoll） 的方式编写，所以有非常好的性能，同时也是一个非常高效的反<br>向代理、负载平衡。 但是 Nginx 并不支持 cgi 方式运行，原因是可以减少因此带来的一些程<br>序上的漏洞。所以必须使用 FastCGI 方式来执行 PHP 程序。<br>由于 Nginx 本身的一些优点， 轻量，开源，易用，越来越多的公司使用 nginx 作为自己公司<br>的 web 应用服务器，本文详细介绍 nginx 源码安装的同时并对 nginx 进行优化配置。<br>一、 Nginx 的优化<br>1、 编译安装前优化<br>编译前的优化主要是用来修改程序名等等， 目的更改源码隐藏软件名称和版本号<br>安装 zlib-devel、 pcre-devel 等依赖包</p>
+                <h1 id="Nginx优化与防盗链"><a href="#Nginx优化与防盗链" class="headerlink" title="Nginx优化与防盗链"></a>Nginx优化与防盗链</h1><p>Nginx 是俄罗斯人编写的十分轻量级的 HTTP 服务器,Nginx， 它的发音为“engine X”， 是一个高<br>性能的 HTTP 和反向代理服务器，同时也是一个 IMAP/POP3/SMTP 代理服务器． Nginx 是由<br>俄罗斯人 Igor Sysoev 为俄罗斯访问量第二的 Rambler.ru 站点开发.<br>Nginx 以事件驱动（epoll） 的方式编写，所以有非常好的性能，同时也是一个非常高效的反<br>向代理、负载平衡。 但是 Nginx 并不支持 cgi 方式运行，原因是可以减少因此带来的一些程<br>序上的漏洞。所以必须使用 FastCGI 方式来执行 PHP 程序。<br>由于 Nginx 本身的一些优点， 轻量，开源，易用，越来越多的公司使用 nginx 作为自己公司<br>的 web 应用服务器，本文详细介绍 nginx 源码安装的同时并对 nginx 进行优化配置。<br>一、 Nginx 的优化<br>1、 编译安装前优化<br>编译前的优化主要是用来修改程序名等等， 目的更改源码隐藏软件名称和版本号<br>安装 zlib-devel、 pcre-devel 等依赖包</p>
 <pre><code>[root@bogon ~]# 
 [root@bogon ~]# tar zxf nginx-1.14.0.tar.gz 
 [root@bogon ~]# cd nginx-1.14.0/
@@ -755,7 +762,11 @@ fastcgi_cache_key http://$host$request_uri;
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/HEXO/">
+                                    <span class="chip bg-color">HEXO</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -958,13 +969,7 @@ fastcgi_cache_key http://$host$request_uri;
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            categories:
-  - HEXO的使用
-tags:
-  - HEXO
-abbrlink: bf18
-date: 2020-04-21
-Nginx优化与防盗链Nginx 是俄罗斯人编写的十分轻量级的 HTTP 服务器,Nginx， 它
+                            Nginx优化与防盗链Nginx 是俄罗斯人编写的十分轻量级的 HTTP 服务器,Nginx， 它的发音为“engine X”， 是一个高性能的 HTTP 和反向代理服务器，同时也是一个 IMAP/POP3/SMTP 代理服务器． Ngin
                         
                     </div>
                     <div class="publish-info">
@@ -973,13 +978,25 @@ Nginx优化与防盗链Nginx 是俄罗斯人编写的十分轻量级的 HTTP 服
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Wu Shao Dong
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/HEXO%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-category">
+                                    HEXO的使用
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HEXO/">
+                        <span class="chip bg-color">HEXO</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -1264,7 +1281,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">2.2k</span>&nbsp;字
+                class="white-color">2.1k</span>&nbsp;字
             
             
             
