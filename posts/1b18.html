@@ -566,7 +566,7 @@
 <h3 id="master组件"><a href="#master组件" class="headerlink" title="*master组件: *"></a>*<em>master组件: *</em></h3><p><strong>kube- api( application interface) k8s的前端接口</strong></p>
 <p><strong>Scheduler[集群分发调度器]</strong>负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
 <p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
-<p><strong>Etcd：</strong>负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p><strong>Etcd：</strong>负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p><strong>Flanner：</strong>是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <h3 id="Node组件："><a href="#Node组件：" class="headerlink" title="Node组件："></a>Node组件：</h3><p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
 <p><strong>kube-proxy[负载均衡、路由转发]:</strong>负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
