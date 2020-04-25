@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Categories, Xgp &amp; Blog">
+    <meta name="keywords" content="09 Job资源对象, Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Categories | Xgp &amp; Blog</title>
+    <title>09 Job资源对象 | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">09 Job资源对象</h1>
                 </div>
             </div>
         </div>
@@ -491,28 +491,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-02-03
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    52
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    9 Min
                 </div>
                 
 
@@ -528,7 +528,174 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <h1 id="Job资源对象"><a href="#Job资源对象" class="headerlink" title="Job资源对象"></a>Job资源对象</h1><blockquote>
+<p><strong>服务类的Pod容器：</strong>RC、RS、DS、Deployment</p>
+<p><strong>工作类的Pod容器：</strong>Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。</p>
+</blockquote>
+<p><strong>注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里</strong><br><strong>的容器重启策略只能是: Never和 OnFailure。</strong></p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p><strong>在有些场景下，是想要运行一些容器执行某种特定的任务，任务一旦执行完成，容器也就没有存在的必要了。在这种场景下，创建pod就显得不那么合适。于是就是了Job，Job指的就是那些一次性任务。通过Job运行一个容器，当其任务执行完以后，就自动退出，集群也不再重新将其唤醒。</strong></p>
+<p><strong>从程序的运行形态上来区分，可以将Pod分为两类：长时运行服务（jboss、mysql等）和一次性任务（数据计算、测试）。RC创建的Pod都是长时运行的服务，Job多用于执行一次性任务、批处理工作等，执行完成后便会停止（status.phase变为Succeeded）。</strong></p>
+<h1 id="一、kubernetes支持以下几种job"><a href="#一、kubernetes支持以下几种job" class="headerlink" title="一、kubernetes支持以下几种job"></a>一、kubernetes支持以下几种job</h1><blockquote>
+<ul>
+<li><strong>非并行job：通常创建一个pod直至其成功结束。</strong></li>
+<li><strong>固定结束次数的job：设置spec.completions,创建多个pod，直到.spec.completions个pod成功结束。</strong></li>
+<li><strong>带有工作队列的并行job：设置.spec.Parallelism但不设置.spec.completions,当所有pod结束并且至少一个成功时，job就认为是成功。</strong></li>
+</ul>
+</blockquote>
+<h2 id="Job-Controller"><a href="#Job-Controller" class="headerlink" title="Job Controller"></a>Job Controller</h2><p><strong>Job Controller负责根据Job Spec创建pod，并持续监控pod的状态，直至其成功结束，如果失败，则根据restartPolicy（只支持OnFailure和Never，不支持Always）决定是否创建新的pod再次重试任务。</strong></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a><strong>例子</strong></h2><h3 id="（1）编写一个job的yaml文件"><a href="#（1）编写一个job的yaml文件" class="headerlink" title="（1）编写一个job的yaml文件"></a>（1）编写一个job的yaml文件</h3><pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["echo","hello k8s job!"]
+      restartPolicy: Never</code></pre><h3 id="（2）执行一下"><a href="#（2）执行一下" class="headerlink" title="（2）执行一下"></a>（2）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115090831524](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115090831524.png)</p>
+<h4 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h4><pre><code>[root@master yaml]# kubectl logs test-job-gs45w </code></pre><p>![image-20200115091213349](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091213349.png)</p>
+<p><strong>我们可以看到job与其他资源对象不同，仅执行一次性任务，默认pod借宿运行后job即结束，状态为Completed。</strong></p>
+<h3 id="（4）修改一下jop的yaml文件，把echo命令换成乱码"><a href="#（4）修改一下jop的yaml文件，把echo命令换成乱码" class="headerlink" title="（4）修改一下jop的yaml文件，把echo命令换成乱码"></a>（4）修改一下jop的yaml文件，把echo命令换成乱码</h3><pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["asdasxsddwefew","hello k8s job!"] #修改
+      restartPolicy: Never</code></pre><h3 id="（5）先删除之前的pod"><a href="#（5）先删除之前的pod" class="headerlink" title="（5）先删除之前的pod"></a>（5）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job  </code></pre><h3 id="（6）执行一下"><a href="#（6）执行一下" class="headerlink" title="（6）执行一下"></a>（6）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（7）查看一下"><a href="#（7）查看一下" class="headerlink" title="（7）查看一下"></a>（7）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115091647925](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091647925.png)</p>
+<p><strong><em>它会一直创建pod直到完成命令。</em></strong></p>
+<h3 id="（8）修改一下jop的yaml文件，修改重启策略"><a href="#（8）修改一下jop的yaml文件，修改重启策略" class="headerlink" title="（8）修改一下jop的yaml文件，修改重启策略"></a>（8）修改一下jop的yaml文件，修改重启策略</h3><pre><code>[root@master yaml]# vim jop.yaml 
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["asdasxsddwefew","hello k8s job!"]
+      restartPolicy: OnFailure</code></pre><h3 id="（9）先删除之前的pod"><a href="#（9）先删除之前的pod" class="headerlink" title="（9）先删除之前的pod"></a>（9）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（10）执行一下"><a href="#（10）执行一下" class="headerlink" title="（10）执行一下"></a>（10）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（11）查看一下"><a href="#（11）查看一下" class="headerlink" title="（11）查看一下"></a>（11）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
+<p><strong><em>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</em></strong></p>
+<h1 id="二、提高Job的执行效率"><a href="#二、提高Job的执行效率" class="headerlink" title="二、提高Job的执行效率"></a>二、提高Job的执行效率</h1><h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。"><a href="#1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。" class="headerlink" title="1. 我们可以在Job.spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。"></a>1. 我们可以在Job.spec字段下加上<a href="">parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2><hr>
+<h3 id="（1）编写一个job的yaml文件-1"><a href="#（1）编写一个job的yaml文件-1" class="headerlink" title="（1）编写一个job的yaml文件"></a>（1）编写一个job的yaml文件</h3><pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  parallelism: 2    #同时启用几个pod
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["echo","hello k8s job!"]
+      restartPolicy: OnFailure</code></pre><h3 id="（3）执行一下"><a href="#（3）执行一下" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下"><a href="#（4）查看一下" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115093854913](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115093854913.png)</p>
+<h4 id="查看日志-1"><a href="#查看日志-1" class="headerlink" title="查看日志"></a>查看日志</h4><p>![image-20200115094002236](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094002236.png)</p>
+<h2 id="2-我们可以在Job-spec字段下加上complations选项。表示总共需要完成Pod的数量"><a href="#2-我们可以在Job-spec字段下加上complations选项。表示总共需要完成Pod的数量" class="headerlink" title="2. 我们可以在Job.spec字段下加上complations选项。表示总共需要完成Pod的数量"></a>2. 我们可以在Job.spec字段下加上complations选项。表示总共需要完成Pod的数量</h2><h3 id="（1）编写一个job的yaml文件-2"><a href="#（1）编写一个job的yaml文件-2" class="headerlink" title="（1）编写一个job的yaml文件"></a>（1）编写一个job的yaml文件</h3><pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  complations: 8            #运行pod的总数量8个
+  parallelism: 2            #同时运行2个pod
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: ["echo","hello k8s job!"]
+      restartPolicy: OnFailure</code></pre><p><strong>job 字段解释：</strong></p>
+<blockquote>
+<p><strong>标志Job结束需要成功运行的Pod个数，默认为1</strong><br><strong>parallelism：标志并行运行的Pod的个数，默认为1</strong><br><strong>activeDeadlineSeconds：标志失败Pod的重试最大时间，超过这个时间不会继续重试.</strong></p>
+</blockquote>
+<h3 id="（2）先删除之前的pod"><a href="#（2）先删除之前的pod" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（3）执行一下-1"><a href="#（3）执行一下-1" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-1"><a href="#（4）查看一下-1" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115094519494](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094519494.png)</p>
+<p><strong>可以看到pod是两个两个的启动的。</strong></p>
+<h2 id="3-如何定时执行Job"><a href="#3-如何定时执行Job" class="headerlink" title="3. 如何定时执行Job"></a>3. 如何定时执行Job</h2><h3 id="（1）编写一个cronjob的yaml文件"><a href="#（1）编写一个cronjob的yaml文件" class="headerlink" title="（1）编写一个cronjob的yaml文件"></a>（1）编写一个cronjob的yaml文件</h3><pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: "*/1 * * * *" #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: ["echo","hello","cronjob"]
+          restartPolicy: OnFailure</code></pre><h3 id="（2）先删除之前的pod-1"><a href="#（2）先删除之前的pod-1" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（3）执行一下-2"><a href="#（3）执行一下-2" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-2"><a href="#（4）查看一下-2" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115095857428](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095857428.png)</p>
+<pre><code>[root@master yaml]# kubectl get cronjobs.batch </code></pre><p>![image-20200115095920740](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095920740.png)</p>
+<p><strong>此时查看Pod的状态，会发现，每分钟都会运行一个新的Pod来执行命令规定的任</strong><br><strong>务。</strong></p>
+<h2 id="练习：规定2020-1-15-10-5分运行上面的crontab任务。"><a href="#练习：规定2020-1-15-10-5分运行上面的crontab任务。" class="headerlink" title="练习：规定2020.1.15.10.5分运行上面的crontab任务。"></a>练习：规定2020.1.15.10.5分运行上面的crontab任务。</h2><h3 id="（1）编写一个cronjob的yaml文件-1"><a href="#（1）编写一个cronjob的yaml文件-1" class="headerlink" title="（1）编写一个cronjob的yaml文件"></a>（1）编写一个cronjob的yaml文件</h3><pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: "5 10 15 1 *" #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: ["echo","hello","cronjob"]
+          restartPolicy: OnFailure</code></pre><h3 id="（2）先删除之前的pod-2"><a href="#（2）先删除之前的pod-2" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete cronjobs.batch hello </code></pre><h3 id="（3）执行一下-3"><a href="#（3）执行一下-3" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-3"><a href="#（4）查看一下-3" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
+<p><strong>这时会发现，如果规定具体时间，可能并不会执行任务。</strong></p>
+<h3 id="（5）添加apiVersion库"><a href="#（5）添加apiVersion库" class="headerlink" title="（5）添加apiVersion库"></a>（5）添加apiVersion库</h3><pre><code>[root@master yaml]# vim /etc/kubernetes/manifests/kube-apiserver.yaml 
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --runtime-config=batch/v2alpha1=true    #添加</code></pre><p>![image-20200115104218361](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104218361.png)</p>
+<h3 id="（6）重启kubelet"><a href="#（6）重启kubelet" class="headerlink" title="（6）重启kubelet"></a>（6）重启kubelet</h3><pre><code>[root@master yaml]# systemctl restart kubelet.service </code></pre><h3 id="（7）查看api版本"><a href="#（7）查看api版本" class="headerlink" title="（7）查看api版本"></a>（7）查看api版本</h3><pre><code>[root@master yaml]# kubectl api-versions </code></pre><p>![image-20200115104521662](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104521662.png)</p>
+<h3 id="（8）编写一个cronjob的yaml文件"><a href="#（8）编写一个cronjob的yaml文件" class="headerlink" title="（8）编写一个cronjob的yaml文件"></a>（8）编写一个cronjob的yaml文件</h3><pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: "47 10 15 1 *" #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: ["echo","hello","cronjob"]
+          restartPolicy: OnFailure</code></pre><h3 id="（9）执行一下"><a href="#（9）执行一下" class="headerlink" title="（9）执行一下"></a>（9）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-4"><a href="#（4）查看一下-4" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
+<p><strong>注意：此时仍然不能正常运行指定时间的Job，这是因为K8s官方在cronjob这个资源对象的支持中还没有完善此功能，还待开发。</strong></p>
+<p><strong>跟Job资源一样在cronjob.spec.jobTemplate.spec 下同样支持并发Job参数:</strong><br><strong>parallelism，也支持完成Pod的总数参数: completionsr</strong></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>Job 作为 Kubernetes 中用于处理任务的资源，与其他的资源没有太多的区别，它也使用 Kubernetes 中常见的控制器模式，监听 Informer 中的事件并运行 <code>syncHandler</code> 同步任务</strong></p>
+<p><strong>而 CronJob 由于其功能的特殊性，每隔 10s 会从 apiserver 中取出资源并进行检查是否应该触发调度创建新的资源，需要注意的是 CronJob 并不能保证在准确的目标时间执行，执行会有一定程度的滞后。</strong></p>
+<p><strong>两个控制器的实现都比较清晰，只是边界条件比较多，分析其实现原理时一定要多注意。</strong></p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -571,7 +738,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/categories/index.html">http://yoursite.com/categories/index.html</a>
+                    <a href="http://yoursite.com/posts/e9be.html">http://yoursite.com/posts/e9be.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,33 +961,36 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/1b18.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="10 复习 ">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">10 复习 </span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            虚拟化云计算的分类：
+
+基础及服务：laas平台及服务：paas软件及服务：saas
+
+docker虚拟化的底层原理: Namespace + Cgroup 
+Namespace六项隔离:
+
+IPC: 共享内存,消息列队MNT: 挂载点 文
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -829,7 +999,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -837,30 +1006,29 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/7772.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="08 ReplicaSet、DaemonSet">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">08 ReplicaSet、DaemonSet</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            ReplicaSet简单介绍1. RC：ReplicationController（老一代的pod控制器）用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建
+特点：
+​        确保Pod资源对象的数量
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -870,7 +1038,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

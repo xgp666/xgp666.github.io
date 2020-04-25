@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Categories, Xgp &amp; Blog">
+    <meta name="keywords" content="10 复习 , Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Categories | Xgp &amp; Blog</title>
+    <title>10 复习  | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">10 复习 </h1>
                 </div>
             </div>
         </div>
@@ -491,28 +491,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-02-05
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    52
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    4 Min
                 </div>
                 
 
@@ -528,7 +528,87 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <h1 id="虚拟化"><a href="#虚拟化" class="headerlink" title="虚拟化"></a>虚拟化</h1><p><strong>云计算的分类</strong>：</p>
+<blockquote>
+<p><strong>基础及服务：laas</strong><br><strong>平台及服务：paas</strong><br><strong>软件及服务：saas</strong></p>
+</blockquote>
+<p><strong>docker虚拟化的底层原理:</strong> Namespace + Cgroup </p>
+<p><strong>Namespace六项隔离:</strong></p>
+<blockquote>
+<p><strong>IPC: 共享内存,消息列队</strong><br><strong>MNT: 挂载点 文件系统</strong><br><strong>NET: 网络栈</strong><br><strong>PID: 进程编号</strong><br><strong>USER: 用户 组</strong><br><strong>UTS: 主机名 域名</strong><br><strong>namespace 六项隔离 实现了容器与宿主机 容器与容器之间的隔离</strong></p>
+</blockquote>
+<p><strong>Cgroup 四项作用：</strong></p>
+<blockquote>
+<p><strong>1） 资源的限制：</strong>cgroup可以对进程组使用的资源总额进行限制<br><strong>2） 优先级分配：</strong>通过分配的cpu时间片数量以及硬盘IO带宽的大小，实际上相当于控制了进程运行的优先级别<br><strong>3） 资源统计：</strong> group可以统计系统资源使用量，比如gpu使用时间，内存使用量等，用于按量计费。同时还支持挂起动能，也就是说通过cgroup把所有 资源限制起来,对资源都不能使用，注意着并不是说我们的程序不能使用了,知识不能使用资源，处于等待状态。<br><strong>4） 进程控制：</strong>可以对进程组执行挂起、恢复等操作。</p>
+</blockquote>
+<p><strong>镜像是容器运行的核心，容器是镜像运行的后的实例。</strong></p>
+<p><strong>DockerHub| registry  —-&gt;  pull</strong><br>       <strong>image :     save &gt;   |  load &lt;</strong><br>       <strong>run    —-&gt;  Container    —-&gt;   commit*</strong><br>                                                           <strong>Dockerfile</strong></p>
+<p><strong>Docker 三剑客。</strong></p>
+<blockquote>
+<p><strong>docker  machine :自动化部署多台dockerHost 。</strong></p>
+<p>​        <strong>Docker-compose: 它可以同时控制多个容器。</strong></p>
+<p>​        <strong>yaml。</strong></p>
+<p><strong>Docker Swarm：</strong></p>
+<p>​        <strong>从单个的服务向集群的形势发展。</strong></p>
+<p>​         <strong>高可用、高性能、高并发 ：为了防止单点故障。</strong></p>
+<p>​         <strong>Service：服务  —-&gt; 包括运行什么服务，需要多个                          rep1icas（副本）, 外网如何访问。</strong></p>
+</blockquote>
+<h3 id="k8s"><a href="#k8s" class="headerlink" title="k8s"></a><strong>k8s</strong></h3><p>关闭防火墙、禁用selinux、修改主机名并加入域名解析、关闭swap 、时间同步、免密登录、打开iptables桥接</p>
+<blockquote>
+<p><strong>对硬件的基本要求： CPU：2核   MEM：2G</strong></p>
+<p><strong>主机名：master node01 node02</strong></p>
+<p><strong>时间必须同步</strong></p>
+</blockquote>
+<p><strong>kubctl：k8s客户端      kubeadm：工具  kubelet：客户端代理</strong></p>
+<p><strong>组件：</strong></p>
+<p>​        <strong>三层网络： DockerHost  &gt;   Pod  &gt; Service</strong></p>
+<p>​        <strong>Deployment:        Service:</strong></p>
+<h3 id="master组件"><a href="#master组件" class="headerlink" title="*master组件: *"></a>*<em>master组件: *</em></h3><p><strong>kube- api( application interface) k8s的前端接口</strong></p>
+<p><strong>Scheduler[集群分发调度器]</strong>负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
+<p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
+<p><strong>Etcd：</strong>负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p><strong>Flanner：</strong>是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
+<h3 id="Node组件："><a href="#Node组件：" class="headerlink" title="Node组件："></a>Node组件：</h3><p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
+<p><strong>kube-proxy[负载均衡、路由转发]:</strong>负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
+<h3 id="yaml文件的一级字段"><a href="#yaml文件的一级字段" class="headerlink" title="yaml文件的一级字段:"></a>yaml文件的一级字段:</h3><p>​        <strong>VERSION:</strong><br>​        <strong>KIND:</strong><br>​        <strong>METADATA:</strong><br>​        <strong>SPEC :</strong></p>
+<pre><code>[root@master ~]# vim web.yaml
+kind: Deployment  #资源对象是控制器
+apiVersion: extensions/v1beta1   #api的版本
+metadata:      #描述kind（资源类型）
+  name: web   #定义控制器名称
+  namespace：  #名称空间
+spec:
+  replicas: 2   #副本数量
+  template:     #模板
+    metadata:    
+      labels:   #标签
+        app: web_server
+    spec:
+      containers:   #指定容器
+      - name: nginx  #容器名称
+        image: nginx   #使用的镜像</code></pre><p>​        <strong>Deployment（控制器)：</strong></p>
+<p>​                <strong>ReplicationController：</strong>用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</p>
+<p>​                <strong>RS（RpelicaSet）:</strong>RS也是用于保证与label selector匹配的pod数量维持在期望状态</p>
+<p>​        <strong>Service：</strong></p>
+<p>​                <strong>type：默认Cluster IP</strong></p>
+<p>​                            <strong>NodePort：  30000-32767</strong></p>
+<p>​        <strong>Deployment和Service关联：标签和标签选择器</strong></p>
+<p>​        <strong>Namespace：</strong></p>
+<p>​        <strong>Pod：最小单位</strong></p>
+<p>​                    <strong>镜像的下载策略：</strong></p>
+<blockquote>
+<p>​                        <strong>Always：</strong>镜像标签为“laster”或镜像不存在时，总是从指定的仓库中获取镜像。</p>
+<p>​                        <strong>IfNotPresent：</strong>仅当本地镜像不存在时才从目标仓库下载。</p>
+<p>​                        <strong>Never：</strong>禁止从仓库中下载镜像，即只使用本地镜像。</p>
+</blockquote>
+<p>​                    <strong>默认的标签 为latest：always</strong></p>
+<p>​                    <strong>Pod的重启策略：</strong></p>
+<blockquote>
+<p>​                    <strong>Always：</strong>（默认情况下使用）但凡Pod对象终止就将其重启；<br>​                    <strong>OnFailure：</strong>仅在Pod对象出现错误时才将其重启；<br>​                    <strong>Never：</strong>从不重启；</p>
+</blockquote>
+<p>​                <strong>Pod的健康检查:</strong><br>​                    Liveness:   探测失败重启pod<br>​                    Readiness: 探测失败将pod设置为不可用<br>kubelet：控制pod</p>
+<p>DaemonSet :会在每一个节点都会运行，并且只运行一个Pod</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -571,7 +651,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/categories/index.html">http://yoursite.com/categories/index.html</a>
+                    <a href="http://yoursite.com/posts/1b18.html">http://yoursite.com/posts/1b18.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,33 +874,32 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/5849.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="11 k8s持久化存储应用">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">11 k8s持久化存储应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            k8s存储: (持久化)docker容器是有生命周期的。
+volume
+1.emptyDir（空目录）：类似docker 数据持久化的:docer manager volume使用场景:在同一 个Pod里，不同的容器，共享数据卷。
+如果容器
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -829,7 +908,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -837,30 +915,31 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/e9be.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="09 Job资源对象">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">09 Job资源对象</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            Job资源对象
+服务类的Pod容器：RC、RS、DS、Deployment
+工作类的Pod容器：Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。
+
+注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里的容
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -870,7 +949,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

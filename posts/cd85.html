@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Categories, Xgp &amp; Blog">
+    <meta name="keywords" content="02 k8s架构，基本概念, Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Categories | Xgp &amp; Blog</title>
+    <title>02 k8s架构，基本概念 | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/19.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">02 k8s架构，基本概念</h1>
                 </div>
             </div>
         </div>
@@ -491,28 +491,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-01-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    52
+                    1.8k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    7 Min
                 </div>
                 
 
@@ -528,7 +528,98 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>IP地址</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td></td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td></td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="kubernetes架构"><a href="#kubernetes架构" class="headerlink" title="kubernetes架构"></a>kubernetes架构</h1><p><img src="https://upload-images.jianshu.io/upload_images/2032456-3447c966ff470446.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="img"></p>
+<p><strong>kubectl：</strong>k8s是命令行端，用来发送客户的操作指令。</p>
+<h2 id="master节点"><a href="#master节点" class="headerlink" title="master节点"></a>master节点</h2><p><strong>1. API server[资源操作入口]</strong>：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。</p>
+<blockquote>
+<ul>
+<li>提供了资源对象的唯一操作入口，其他所有组件都必须通过它提供的API来操作资源数据，只有API Server与存储通信，其他模块通过API Server访问集群状态。</li>
+</ul>
+<p>第一，是为了保证集群状态访问的安全。</p>
+<p>第二，是为了隔离集群状态访问的方式和后端存储实现的方式：API Server是状态访问的方式，不会因为后端存储技术etcd的改变而改变。</p>
+<ul>
+<li>作为kubernetes系统的入口，封装了核心对象的增删改查操作，以<a href="https://www.centos.bz/tag/restful/" target="_blank" rel="noopener">RESTFul</a>接口方式提供给外部客户和内部组件调用。对相关的资源数据“全量查询”+“变化监听”，实时完成相关的业务功能。</li>
+</ul>
+</blockquote>
+<p><strong>2. Scheduler[集群分发调度器]</strong>：负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
+<blockquote>
+<p>1.Scheduler收集和分析当前Kubernetes集群中所有Minion节点的资源(内存、CPU)负载情况，然后依此分发新建的Pod到Kubernetes集群中可用的节点。</p>
+<p>2.实时监测Kubernetes集群中未分发和已分发的所有运行的Pod。</p>
+<p>3.Scheduler也监测Minion节点信息，由于会频繁查找Minion节点，Scheduler会缓存一份最新的信息在本地。</p>
+<p>4.最后，Scheduler在分发Pod到指定的Minion节点后，会把Pod相关的信息Binding写回API Server。</p>
+</blockquote>
+<p><strong>4. Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
+<blockquote>
+<p>实现集群故障检测和恢复的自动化工作，负责执行各种控制器，主要有：</p>
+<p>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</p>
+<p>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</p>
+</blockquote>
+<p><strong>5. Etcd：</strong>负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
+<p><strong>7. Flanner：</strong>是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces
+//查看pod信息</code></pre><p>![image-20200104100759831](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104100759831.png)</p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
+//显示pod的节点信息</code></pre><p>![image-20200104101023909](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104101023909.png)</p>
+<h2 id="Node节点"><a href="#Node节点" class="headerlink" title="Node节点"></a>Node节点</h2><p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
+<blockquote>
+<ul>
+<li>负责Node节点上pod的创建、修改、监控、删除等全生命周期的管理</li>
+<li>定时上报本Node的状态信息给API Server。</li>
+<li>kubelet是Master API Server和Minion之间的桥梁，接收Master API Server分配给它的commands和work，与持久性键值存储etcd、file、server和http进行交互，读取配置信息。</li>
+<li>具体的工作如下：</li>
+</ul>
+<p>设置容器的环境变量、给容器绑定<a href="https://www.centos.bz/tag/volume/" target="_blank" rel="noopener">Volume</a>、给容器绑定Port、根据指定的Pod运行一个单一容器、给指定的Pod创建network 容器。</p>
+<p>同步Pod的状态、同步Pod的状态、从<a href="https://www.centos.bz/tag/cadvisor/" target="_blank" rel="noopener">cAdvisor</a>获取<a href="https://www.centos.bz/tag/container/" target="_blank" rel="noopener">Container</a> info、 pod info、 root info、 <a href="https://www.centos.bz/tag/machine/" target="_blank" rel="noopener">machine</a> info。</p>
+<p>在容器中运行命令、杀死容器、删除Pod的所有容器。</p>
+</blockquote>
+<p><strong>kube-proxy[负载均衡、路由转发]:</strong>负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
+<blockquote>
+<ul>
+<li>Proxy是为了解决外部网络能够访问跨机器集群中容器提供的应用服务而设计的，运行在每个Node上。Proxy提供TCP/UDP sockets的proxy，每创建一种Service，Proxy主要从etcd获取Services和Endpoints的配置信息（也可以从file获取），然后根据配置信息在Minion上启动一个Proxy的进程并监听相应的服务端口，当外部请求发生时，Proxy会根据Load Balancer将请求分发到后端正确的容器处理。</li>
+<li>Proxy不但解决了同一主宿机相同服务端口冲突的问题，还提供了Service转发服务端口对外提供服务的能力，Proxy后端使用了随机、轮循负载均衡算法。</li>
+</ul>
+</blockquote>
+<h2 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h2><blockquote>
+<h3 id="分析各个组件的作用以及架构工作流程"><a href="#分析各个组件的作用以及架构工作流程" class="headerlink" title="分析各个组件的作用以及架构工作流程:"></a>分析各个组件的作用以及架构工作流程:</h3><p><strong>1) kubectl发送部署 请求到API server</strong><br><strong>2) APIserver通知Controller Manager创建一个Deployment资源。</strong><br><strong>3) Scheduler执行调度任务,将两个副本Pod分发到node01和node02. 上。</strong><br><strong>4) node01和node02, 上的kubelet在各自节点上创建并运行Pod。</strong></p>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p><strong>1.应用的配置和当前的状态信息保存在etcd中，执行kubectl get pod时API server会从etcd中读取这些数据。</strong></p>
+<p><strong>2.flannel会为每个Pod分配一个IP。 但此时没有创建Service资源，目前kube-proxy还没有参与进来。</strong></p>
+</blockquote>
+<h3 id="运行一个例子（创建一个deployment资源对象-lt-pod控制器-gt-）"><a href="#运行一个例子（创建一个deployment资源对象-lt-pod控制器-gt-）" class="headerlink" title="运行一个例子（创建一个deployment资源对象<pod控制器>）"></a>运行一个例子（创建一个deployment资源对象&lt;pod控制器&gt;）</h3><pre><code>[root@master ~]# kubectl run test-web --image=httpd --replicas=2
+//创建一个deployment资源对象。</code></pre><p><strong><em>运行完成之后，如果有镜像可直接开启，没有的话需要等待一会儿，node节点要在docker hup上下载</em></strong></p>
+<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy</code></pre><p>![image-20200104110812772](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104110812772.png)</p>
+<pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200104110954406](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104110954406.png)</p>
+<pre><code>[root@master ~]# kubectl get pod  -o wide
+//显示pod的节点信息</code></pre><p>![image-20200104111128779](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104111128779.png)</p>
+<p><strong><em>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart="" kubelet=""></systemctl></em></strong></p>
+<h3 id="如果删除一个pod"><a href="#如果删除一个pod" class="headerlink" title="如果删除一个pod"></a>如果删除一个pod</h3><pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200104112418012](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104112418012.png)</p>
+<p><strong><em>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</em></strong></p>
+<p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -571,7 +662,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/categories/index.html">http://yoursite.com/categories/index.html</a>
+                    <a href="http://yoursite.com/posts/cd85.html">http://yoursite.com/posts/cd85.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,33 +885,55 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/6989.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="03 创建资源的两种方式">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">03 创建资源的两种方式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+
+
+主机
+IP地址
+
+
+
+
+master
+192.168.1.21
+
+
+
+node01
+192.168.1.22
+
+
+
+node02
+192.168.1.23
+
+
+
+两种创建资源的方法基于命令的方式：
+简单直观快捷，上手快。
+适合临时测试
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -829,7 +942,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -837,30 +949,44 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/2cda.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="01 部署k8s集群">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">01 部署k8s集群</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            k8s最基本的硬件要求CPU: 双核Mem: 2G3台dockerhost时间必须同步
+实验环境
+
+
+主机名
+IP地址
+服务
+
+
+
+master
+192.168.1.21
+dockerhost
+
+
+node01
+192.168.1.22
+d
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -870,7 +996,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

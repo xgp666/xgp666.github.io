@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Categories, Xgp &amp; Blog">
+    <meta name="keywords" content="14 k8s的Secret（密文）和configmap（明文）的使用教程, Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Categories | Xgp &amp; Blog</title>
+    <title>14 k8s的Secret（密文）和configmap（明文）的使用教程 | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">14 k8s的Secret（密文）和configmap（明文）的使用教程</h1>
                 </div>
             </div>
         </div>
@@ -491,28 +491,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-02-17
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    52
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    10 Min
                 </div>
                 
 
@@ -528,7 +528,280 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <h1 id="一、Secret"><a href="#一、Secret" class="headerlink" title="一、Secret"></a>一、Secret</h1><p><strong><em>Secret :用来保存一些敏感信息，比如数据库的用户名密码或者秘钥。</em></strong></p>
+<h2 id="举例-保存数据库的用户名和密码"><a href="#举例-保存数据库的用户名和密码" class="headerlink" title="举例:保存数据库的用户名和密码"></a>举例:保存数据库的用户名和密码</h2><blockquote>
+<p><strong>用户名：</strong>        <strong>root</strong><br><strong>密码：</strong>           <strong>123.com</strong></p>
+</blockquote>
+<h3 id="1、通过–from-literal（文字的）"><a href="#1、通过–from-literal（文字的）" class="headerlink" title="1、通过–from-literal（文字的）"></a>1、通过–from-literal（文字的）</h3><pre><code>[root@master secret]# kubectl create secret generic mysecret1 --from-literal=username=root --from-literal=password=123.com</code></pre><blockquote>
+<p><strong>generic：通用的，一般的加密方式</strong></p>
+</blockquote>
+<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214100419966.png" alt=""></p>
+<p><strong>类型是Opaque（不透明的）</strong></p>
+<h3 id="2、通过from-file（文件）"><a href="#2、通过from-file（文件）" class="headerlink" title="2、通过from-file（文件）"></a>2、通过from-file（文件）</h3><h4 id="新建两个文件并分别写入用户名和密码"><a href="#新建两个文件并分别写入用户名和密码" class="headerlink" title="新建两个文件并分别写入用户名和密码"></a>新建两个文件并分别写入用户名和密码</h4><pre><code>[root@master secret]# echo root &gt; username
+[root@master secret]# echo 123.com  &gt; password</code></pre><h4 id="创建一个secret"><a href="#创建一个secret" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]#  kubectl create secret generic mysecret2 --from-file=username --from-file=password </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214103506842.png" alt="image-20200214103506842"></p>
+<h3 id="3、通过–-from-env-file"><a href="#3、通过–-from-env-file" class="headerlink" title="3、通过– from- env-file:"></a>3、通过– from- env-file:</h3><h4 id="创建一个文件写入用户名和密码"><a href="#创建一个文件写入用户名和密码" class="headerlink" title="创建一个文件写入用户名和密码"></a>创建一个文件写入用户名和密码</h4><pre><code>[root@master secret]#vim env.txt 
+username=root
+password=123.com</code></pre><h4 id="创建一个secret-1"><a href="#创建一个secret-1" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]# kubectl create secret generic mysecret3 --from-env-file=env.txt </code></pre><h4 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214103905956.png" alt="image-20200214103905956"></p>
+<h3 id="4、通过yaml配置文件"><a href="#4、通过yaml配置文件" class="headerlink" title="4、通过yaml配置文件"></a>4、通过yaml配置文件</h3><h4 id="（1）把需要保存的数据加密（”base64“的方式）"><a href="#（1）把需要保存的数据加密（”base64“的方式）" class="headerlink" title="（1）把需要保存的数据加密（”base64“的方式）"></a>（1）把需要保存的数据加密（”base64“的方式）</h4><pre><code>[root@master secret]# echo root | base64
+cm9vdAo=
+[root@master secret]# echo 123.com | base64
+MTIzLmNvbQo=</code></pre><blockquote>
+<p><strong>解码：</strong></p>
+<pre><code>[root@master secret]# echo -n cm9vdAo | base64 --decode 
+root
+[root@master secret]# echo -n MTIzLmNvbQo | base64 --decode 
+123.com</code></pre></blockquote>
+<h4 id="（2）编写secre4的yaml文件"><a href="#（2）编写secre4的yaml文件" class="headerlink" title="（2）编写secre4的yaml文件"></a>（2）编写secre4的yaml文件</h4><pre><code>[root@master secret]# vim secret4.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret4
+data:
+  username: cm9vdAo=
+  password: MTIzLmNvbQo=</code></pre><h5 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h5><pre><code>[root@master secret]# kubectl apply -f secret4.yaml </code></pre><h4 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214104544899.png" alt="image-20200214104544899"></p>
+<h2 id="如果来使用Secret资源"><a href="#如果来使用Secret资源" class="headerlink" title="如果来使用Secret资源"></a>如果来使用Secret资源</h2><h3 id="1-以Volume挂载的方式"><a href="#1-以Volume挂载的方式" class="headerlink" title="1. 以Volume挂载的方式"></a>1. 以Volume挂载的方式</h3><h4 id="编写pod的yaml文件"><a href="#编写pod的yaml文件" class="headerlink" title="编写pod的yaml文件"></a><strong>编写pod的yaml文件</strong></h4><pre><code>[root@master secret]# vim pod.yaml 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    volumeMounts:
+    - name: secret-test
+      mountPath: "/etc/secret-test"  #pod中的路径
+      readOnly: true                 #是否只读
+  volumes:
+  - name: secret-test
+    secret:
+      secretName: mysecret1</code></pre><p><strong>还可以自定义存放数据的文件名</strong></p>
+<h4 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master secret]# kubectl apply -f pod.yaml </code></pre><h4 id="进入容器查看保存的数据"><a href="#进入容器查看保存的数据" class="headerlink" title="进入容器查看保存的数据"></a>进入容器查看保存的数据</h4><pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
+/ # cd /etc/secret-test/
+/etc/secret-test # ls
+pasword   username</code></pre><pre><code>/etc/secret-test # cat username 
+root
+/etc/secret-test # cat pasword 
+123.com</code></pre><h4 id="测试是否有只读权限"><a href="#测试是否有只读权限" class="headerlink" title="测试是否有只读权限"></a>测试是否有只读权限</h4><pre><code>123.com/etc/secret-test # echo admin &gt; username
+/bin/sh: can't create username: Read-only file system</code></pre><h3 id="1-1-自定义存放数据的文件名的yaml文件"><a href="#1-1-自定义存放数据的文件名的yaml文件" class="headerlink" title="1.1 自定义存放数据的文件名的yaml文件"></a>1.1 自定义存放数据的文件名的yaml文件</h3><pre><code>[root@master yaml]#  vim pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    volumeMounts:
+    - name: secret-test
+      mountPath: "/etc/secret-test"  #pod中的路径
+      readOnly: true                 #是否只读
+  volumes:
+  - name: secret-test
+    secret:
+      secretName: mysecret1
+      items:
+      - key: username
+        path: my-group/my-username   #自定义的容器中的目录
+      - key: password
+        path: my-group/my-password   #自定义的容器中的目录</code></pre><h4 id="执行一下-2"><a href="#执行一下-2" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master yaml]# kubectl apply -f pod.yaml</code></pre><h4 id="查看一下-3"><a href="#查看一下-3" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
+//进入容器查看
+ # cat /etc/secret-test/my-group/my-password 
+123.com 
+ # cat /etc/secret-test/my-group/my-username 
+root</code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><p><strong>会实时更新(这里引用数据，是以volumes挂 载使用数据的方式)。</strong></p>
+<p><strong>更新mysecret1的数据:   password  —&gt;  admin   YWRtaW4K (base64)</strong> </p>
+<p><strong>可以通过edit 命令，直接修改。</strong></p>
+<pre><code>[root@master secret]# kubectl edit secrets mysecret1</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
+<h4 id="查看一下-4"><a href="#查看一下-4" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
+//进入容器查看
+ # cat /etc/secret-test/my-group/my-password 
+admin
+ # cat /etc/secret-test/my-group/my-username 
+root</code></pre><p><strong><em>数据已经成功更新了</em></strong></p>
+<h3 id="2、以环境变量的方式"><a href="#2、以环境变量的方式" class="headerlink" title="2、以环境变量的方式"></a>2、以环境变量的方式</h3><p><strong>编写pod的yaml文件</strong></p>
+<pre><code>[root@master secret]# vim pod-env.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod2
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    env:
+      - name: SECRET_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: mysecret2
+            key: username
+      - name: SECRET_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysecret2
+            key: password</code></pre><h4 id="执行一下-3"><a href="#执行一下-3" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master secret]# kubectl apply -f pod-env.yaml </code></pre><h4 id="查看一下-5"><a href="#查看一下-5" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get pod</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214111931566.png" alt="image-20200214111931566"></p>
+<h4 id="进入容器查看保存的数据-1"><a href="#进入容器查看保存的数据-1" class="headerlink" title="进入容器查看保存的数据"></a>进入容器查看保存的数据</h4><pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
+/ # echo $SECRET_USERNAME
+root
+/ # echo $SECRET_PASSWORD
+123.com</code></pre><h3 id="2-1-更新sevret文件的内容"><a href="#2-1-更新sevret文件的内容" class="headerlink" title="2.1 更新sevret文件的内容"></a>2.1 更新sevret文件的内容</h3><pre><code> [root@master yaml]# kubectl edit secrets mysecret2
+ //修改保存文件的内容</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
+<h4 id="查看一下-6"><a href="#查看一下-6" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
+/ # echo $SECRET_USERNAME
+root
+/ # echo $SECRET_PASSWORD
+123.com</code></pre><p><strong><em>等待了一定时间后，可以看到这个数据并没有没有改变</em></strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>如果引用secret数据的应用， 要求会随着secret资源对象内保存的数据的更新，而实时更新，那么应该使用volumes挂载的方式引用资源因为用环境变量的方式引用不会实时更新数据。</strong></p>
+<h1 id="二、ConfigMap"><a href="#二、ConfigMap" class="headerlink" title="二、ConfigMap"></a>二、ConfigMap</h1><p><strong>和Secret资源类似，不同之处在于，secret 资源保存的是敏感信息，而Configmap保存的是以明文方式存放的数据。</strong></p>
+<blockquote>
+<p><strong>username：adam</strong></p>
+<p><strong>age：18</strong></p>
+</blockquote>
+<h2 id="创建的四种方式"><a href="#创建的四种方式" class="headerlink" title="创建的四种方式"></a>创建的四种方式</h2><h3 id="1、通过–-from-literal-文字的"><a href="#1、通过–-from-literal-文字的" class="headerlink" title="1、通过– from- literal(文字的):"></a>1、通过– from- literal(文字的):</h3><pre><code>[root@master yaml]# kubectl create configmap myconfigmap1 --from-literal=username=adam --from-literal=age=18</code></pre><h4 id="查看一下-7"><a href="#查看一下-7" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl get cm</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103048235.png" alt="image-20200217103048235"></p>
+<pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103123130.png" alt="image-20200217103123130"></p>
+<h3 id="2、通过–from-file-文件"><a href="#2、通过–from-file-文件" class="headerlink" title="2、通过–from-file (文件) :"></a>2、通过–from-file (文件) :</h3><pre><code>[root@master yaml]# echo adam &gt; username
+[root@master yaml]# echo 18 &gt; age</code></pre><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap myconfigmap2 --from-file=username --from-file=age </code></pre><h4 id="查看一下-8"><a href="#查看一下-8" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103509006.png" alt="image-20200217103509006"></p>
+<h3 id="3、通过–from-env-file"><a href="#3、通过–from-env-file" class="headerlink" title="3、通过–from- env-file:"></a>3、通过–from- env-file:</h3><pre><code>[root@master yaml]# vim env.txt 
+username=adam
+age=18</code></pre><h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap  myconfigmap3 --from-env-file=env.txt</code></pre><h4 id="查看一下-9"><a href="#查看一下-9" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl describe cm</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217165039190.png" alt="image-20200217165039190"></p>
+<h3 id="4、通过yaml配置文件-1"><a href="#4、通过yaml配置文件-1" class="headerlink" title="4、通过yaml配置文件:"></a>4、通过yaml配置文件:</h3><pre><code>[root@master yaml]# vim configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap4
+data:
+  username: 'adam'
+  age: '18'</code></pre><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl apply -f configmap.yaml </code></pre><h4 id="查看一下-10"><a href="#查看一下-10" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217104428521.png" alt="image-20200217104428521"></p>
+<h2 id="如何来使用configmap资源"><a href="#如何来使用configmap资源" class="headerlink" title="如何来使用configmap资源"></a>如何来使用configmap资源</h2><h3 id="1-以Volume挂载的方式-1"><a href="#1-以Volume挂载的方式-1" class="headerlink" title="1. 以Volume挂载的方式"></a>1. 以Volume挂载的方式</h3><pre><code>[root@master yaml]# vim v-pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    volumeMounts:
+    - name: cmp-test
+      mountPath: "/etc/cmp-test"
+      readOnly: true
+  volumes:
+  - name: cmp-test
+    configMap:
+      name: myconfigmap1</code></pre><h4 id="执行一下-4"><a href="#执行一下-4" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master configmap]# kubectl apply -f v-pod.yaml </code></pre><h4 id="查看一下-11"><a href="#查看一下-11" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod1 /bin/sh
+//进入容器查看一下
+ # cat /etc/cmp-test/age 
+18/ 
+ # cat /etc/cmp-test/username 
+adam/ </code></pre><h3 id="1-1-自定义存放数据的文件名的yaml文件-1"><a href="#1-1-自定义存放数据的文件名的yaml文件-1" class="headerlink" title="1.1 自定义存放数据的文件名的yaml文件"></a>1.1 自定义存放数据的文件名的yaml文件</h3><pre><code>[root@master configmap]# vim v-pod2.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod3
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    volumeMounts:
+    - name: cmp-test
+      mountPath: "/etc/cmp-test"
+      readOnly: true
+  volumes:
+  - name: cmp-test
+    configMap:
+      name: myconfigmap1
+      items:
+      - key: username
+        path: my-group/my-username   #自定义的容器中的目录
+      - key: age
+        path: my-group/my-age   #自定义的容器中的目录 </code></pre><h4 id="执行一下-5"><a href="#执行一下-5" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master configmap]# kubectl apply -f v-pod2.yaml</code></pre><h4 id="查看一下-12"><a href="#查看一下-12" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
+//进入容器查看
+# cat /etc/cmp-test/my-group/my-username 
+adam/ 
+# cat /etc/cmp-test/my-group/my-age 
+18/ </code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap1</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217172107999.png" alt="image-20200217172107999"></p>
+<h4 id="查看一下-13"><a href="#查看一下-13" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
+//进入容器查看
+# cat /etc/cmp-test/my-group/my-username 
+adam/ 
+# cat /etc/cmp-test/my-group/my-age 
+10</code></pre><p><strong><em>可以看到更新成功</em></strong></p>
+<h3 id="2-以环境变量的方式"><a href="#2-以环境变量的方式" class="headerlink" title="2.以环境变量的方式"></a>2.以环境变量的方式</h3><pre><code>[root@master configmap]# vim e-pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod2
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    env:
+      - name: CONFIGMAP_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: myconfigmap2
+            key: username
+      - name: CONFIGMAP_AGE
+        valueFrom:
+          configMapKeyRef:
+            name: myconfigmap2
+            key: age</code></pre><h4 id="执行一下-6"><a href="#执行一下-6" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master configmap]# kubectl apply -f e-pod.yaml </code></pre><h4 id="查看一下-14"><a href="#查看一下-14" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
+//进入容器查看一下
+ # echo $CONFIGMAP_NAME
+adam
+ # echo $CONFIGMAP_AGE
+18</code></pre><h3 id="2-1-更新sevret文件的内容-1"><a href="#2-1-更新sevret文件的内容-1" class="headerlink" title="2.1 更新sevret文件的内容"></a>2.1 更新sevret文件的内容</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap2
+ //修改保存文件的内容</code></pre><p><img src="G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217172701793.png" alt="image-20200217172701793"></p>
+<h4 id="查看一下-15"><a href="#查看一下-15" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
+//进入容器查看一下
+ # echo $CONFIGMAP_NAME
+adam
+ # echo $CONFIGMAP_AGE
+18</code></pre><p><strong><em>等待了一定时间后，可以看到这个数据并没有没有改变</em></strong></p>
+<p><strong>可以看出这个configmap和secret的更新效果基本没有区别。</strong></p>
+<h2 id="总结configmap、与secret资源有什么相同和不同之处。"><a href="#总结configmap、与secret资源有什么相同和不同之处。" class="headerlink" title="总结configmap、与secret资源有什么相同和不同之处。"></a><strong>总结configmap、与secret资源有什么相同和不同之处。</strong></h2><h3 id="Secret-与-ConfigMap-对比"><a href="#Secret-与-ConfigMap-对比" class="headerlink" title="Secret 与 ConfigMap 对比"></a>Secret 与 ConfigMap 对比</h3><p><strong>相同点：</strong></p>
+<blockquote>
+<p><strong>key/value的形式</strong></p>
+<p><strong>属于某个特定的namespace</strong></p>
+<p><strong>可以导出到环境变量</strong></p>
+<p><strong>可以通过目录/文件形式挂载</strong></p>
+<p><strong>通过 volume 挂载的配置信息均可热更新</strong></p>
+</blockquote>
+<p><strong>不同点：</strong></p>
+<blockquote>
+<p><strong>Secret 可以被 ServerAccount 关联</strong></p>
+<p><strong>Secret 可以存储 docker register 的鉴权信息，用在 ImagePullSecret 参数中，用于拉取私有仓库的镜像</strong></p>
+<p><strong>Secret 支持 Base64 加密</strong></p>
+<p><strong>Secret 分为 kubernetes.io/service-account-token、kubernetes.io/dockerconfigjson、Opaque 三种类型，而 Configmap 不区分类型</strong></p>
+</blockquote>
+<h2 id="总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。"><a href="#总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。" class="headerlink" title="总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。"></a>总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。</h2><p><strong>volumes挂载(可根据更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己所填路径和secret或configmap创建的文件，进行查看。</strong></p>
+<p><strong>环境变量(不因更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己环境变量，进行查看。</strong></p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -571,7 +844,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/categories/index.html">http://yoursite.com/categories/index.html</a>
+                    <a href="http://yoursite.com/posts/a50d.html">http://yoursite.com/posts/a50d.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,33 +1067,31 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/2643.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="18 k8s的HPA自动扩容与缩容">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">18 k8s的HPA自动扩容与缩容</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            HPA可以根据当前Pod资源的使用率，比如说CPU、磁盘、内存等进行副本Pod的动态的扩容与缩容。
+前提条件:系统应该能否获取到当前Pod的资源使用情况 (意思是可以执行kubectl top pod命令,并且能够得到反馈信息)。
+heap
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -829,7 +1100,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -837,30 +1107,30 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/5849.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="11 k8s持久化存储应用">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">11 k8s持久化存储应用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            k8s存储: (持久化)docker容器是有生命周期的。
+volume
+1.emptyDir（空目录）：类似docker 数据持久化的:docer manager volume使用场景:在同一 个Pod里，不同的容器，共享数据卷。
+如果容器
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -870,7 +1140,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

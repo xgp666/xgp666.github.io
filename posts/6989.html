@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Categories, Xgp &amp; Blog">
+    <meta name="keywords" content="03 创建资源的两种方式, Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Categories | Xgp &amp; Blog</title>
+    <title>03 创建资源的两种方式 | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">03 创建资源的两种方式</h1>
                 </div>
             </div>
         </div>
@@ -491,28 +491,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-01-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    52
+                    2.6k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    12 Min
                 </div>
                 
 
@@ -528,7 +528,127 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td></td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td></td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="两种创建资源的方法"><a href="#两种创建资源的方法" class="headerlink" title="两种创建资源的方法"></a>两种创建资源的方法</h1><h2 id="基于命令的方式："><a href="#基于命令的方式：" class="headerlink" title="基于命令的方式："></a>基于命令的方式：</h2><ol>
+<li><strong>简单直观快捷，上手快。</strong></li>
+<li><strong>适合临时测试或实验。</strong></li>
+</ol>
+<h2 id="基于配置文件的方式："><a href="#基于配置文件的方式：" class="headerlink" title="基于配置文件的方式："></a>基于配置文件的方式：</h2><ol>
+<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
+<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
+<li><strong>可以像管理代码一样管理部署。</strong></li>
+<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
+<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
+</ol>
+<h1 id="一，用命令行的方式创建资源"><a href="#一，用命令行的方式创建资源" class="headerlink" title="一，用命令行的方式创建资源"></a>一，用命令行的方式创建资源</h1><h3 id="仅接受json格式"><a href="#仅接受json格式" class="headerlink" title="仅接受json格式"></a><em>仅接受json格式</em></h3><h2 id="配置清单（yml、yaml）"><a href="#配置清单（yml、yaml）" class="headerlink" title="配置清单（yml、yaml）"></a>配置清单（yml、yaml）</h2><pre><code>[root@master ~]# cd /etc/kubernetes/manifests/
+//k8s的yml、yaml文件</code></pre><h2 id="1-node01和node02下载nginx镜像"><a href="#1-node01和node02下载nginx镜像" class="headerlink" title="1.node01和node02下载nginx镜像"></a>1.node01和node02下载nginx镜像</h2><pre><code>docker pull nginx
+//下载nginx镜像</code></pre><h2 id="2-master创建Pod控制器（test-web），deployment"><a href="#2-master创建Pod控制器（test-web），deployment" class="headerlink" title="2.master创建Pod控制器（test-web），deployment"></a>2.master创建Pod控制器（test-web），deployment</h2><pre><code>[root@master ~]# kubectl run test-web --image=nginx --replicas=5
+//创建Pod控制器，deployment</code></pre><h2 id="3-查看控制器情况"><a href="#3-查看控制器情况" class="headerlink" title="3.查看控制器情况"></a>3.查看控制器情况</h2><h3 id="（1）"><a href="#（1）" class="headerlink" title="（1）"></a>（1）</h3><pre><code>[root@master ~]# kubectl get deployments.
+//查看控制器情况</code></pre><p>![image-20200106093615852](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106093615852.png)</p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
+//显示pod的节点信息</code></pre><p>![image-20200106093922849](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106093922849.png)</p>
+<h3 id="（2）"><a href="#（2）" class="headerlink" title="（2）"></a>（2）</h3><pre><code>[root@master ~]# kubectl get namespaces 
+//查看k8s名称空间</code></pre><p>![image-20200106093850247](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106093850247.png)</p>
+<pre><code>[root@master ~]# kubectl describe deployments. test-web
+//查看资源详细信息</code></pre><p>![image-20200106093723330](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106093723330.png)</p>
+<p><strong><em>查看某种资源对象，没有指定名称空间，默认是在default名称空间。可以加上-n选项，查看指定名称空间的资源。</em></strong></p>
+<pre><code>[root@master ~]# kubectl get pod -n kube-system </code></pre><p>![image-20200106094343401](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106094343401.png)</p>
+<h2 id="3-删除test-web控制器"><a href="#3-删除test-web控制器" class="headerlink" title="3.删除test-web控制器"></a>3.删除test-web控制器</h2><pre><code>[root@master ~]# kubectl delete deployments. test-web </code></pre><h2 id="4-master创建Pod控制器（web），deployment"><a href="#4-master创建Pod控制器（web），deployment" class="headerlink" title="4.master创建Pod控制器（web），deployment"></a>4.master创建Pod控制器（web），deployment</h2><pre><code>[root@master ~]# kubectl run web --image=nginx --replicas=5</code></pre><h3 id="查看一下pod信息"><a href="#查看一下pod信息" class="headerlink" title="查看一下pod信息"></a>查看一下pod信息</h3><pre><code>[root@master ~]# kubectl get pod -o wide
+//查看一下pod的节点信息</code></pre><p>![image-20200106095722353](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106095722353.png)</p>
+<pre><code>[root@master ~]# kubectl describe deployments. web 
+//查看资源详细信息</code></pre><p>![image-20200106100606861](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106100606861.png)</p>
+<p><strong><em>注意：直接运行创建的deployment资源对象，是经常使用的一个控制器资源类型，除了deployment，还有rc、rs等等pod控制器，deployment是一个高级的pod控制器。</em></strong></p>
+<h3 id="本机测试访问nginx"><a href="#本机测试访问nginx" class="headerlink" title="本机测试访问nginx"></a>本机测试访问nginx</h3><pre><code>[root@master ~]# curl 10.244.1.7</code></pre><p>![image-20200106100827131](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106100827131.png)</p>
+<h2 id="5-创建service资源类型"><a href="#5-创建service资源类型" class="headerlink" title="5.创建service资源类型"></a>5.创建service资源类型</h2><pre><code>[root@master ~]# kubectl expose deployment web --name=web-xgp --port=80 --type=NodePort
+//创建service资源类型，这里我们设置了映射端口</code></pre><p><strong><em>如果想要外网能够访问服务，可以暴露deployment资源，得到service资源，但svc资源的类型必须为NodePort。</em></strong></p>
+<p><strong>映射端口范围：30000-32767</strong></p>
+<h3 id="查看service信息"><a href="#查看service信息" class="headerlink" title="查看service信息"></a>查看service信息</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200106101443348](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106101443348.png)</p>
+<h3 id="浏览器测试访问http-192-168-1-21-30493"><a href="#浏览器测试访问http-192-168-1-21-30493" class="headerlink" title="浏览器测试访问http://192.168.1.21:30493/"></a>浏览器测试访问<a href="http://192.168.1.21:30493/" target="_blank" rel="noopener">http://192.168.1.21:30493/</a></h3><p>![image-20200106101624954](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106101624954.png)</p>
+<h1 id="二、服务的扩容与缩容"><a href="#二、服务的扩容与缩容" class="headerlink" title="二、服务的扩容与缩容"></a>二、服务的扩容与缩容</h1><h2 id="1-查看控制器信息"><a href="#1-查看控制器信息" class="headerlink" title="1. 查看控制器信息"></a>1. 查看控制器信息</h2><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200106104638757](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106104638757.png)</p>
+<h2 id="2-扩容"><a href="#2-扩容" class="headerlink" title="2.扩容"></a>2.扩容</h2><pre><code>[root@master ~]# kubectl scale deployment web --replicas=8</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200106104757123](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106104757123.png)</p>
+<h2 id="3-缩容"><a href="#3-缩容" class="headerlink" title="3.缩容"></a>3.缩容</h2><pre><code>[root@master ~]# kubectl scale deployment web --replicas=4</code></pre><h3 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200106105536316](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106105536316.png)</p>
+<h2 id="3-通过修改web的yaml文件进行扩容缩容"><a href="#3-通过修改web的yaml文件进行扩容缩容" class="headerlink" title="3.通过修改web的yaml文件进行扩容缩容"></a>3.通过修改web的yaml文件进行扩容缩容</h2><h3 id="备份web的yaml文件"><a href="#备份web的yaml文件" class="headerlink" title="备份web的yaml文件"></a>备份web的yaml文件</h3><pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; web.yaml</code></pre><h3 id="使用edit修改web的yaml文件"><a href="#使用edit修改web的yaml文件" class="headerlink" title="使用edit修改web的yaml文件"></a>使用edit修改web的yaml文件</h3><pre><code>[root@master ~]# kubectl edit deployments. web </code></pre><p>![image-20200106105924531](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106105924531.png)</p>
+<h3 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200106105816339](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106105816339.png)</p>
+<h1 id="三、服务的升级与回滚"><a href="#三、服务的升级与回滚" class="headerlink" title="三、服务的升级与回滚"></a>三、服务的升级与回滚</h1><h2 id="node01和node02下载1-15版本的nginx"><a href="#node01和node02下载1-15版本的nginx" class="headerlink" title="node01和node02下载1.15版本的nginx"></a>node01和node02下载1.15版本的nginx</h2><pre><code>[root@master ~]# docker pull nginx:1.15</code></pre><h2 id="1-master设置服务升级"><a href="#1-master设置服务升级" class="headerlink" title="1.master设置服务升级"></a>1.master设置服务升级</h2><pre><code>[root@master ~]#  kubectl set image deployment web web=nginx:1.15</code></pre><h3 id="查看一下-3"><a href="#查看一下-3" class="headerlink" title="查看一下"></a>查看一下</h3><p>![image-20200106111227960](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106111227960.png)</p>
+<h2 id="2-master设置服务回滚"><a href="#2-master设置服务回滚" class="headerlink" title="2.master设置服务回滚"></a>2.master设置服务回滚</h2><h3 id="（1）修改配置文件回滚"><a href="#（1）修改配置文件回滚" class="headerlink" title="（1）修改配置文件回滚"></a>（1）修改配置文件回滚</h3><h3 id="使用edit修改web的yaml文件-1"><a href="#使用edit修改web的yaml文件-1" class="headerlink" title="使用edit修改web的yaml文件"></a>使用edit修改web的yaml文件</h3><pre><code>[root@master ~]# kubectl edit deployments. web </code></pre><p>![image-20200106111523148](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106111523148.png)</p>
+<h3 id="查看一下-4"><a href="#查看一下-4" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200106111319699](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106111319699.png)</p>
+<h3 id="（2）命令回滚"><a href="#（2）命令回滚" class="headerlink" title="（2）命令回滚"></a>（2）命令回滚</h3><pre><code>[root@master ~]# kubectl rollout undo deployment web </code></pre><p>![image-20200106111733617](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106111733617.png)</p>
+<p><strong><em>注意:只能回滚到上一次操作的状态</em></strong></p>
+<h1 id="四、实验环境"><a href="#四、实验环境" class="headerlink" title="四、实验环境"></a>四、实验环境</h1><table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td>registry+Deployment</td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td></td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="1-master-基于httpd制作自己的镜像，需要3个版本，v1-v2-v3-并且对应的版本镜像，访问的主目录内容不一样"><a href="#1-master-基于httpd制作自己的镜像，需要3个版本，v1-v2-v3-并且对应的版本镜像，访问的主目录内容不一样" class="headerlink" title="1.master 基于httpd制作自己的镜像，需要3个版本，v1,v2,v3.并且对应的版本镜像，访问的主目录内容不一样"></a>1.master 基于httpd制作自己的镜像，需要3个版本，v1,v2,v3.并且对应的版本镜像，访问的主目录内容不一样</h2><h3 id="（1）master下载httpd镜像"><a href="#（1）master下载httpd镜像" class="headerlink" title="（1）master下载httpd镜像"></a>（1）master下载httpd镜像</h3><pre><code>[root@master ~]# docker pull httpd</code></pre><h3 id="（2）编写Dockerfile"><a href="#（2）编写Dockerfile" class="headerlink" title="（2）编写Dockerfile"></a>（2）编写Dockerfile</h3><pre><code>[root@master xgp]# vim Dockerfile
+FROM httpd
+COPY index.html /usr/local/apache2/htdocs/index.html</code></pre><h3 id="（3）创建测试网页v1"><a href="#（3）创建测试网页v1" class="headerlink" title="（3）创建测试网页v1"></a>（3）创建测试网页v1</h3><pre><code>[root@master xgp]#echo "&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;" &gt; index.html</code></pre><h3 id="（4）基于Dockerfile创建镜像-web1"><a href="#（4）基于Dockerfile创建镜像-web1" class="headerlink" title="（4）基于Dockerfile创建镜像 web1"></a>（4）基于Dockerfile创建镜像 web1</h3><pre><code>[root@master xgp]# docker build -t web1 .</code></pre><h3 id="（5）创建测试网页v2"><a href="#（5）创建测试网页v2" class="headerlink" title="（5）创建测试网页v2"></a>（5）创建测试网页v2</h3><pre><code>[root@master xgp]#echo "&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;" &gt; index.html</code></pre><h3 id="（6）基于Dockerfile创建镜像-web2"><a href="#（6）基于Dockerfile创建镜像-web2" class="headerlink" title="（6）基于Dockerfile创建镜像 web2"></a>（6）基于Dockerfile创建镜像 web2</h3><pre><code>[root@master xgp]# docker build -t web2 .</code></pre><h3 id="（7）创建测试网页v3"><a href="#（7）创建测试网页v3" class="headerlink" title="（7）创建测试网页v3"></a>（7）创建测试网页v3</h3><pre><code>[root@master xgp]# echo "&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;" &gt; index.html</code></pre><h3 id="（8）基于Dockerfile创建镜像-web3"><a href="#（8）基于Dockerfile创建镜像-web3" class="headerlink" title="（8）基于Dockerfile创建镜像 web3"></a>（8）基于Dockerfile创建镜像 web3</h3><pre><code>[root@master xgp]# docker build -t web3 .</code></pre><h2 id="2-master部署私有仓库"><a href="#2-master部署私有仓库" class="headerlink" title="2.master部署私有仓库"></a>2.master部署私有仓库</h2><h3 id="（1）master下载registry镜像"><a href="#（1）master下载registry镜像" class="headerlink" title="（1）master下载registry镜像"></a>（1）master下载registry镜像</h3><pre><code>[root@master ~]# docker pull registry</code></pre><h3 id="（2）启动registry"><a href="#（2）启动registry" class="headerlink" title="（2）启动registry"></a>（2）启动registry</h3><pre><code>[root@master xgp]# docker run -itd --name registry -p 5000:5000 --restart=always registry:latest </code></pre><h3 id="（3）修改docker配置文件，加入私有仓库（三台）"><a href="#（3）修改docker配置文件，加入私有仓库（三台）" class="headerlink" title="（3）修改docker配置文件，加入私有仓库（三台）"></a>（3）修改docker配置文件，加入私有仓库（三台）</h3><pre><code>[root@master xgp]# vim /usr/lib/systemd/system/docker.service
+ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000</code></pre><p>![image-20200106120848869](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106120848869.png)</p>
+<h3 id="（4）重启docker（三台）"><a href="#（4）重启docker（三台）" class="headerlink" title="（4）重启docker（三台）"></a>（4）重启docker（三台）</h3><pre><code>[root@master xgp]# systemctl daemon-reload 
+[root@master xgp]# systemctl restart docker</code></pre><h2 id="3-上传之前创建的三个web镜像到私有仓库"><a href="#3-上传之前创建的三个web镜像到私有仓库" class="headerlink" title="3.上传之前创建的三个web镜像到私有仓库"></a>3.上传之前创建的三个web镜像到私有仓库</h2><h3 id="（1）修改镜像标签"><a href="#（1）修改镜像标签" class="headerlink" title="（1）修改镜像标签"></a>（1）修改镜像标签</h3><pre><code>[root@master xgp]# docker tag web1:latest 192.168.1.21:5000/web1:latest
+[root@master xgp]# docker tag web2:latest 192.168.1.21:5000/web2:latest
+[root@master xgp]# docker tag web3:latest 192.168.1.21:5000/web3:latest</code></pre><h3 id="（2）将三个web镜像上传到私有仓库"><a href="#（2）将三个web镜像上传到私有仓库" class="headerlink" title="（2）将三个web镜像上传到私有仓库"></a>（2）将三个web镜像上传到私有仓库</h3><pre><code>[root@master xgp]# docker push  192.168.1.21:5000/web1:latest 
+[root@master xgp]# docker push  192.168.1.21:5000/web2:latest
+[root@master xgp]# docker push  192.168.1.21:5000/web3:latest </code></pre><h2 id="4-部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。"><a href="#4-部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。" class="headerlink" title="4.部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。"></a>4.部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。</h2><pre><code>[root@master xgp]# kubectl run www1 --image=192.168.1.21:5000/web1:latest --replicas=6</code></pre><h3 id="查看一下-5"><a href="#查看一下-5" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master xgp]# kubectl get pod</code></pre><p>![image-20200106122026271](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106122026271.png)</p>
+<h3 id="本地访问一下"><a href="#本地访问一下" class="headerlink" title="本地访问一下"></a>本地访问一下</h3><p>![image-20200106122426308](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106122426308.png)</p>
+<h3 id="5-将上述Deployment暴露一个service资源对象，使外网能否访问服务。"><a href="#5-将上述Deployment暴露一个service资源对象，使外网能否访问服务。" class="headerlink" title="5.将上述Deployment暴露一个service资源对象，使外网能否访问服务。"></a>5.将上述Deployment暴露一个service资源对象，使外网能否访问服务。</h3><pre><code>[root@master xgp]#  kubectl expose deployment www1 --name=web-xgp --port=80 --type=NodePort</code></pre><h3 id="查看一下-6"><a href="#查看一下-6" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master xgp]# kubectl get svc</code></pre><p>![image-20200106122313996](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106122313996.png)</p>
+<h3 id="浏览器访问一下"><a href="#浏览器访问一下" class="headerlink" title="浏览器访问一下"></a>浏览器访问一下</h3><p>![image-20200106122340747](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106122340747.png)</p>
+<h2 id="6-将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。"><a href="#6-将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。" class="headerlink" title="6.将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。"></a>6.将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。</h2><h2 id="（1）扩容"><a href="#（1）扩容" class="headerlink" title="（1）扩容"></a>（1）扩容</h2><pre><code>[root@master xgp]# kubectl scale deployment www1 --replicas=8</code></pre><h3 id="查看一下-7"><a href="#查看一下-7" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master xgp]# kubectl get deployments. -o wide</code></pre><p>![image-20200106122722977](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106122722977.png)</p>
+<h2 id="（2）缩容"><a href="#（2）缩容" class="headerlink" title="（2）缩容"></a>（2）缩容</h2><h3 id="修改k8s配置文件"><a href="#修改k8s配置文件" class="headerlink" title="修改k8s配置文件"></a>修改k8s配置文件</h3><h3 id="备份web的yaml文件-1"><a href="#备份web的yaml文件-1" class="headerlink" title="备份web的yaml文件"></a>备份web的yaml文件</h3><pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; www1.yaml</code></pre><h3 id="使用edit修改web的yaml文件-2"><a href="#使用edit修改web的yaml文件-2" class="headerlink" title="使用edit修改web的yaml文件"></a>使用edit修改web的yaml文件</h3><pre><code>[root@master ~]# kubectl edit deployments. www1</code></pre><p>![image-20200106105924531](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106105924531.png)</p>
+<h3 id="查看一下-8"><a href="#查看一下-8" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master xgp]# kubectl get deployments. -o wide</code></pre><p>![image-20200106122953397](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106122953397.png)</p>
+<h2 id="7-将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。"><a href="#7-将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。" class="headerlink" title="7.将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。"></a>7.将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。</h2><h2 id="（1）升级版本为web2"><a href="#（1）升级版本为web2" class="headerlink" title="（1）升级版本为web2"></a>（1）升级版本为web2</h2><pre><code>[root@master ~]# kubectl set image deployment www1 www1=192.168.1.21:5000/web2</code></pre><h3 id="本机测试访问"><a href="#本机测试访问" class="headerlink" title="本机测试访问"></a>本机测试访问</h3><pre><code>[root@master ~]# curl 127.0.0.1:30996
+&lt;h1&gt;xgp | test-web | httpd:v2&lt;h1&gt;</code></pre><p>![image-20200106125722931](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106125722931.png)</p>
+<h3 id="浏览器测试访问"><a href="#浏览器测试访问" class="headerlink" title="浏览器测试访问"></a>浏览器测试访问</h3><p>![image-20200106125750021](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106125750021.png)</p>
+<h2 id="（2）回滚版本到web1"><a href="#（2）回滚版本到web1" class="headerlink" title="（2）回滚版本到web1"></a>（2）回滚版本到web1</h2><h3 id="lt-1-gt-修改配置文件回滚"><a href="#lt-1-gt-修改配置文件回滚" class="headerlink" title="<1>修改配置文件回滚"></a>&lt;1&gt;修改配置文件回滚</h3><h3 id="使用edit修改web的yaml文件-3"><a href="#使用edit修改web的yaml文件-3" class="headerlink" title="使用edit修改web的yaml文件"></a>使用edit修改web的yaml文件</h3><pre><code>[root@master ~]# kubectl edit deployments. www1</code></pre><p>![image-20200106130010344](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106130010344.png)</p>
+<h3 id="查看一下-9"><a href="#查看一下-9" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200106130304423](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106130304423.png)</p>
+<h3 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h3><p>![image-20200106130435212](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106130435212.png)</p>
+<p>![image-20200106130447693](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106130447693.png)</p>
+<h3 id="lt-2-gt-命令回滚"><a href="#lt-2-gt-命令回滚" class="headerlink" title="<2>命令回滚"></a>&lt;2&gt;命令回滚</h3><pre><code>[root@master ~]# kubectl rollout undo deployment www1</code></pre><p>![image-20200106130317956](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106130317956.png)</p>
+<p><strong><em>注意:只能回滚到上一次操作的状态</em></strong></p>
+<h3 id="访问一下-1"><a href="#访问一下-1" class="headerlink" title="访问一下"></a>访问一下</h3><p>![image-20200106130357339](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106130357339.png)</p>
+<p>![image-20200106130414060](G:\四期\虚拟化\kubernetes\k8s文档\03 创建资源的两种方式.assets\image-20200106130414060.png)</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -571,7 +691,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/categories/index.html">http://yoursite.com/categories/index.html</a>
+                    <a href="http://yoursite.com/posts/6989.html">http://yoursite.com/posts/6989.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,33 +914,36 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/748b.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="04 配置清单">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">04 配置清单</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            一，两种创建资源的方法1. 基于命令的方式：
+简单直观快捷，上手快。
+适合临时测试或实验。
+
+2. 基于配置清单的方式：
+配置文件描述了 What，即应用最终要达到的状态。
+配置文件提供了创建资源的模板，能够重复部署。
+可以像管理代码一样管
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -829,7 +952,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -837,30 +959,52 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/cd85.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="02 k8s架构，基本概念">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">02 k8s架构，基本概念</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
                             
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+
+
+主机名
+IP地址
+服务
+
+
+
+master
+192.168.1.21
+
+
+
+node01
+192.168.1.22
+
+
+
+node02
+192.168.1.23
+
+
+
+kubernetes架构
+kubectl：k8s是命令行端，用来发
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -870,7 +1014,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

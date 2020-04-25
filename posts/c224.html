@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Categories, Xgp &amp; Blog">
+    <meta name="keywords" content="20 k8s的helm模板, Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Categories | Xgp &amp; Blog</title>
+    <title>20 k8s的helm模板 | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">20 k8s的helm模板</h1>
                 </div>
             </div>
         </div>
@@ -491,28 +491,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-03-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    52
+                    2.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    11 Min
                 </div>
                 
 
@@ -528,7 +528,183 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <h1 id="自定义helm模板"><a href="#自定义helm模板" class="headerlink" title="自定义helm模板"></a>自定义helm模板</h1><p><a href="https://hub.helm.sh/" target="_blank" rel="noopener">https://hub.helm.sh/</a></p>
+<h2 id="1、开发自己的chare包"><a href="#1、开发自己的chare包" class="headerlink" title="1、开发自己的chare包"></a>1、开发自己的chare包</h2><pre><code>[root@master ~]# helm create mychare
+//创建一个名为mychare的chare包
+[root@master ~]# tree -C mychare/
+//以树状图查看一下chare包
+mychare/
+├── charts
+├── Chart.yaml
+├── templates
+│   ├── deployment.yaml
+│   ├── _helpers.tpl
+│   ├── ingress.yaml
+│   ├── NOTES.txt
+│   ├── service.yaml
+│   └── tests
+│       └── test-connection.yaml
+└── values.yaml</code></pre><h2 id="2、调试chart"><a href="#2、调试chart" class="headerlink" title="2、调试chart"></a>2、调试chart</h2><pre><code>[root@master mychare]# cd
+[root@master ~]# helm install --dry-run --debug mychare
+//检查这个mychare是否有问题</code></pre><h2 id="3、安装chart"><a href="#3、安装chart" class="headerlink" title="3、安装chart"></a>3、安装chart</h2><pre><code>[root@node02 ~]# docker pull nginx:stable</code></pre><h3 id="（1）通过仓库安装"><a href="#（1）通过仓库安装" class="headerlink" title="（1）通过仓库安装"></a>（1）通过仓库安装</h3><pre><code>[root@master mychare]# helm search redis
+//搜索chare包</code></pre><pre><code>[root@master mychare]# helm repo list
+//查看是否有能访问仓库</code></pre><pre><code>[root@master mychare]# helm install stable/redis
+//安装</code></pre><h3 id="（2）通过tar包安装"><a href="#（2）通过tar包安装" class="headerlink" title="（2）通过tar包安装"></a>（2）通过tar包安装</h3><pre><code>[root@master ~]# helm fetch stable/redis
+//直接下载chare包
+[root@master ~]# tar -zxf redis-1.1.15.tgz
+//解压下载的chare包
+[root@master ~]# tree -C redis
+redis
+├── Chart.yaml
+├── README.md
+├── templates
+│   ├── deployment.yaml
+│   ├── _helpers.tpl
+│   ├── networkpolicy.yaml
+│   ├── NOTES.txt
+│   ├── pvc.yaml
+│   ├── secrets.yaml
+│   └── svc.yaml
+└── values.yaml</code></pre><h3 id="（3）通过chare本地目录安装"><a href="#（3）通过chare本地目录安装" class="headerlink" title="（3）通过chare本地目录安装"></a>（3）通过chare本地目录安装</h3><pre><code>[root@master ~]# helm fetch stable/redis
+//直接下载chare包
+[root@master ~]# tar -zxf redis-1.1.15.tgz
+//解压下载的chare包
+[root@master ~]# helm install redis</code></pre><h3 id="（4）通过URL安装"><a href="#（4）通过URL安装" class="headerlink" title="（4）通过URL安装"></a>（4）通过URL安装</h3><pre><code>[root@master ~]# helm install https://example.com/charts/foo-1.2.3.tgz</code></pre><p>使用本地目录安装：</p>
+<pre><code>[root@master ~]# cd mychare/
+[root@master mychare]# vim values.yaml </code></pre><p>![image-20200304094840738](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304094840738.png)</p>
+<pre><code>[root@master mychare]# cd templates/
+[root@master templates]# vim service.yaml </code></pre><p>![image-20200304095647172](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304095647172.png)</p>
+<pre><code>[root@master templates]# cd ..
+[root@master mychare]# helm install -n test ../mychare/
+[root@master ~]# helm upgrade test mychare/ -f  mychare/values.yaml </code></pre><h2 id="4、例子"><a href="#4、例子" class="headerlink" title="4、例子"></a>4、例子</h2><p><strong>使用mychart部署一个实例: xgp。使用镜像为私有镜像v1 版本。</strong></p>
+<p><strong>完成之后，镜像版本。</strong></p>
+<p><strong>全部成功之后，将实例做一个升级，将镜像改为v2版本。</strong></p>
+<h3 id="更改镜像为私有镜像"><a href="#更改镜像为私有镜像" class="headerlink" title="更改镜像为私有镜像"></a>更改镜像为私有镜像</h3><pre><code>[root@master ~]# vim mychare/values.yaml</code></pre><p>![image-20200304104416415](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304104416415.png)</p>
+<pre><code>[root@master ~]#  helm install -n xgp mychare/ -f mychare/values.yaml
+[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304104645260](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304104645260.png)</p>
+<pre><code>[root@master ~]# vim mychare/values.yaml</code></pre><p>![image-20200304105120894](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105120894.png)</p>
+<pre><code>[root@master ~]# helm upgrade  xgp mychare/  -f mychare/values.yaml 
+[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304105211506](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105211506.png)</p>
+<pre><code>[root@master ~]# kubectl edit deployments. xgp-mychare</code></pre><p>![image-20200304105334541](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105334541.png)</p>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304105359184](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105359184.png)</p>
+<h1 id="创建自己的Repo仓库"><a href="#创建自己的Repo仓库" class="headerlink" title="创建自己的Repo仓库"></a>创建自己的Repo仓库</h1><h2 id="1、node01启动一个httpd的容器"><a href="#1、node01启动一个httpd的容器" class="headerlink" title="1、node01启动一个httpd的容器"></a>1、node01启动一个httpd的容器</h2><pre><code>[root@node01 ~]# mkdir /var/xgp
+//创建一个目录
+[root@node01 ~]# docker pull httpd
+//下载httpd镜像
+[root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
+//启动一个httpd的容器</code></pre><h2 id="2、master节点上，将mychart目录打包。"><a href="#2、master节点上，将mychart目录打包。" class="headerlink" title="2、master节点上，将mychart目录打包。"></a>2、master节点上，将mychart目录打包。</h2><pre><code>[root@master ~]# helm package mychare/
+Successfully packaged chart and saved it to: /root/mychare-0.1.0.tgz</code></pre><h2 id="3、生成仓库的index文件。"><a href="#3、生成仓库的index文件。" class="headerlink" title="3、生成仓库的index文件。"></a>3、生成仓库的index文件。</h2><pre><code>[root@master ~]# mkdir myrepo
+//创建一个目录存放打包的chare
+[root@master ~]# mv mychare-0.1.0.tgz myrepo/
+//移动打包好的文件
+[root@master ~]# helm repo index myrepo/ --url http://192.168.1.22:8080/charts
+//生成仓库的index文件
+[root@master ~]# ls myrepo/
+index.yaml  mychare-0.1.0.tgz</code></pre><h2 id="4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下"><a href="#4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下" class="headerlink" title="4、将生成的tar包和index.yaml上传到node01的/var/www/charts目录下."></a>4、将生成的tar包和index.yaml上传到node01的/var/www/charts目录下.</h2><h3 id="node01创建目录"><a href="#node01创建目录" class="headerlink" title="node01创建目录"></a>node01创建目录</h3><pre><code>[root@node01 ~]# mkdir /var/xgp/charts</code></pre><h3 id="master移动动到"><a href="#master移动动到" class="headerlink" title="master移动动到"></a>master移动动到</h3><pre><code>[root@master ~]# scp myrepo/* node01:/var/xgp/charts/</code></pre><h3 id="node01查看一下"><a href="#node01查看一下" class="headerlink" title="node01查看一下"></a>node01查看一下</h3><pre><code>[root@node01 ~]# ls /var/xgp/charts/
+index.yaml  mychare-0.1.0.tgz</code></pre><h2 id="5、添加新的repo仓库。"><a href="#5、添加新的repo仓库。" class="headerlink" title="5、添加新的repo仓库。"></a>5、添加新的repo仓库。</h2><pre><code>[root@master ~]# helm repo add newrepo http://192.168.1.22:8080/charts</code></pre><pre><code>[root@master ~]# helm repo list</code></pre><p>![image-20200304112410286](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112410286.png)</p>
+<pre><code>[root@master ~]# helm search mychare</code></pre><p>![image-20200304112443931](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112443931.png)</p>
+<h2 id="6、我们就可以直接使用新的repo仓库部署实例了。"><a href="#6、我们就可以直接使用新的repo仓库部署实例了。" class="headerlink" title="6、我们就可以直接使用新的repo仓库部署实例了。"></a>6、我们就可以直接使用新的repo仓库部署实例了。</h2><pre><code>[root@master ~]# helm install newrepo/mychare -n wsd</code></pre><pre><code>[root@master ~]# helm list </code></pre><p>![image-20200304112515084](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112515084.png)</p>
+<h2 id="7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。"><a href="#7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。" class="headerlink" title="7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。"></a>7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。</h2><p> 练习：<br>    新创建一个bdqn.的chart包。然后将chart包上传到上述repo源中。</p>
+<pre><code>[root@master ~]# helm create bdqn
+[root@master ~]# helm package bdqn/
+[root@master ~]# mv bdqn-0.1.0.tgz myrepo/
+[root@master ~]#  helm repo index myrepo/ --url http://192.168.1.22:8080/charts
+[root@master myrepo]# scp bdqn-0.1.0.tgz index.yaml  node01:/var/xgp/charts
+[root@master myrepo]# helm repo update
+[root@master myrepo]# helm search bdqn
+[root@master myrepo]# helm install http://192.168.1.22:8080/charts/bdqn-0.1.0.tgz
+</code></pre><h2 id="1）创建helm的私有仓库，以自己的名字命名。"><a href="#1）创建helm的私有仓库，以自己的名字命名。" class="headerlink" title="1）创建helm的私有仓库，以自己的名字命名。"></a>1）创建helm的私有仓库，以自己的名字命名。</h2><h3 id="1、node01启动一个httpd的容器-1"><a href="#1、node01启动一个httpd的容器-1" class="headerlink" title="1、node01启动一个httpd的容器"></a>1、node01启动一个httpd的容器</h3><pre><code>[root@node01 ~]# mkdir /var/xgp
+//创建一个目录
+[root@node01 ~]# docker pull httpd
+//下载httpd镜像
+[root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
+//启动一个httpd的容器</code></pre><h3 id="3、生成仓库的index文件。-1"><a href="#3、生成仓库的index文件。-1" class="headerlink" title="3、生成仓库的index文件。"></a>3、生成仓库的index文件。</h3><pre><code>[root@master ~]# mkdir xgprepo
+//创建一个目录存放打包的chare
+[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
+//生成仓库的index文件</code></pre><h3 id="4、将生成的index-yaml上传到node01的-var-www-charts目录下"><a href="#4、将生成的index-yaml上传到node01的-var-www-charts目录下" class="headerlink" title="4、将生成的index.yaml上传到node01的/var/www/charts目录下."></a>4、将生成的index.yaml上传到node01的/var/www/charts目录下.</h3><h4 id="node01创建目录-1"><a href="#node01创建目录-1" class="headerlink" title="node01创建目录"></a>node01创建目录</h4><pre><code>[root@node01 ~]# mkdir /var/xgp/charts</code></pre><h4 id="master移动动到-1"><a href="#master移动动到-1" class="headerlink" title="master移动动到"></a>master移动动到</h4><pre><code>[root@master ~]# scp xgprepo/* node01:/var/xgp/charts/</code></pre><h4 id="node01查看一下-1"><a href="#node01查看一下-1" class="headerlink" title="node01查看一下"></a>node01查看一下</h4><pre><code>[root@node01 ~]# ls /var/xgp/charts/
+index.yaml  </code></pre><h3 id="5、添加新的repo仓库"><a href="#5、添加新的repo仓库" class="headerlink" title="5、添加新的repo仓库"></a>5、添加新的repo仓库</h3><pre><code>[root@master ~]# helm repo add xgp http://192.168.1.22:8080/charts
+[root@master ~]# helm repo list </code></pre><p>![image-20200304132528938](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304132528938.png)</p>
+<h2 id="2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000"><a href="#2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000" class="headerlink" title="2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000"></a>2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</h2><h4 id="自定义一个chart包"><a href="#自定义一个chart包" class="headerlink" title="自定义一个chart包"></a>自定义一个chart包</h4><pre><code>[root@master ~]# helm create wsd
+//创建一个名为wsd的chares包</code></pre><h4 id="按照要求修改配置文件"><a href="#按照要求修改配置文件" class="headerlink" title="按照要求修改配置文件"></a>按照要求修改配置文件</h4><pre><code>[root@master ~]# cd wsd/
+//进入这个chart包
+[root@master wsd]# vim values.yaml
+//修改wsd的配置文件
+replicaCount: 3                         #三个副本
+
+image:
+  repository: 192.168.1.21:5000/web      #更改镜像为私有镜像
+  tag: v1                                #镜像标签v1
+  pullPolicy: IfNotPresent              
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: NodePort              #修改模式为映射端口
+  port: 80
+  nodePort: 30000             #添加端口
+
+[root@master wsd]# vim templates/service.yaml 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wsd.fullname" . }}
+  labels:
+{{ include "wsd.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+      nodePort: {{ .Values.service.nodePort }}    #“添加”能让服务识别到nodePort的端口
+  selector:
+    app.kubernetes.io/name: {{ include "wsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}</code></pre><h4 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h4><pre><code>[root@master ~]# helm install -n wsd  wsd/ -f wsd/values.yaml </code></pre><p>![image-20200304134959273](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304134959273.png)</p>
+<h4 id="查看一下镜像版本"><a href="#查看一下镜像版本" class="headerlink" title="查看一下镜像版本"></a>查看一下镜像版本</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304135106081](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304135106081.png)</p>
+<h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p>![image-20200304150609552](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150609552.png)</p>
+<h2 id="3-将实例进行更新，要求镜像生产v2版本。"><a href="#3-将实例进行更新，要求镜像生产v2版本。" class="headerlink" title="3)  将实例进行更新，要求镜像生产v2版本。"></a>3)  将实例进行更新，要求镜像生产v2版本。</h2><p><strong>私有镜像和官方镜像升级有所不同，官方的只需通过 （helm upgrade –set imageTag=“标签” 服务名称 charts包名 ）进行更改标签即可，而私有镜像需通过更改values.yaml中的标签才行比较麻烦一点。</strong></p>
+<h3 id="1、修改values-yaml"><a href="#1、修改values-yaml" class="headerlink" title="1、修改values.yaml"></a>1、修改values.yaml</h3><pre><code>[root@master ~]# vim wsd/values.yaml 
+
+# Default values for wsd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 3
+
+image:
+  repository: 192.168.1.21:5000/web
+  tag: v2                            #修改标签为v2
+  pullPolicy: IfNotPresent
+[root@master ~]# helm upgrade wsd wsd/ -f wsd/values.yaml
+//基于配置文件刷新一下wsd服务</code></pre><h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304140054269](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140054269.png)</p>
+<h4 id="访问一下-1"><a href="#访问一下-1" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p>![image-20200304150742815](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150742815.png)</p>
+<h3 id="2、使用edit进行版本更新"><a href="#2、使用edit进行版本更新" class="headerlink" title="2、使用edit进行版本更新"></a>2、使用edit进行版本更新</h3><p><strong><em>确定wsd这个服务开启</em></strong></p>
+<pre><code>[root@master ~]# kubectl edit deployments. wsd</code></pre><p>![](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140425336.png)</p>
+<h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304140520342](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140520342.png)</p>
+<h4 id="访问一下-2"><a href="#访问一下-2" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p>![image-20200304150839440](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150839440.png)</p>
+<h2 id="4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。"><a href="#4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。" class="headerlink" title="4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。"></a>4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。</h2><pre><code>[root@master ~]# helm repo list </code></pre><p>![image-20200304142059023](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304142059023.png)</p>
+<pre><code>[root@master ~]# helm create xgp-wsd
+//创建一个名为xgp-wsd的charts包
+
+[root@master ~]# helm package xgp-wsd/
+//将xgp-wsd打包在当前目录
+
+[root@master ~]# mv xgp-wsd-0.1.0.tgz xgprepo/
+//把打包文件放到仓库目录
+
+[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
+//把仓库目录新加入的charts包信息记录在index.yaml中，使得其他加入的主机可以识别到，仓库的charts包
+
+[root@master ~]# scp xgprepo/* node01:/var/xgp/charts
+//将仓库目录的文件移动到httpd服务上，使各个主机可以访问，下载仓库的charts包
+
+[root@master ~]# helm repo update 
+//更新一下chart存储库</code></pre><h3 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# helm search xgp-wsd</code></pre><p>![image-20200304142009776](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304142009776.png)</p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -571,7 +747,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/categories/index.html">http://yoursite.com/categories/index.html</a>
+                    <a href="http://yoursite.com/posts/c224.html">http://yoursite.com/posts/c224.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,33 +970,55 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/c0fd.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="21 k8s的持续集成">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">21 k8s的持续集成</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            实验环境
+
+
+IP
+主机名称
+服务
+
+
+
+192.168.1.21
+master
+k8s
+
+
+192.168.1.22
+node01
+k8s
+
+
+192.168.1.10
+git
+gitlab
+
+
+192.168.1.13
+jenkins
+
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -829,7 +1027,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -837,30 +1034,29 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/2643.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="18 k8s的HPA自动扩容与缩容">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">18 k8s的HPA自动扩容与缩容</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            HPA可以根据当前Pod资源的使用率，比如说CPU、磁盘、内存等进行副本Pod的动态的扩容与缩容。
+前提条件:系统应该能否获取到当前Pod的资源使用情况 (意思是可以执行kubectl top pod命令,并且能够得到反馈信息)。
+heap
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -870,7 +1066,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

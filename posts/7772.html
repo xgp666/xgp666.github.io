@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Categories, Xgp &amp; Blog">
+    <meta name="keywords" content="08 ReplicaSet、DaemonSet, Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Categories | Xgp &amp; Blog</title>
+    <title>08 ReplicaSet、DaemonSet | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">08 ReplicaSet、DaemonSet</h1>
                 </div>
             </div>
         </div>
@@ -491,28 +491,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-01-15
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    52
+                    3.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    12 Min
                 </div>
                 
 
@@ -528,7 +528,197 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <h1 id="ReplicaSet简单介绍"><a href="#ReplicaSet简单介绍" class="headerlink" title="ReplicaSet简单介绍"></a>ReplicaSet简单介绍</h1><h2 id="1-RC：ReplicationController（老一代的pod控制器）"><a href="#1-RC：ReplicationController（老一代的pod控制器）" class="headerlink" title="1. RC：ReplicationController（老一代的pod控制器）"></a>1. RC：ReplicationController（老一代的pod控制器）</h2><p><strong>用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</strong></p>
+<h3 id="特点："><a href="#特点：" class="headerlink" title="特点："></a>特点：</h3><ul>
+<li>​        <strong>确保Pod资源对象的数量精准。</strong></li>
+<li>​        <strong>确保pod健康运行。</strong></li>
+<li>​        <strong>弹性伸缩</strong></li>
+</ul>
+<p><strong>同样，它也可以通过yaml或json格式的资源清单来创建。其中spec字段一般嵌套以下字段：</strong></p>
+<ul>
+<li>​        <strong>replicas：期望的Pod对象副本数量。</strong></li>
+<li>​        <strong>selector：当前控制器匹配Pod对此项副本的标签选择器</strong>    </li>
+<li>​        <strong>template：pod副本的模板</strong></li>
+</ul>
+<p><strong>与RC相比而言，RS不仅支持<em>基于等值</em>的标签选择器，而且还支持<em>基于集合</em>的标签选择器。</strong></p>
+<h2 id="2-标签：解决同类型的资源对象，为了更好的管理，按照标签分组。"><a href="#2-标签：解决同类型的资源对象，为了更好的管理，按照标签分组。" class="headerlink" title="2. 标签：解决同类型的资源对象，为了更好的管理，按照标签分组。"></a>2. 标签：解决同类型的资源对象，为了更好的管理，按照标签分组。</h2><h3 id="常用的标签分类："><a href="#常用的标签分类：" class="headerlink" title="常用的标签分类："></a>常用的标签分类：</h3><ul>
+<li>​        <strong>release（版本）：stable（稳定版）、canary（金丝雀版本）、beta（测试版本）</strong></li>
+<li>​        <strong>environment（环境变量）：dev（开发）、qa（测试）、production（生产）</strong></li>
+<li>​        <strong>application（应用）：ui、as（application software应用软件）、pc、sc</strong></li>
+<li>​        <strong>tier（架构层级）：frontend（前端）、backend（后端）、cache（缓存）</strong></li>
+<li>​        <strong>partition（分区）：customerA（客户A）、customerB（客户B）</strong></li>
+<li>​        <strong>track（品控级别）：daily（每天）、weekly（每周）</strong></li>
+</ul>
+<p><strong>标签要做到：见名知意。</strong></p>
+<h2 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h2><h3 id="（1）编写一个pod的yaml文件"><a href="#（1）编写一个pod的yaml文件" class="headerlink" title="（1）编写一个pod的yaml文件"></a>（1）编写一个pod的yaml文件</h3><pre><code>[root@master ~]# vim label.yaml 
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: labels
+  labels:
+    env: qa
+    tier: frontend
+spec:
+  containers:
+  - name: myapp
+    image: httpd</code></pre><h4 id="lt-1-gt-执行一下"><a href="#lt-1-gt-执行一下" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f label.yaml  --record </code></pre><h4 id="lt-2-gt-查看一下"><a href="#lt-2-gt-查看一下" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get pod  --show-labels 
+//通过--show-labels显示资源对象的</code></pre><p>![image-20200114095943595](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114095943595.png)</p>
+<pre><code>[root@master ~]# kubectl get po -L env,tier
+//显示某个键对应的值</code></pre><p>![image-20200114100043922](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
+<pre><code>[root@master ~]# kubectl get po -l env,tier
+//通过-l 查看仅包含某个标签的资源。</code></pre><p>![image-20200114100200895](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100200895.png)</p>
+<h3 id="（2）添加标签"><a href="#（2）添加标签" class="headerlink" title="（2）添加标签"></a>（2）添加标签</h3><pre><code>[root@master ~]# kubectl label pod  labels app=pc
+//给pod资源添加标签</code></pre><h3 id="（3）修改标签"><a href="#（3）修改标签" class="headerlink" title="（3）修改标签"></a>（3）修改标签</h3><pre><code>[root@master ~]# kubectl label pod labels env=dev --overwrite
+//修改标签</code></pre><pre><code>[root@master ~]# kubectl get pod -l tier --show-labels 
+//查看标签</code></pre><p>![image-20200114100607585](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100607585.png)</p>
+<h3 id="（4）编写一个service的yaml文件"><a href="#（4）编写一个service的yaml文件" class="headerlink" title="（4）编写一个service的yaml文件"></a>（4）编写一个service的yaml文件</h3><pre><code>[root@master ~]# vim service.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: service
+spec:
+  type: NodePort
+  selector:
+    env: qa
+  ports:
+  - protocol: TCP
+    port: 90
+    targetPort: 80
+    nodePort: 30123</code></pre><h4 id="lt-1-gt-执行一下-1"><a href="#lt-1-gt-执行一下-1" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f service.yaml </code></pre><h4 id="lt-2-gt-查看一下-1"><a href="#lt-2-gt-查看一下-1" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl describe svc</code></pre><p>![image-20200114101837151](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101837151.png)</p>
+<h4 id="lt-3-gt-访问一下"><a href="#lt-3-gt-访问一下" class="headerlink" title="<3>访问一下"></a>&lt;3&gt;访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200114101915248](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
+<p><strong>如果标签有多个，标签选择器选择其中一个，也可以关联成功。相反，如果选择器有多个，那么标签必须完全满足条件，才可以关联成功。</strong></p>
+<h2 id="4-标签选择器：标签的查询过滤条件。"><a href="#4-标签选择器：标签的查询过滤条件。" class="headerlink" title="4. 标签选择器：标签的查询过滤条件。"></a>4. 标签选择器：标签的查询过滤条件。</h2><p><strong><a href="">基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
+<p><strong><a href="">基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
+<h4 id="使用标签选择器的逻辑："><a href="#使用标签选择器的逻辑：" class="headerlink" title="使用标签选择器的逻辑："></a>使用标签选择器的逻辑：</h4><ul>
+<li><strong>同时指定的多个选择器之间的逻辑关系为“与”操作。</strong></li>
+<li><strong>使用空值的标签选择器意味着每个资源对象都将把选中。</strong></li>
+<li><strong>空的标签选择器无法选中任何资源。</strong></li>
+</ul>
+<h3 id="（1）例子"><a href="#（1）例子" class="headerlink" title="（1）例子"></a>（1）例子</h3><p>![image-20200114110334223](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114110334223.png)</p>
+<h4 id="编写一个selector的yaml’文件"><a href="#编写一个selector的yaml’文件" class="headerlink" title="编写一个selector的yaml’文件"></a>编写一个selector的yaml’文件</h4><pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@master ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># vim selector.yaml</span>
+<span class="token key atrule">selector</span><span class="token punctuation">:</span>
+  <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
+    <span class="token key atrule">app</span><span class="token punctuation">:</span> nginx
+  <span class="token key atrule">mathExpressions</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token key atrule">key</span><span class="token punctuation">:</span> name<span class="token punctuation">,</span><span class="token key atrule">operator</span><span class="token punctuation">:</span> In<span class="token punctuation">,</span><span class="token key atrule">values</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>zhangsan<span class="token punctuation">,</span>lisi<span class="token punctuation">]</span><span class="token punctuation">}</span>
+    <span class="token punctuation">-</span> <span class="token punctuation">{</span><span class="token key atrule">key</span><span class="token punctuation">:</span> age<span class="token punctuation">,</span><span class="token key atrule">operator</span><span class="token punctuation">:</span> Exists<span class="token punctuation">,</span>values<span class="token punctuation">:</span><span class="token punctuation">}</span></code></pre>
+<ul>
+<li><strong>selector：当前控制器匹配Pod对此项副本的标签选择器</strong></li>
+<li><strong>matchLabels: 指定键值对表示的标签选择器。</strong></li>
+<li><strong>mathExpressions:：基于表达式来指定的标签选择器。</strong></li>
+</ul>
+<h1 id="DaemonSet"><a href="#DaemonSet" class="headerlink" title="DaemonSet"></a>DaemonSet</h1><p><strong><em>它也是一种pod控制器。</em></strong></p>
+<p><strong><em>RC，RS , deployment , daemonset.都是pod控制器。statfukSet，RBAC</em></strong></p>
+<h3 id="1-使用场景："><a href="#1-使用场景：" class="headerlink" title="1. 使用场景："></a>1. 使用场景：</h3><p><strong>如果必须将pod运行在固定的某个或某几个节点，且要优先于其他的pod的启动。通常情况下，默认会将每一个节点都运行，并且只能运行一个pod。这种情况推荐使用DeamonSet资源对象。</strong></p>
+<ul>
+<li><strong>监控程序；</strong></li>
+<li><strong>日志收集程序；</strong></li>
+<li><strong>集群存储程序；</strong></li>
+</ul>
+<pre><code>[root@master ~]# kubectl get ds -n kube-system 
+//查看一下DaemonSet</code></pre><h3 id="2-DaemonSet-与-Deployment-的区别"><a href="#2-DaemonSet-与-Deployment-的区别" class="headerlink" title="2. DaemonSet 与 Deployment 的区别"></a>2. DaemonSet 与 Deployment 的区别</h3><ul>
+<li><strong>Deployment 部署的副本 Pod 会分布在各个 Node 上，每个 Node 都可能运行好几个副本。</strong></li>
+<li><strong>DaemonSet 的不同之处在于：每个 Node 上最多只能运行一个副本。</strong></li>
+</ul>
+<h3 id="3-运行一个web服务，在每一个节点运行一个pod。"><a href="#3-运行一个web服务，在每一个节点运行一个pod。" class="headerlink" title="3. 运行一个web服务，在每一个节点运行一个pod。"></a>3. 运行一个web服务，在每一个节点运行一个pod。</h3><pre><code>[root@master ~]# vim daemonset.yaml
+
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: test-ds
+spec:
+  template:
+    metadata:
+      labels:
+        name: test-ds
+    spec:
+      containers:
+      - name: test-ds
+        image: httpd</code></pre><h4 id="lt-1-gt-执行一下-2"><a href="#lt-1-gt-执行一下-2" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f daemonset.yaml </code></pre><h4 id="lt-2-gt-查看一下-2"><a href="#lt-2-gt-查看一下-2" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get ds</code></pre><p>![image-20200114112936161](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114112936161.png)</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。"><a href="#1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。" class="headerlink" title="1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。"></a><strong>1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。</strong></h2><h3 id="lt-1-gt-Replication-Controller（RC）"><a href="#lt-1-gt-Replication-Controller（RC）" class="headerlink" title="<1>Replication Controller（RC）"></a>&lt;1&gt;Replication Controller（RC）</h3><h4 id="介绍及使用场景"><a href="#介绍及使用场景" class="headerlink" title="介绍及使用场景"></a>介绍及使用场景</h4><p><strong><code>Replication Controller</code>简称<code>RC</code>，<code>RC</code>是<code>Kubernetes</code>系统中的核心概念之一，简单来说，<code>RC</code>可以保证在任意时间运行<code>Pod</code>的副本数量，能够保证<code>Pod</code>总是可用的。如果实际<code>Pod</code>数量比指定的多那就结束掉多余的，如果实际数量比指定的少就新启动一些<code>Pod</code>，当<code>Pod</code>失败、被删除或者挂掉后，<code>RC</code>都会去自动创建新的<code>Pod</code>来保证副本数量，所以即使只有一个<code>Pod</code>，我们也应该使用<code>RC</code>来管理我们的<code>Pod</code>。</strong></p>
+<h4 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h4><ul>
+<li><strong>确保pod数量：RC用来管理正常运行Pod数量，一个RC可以由一个或多个Pod组成，在RC被创建后，系统会根据定义好的副本数来创建Pod数量。在运行过程中，如果Pod数量小于定义的，就会重启停止的或重新分配Pod，反之则杀死多余的。</strong></li>
+<li><strong>确保pod健康：当pod不健康，运行出错或者无法提供服务时，RC也会杀死不健康的pod，重新创建新的。</strong></li>
+<li><strong>弹性伸缩 ：在业务高峰或者低峰期的时候，可以通过RC动态的调整pod的数量来提高资源的利用率。同时，配置相应的监控功能（Hroizontal Pod Autoscaler），会定时自动从监控平台获取RC关联pod的整体资源使用情况，做到自动伸缩。</strong></li>
+<li><strong>滚动升级：滚动升级为一种平滑的升级方式，通过逐步替换的策略，保证整体系统的稳定，在初始化升级的时候就可以及时发现和解决问题，避免问题不断扩大。</strong></li>
+</ul>
+<h3 id="lt-2-gt-Replication-Set（RS）"><a href="#lt-2-gt-Replication-Set（RS）" class="headerlink" title="<2>Replication Set（RS）"></a>&lt;2&gt;Replication Set（RS）</h3><p><strong>被认为 是“升级版”的RC。RS也是用于保证与label selector匹配的pod数量维持在期望状态。</strong></p>
+<blockquote>
+<p><strong>实际上<code>RS</code>和<code>RC</code>的功能基本一致，目前唯一的一个区别就是<code>RC</code>只支持基于等式的<code>selector</code>（env=dev或app=nginx），但<code>RS</code>还支持基于集合的<code>selector</code>（version in (v1, v2)），这对复杂的运维管理就非常方便了。</strong></p>
+<p><strong><code>kubectl</code>命令行工具中关于<code>RC</code>的大部分命令同样适用于我们的<code>RS</code>资源对象。不过我们也很少会去单独使用<code>RS</code>，它主要被<code>Deployment</code>这个更加高层的资源对象使用，除非用户需要自定义升级功能或根本不需要升级<code>Pod</code>，在一般情况下，我们推荐使用<code>Deployment</code>而不直接使用<code>Replica Set</code>。</strong></p>
+</blockquote>
+<h4 id="区别在于"><a href="#区别在于" class="headerlink" title="区别在于"></a>区别在于</h4><p><strong>1、RC只支持基于等式的selector（env=dev或environment!=qa），但RS还支持新的，基于集合的selector（version in (v1.0, v2.0)或env notin (dev, qa)），这对复杂的运维管理很方便。</strong></p>
+<p><strong>2、升级方式</strong></p>
+<ul>
+<li><strong>RS不能使用kubectlrolling-update进行升级</strong></li>
+<li><strong>kubectl rolling-update专用于rc</strong></li>
+<li><strong>RS升级使用deployment或者kubectl replace命令</strong></li>
+<li><strong>社区引入这一API的初衷是用于取代vl中的RC，也就是说当v1版本被废弃时，RC就完成了它的历史使命，而由RS来接管其工作</strong></li>
+</ul>
+<h3 id="lt-3-gt-DaemonSet"><a href="#lt-3-gt-DaemonSet" class="headerlink" title="<3>DaemonSet"></a>&lt;3&gt;DaemonSet</h3><h4 id="1-特点："><a href="#1-特点：" class="headerlink" title="1. 特点："></a>1. 特点：</h4><p><strong>如果必须将pod运行在固定的某个或某几个节点，且要优先于其他的pod的启动。通常情况下，默认会将每一个节点都运行，并且只能运行一个pod。这种情况推荐使用DeamonSet资源对象。</strong></p>
+<p><strong>一个DaemonSet对象能确保其创建的Pod在集群中的每一台（或指定）Node上都运行一个副本。如果集群中动态加入了新的Node，DaemonSet中的Pod也会被添加在新加入Node上运行。删除一个DaemonSet也会级联删除所有其创建的Pod。</strong></p>
+<h4 id="2-使用环境"><a href="#2-使用环境" class="headerlink" title="2. 使用环境"></a><strong>2. 使用环境</strong></h4><ul>
+<li><strong>监控程序；</strong></li>
+<li><strong>日志收集程序；</strong></li>
+<li><strong>集群存储程序；</strong></li>
+</ul>
+<h3 id="lt-4-gt-Deployment"><a href="#lt-4-gt-Deployment" class="headerlink" title="<4>Deployment"></a>&lt;4&gt;Deployment</h3><h4 id="1-什么是Deployment"><a href="#1-什么是Deployment" class="headerlink" title="1. 什么是Deployment"></a>1. 什么是Deployment</h4><p><strong>Kubernetes Deployment提供了官方的用于更新Pod和Replica Set（下一代的Replication Controller）的方法，您可以在Deployment对象中只描述您所期望的理想状态（预期的运行状态），Deployment控制器为您将现在的实际状态转换成您期望的状态，例如，您想将所有的webapp:v1.0.9升级成webapp:v1.1.0，您只需创建一个Deployment，Kubernetes会按照Deployment自动进行升级。现在，您可以通过Deployment来创建新的资源（pod，rs，rc），替换已经存在的资源等。</strong></p>
+<p><strong>你只需要在Deployment中描述你想要的目标状态是什么，Deployment controller就会帮你将Pod和Replica Set的实际状态改变到你的目标状态。你可以定义一个全新的Deployment，也可以创建一个新的替换旧的Deployment。</strong></p>
+<h4 id="2-典型的用例"><a href="#2-典型的用例" class="headerlink" title="2. 典型的用例"></a>2. 典型的用例</h4><ul>
+<li><strong>使用Deployment来创建ReplicaSet。ReplicaSet在后台创建pod。检查启动状态，看它是成功还是失败。</strong></li>
+<li><strong>然后，通过更新Deployment的PodTemplateSpec字段来声明Pod的新状态。这会创建一个新的ReplicaSet，Deployment会按照控制的速率将pod从旧的ReplicaSet移动到新的ReplicaSet中。</strong></li>
+<li><strong>如果当前状态不稳定，回滚到之前的Deployment revision。每次回滚都会更新Deployment的revision。</strong></li>
+<li><strong>扩容Deployment以满足更高的负载。</strong></li>
+<li><strong>暂停Deployment来应用PodTemplateSpec的多个修复，然后恢复上线。</strong></li>
+<li><strong>根据Deployment 的状态判断上线是否hang住了。</strong></li>
+<li><strong>清除旧的不必要的ReplicaSet。</strong></li>
+</ul>
+<h4 id="3-使用环境"><a href="#3-使用环境" class="headerlink" title="3. 使用环境"></a>3. 使用环境</h4><p><strong>Deployment集成了上线部署、滚动升级、创建副本、暂停上线任务，恢复上线任务，回滚到以前某一版本（成功/稳定）的Deployment等功能，在某种程度上，Deployment可以帮我们实现无人值守的上线，大大降低我们的上线过程的复杂沟通、操作风险。</strong></p>
+<ul>
+<li><strong>定义Deployment来创建Pod和ReplicaSet</strong></li>
+<li><strong>滚动升级和回滚应用</strong></li>
+<li><strong>扩容和缩容</strong></li>
+<li><strong>暂停和继续Deployment</strong></li>
+</ul>
+<h4 id="3-DaemonSet-与-Deployment-的区别"><a href="#3-DaemonSet-与-Deployment-的区别" class="headerlink" title="3. DaemonSet 与 Deployment 的区别"></a>3. DaemonSet 与 Deployment 的区别</h4><ul>
+<li><strong>Deployment 部署的副本 Pod 会分布在各个 Node 上，每个 Node 都可能运行好几个副本。</strong></li>
+<li><strong>DaemonSet 的不同之处在于：每个 Node 上最多只能运行一个副本。</strong></li>
+</ul>
+<h2 id="2）使用DaemonSet控制器运行httpd服务，要求名称以自己的名称命名。标签为：tier-backend-env-dev"><a href="#2）使用DaemonSet控制器运行httpd服务，要求名称以自己的名称命名。标签为：tier-backend-env-dev" class="headerlink" title="2）使用DaemonSet控制器运行httpd服务，要求名称以自己的名称命名。标签为：tier=backend,env=dev."></a><strong>2）使用DaemonSet控制器运行httpd服务，要求名称以自己的名称命名。标签为：tier=backend,env=dev.</strong></h2><pre><code>[root@master ~]# vim daemonset.yaml 
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-ds
+spec:
+  template:
+    metadata:
+      labels:
+        tier: backend
+        env: dev
+    spec:
+      containers:
+      - name: xgp-ds
+        image: httpd</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get pod  --show-labels </code></pre><p>![image-20200114100043922](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
+<pre><code>[root@master ~]# kubectl get pod -L env,tier</code></pre><p>![image-20200114095943595](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114095943595.png)</p>
+<h2 id="3-创建service资源对象与上述资源进行关联，要有验证。"><a href="#3-创建service资源对象与上述资源进行关联，要有验证。" class="headerlink" title="3) 创建service资源对象与上述资源进行关联，要有验证。"></a><strong>3) 创建service资源对象与上述资源进行关联，要有验证。</strong></h2><pre><code>[root@master ~]# vim service.yaml 
+kind: Service
+apiVersion: v1
+metadata:
+  name: service
+spec: 
+  type: NodePort
+  selector: 
+    env: dev
+  ports:    
+  - protocol: TCP
+    port: 90 
+    targetPort: 80
+    nodePort: 30123 </code></pre><h3 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master ~]# kubectl apply -f service.yaml </code></pre><h3 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl describe svc</code></pre><p>![image-20200114120345596](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114120345596.png)</p>
+<h3 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200114120444524](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114120444524.png)</p>
+<h2 id="4）整理关于标签和标签选择器都有什么作用？"><a href="#4）整理关于标签和标签选择器都有什么作用？" class="headerlink" title="4）整理关于标签和标签选择器都有什么作用？"></a><strong>4）整理关于标签和标签选择器都有什么作用？</strong></h2><p><strong>&lt;1&gt;标签：解决同类型的资源对象，为了更好的管理，按照标签分组。</strong></p>
+<p><strong>&lt;2&gt;标签选择器：标签的查询过滤条件。</strong></p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -571,7 +761,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/categories/index.html">http://yoursite.com/categories/index.html</a>
+                    <a href="http://yoursite.com/posts/7772.html">http://yoursite.com/posts/7772.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,33 +984,33 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/e9be.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="09 Job资源对象">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">09 Job资源对象</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            Job资源对象
+服务类的Pod容器：RC、RS、DS、Deployment
+工作类的Pod容器：Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。
+
+注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里的容
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -829,7 +1019,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -837,30 +1026,30 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/cf38.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="06 pod资源对象">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">06 pod资源对象</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            一，k8s的资源对象Deployment、Service、Pod是k8s最核心的3个资源对象
+
+Deployment：最常见的无状态应用的控制器，支持应用的扩缩容、滚动升级等操作。
+Service：为弹性变动且存在生命周期的Pod对象提供了
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -870,7 +1059,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

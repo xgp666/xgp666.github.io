@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Categories, Xgp &amp; Blog">
+    <meta name="keywords" content="18 k8s的HPA自动扩容与缩容, Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Categories | Xgp &amp; Blog</title>
+    <title>18 k8s的HPA自动扩容与缩容 | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">categories</h1>
+                    <h1 class="description center-align post-title">18 k8s的HPA自动扩容与缩容</h1>
                 </div>
             </div>
         </div>
@@ -491,28 +491,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-11
+                    2020-03-02
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    52
+                    1.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    1 Min
+                    4 Min
                 </div>
                 
 
@@ -528,7 +528,36 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <script>
+                <h1 id="HPA"><a href="#HPA" class="headerlink" title="HPA"></a>HPA</h1><p><strong>可以根据当前Pod资源的使用率，比如说CPU、磁盘、内存等进行副本Pod的动态的扩容与缩容。</strong></p>
+<p><strong>前提条件:系统应该能否获取到当前Pod的资源使用情况 (意思是可以执行kubectl top pod命令,并且能够得到反馈信息)。</strong></p>
+<p><strong>heapster：这个组件之前是集成在k8s集群的,不过在1.12版本之后被移除了。如果还想使用此功能，应该部署metricServer, 这个k8s集群资源使用情况的聚合器。</strong></p>
+<p><strong>这里，我们使用一个测试镜像， 这个镜像基于php-apache制作的docker镜像，包含了一些可以运行cpu密集计算任务的代码。</strong></p>
+<h2 id="1、创建一个deployment控制器"><a href="#1、创建一个deployment控制器" class="headerlink" title="1、创建一个deployment控制器"></a>1、创建一个deployment控制器</h2><pre><code>[root@master ~]#docker pull mirrorgooglecontainers/hpa-example:latest
+//下载hpa-example镜像
+
+[root@master ~]# kubectl run php-apache --image=mirrorgooglecontainers/hpa-example --requests=cpu=200m --expose  --port=80
+//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments.</code></pre><p>![image-20200228102643352](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228102643352.png)</p>
+<h2 id="2、创建HPA控制器"><a href="#2、创建HPA控制器" class="headerlink" title="2、创建HPA控制器"></a>2、创建HPA控制器</h2><pre><code>[root@master ~]# kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个</code></pre><h3 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get hpa</code></pre><p>![image-20200228101908398](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228101908398.png)</p>
+<h2 id="3、测试（master开启三个端口）"><a href="#3、测试（master开启三个端口）" class="headerlink" title="3、测试（master开启三个端口）"></a>3、测试（master开启三个端口）</h2><p><strong>新开启多个终端，对pod进行死循环请求php-apache的pod</strong></p>
+<h3 id="端口一"><a href="#端口一" class="headerlink" title="端口一"></a>端口一</h3><h4 id="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。"><a href="#（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。" class="headerlink" title="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。"></a>（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。</h4><pre><code>[root@master ~]# kubectl run -i --tty load-generator --image=busybox /bin/sh</code></pre><h4 id="（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。"><a href="#（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。" class="headerlink" title="（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。"></a>（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。</h4><pre><code>[root@master ~]# while true; do wget -q -O- http://php-apache.default.svc.cluster.local ; done
+//不停地向php-apache的svc资源，发送ok</code></pre><h3 id="端口二"><a href="#端口二" class="headerlink" title="端口二"></a>端口二</h3><pre><code>[root@master ~]# kubectl get hpa -w
+//实时查看pod的cpu状态</code></pre><p>![image-20200228133816724](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228133816724.png)</p>
+<p><strong>可以看到php-apache的cpu使用情况已经超过了50%</strong></p>
+<h3 id="端口三"><a href="#端口三" class="headerlink" title="端口三"></a>端口三</h3><pre><code>[root@master images]# kubectl get pod -w
+//实时查看pod的状态</code></pre><p>![image-20200228134105507](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228134105507.png)</p>
+<p><strong>可以看到当php-apache的cpu使用情况超过50%后，就会不断生成新的php-apache来进行负载均衡（目前设置的上线时10个），当然，如果cpu使用情况下降到50%，master就会陆续地删除php-apache，这样的使用可以减少不必要的资源浪费、资源分配不均等情况。</strong></p>
+<h1 id="二、资源限制"><a href="#二、资源限制" class="headerlink" title="二、资源限制"></a>二、资源限制</h1><h2 id="1、基于Pod"><a href="#1、基于Pod" class="headerlink" title="1、基于Pod"></a>1、基于Pod</h2><p><strong>Kubernetes对资源的限制实际上是通过cgroup来控制的，cgroup 是容器的一组用来控制内核如何运行进程的相关属性集合。针对内存、CPU 和各种设备都有对应的cgroup</strong></p>
+<p><strong>默认情况下，Pod运行没有CPU和内存的限额。这意味着系统中的任何 Pod将能够像执行该Pod所在的节点一样，消耗足够多的CPU和内存。一般会针对某些应用的pod资源进行资源限制，这个资源限制是通过</strong></p>
+<p><strong>resources的requests和limits来实现</strong></p>
+<pre><code>[root@master ~]# vim cgroup-pod.yaml</code></pre><p>![image-20200228153809932](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153809932.png)</p>
+<p><strong>requests: 要分配的资源，limits为最高请求的资源值。可以简单的理解为初始值和最大值。</strong></p>
+<h2 id="2、基于名称空间"><a href="#2、基于名称空间" class="headerlink" title="2、基于名称空间"></a><strong>2、基于名称空间</strong></h2><h3 id="1）-计算资源配额"><a href="#1）-计算资源配额" class="headerlink" title="1） 计算资源配额"></a>1） 计算资源配额</h3><pre><code>[root@master ~]# vim compute-resources.yaml</code></pre><p> ![image-20200228153818288](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153818288.png)</p>
+<h3 id="2）配置对象数量配额限制"><a href="#2）配置对象数量配额限制" class="headerlink" title="2）配置对象数量配额限制"></a>2）配置对象数量配额限制</h3><pre><code>[root@master ~]# vim object-counts.yaml</code></pre><p> ![image-20200228153828002](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153828002.png)</p>
+<h3 id="3）-配置CPU和内存的LimitRange"><a href="#3）-配置CPU和内存的LimitRange" class="headerlink" title="3） 配置CPU和内存的LimitRange"></a>3） 配置CPU和内存的LimitRange</h3><pre><code>[root@master ~]# vim limitRange.yaml</code></pre><p> ![image-20200228153834705](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
+<p><strong>default 即 limit的值。</strong></p>
+<p><strong>defaultRequest 即 request的值。</strong></p>
+<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -571,7 +600,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://yoursite.com/categories/index.html">http://yoursite.com/categories/index.html</a>
+                    <a href="http://yoursite.com/posts/2643.html">http://yoursite.com/posts/2643.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -794,33 +823,32 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/c224.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="20 k8s的helm模板">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">20 k8s的helm模板</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            自定义helm模板https://hub.helm.sh/
+1、开发自己的chare包[root@master ~]# helm create mychare
+//创建一个名为mychare的chare包
+[root@master ~]# 
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -829,7 +857,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -837,30 +864,31 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                Current&nbsp;<i class="far fa-dot-circle"></i>
+                Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/categories/index.html">
+                <a href="/posts/a50d.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="categories">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="14 k8s的Secret（密文）和configmap（明文）的使用教程">
                         
-                        <span class="card-title">categories</span>
+                        <span class="card-title">14 k8s的Secret（密文）和configmap（明文）的使用教程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return
+                            一、SecretSecret :用来保存一些敏感信息，比如数据库的用户名密码或者秘钥。
+举例:保存数据库的用户名和密码
+用户名：        root密码：           123.com
+
+1、通过–from-literal（文字的
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-03-11
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
                             </span>
                         <span class="publish-author">
                             
@@ -870,7 +898,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>

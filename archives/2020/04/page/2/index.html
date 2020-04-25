@@ -499,45 +499,175 @@
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/posts/c0fd.html">
+                        <a href="/posts/748b.html">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="21 k8s的持续集成">
+                                <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="04 配置清单">
                                 
-                                <span class="card-title">21 k8s的持续集成</span>
+                                <span class="card-title">04 配置清单</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    实验环境
+                                    一，两种创建资源的方法1. 基于命令的方式：
+简单直观快捷，上手快。
+适合临时测试或实验。
+
+2. 基于配置清单的方式：
+配置文件描述了 What，即应用最终要达到的状态。
+配置文件提供了创建资源的模板，能够重复部署。
+可以像管理代码一样管
+                                
+                            </div>
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fas fa-user fa-fw"></i>
+                                    Wu Shao Dong
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="cd-timeline-block">
+
+            
+            
+
+            
+            
+
+            
+            <div class="cd-timeline-img day" data-aos="zoom-in-up">
+                <span>25</span>
+            </div>
+            <article class="cd-timeline-content" data-aos="fade-up">
+                <div class="article col s12 m6">
+                    <div class="card">
+                        <a href="/posts/6989.html">
+                            <div class="card-image">
+                                
+                                
+                                <img src="/medias/featureimages/5.jpg" class="responsive-img" alt="03 创建资源的两种方式">
+                                
+                                <span class="card-title">03 创建资源的两种方式</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="summary block-with-text">
+                                
+                                    
 
 
-IP
-主机名称
+主机
+IP地址
+
+
+
+
+master
+192.168.1.21
+
+
+
+node01
+192.168.1.22
+
+
+
+node02
+192.168.1.23
+
+
+
+两种创建资源的方法基于命令的方式：
+简单直观快捷，上手快。
+适合临时测试
+                                
+                            </div>
+                            <div class="publish-info">
+                                <span class="publish-date">
+                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                                </span>
+                                <span class="publish-author">
+                                    
+                                    <i class="fas fa-user fa-fw"></i>
+                                    Wu Shao Dong
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </article>
+        </div>
+        
+        <div class="cd-timeline-block">
+
+            
+            
+
+            
+            
+
+            
+            <div class="cd-timeline-img day" data-aos="zoom-in-up">
+                <span>25</span>
+            </div>
+            <article class="cd-timeline-content" data-aos="fade-up">
+                <div class="article col s12 m6">
+                    <div class="card">
+                        <a href="/posts/cd85.html">
+                            <div class="card-image">
+                                
+                                
+                                <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="02 k8s架构，基本概念">
+                                
+                                <span class="card-title">02 k8s架构，基本概念</span>
+                            </div>
+                        </a>
+                        <div class="card-content article-content">
+                            <div class="summary block-with-text">
+                                
+                                    
+
+
+主机名
+IP地址
 服务
 
 
 
-192.168.1.21
 master
-k8s
+192.168.1.21
 
 
-192.168.1.22
+
 node01
-k8s
+192.168.1.22
 
 
-192.168.1.10
-git
-gitlab
+
+node02
+192.168.1.23
 
 
-192.168.1.13
-jenkins
 
+kubernetes架构
+kubectl：k8s是命令行端，用来发
                                 
                             </div>
                             <div class="publish-info">
@@ -574,22 +704,36 @@ jenkins
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/posts/c224.html">
+                        <a href="/posts/2cda.html">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="20 k8s的helm模板">
+                                <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="01 部署k8s集群">
                                 
-                                <span class="card-title">20 k8s的helm模板</span>
+                                <span class="card-title">01 部署k8s集群</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    自定义helm模板https://hub.helm.sh/
-1、开发自己的chare包[root@master ~]# helm create mychare
-//创建一个名为mychare的chare包
-[root@master ~]# 
+                                    k8s最基本的硬件要求CPU: 双核Mem: 2G3台dockerhost时间必须同步
+实验环境
+
+
+主机名
+IP地址
+服务
+
+
+
+master
+192.168.1.21
+dockerhost
+
+
+node01
+192.168.1.22
+d
                                 
                             </div>
                             <div class="publish-info">
@@ -621,407 +765,51 @@ jenkins
 
             
             <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
+                <span>21</span>
             </div>
             <article class="cd-timeline-content" data-aos="fade-up">
                 <div class="article col s12 m6">
                     <div class="card">
-                        <a href="/posts/2643.html">
+                        <a href="/posts/cfe.html">
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="18 k8s的HPA自动扩容与缩容">
+                                <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="Nginx优化与防盗链">
                                 
-                                <span class="card-title">18 k8s的HPA自动扩容与缩容</span>
+                                <span class="card-title">Nginx优化与防盗链</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    HPA可以根据当前Pod资源的使用率，比如说CPU、磁盘、内存等进行副本Pod的动态的扩容与缩容。
-前提条件:系统应该能否获取到当前Pod的资源使用情况 (意思是可以执行kubectl top pod命令,并且能够得到反馈信息)。
-heap
+                                    Nginx 是俄罗斯人编写的十分轻量级的 HTTP 服务器,Nginx， 它的发音为“engine X”， 是一个高性能的 HTTP 和反向代理服务器，同时也是一个 IMAP/POP3/SMTP 代理服务器． Nginx 是由俄罗斯人 Ig
                                 
                             </div>
                             <div class="publish-info">
                                 <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-21
                                 </span>
                                 <span class="publish-author">
                                     
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Wu Shao Dong
+                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/Nginx/" class="post-category">
+                                    Nginx
+                                    </a>
+                                    
                                     
                                 </span>
                             </div>
                         </div>
 
                         
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/posts/a50d.html">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="14 k8s的Secret（密文）和configmap（明文）的使用教程">
-                                
-                                <span class="card-title">14 k8s的Secret（密文）和configmap（明文）的使用教程</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    一、SecretSecret :用来保存一些敏感信息，比如数据库的用户名密码或者秘钥。
-举例:保存数据库的用户名和密码
-用户名：        root密码：           123.com
-
-1、通过–from-literal（文字的
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Wu Shao Dong
-                                    
-                                </span>
-                            </div>
+                        <div class="card-action article-tags">
+                            
+                            <a href="/tags/%E4%BC%98%E5%8C%96/"><span class="chip bg-color">优化</span></a>
+                            
+                            <a href="/tags/%E9%98%B2%E7%9B%97%E9%93%BE/"><span class="chip bg-color">防盗链</span></a>
+                            
                         </div>
-
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/posts/5849.html">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="11 k8s持久化存储应用">
-                                
-                                <span class="card-title">11 k8s持久化存储应用</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    k8s存储: (持久化)docker容器是有生命周期的。
-volume
-1.emptyDir（空目录）：类似docker 数据持久化的:docer manager volume使用场景:在同一 个Pod里，不同的容器，共享数据卷。
-如果容器
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Wu Shao Dong
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/posts/1b18.html">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="10 复习 ">
-                                
-                                <span class="card-title">10 复习 </span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    虚拟化云计算的分类：
-
-基础及服务：laas平台及服务：paas软件及服务：saas
-
-docker虚拟化的底层原理: Namespace + Cgroup 
-Namespace六项隔离:
-
-IPC: 共享内存,消息列队MNT: 挂载点 文
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Wu Shao Dong
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/posts/e9be.html">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="09 Job资源对象">
-                                
-                                <span class="card-title">09 Job资源对象</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    Job资源对象
-服务类的Pod容器：RC、RS、DS、Deployment
-工作类的Pod容器：Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。
-
-注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里的容
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Wu Shao Dong
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/posts/7772.html">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="08 ReplicaSet、DaemonSet">
-                                
-                                <span class="card-title">08 ReplicaSet、DaemonSet</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    ReplicaSet简单介绍1. RC：ReplicationController（老一代的pod控制器）用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建
-特点：
-​        确保Pod资源对象的数量
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Wu Shao Dong
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/posts/cf38.html">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="06 pod资源对象">
-                                
-                                <span class="card-title">06 pod资源对象</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    一，k8s的资源对象Deployment、Service、Pod是k8s最核心的3个资源对象
-
-Deployment：最常见的无状态应用的控制器，支持应用的扩缩容、滚动升级等操作。
-Service：为弹性变动且存在生命周期的Pod对象提供了
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Wu Shao Dong
-                                    
-                                </span>
-                            </div>
-                        </div>
-
-                        
-                    </div>
-                </div>
-            </article>
-        </div>
-        
-        <div class="cd-timeline-block">
-
-            
-            
-
-            
-            
-
-            
-            <div class="cd-timeline-img day" data-aos="zoom-in-up">
-                <span>25</span>
-            </div>
-            <article class="cd-timeline-content" data-aos="fade-up">
-                <div class="article col s12 m6">
-                    <div class="card">
-                        <a href="/posts/936d.html">
-                            <div class="card-image">
-                                
-                                
-                                <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="05 Delpoyment、service">
-                                
-                                <span class="card-title">05 Delpoyment、service</span>
-                            </div>
-                        </a>
-                        <div class="card-content article-content">
-                            <div class="summary block-with-text">
-                                
-                                    Deployment介绍Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。Deployment可以理解为RC的升级版（RC+Reolicat Set）。特点在于可以随时知道Pod的部署进度，即对Pod的
-                                
-                            </div>
-                            <div class="publish-info">
-                                <span class="publish-date">
-                                    <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
-                                </span>
-                                <span class="publish-author">
-                                    
-                                    <i class="fas fa-user fa-fw"></i>
-                                    Wu Shao Dong
-                                    
-                                </span>
-                            </div>
-                        </div>
-
                         
                     </div>
                 </div>
@@ -1037,18 +825,18 @@ Service：为弹性变动且存在生命周期的Pod对象提供了
     <div class="row">
         <div class="col s6 m4 l4">
             
-            <a class="left btn-floating btn-large disabled">
+            <a href="/archives/2020/04/"
+               class="left btn-floating btn-large waves-effect waves-light bg-color">
                 <i class="fas fa-angle-left"></i>
             </a>
             
         </div>
         <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 2</div>
+            <div class="center-align b-text-gray">2 / 2</div>
         </div>
         <div class="col s6 m4 l4">
             
-            <a href="/archives/2020/04/page/2/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
+            <a class="right btn-floating btn-large disabled">
                 <i class="fas fa-angle-right"></i>
             </a>
             
