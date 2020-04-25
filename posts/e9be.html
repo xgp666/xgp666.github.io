@@ -592,7 +592,7 @@ spec:
         command: ["asdasxsddwefew","hello k8s job!"]
       restartPolicy: OnFailure</code></pre><h3 id="（9）先删除之前的pod"><a href="#（9）先删除之前的pod" class="headerlink" title="（9）先删除之前的pod"></a>（9）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（10）执行一下"><a href="#（10）执行一下" class="headerlink" title="（10）执行一下"></a>（10）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（11）查看一下"><a href="#（11）查看一下" class="headerlink" title="（11）查看一下"></a>（11）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115092801882](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115092801882.png)</p>
 <p><strong><em>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</em></strong></p>
-<h1 id="二、提高Job的执行效率"><a href="#二、提高Job的执行效率" class="headerlink" title="二、提高Job的执行效率"></a>二、提高Job的执行效率</h1><h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。"><a href="#1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。" class="headerlink" title="1. 我们可以在Job.spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。"></a>1. 我们可以在Job.spec字段下加上<a href="">parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2><hr>
+<h1 id="二、提高Job的执行效率"><a href="#二、提高Job的执行效率" class="headerlink" title="二、提高Job的执行效率"></a>二、提高Job的执行效率</h1><h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。"><a href="#1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。" class="headerlink" title="1. 我们可以在Job.spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。"></a>1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2><hr>
 <h3 id="（1）编写一个job的yaml文件-1"><a href="#（1）编写一个job的yaml文件-1" class="headerlink" title="（1）编写一个job的yaml文件"></a>（1）编写一个job的yaml文件</h3><pre><code>[root@master yaml]# vim jop.yaml
 kind: Job
 apiVersion: batch/v1
