@@ -30,8 +30,8 @@
     <script src="/libs/jquery/jquery.min.js"></script>
     <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
-</head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
 
@@ -564,7 +564,7 @@
 <pre><code>[root@master ~]# docker -v</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102093813472.png" alt="image-20200102093813472"></p>
 <h3 id="2-关闭防火墙及禁用selinux"><a href="#2-关闭防火墙及禁用selinux" class="headerlink" title="2.关闭防火墙及禁用selinux"></a>2.关闭防火墙及禁用selinux</h3><pre><code>[root@master ~]# systemctl stop firewalld
 [root@master ~]# systemctl disable firewalld
- [root@master ~]# vim /etc/selinux/config</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102115453524.png" alt="image-20200102115453524"></p>
+ [root@master ~]# vim /etc/selinux/config</code></pre><p><img src="/posts/2cda.htm/image-20200102115453524.png" alt="image-20200102115453524.png"></p>
 <h3 id="3-禁用swap（三台）"><a href="#3-禁用swap（三台）" class="headerlink" title="3.  禁用swap（三台）"></a>3.  禁用swap（三台）</h3><pre><code>[root@master ~]# swapoff -a
 //临时禁用swap
 [root@master ~]# free -h
