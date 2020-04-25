@@ -498,7 +498,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-02-03
+                    2020-04-25
                 </div>
                 
 
@@ -557,8 +557,8 @@ spec:
       - name: hello
         image: busybox
         command: ["echo","hello k8s job!"]
-      restartPolicy: Never</code></pre><h3 id="（2）执行一下"><a href="#（2）执行一下" class="headerlink" title="（2）执行一下"></a>（2）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115090831524](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115090831524.png)</p>
-<h4 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h4><pre><code>[root@master yaml]# kubectl logs test-job-gs45w </code></pre><p>![image-20200115091213349](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091213349.png)</p>
+      restartPolicy: Never</code></pre><h3 id="（2）执行一下"><a href="#（2）执行一下" class="headerlink" title="（2）执行一下"></a>（2）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115090831524](E:\软件\博客\Blog\blog\source_posts\09 Jop资源对象.assets\image-20200115090831524.png)</p>
+<h4 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h4><pre><code>[root@master yaml]# kubectl logs test-job-gs45w </code></pre><p>![image-20200115091213349](E:\软件\博客\Blog\blog\source_posts\09 Jop资源对象.assets\image-20200115091213349.png)</p>
 <p><strong>我们可以看到job与其他资源对象不同，仅执行一次性任务，默认pod借宿运行后job即结束，状态为Completed。</strong></p>
 <h3 id="（4）修改一下jop的yaml文件，把echo命令换成乱码"><a href="#（4）修改一下jop的yaml文件，把echo命令换成乱码" class="headerlink" title="（4）修改一下jop的yaml文件，把echo命令换成乱码"></a>（4）修改一下jop的yaml文件，把echo命令换成乱码</h3><pre><code>[root@master yaml]# vim jop.yaml
 kind: Job
@@ -574,7 +574,7 @@ spec:
       - name: hello
         image: busybox
         command: ["asdasxsddwefew","hello k8s job!"] #修改
-      restartPolicy: Never</code></pre><h3 id="（5）先删除之前的pod"><a href="#（5）先删除之前的pod" class="headerlink" title="（5）先删除之前的pod"></a>（5）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job  </code></pre><h3 id="（6）执行一下"><a href="#（6）执行一下" class="headerlink" title="（6）执行一下"></a>（6）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（7）查看一下"><a href="#（7）查看一下" class="headerlink" title="（7）查看一下"></a>（7）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115091647925](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091647925.png)</p>
+      restartPolicy: Never</code></pre><h3 id="（5）先删除之前的pod"><a href="#（5）先删除之前的pod" class="headerlink" title="（5）先删除之前的pod"></a>（5）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job  </code></pre><h3 id="（6）执行一下"><a href="#（6）执行一下" class="headerlink" title="（6）执行一下"></a>（6）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（7）查看一下"><a href="#（7）查看一下" class="headerlink" title="（7）查看一下"></a>（7）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115091647925](E:\软件\博客\Blog\blog\source_posts\09 Jop资源对象.assets\image-20200115091647925.png)</p>
 <p><strong><em>它会一直创建pod直到完成命令。</em></strong></p>
 <h3 id="（8）修改一下jop的yaml文件，修改重启策略"><a href="#（8）修改一下jop的yaml文件，修改重启策略" class="headerlink" title="（8）修改一下jop的yaml文件，修改重启策略"></a>（8）修改一下jop的yaml文件，修改重启策略</h3><pre><code>[root@master yaml]# vim jop.yaml 
 kind: Job
@@ -590,7 +590,7 @@ spec:
       - name: hello
         image: busybox
         command: ["asdasxsddwefew","hello k8s job!"]
-      restartPolicy: OnFailure</code></pre><h3 id="（9）先删除之前的pod"><a href="#（9）先删除之前的pod" class="headerlink" title="（9）先删除之前的pod"></a>（9）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（10）执行一下"><a href="#（10）执行一下" class="headerlink" title="（10）执行一下"></a>（10）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（11）查看一下"><a href="#（11）查看一下" class="headerlink" title="（11）查看一下"></a>（11）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
+      restartPolicy: OnFailure</code></pre><h3 id="（9）先删除之前的pod"><a href="#（9）先删除之前的pod" class="headerlink" title="（9）先删除之前的pod"></a>（9）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（10）执行一下"><a href="#（10）执行一下" class="headerlink" title="（10）执行一下"></a>（10）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（11）查看一下"><a href="#（11）查看一下" class="headerlink" title="（11）查看一下"></a>（11）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115092801882](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115092801882.png)</p>
 <p><strong><em>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</em></strong></p>
 <h1 id="二、提高Job的执行效率"><a href="#二、提高Job的执行效率" class="headerlink" title="二、提高Job的执行效率"></a>二、提高Job的执行效率</h1><h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。"><a href="#1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。" class="headerlink" title="1. 我们可以在Job.spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。"></a>1. 我们可以在Job.spec字段下加上<a href="">parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2><hr>
 <h3 id="（1）编写一个job的yaml文件-1"><a href="#（1）编写一个job的yaml文件-1" class="headerlink" title="（1）编写一个job的yaml文件"></a>（1）编写一个job的yaml文件</h3><pre><code>[root@master yaml]# vim jop.yaml
@@ -608,8 +608,8 @@ spec:
       - name: hello
         image: busybox
         command: ["echo","hello k8s job!"]
-      restartPolicy: OnFailure</code></pre><h3 id="（3）执行一下"><a href="#（3）执行一下" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下"><a href="#（4）查看一下" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115093854913](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115093854913.png)</p>
-<h4 id="查看日志-1"><a href="#查看日志-1" class="headerlink" title="查看日志"></a>查看日志</h4><p>![image-20200115094002236](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094002236.png)</p>
+      restartPolicy: OnFailure</code></pre><h3 id="（3）执行一下"><a href="#（3）执行一下" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下"><a href="#（4）查看一下" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115093854913](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115093854913.png)</p>
+<h4 id="查看日志-1"><a href="#查看日志-1" class="headerlink" title="查看日志"></a>查看日志</h4><p>![image-20200115094002236](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115094002236.png)</p>
 <h2 id="2-我们可以在Job-spec字段下加上complations选项。表示总共需要完成Pod的数量"><a href="#2-我们可以在Job-spec字段下加上complations选项。表示总共需要完成Pod的数量" class="headerlink" title="2. 我们可以在Job.spec字段下加上complations选项。表示总共需要完成Pod的数量"></a>2. 我们可以在Job.spec字段下加上complations选项。表示总共需要完成Pod的数量</h2><h3 id="（1）编写一个job的yaml文件-2"><a href="#（1）编写一个job的yaml文件-2" class="headerlink" title="（1）编写一个job的yaml文件"></a>（1）编写一个job的yaml文件</h3><pre><code>[root@master yaml]# vim jop.yaml
 kind: Job
 apiVersion: batch/v1
@@ -630,7 +630,7 @@ spec:
 <blockquote>
 <p><strong>标志Job结束需要成功运行的Pod个数，默认为1</strong><br><strong>parallelism：标志并行运行的Pod的个数，默认为1</strong><br><strong>activeDeadlineSeconds：标志失败Pod的重试最大时间，超过这个时间不会继续重试.</strong></p>
 </blockquote>
-<h3 id="（2）先删除之前的pod"><a href="#（2）先删除之前的pod" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（3）执行一下-1"><a href="#（3）执行一下-1" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-1"><a href="#（4）查看一下-1" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115094519494](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094519494.png)</p>
+<h3 id="（2）先删除之前的pod"><a href="#（2）先删除之前的pod" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（3）执行一下-1"><a href="#（3）执行一下-1" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-1"><a href="#（4）查看一下-1" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115094519494](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115094519494.png)</p>
 <p><strong>可以看到pod是两个两个的启动的。</strong></p>
 <h2 id="3-如何定时执行Job"><a href="#3-如何定时执行Job" class="headerlink" title="3. 如何定时执行Job"></a>3. 如何定时执行Job</h2><h3 id="（1）编写一个cronjob的yaml文件"><a href="#（1）编写一个cronjob的yaml文件" class="headerlink" title="（1）编写一个cronjob的yaml文件"></a>（1）编写一个cronjob的yaml文件</h3><pre><code>[root@master yaml]# vim cronjop.yaml
 kind: CronJob
@@ -647,8 +647,8 @@ spec:
           - name: hello
             image: busybox
             command: ["echo","hello","cronjob"]
-          restartPolicy: OnFailure</code></pre><h3 id="（2）先删除之前的pod-1"><a href="#（2）先删除之前的pod-1" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（3）执行一下-2"><a href="#（3）执行一下-2" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-2"><a href="#（4）查看一下-2" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115095857428](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095857428.png)</p>
-<pre><code>[root@master yaml]# kubectl get cronjobs.batch </code></pre><p>![image-20200115095920740](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095920740.png)</p>
+          restartPolicy: OnFailure</code></pre><h3 id="（2）先删除之前的pod-1"><a href="#（2）先删除之前的pod-1" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete jobs.batch test-job </code></pre><h3 id="（3）执行一下-2"><a href="#（3）执行一下-2" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-2"><a href="#（4）查看一下-2" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115095857428](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115095857428.png)</p>
+<pre><code>[root@master yaml]# kubectl get cronjobs.batch </code></pre><p>![image-20200115095920740](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115095920740.png)</p>
 <p><strong>此时查看Pod的状态，会发现，每分钟都会运行一个新的Pod来执行命令规定的任</strong><br><strong>务。</strong></p>
 <h2 id="练习：规定2020-1-15-10-5分运行上面的crontab任务。"><a href="#练习：规定2020-1-15-10-5分运行上面的crontab任务。" class="headerlink" title="练习：规定2020.1.15.10.5分运行上面的crontab任务。"></a>练习：规定2020.1.15.10.5分运行上面的crontab任务。</h2><h3 id="（1）编写一个cronjob的yaml文件-1"><a href="#（1）编写一个cronjob的yaml文件-1" class="headerlink" title="（1）编写一个cronjob的yaml文件"></a>（1）编写一个cronjob的yaml文件</h3><pre><code>[root@master yaml]# vim cronjop.yaml
 kind: CronJob
@@ -665,15 +665,15 @@ spec:
           - name: hello
             image: busybox
             command: ["echo","hello","cronjob"]
-          restartPolicy: OnFailure</code></pre><h3 id="（2）先删除之前的pod-2"><a href="#（2）先删除之前的pod-2" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete cronjobs.batch hello </code></pre><h3 id="（3）执行一下-3"><a href="#（3）执行一下-3" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-3"><a href="#（4）查看一下-3" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
+          restartPolicy: OnFailure</code></pre><h3 id="（2）先删除之前的pod-2"><a href="#（2）先删除之前的pod-2" class="headerlink" title="（2）先删除之前的pod"></a>（2）先删除之前的pod</h3><pre><code>[root@master yaml]# kubectl delete cronjobs.batch hello </code></pre><h3 id="（3）执行一下-3"><a href="#（3）执行一下-3" class="headerlink" title="（3）执行一下"></a>（3）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-3"><a href="#（4）查看一下-3" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200115100855819](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115100855819.png)</p>
 <p><strong>这时会发现，如果规定具体时间，可能并不会执行任务。</strong></p>
 <h3 id="（5）添加apiVersion库"><a href="#（5）添加apiVersion库" class="headerlink" title="（5）添加apiVersion库"></a>（5）添加apiVersion库</h3><pre><code>[root@master yaml]# vim /etc/kubernetes/manifests/kube-apiserver.yaml 
 spec:
   containers:
   - command:
     - kube-apiserver
-    - --runtime-config=batch/v2alpha1=true    #添加</code></pre><p>![image-20200115104218361](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104218361.png)</p>
-<h3 id="（6）重启kubelet"><a href="#（6）重启kubelet" class="headerlink" title="（6）重启kubelet"></a>（6）重启kubelet</h3><pre><code>[root@master yaml]# systemctl restart kubelet.service </code></pre><h3 id="（7）查看api版本"><a href="#（7）查看api版本" class="headerlink" title="（7）查看api版本"></a>（7）查看api版本</h3><pre><code>[root@master yaml]# kubectl api-versions </code></pre><p>![image-20200115104521662](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104521662.png)</p>
+    - --runtime-config=batch/v2alpha1=true    #添加</code></pre><p>![image-20200115104218361](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115104218361.png)</p>
+<h3 id="（6）重启kubelet"><a href="#（6）重启kubelet" class="headerlink" title="（6）重启kubelet"></a>（6）重启kubelet</h3><pre><code>[root@master yaml]# systemctl restart kubelet.service </code></pre><h3 id="（7）查看api版本"><a href="#（7）查看api版本" class="headerlink" title="（7）查看api版本"></a>（7）查看api版本</h3><pre><code>[root@master yaml]# kubectl api-versions </code></pre><p>![image-20200115104521662](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115104521662.png)</p>
 <h3 id="（8）编写一个cronjob的yaml文件"><a href="#（8）编写一个cronjob的yaml文件" class="headerlink" title="（8）编写一个cronjob的yaml文件"></a>（8）编写一个cronjob的yaml文件</h3><pre><code>[root@master yaml]# vim cronjop.yaml
 kind: CronJob
 apiVersion: batch/v1beta1
@@ -689,7 +689,7 @@ spec:
           - name: hello
             image: busybox
             command: ["echo","hello","cronjob"]
-          restartPolicy: OnFailure</code></pre><h3 id="（9）执行一下"><a href="#（9）执行一下" class="headerlink" title="（9）执行一下"></a>（9）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-4"><a href="#（4）查看一下-4" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
+          restartPolicy: OnFailure</code></pre><h3 id="（9）执行一下"><a href="#（9）执行一下" class="headerlink" title="（9）执行一下"></a>（9）执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f jop.yaml </code></pre><h3 id="（4）查看一下-4"><a href="#（4）查看一下-4" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master yaml]# kubectl get pod -w</code></pre><p>![image-20200115100855819](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115100855819.png)</p>
 <p><strong>注意：此时仍然不能正常运行指定时间的Job，这是因为K8s官方在cronjob这个资源对象的支持中还没有完善此功能，还待开发。</strong></p>
 <p><strong>跟Job资源一样在cronjob.spec.jobTemplate.spec 下同样支持并发Job参数:</strong><br><strong>parallelism，也支持完成Pod的总数参数: completionsr</strong></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>Job 作为 Kubernetes 中用于处理任务的资源，与其他的资源没有太多的区别，它也使用 Kubernetes 中常见的控制器模式，监听 Informer 中的事件并运行 <code>syncHandler</code> 同步任务</strong></p>
@@ -1270,7 +1270,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">35.3k</span>&nbsp;字
+                class="white-color">34.9k</span>&nbsp;字
             
             
             

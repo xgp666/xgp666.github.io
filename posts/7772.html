@@ -498,7 +498,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-01-15
+                    2020-04-25
                 </div>
                 
 
@@ -563,15 +563,15 @@ spec:
   containers:
   - name: myapp
     image: httpd</code></pre><h4 id="lt-1-gt-执行一下"><a href="#lt-1-gt-执行一下" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f label.yaml  --record </code></pre><h4 id="lt-2-gt-查看一下"><a href="#lt-2-gt-查看一下" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get pod  --show-labels 
-//通过--show-labels显示资源对象的</code></pre><p>![image-20200114095943595](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114095943595.png)</p>
+//通过--show-labels显示资源对象的</code></pre><p>![image-20200114095943595](E:\软件\博客\Blog\blog\source_posts\08 ReplicaS儿童、DaemonSet.assets\image-20200114095943595.png)</p>
 <pre><code>[root@master ~]# kubectl get po -L env,tier
-//显示某个键对应的值</code></pre><p>![image-20200114100043922](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
+//显示某个键对应的值</code></pre><p>![image-20200114100043922](E:\软件\博客\Blog\blog\source_posts\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
 <pre><code>[root@master ~]# kubectl get po -l env,tier
-//通过-l 查看仅包含某个标签的资源。</code></pre><p>![image-20200114100200895](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100200895.png)</p>
+//通过-l 查看仅包含某个标签的资源。</code></pre><p>![image-20200114100200895](E:\软件\博客\Blog\blog\source_posts\08 ReplicaS儿童、DaemonSet.assets\image-20200114100200895.png)</p>
 <h3 id="（2）添加标签"><a href="#（2）添加标签" class="headerlink" title="（2）添加标签"></a>（2）添加标签</h3><pre><code>[root@master ~]# kubectl label pod  labels app=pc
 //给pod资源添加标签</code></pre><h3 id="（3）修改标签"><a href="#（3）修改标签" class="headerlink" title="（3）修改标签"></a>（3）修改标签</h3><pre><code>[root@master ~]# kubectl label pod labels env=dev --overwrite
 //修改标签</code></pre><pre><code>[root@master ~]# kubectl get pod -l tier --show-labels 
-//查看标签</code></pre><p>![image-20200114100607585](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100607585.png)</p>
+//查看标签</code></pre><p>![image-20200114100607585](E:\软件\博客\Blog\blog\source_posts\08 ReplicaS儿童、DaemonSet.assets\image-20200114100607585.png)</p>
 <h3 id="（4）编写一个service的yaml文件"><a href="#（4）编写一个service的yaml文件" class="headerlink" title="（4）编写一个service的yaml文件"></a>（4）编写一个service的yaml文件</h3><pre><code>[root@master ~]# vim service.yaml
 kind: Service
 apiVersion: v1
@@ -585,8 +585,8 @@ spec:
   - protocol: TCP
     port: 90
     targetPort: 80
-    nodePort: 30123</code></pre><h4 id="lt-1-gt-执行一下-1"><a href="#lt-1-gt-执行一下-1" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f service.yaml </code></pre><h4 id="lt-2-gt-查看一下-1"><a href="#lt-2-gt-查看一下-1" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl describe svc</code></pre><p>![image-20200114101837151](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101837151.png)</p>
-<h4 id="lt-3-gt-访问一下"><a href="#lt-3-gt-访问一下" class="headerlink" title="<3>访问一下"></a>&lt;3&gt;访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200114101915248](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
+    nodePort: 30123</code></pre><h4 id="lt-1-gt-执行一下-1"><a href="#lt-1-gt-执行一下-1" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f service.yaml </code></pre><h4 id="lt-2-gt-查看一下-1"><a href="#lt-2-gt-查看一下-1" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl describe svc</code></pre><p>![image-20200114101837151](E:\软件\博客\Blog\blog\source_posts\08 ReplicaSet、DaemonSet.assets\image-20200114101837151.png)</p>
+<h4 id="lt-3-gt-访问一下"><a href="#lt-3-gt-访问一下" class="headerlink" title="<3>访问一下"></a>&lt;3&gt;访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200114101915248](E:\软件\博客\Blog\blog\source_posts\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
 <p><strong>如果标签有多个，标签选择器选择其中一个，也可以关联成功。相反，如果选择器有多个，那么标签必须完全满足条件，才可以关联成功。</strong></p>
 <h2 id="4-标签选择器：标签的查询过滤条件。"><a href="#4-标签选择器：标签的查询过滤条件。" class="headerlink" title="4. 标签选择器：标签的查询过滤条件。"></a>4. 标签选择器：标签的查询过滤条件。</h2><p><strong><a href="">基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
 <p><strong><a href="">基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
@@ -595,7 +595,7 @@ spec:
 <li><strong>使用空值的标签选择器意味着每个资源对象都将把选中。</strong></li>
 <li><strong>空的标签选择器无法选中任何资源。</strong></li>
 </ul>
-<h3 id="（1）例子"><a href="#（1）例子" class="headerlink" title="（1）例子"></a>（1）例子</h3><p>![image-20200114110334223](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114110334223.png)</p>
+<h3 id="（1）例子"><a href="#（1）例子" class="headerlink" title="（1）例子"></a>（1）例子</h3><p>![image-20200114110334223](E:\软件\博客\Blog\blog\source_posts\08 ReplicaSet、DaemonSet.assets\image-20200114110334223.png)</p>
 <h4 id="编写一个selector的yaml’文件"><a href="#编写一个selector的yaml’文件" class="headerlink" title="编写一个selector的yaml’文件"></a>编写一个selector的yaml’文件</h4><pre class=" language-yaml"><code class="language-yaml"><span class="token punctuation">[</span>root@master ~<span class="token punctuation">]</span><span class="token comment" spellcheck="true"># vim selector.yaml</span>
 <span class="token key atrule">selector</span><span class="token punctuation">:</span>
   <span class="token key atrule">matchLabels</span><span class="token punctuation">:</span>
@@ -635,7 +635,7 @@ spec:
     spec:
       containers:
       - name: test-ds
-        image: httpd</code></pre><h4 id="lt-1-gt-执行一下-2"><a href="#lt-1-gt-执行一下-2" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f daemonset.yaml </code></pre><h4 id="lt-2-gt-查看一下-2"><a href="#lt-2-gt-查看一下-2" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get ds</code></pre><p>![image-20200114112936161](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114112936161.png)</p>
+        image: httpd</code></pre><h4 id="lt-1-gt-执行一下-2"><a href="#lt-1-gt-执行一下-2" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f daemonset.yaml </code></pre><h4 id="lt-2-gt-查看一下-2"><a href="#lt-2-gt-查看一下-2" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get ds</code></pre><p>![image-20200114112936161](E:\软件\博客\Blog\blog\source_posts\08 ReplicaSet、DaemonSet.assets\image-20200114112936161.png)</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><h2 id="1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。"><a href="#1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。" class="headerlink" title="1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。"></a><strong>1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。</strong></h2><h3 id="lt-1-gt-Replication-Controller（RC）"><a href="#lt-1-gt-Replication-Controller（RC）" class="headerlink" title="<1>Replication Controller（RC）"></a>&lt;1&gt;Replication Controller（RC）</h3><h4 id="介绍及使用场景"><a href="#介绍及使用场景" class="headerlink" title="介绍及使用场景"></a>介绍及使用场景</h4><p><strong><code>Replication Controller</code>简称<code>RC</code>，<code>RC</code>是<code>Kubernetes</code>系统中的核心概念之一，简单来说，<code>RC</code>可以保证在任意时间运行<code>Pod</code>的副本数量，能够保证<code>Pod</code>总是可用的。如果实际<code>Pod</code>数量比指定的多那就结束掉多余的，如果实际数量比指定的少就新启动一些<code>Pod</code>，当<code>Pod</code>失败、被删除或者挂掉后，<code>RC</code>都会去自动创建新的<code>Pod</code>来保证副本数量，所以即使只有一个<code>Pod</code>，我们也应该使用<code>RC</code>来管理我们的<code>Pod</code>。</strong></p>
 <h4 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h4><ul>
 <li><strong>确保pod数量：RC用来管理正常运行Pod数量，一个RC可以由一个或多个Pod组成，在RC被创建后，系统会根据定义好的副本数来创建Pod数量。在运行过程中，如果Pod数量小于定义的，就会重启停止的或重新分配Pod，反之则杀死多余的。</strong></li>
@@ -699,8 +699,8 @@ spec:
     spec:
       containers:
       - name: xgp-ds
-        image: httpd</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get pod  --show-labels </code></pre><p>![image-20200114100043922](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -L env,tier</code></pre><p>![image-20200114095943595](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114095943595.png)</p>
+        image: httpd</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get pod  --show-labels </code></pre><p>![image-20200114100043922](E:\软件\博客\Blog\blog\source_posts\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
+<pre><code>[root@master ~]# kubectl get pod -L env,tier</code></pre><p>![image-20200114095943595](E:\软件\博客\Blog\blog\source_posts\08 ReplicaSet、DaemonSet.assets\image-20200114095943595.png)</p>
 <h2 id="3-创建service资源对象与上述资源进行关联，要有验证。"><a href="#3-创建service资源对象与上述资源进行关联，要有验证。" class="headerlink" title="3) 创建service资源对象与上述资源进行关联，要有验证。"></a><strong>3) 创建service资源对象与上述资源进行关联，要有验证。</strong></h2><pre><code>[root@master ~]# vim service.yaml 
 kind: Service
 apiVersion: v1
@@ -714,8 +714,8 @@ spec:
   - protocol: TCP
     port: 90 
     targetPort: 80
-    nodePort: 30123 </code></pre><h3 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master ~]# kubectl apply -f service.yaml </code></pre><h3 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl describe svc</code></pre><p>![image-20200114120345596](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114120345596.png)</p>
-<h3 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200114120444524](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114120444524.png)</p>
+    nodePort: 30123 </code></pre><h3 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master ~]# kubectl apply -f service.yaml </code></pre><h3 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl describe svc</code></pre><p>![image-20200114120345596](E:\软件\博客\Blog\blog\source_posts\08 ReplicaSet、DaemonSet.assets\image-20200114120345596.png)</p>
+<h3 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200114120444524](E:\软件\博客\Blog\blog\source_posts\08 ReplicaSet、DaemonSet.assets\image-20200114120444524.png)</p>
 <h2 id="4）整理关于标签和标签选择器都有什么作用？"><a href="#4）整理关于标签和标签选择器都有什么作用？" class="headerlink" title="4）整理关于标签和标签选择器都有什么作用？"></a><strong>4）整理关于标签和标签选择器都有什么作用？</strong></h2><p><strong>&lt;1&gt;标签：解决同类型的资源对象，为了更好的管理，按照标签分组。</strong></p>
 <p><strong>&lt;2&gt;标签选择器：标签的查询过滤条件。</strong></p>
 <script>
@@ -1291,7 +1291,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">35.3k</span>&nbsp;字
+                class="white-color">34.9k</span>&nbsp;字
             
             
             

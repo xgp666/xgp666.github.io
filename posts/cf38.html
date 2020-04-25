@@ -498,14 +498,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-02-03
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    2.9k
+                    2.8k
                 </div>
                 
 
@@ -577,15 +577,15 @@
 <p><strong>Namespace（命名空间）是kubernetes系统中的另一个重要的概念，通过将系统内部的对象“分配”到不同的Namespace中，形成逻辑上分组的不同项目、小组或用户组，便于不同的分组在共享使用整个集群的资源的同时还能被分别管理。</strong></p>
 <p>   <strong>Kubernetes集群在启动后，会创建一个名为“default”的Namespace，如果不特别指明Namespace，则用户创建的Pod、RC、Service都被系统创建到“default”的Namespace中。</strong></p>
 </blockquote>
-<h2 id="1-查看名称空间"><a href="#1-查看名称空间" class="headerlink" title="1.查看名称空间"></a>1.查看名称空间</h2><pre><code>[root@master ~]# kubectl get namespaces</code></pre><p>![image-20200109094700728](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109094700728.png)</p>
-<h2 id="2-查看名称空间详细信息"><a href="#2-查看名称空间详细信息" class="headerlink" title="2.查看名称空间详细信息"></a>2.查看名称空间详细信息</h2><pre><code>[root@master ~]# kubectl describe ns default</code></pre><p>![image-20200109095006067](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109095006067.png)</p>
-<h2 id="3-创建名称空间"><a href="#3-创建名称空间" class="headerlink" title="3.创建名称空间"></a>3.创建名称空间</h2><pre><code>[root@master ~]# kubectl create ns bdqn</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get namespaces</code></pre><p>![image-20200109095153448](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109095153448.png)</p>
+<h2 id="1-查看名称空间"><a href="#1-查看名称空间" class="headerlink" title="1.查看名称空间"></a>1.查看名称空间</h2><pre><code>[root@master ~]# kubectl get namespaces</code></pre><p>![image-20200109094700728](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109094700728.png)</p>
+<h2 id="2-查看名称空间详细信息"><a href="#2-查看名称空间详细信息" class="headerlink" title="2.查看名称空间详细信息"></a>2.查看名称空间详细信息</h2><pre><code>[root@master ~]# kubectl describe ns default</code></pre><p>![image-20200109095006067](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109095006067.png)</p>
+<h2 id="3-创建名称空间"><a href="#3-创建名称空间" class="headerlink" title="3.创建名称空间"></a>3.创建名称空间</h2><pre><code>[root@master ~]# kubectl create ns bdqn</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get namespaces</code></pre><p>![image-20200109095153448](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109095153448.png)</p>
 <h2 id="4-创建namespace的yaml文件"><a href="#4-创建namespace的yaml文件" class="headerlink" title="4.创建namespace的yaml文件"></a>4.创建namespace的yaml文件</h2><h3 id="（1）查看格式"><a href="#（1）查看格式" class="headerlink" title="（1）查看格式"></a>（1）查看格式</h3><pre><code>[root@master ~]# kubectl explain ns
 //查看nasespace的yaml文件的格式</code></pre><h3 id="（2）创建namespace的yaml文件"><a href="#（2）创建namespace的yaml文件" class="headerlink" title="（2）创建namespace的yaml文件"></a>（2）创建namespace的yaml文件</h3><pre><code>[root@master ~]# vim test-ns.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: test</code></pre><h3 id="（3）运行namespace的yaml文件"><a href="#（3）运行namespace的yaml文件" class="headerlink" title="（3）运行namespace的yaml文件"></a>（3）运行namespace的yaml文件</h3><pre><code>[root@master ~]# kubectl apply -f test-ns.yaml </code></pre><h3 id="（4）查看一下"><a href="#（4）查看一下" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master ~]# kubectl get ns</code></pre><p>![image-20200109095808777](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109095808777.png)</p>
+  name: test</code></pre><h3 id="（3）运行namespace的yaml文件"><a href="#（3）运行namespace的yaml文件" class="headerlink" title="（3）运行namespace的yaml文件"></a>（3）运行namespace的yaml文件</h3><pre><code>[root@master ~]# kubectl apply -f test-ns.yaml </code></pre><h3 id="（4）查看一下"><a href="#（4）查看一下" class="headerlink" title="（4）查看一下"></a>（4）查看一下</h3><pre><code>[root@master ~]# kubectl get ns</code></pre><p>![image-20200109095808777](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109095808777.png)</p>
 <h2 id="4-删除名称空间"><a href="#4-删除名称空间" class="headerlink" title="4.删除名称空间"></a>4.删除名称空间</h2><pre><code>[root@master ~]# kubectl delete ns test 
 [root@master ~]# kubectl delete -f test-ns.yaml </code></pre><p><strong>注意：namespace资源对象进用于资源对象的隔离，并不能隔绝不同名称空间的Pod之间的通信。那是网络策略资源的功能。</strong></p>
 <h2 id="5-查看指定名称空间"><a href="#5-查看指定名称空间" class="headerlink" title="5.查看指定名称空间"></a>5.查看指定名称空间</h2><p><strong>可使用–namespace或-n选项</strong></p>
@@ -599,7 +599,7 @@ spec:
   containers:
   - name: test-app
     image: 192.168.1.21:5000/web:v1</code></pre><p><strong><em>pod的yaml文件不支持replicas字段</em></strong></p>
-<h3 id="（1）运行一下"><a href="#（1）运行一下" class="headerlink" title="（1）运行一下"></a>（1）运行一下</h3><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h3 id="（2）查看一下"><a href="#（2）查看一下" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200109100836911](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109100836911.png)</p>
+<h3 id="（1）运行一下"><a href="#（1）运行一下" class="headerlink" title="（1）运行一下"></a>（1）运行一下</h3><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h3 id="（2）查看一下"><a href="#（2）查看一下" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200109100836911](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109100836911.png)</p>
 <p><strong><em>ps：这个pod因为是自己创建的，所以删除之后k8s并不会自动生成，相当于docker中创建</em></strong></p>
 <h2 id="2-指定pod的namespace名称空间"><a href="#2-指定pod的namespace名称空间" class="headerlink" title="2.指定pod的namespace名称空间"></a>2.指定pod的namespace名称空间</h2><h3 id="（1）修改pod的yaml文件"><a href="#（1）修改pod的yaml文件" class="headerlink" title="（1）修改pod的yaml文件"></a>（1）修改pod的yaml文件</h3><pre><code>[root@master ~]# vim pod.yaml
 kind: Pod        #资源类型
@@ -611,7 +611,7 @@ spec:
   containers:      #容器
   - name: test-app  #容器名称
     image: 192.168.1.21:5000/web:v1  #镜像</code></pre><h5 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h5><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h3 id="（2）查看一下-1"><a href="#（2）查看一下-1" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]#  kubectl get pod -n bdqn 
-//根据namespace名称查看</code></pre><p>![image-20200109101521992](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109101521992.png)</p>
+//根据namespace名称查看</code></pre><p>![image-20200109101521992](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109101521992.png)</p>
 <h2 id="3-pod中镜像获取策略"><a href="#3-pod中镜像获取策略" class="headerlink" title="3.pod中镜像获取策略"></a>3.pod中镜像获取策略</h2><blockquote>
 <p><strong>Always：</strong>镜像标签为“laster”或镜像不存在时，总是从指定的仓库中获取镜像。</p>
 <p><strong>IfNotPresent：</strong>仅当本地镜像不存在时才从目标仓库下载。</p>
@@ -631,7 +631,7 @@ spec:
     imagePullPolicy: IfNotPresent   #获取的策略
     ports:
     - protocol: TCP
-      containerPort: 80  </code></pre><h4 id="lt-1-gt-删除之前的pod"><a href="#lt-1-gt-删除之前的pod" class="headerlink" title="<1>删除之前的pod"></a>&lt;1&gt;删除之前的pod</h4><pre><code>[root@master ~]# kubectl delete pod -n bdqn test-pod </code></pre><h4 id="lt-2-gt-执行一下"><a href="#lt-2-gt-执行一下" class="headerlink" title="<2>执行一下"></a>&lt;2&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h4 id="lt-3-gt-查看一下"><a href="#lt-3-gt-查看一下" class="headerlink" title="<3>查看一下"></a>&lt;3&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get pod -n bdqn </code></pre><p>![image-20200109110215669](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109110215669.png)</p>
+      containerPort: 80  </code></pre><h4 id="lt-1-gt-删除之前的pod"><a href="#lt-1-gt-删除之前的pod" class="headerlink" title="<1>删除之前的pod"></a>&lt;1&gt;删除之前的pod</h4><pre><code>[root@master ~]# kubectl delete pod -n bdqn test-pod </code></pre><h4 id="lt-2-gt-执行一下"><a href="#lt-2-gt-执行一下" class="headerlink" title="<2>执行一下"></a>&lt;2&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h4 id="lt-3-gt-查看一下"><a href="#lt-3-gt-查看一下" class="headerlink" title="<3>查看一下"></a>&lt;3&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get pod -n bdqn </code></pre><p>![image-20200109110215669](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109110215669.png)</p>
 <h3 id="（2）pod的yaml文件（修改端口）"><a href="#（2）pod的yaml文件（修改端口）" class="headerlink" title="（2）pod的yaml文件（修改端口）"></a>（2）pod的yaml文件（修改端口）</h3><pre><code>[root@master ~]# vim pod.yaml 
 kind: Pod
 apiVersion: v1
@@ -645,8 +645,8 @@ spec:
     imagePullPolicy: IfNotPresent
     ports:
     - protocol: TCP
-      containerPort: 90   #改一下端口</code></pre><h4 id="lt-1-gt-删除之前的pod-1"><a href="#lt-1-gt-删除之前的pod-1" class="headerlink" title="<1>删除之前的pod"></a>&lt;1&gt;删除之前的pod</h4><pre><code>[root@master ~]# kubectl delete pod -n bdqn test-pod </code></pre><h4 id="lt-2-gt-执行一下-1"><a href="#lt-2-gt-执行一下-1" class="headerlink" title="<2>执行一下"></a>&lt;2&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h4 id="lt-3-gt-查看一下-1"><a href="#lt-3-gt-查看一下-1" class="headerlink" title="<3>查看一下"></a>&lt;3&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get pod -n bdqn -o wide</code></pre><p>![image-20200109110409584](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109110409584.png)</p>
-<h4 id="lt-4-gt-访问一下"><a href="#lt-4-gt-访问一下" class="headerlink" title="<4>访问一下"></a>&lt;4&gt;访问一下</h4><p>![image-20200109110430334](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109110430334.png)</p>
+      containerPort: 90   #改一下端口</code></pre><h4 id="lt-1-gt-删除之前的pod-1"><a href="#lt-1-gt-删除之前的pod-1" class="headerlink" title="<1>删除之前的pod"></a>&lt;1&gt;删除之前的pod</h4><pre><code>[root@master ~]# kubectl delete pod -n bdqn test-pod </code></pre><h4 id="lt-2-gt-执行一下-1"><a href="#lt-2-gt-执行一下-1" class="headerlink" title="<2>执行一下"></a>&lt;2&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h4 id="lt-3-gt-查看一下-1"><a href="#lt-3-gt-查看一下-1" class="headerlink" title="<3>查看一下"></a>&lt;3&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get pod -n bdqn -o wide</code></pre><p>![image-20200109110409584](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109110409584.png)</p>
+<h4 id="lt-4-gt-访问一下"><a href="#lt-4-gt-访问一下" class="headerlink" title="<4>访问一下"></a>&lt;4&gt;访问一下</h4><p>![image-20200109110430334](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109110430334.png)</p>
 <p><strong>会发现修改的90端口并不生效，他只是一个提示字段并不生效。</strong></p>
 <h3 id="（3）pod的yaml文件（添加标签）"><a href="#（3）pod的yaml文件（添加标签）" class="headerlink" title="（3）pod的yaml文件（添加标签）"></a>（3）pod的yaml文件（添加标签）</h3><pre><code>[root@master ~]# vim pod.yaml 
 kind: Pod
@@ -675,9 +675,9 @@ spec:
   ports:              
   - port: 80          #宿主机端口
     targetPort: 80    #容器端口</code></pre><p><strong><em>会发现添加的80端口生效了，所以不能乱改。</em></strong></p>
-<h4 id="lt-1-gt-执行一下"><a href="#lt-1-gt-执行一下" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f test-svc.yaml</code></pre><h4 id="lt-2-gt-查看一下"><a href="#lt-2-gt-查看一下" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get svc -n bdqn </code></pre><p>![image-20200109121106859](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109121106859.png)</p>
-<pre><code>[root@master ~]# kubectl describe svc -n bdqn test-svc </code></pre><p>![image-20200109121139399](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109121139399.png)</p>
-<h4 id="lt-4-gt-访问一下-1"><a href="#lt-4-gt-访问一下-1" class="headerlink" title="<4>访问一下"></a>&lt;4&gt;访问一下</h4><pre><code>[root@master ~]# curl 10.98.57.97 </code></pre><p>![image-20200109121205607](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109121205607.png)</p>
+<h4 id="lt-1-gt-执行一下"><a href="#lt-1-gt-执行一下" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f test-svc.yaml</code></pre><h4 id="lt-2-gt-查看一下"><a href="#lt-2-gt-查看一下" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get svc -n bdqn </code></pre><p>![image-20200109121106859](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109121106859.png)</p>
+<pre><code>[root@master ~]# kubectl describe svc -n bdqn test-svc </code></pre><p>![image-20200109121139399](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109121139399.png)</p>
+<h4 id="lt-4-gt-访问一下-1"><a href="#lt-4-gt-访问一下-1" class="headerlink" title="<4>访问一下"></a>&lt;4&gt;访问一下</h4><pre><code>[root@master ~]# curl 10.98.57.97 </code></pre><p>![image-20200109121205607](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109121205607.png)</p>
 <h4 id="————————————–service———————————————"><a href="#————————————–service———————————————" class="headerlink" title="————————————–service———————————————"></a>————————————–service———————————————</h4><h1 id="四，容器的重启策略"><a href="#四，容器的重启策略" class="headerlink" title="四，容器的重启策略"></a>四，容器的重启策略</h1><p><strong>Pod的重启策略（RestartPolicy）应用与Pod内所有容器，并且仅在Pod所处的Node上由kubelet进行判断和重启操作。当某个容器异常退出或者健康检查失败时，kubelet将根据RestartPolicy的设置来进行相应的操作。</strong></p>
 <blockquote>
 <p><strong>Always：</strong>（默认情况下使用）但凡Pod对象终止就将其重启；<br><strong>OnFailure：</strong>仅在Pod对象出现错误时才将其重启；<br><strong>Never：</strong>从不重启；</p>
@@ -699,10 +699,10 @@ spec:
     args:                   #生成pod时运行的命令
     - /bin/sh
     - -c
-    - sleep 20; exit 1 </code></pre><h3 id="lt-1-gt-执行一下-1"><a href="#lt-1-gt-执行一下-1" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h3><pre><code>[root@master ~]# kubectl apply -f  healcheck.yaml</code></pre><h3 id="lt-2-gt-查看一下-1"><a href="#lt-2-gt-查看一下-1" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h3><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200109121809350](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109121809350.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -w | grep healcheck</code></pre><p>![image-20200109121817775](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109121817775.png)</p>
+    - sleep 20; exit 1 </code></pre><h3 id="lt-1-gt-执行一下-1"><a href="#lt-1-gt-执行一下-1" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h3><pre><code>[root@master ~]# kubectl apply -f  healcheck.yaml</code></pre><h3 id="lt-2-gt-查看一下-1"><a href="#lt-2-gt-查看一下-1" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h3><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200109121809350](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109121809350.png)</p>
+<pre><code>[root@master ~]# kubectl get pod -w | grep healcheck</code></pre><p>![image-20200109121817775](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109121817775.png)</p>
 <p><strong>在上面的例子中，容器进程返回值非零，Kubernetes 则认为容器发生故障，需要重启。但有不少情况是发生了故障，但进程并不会退出。</strong></p>
-<h1 id="六，小实验"><a href="#六，小实验" class="headerlink" title="六，小实验"></a>六，小实验</h1><h2 id="1）以自己的名称创建一个k8s名称空间，以下所有操作都在此名称空间中。"><a href="#1）以自己的名称创建一个k8s名称空间，以下所有操作都在此名称空间中。" class="headerlink" title="1）以自己的名称创建一个k8s名称空间，以下所有操作都在此名称空间中。"></a>1）以自己的名称创建一个k8s名称空间，以下所有操作都在此名称空间中。</h2><h3 id="（1）创建名称空间"><a href="#（1）创建名称空间" class="headerlink" title="（1）创建名称空间"></a>（1）创建名称空间</h3><pre><code>[root@master ~]# kubectl create ns xgp</code></pre><h3 id="（2）查看一下-2"><a href="#（2）查看一下-2" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get ns xgp </code></pre><p>![image-20200109133106300](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109133106300.png)</p>
+<h1 id="六，小实验"><a href="#六，小实验" class="headerlink" title="六，小实验"></a>六，小实验</h1><h2 id="1）以自己的名称创建一个k8s名称空间，以下所有操作都在此名称空间中。"><a href="#1）以自己的名称创建一个k8s名称空间，以下所有操作都在此名称空间中。" class="headerlink" title="1）以自己的名称创建一个k8s名称空间，以下所有操作都在此名称空间中。"></a>1）以自己的名称创建一个k8s名称空间，以下所有操作都在此名称空间中。</h2><h3 id="（1）创建名称空间"><a href="#（1）创建名称空间" class="headerlink" title="（1）创建名称空间"></a>（1）创建名称空间</h3><pre><code>[root@master ~]# kubectl create ns xgp</code></pre><h3 id="（2）查看一下-2"><a href="#（2）查看一下-2" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get ns xgp </code></pre><p>![image-20200109133106300](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109133106300.png)</p>
 <h2 id="2）创建一个Pod资源对象，使用的是私有仓库中私有镜像，其镜像的下载策略为：NEVER。-Pod的重启策略为：-Never"><a href="#2）创建一个Pod资源对象，使用的是私有仓库中私有镜像，其镜像的下载策略为：NEVER。-Pod的重启策略为：-Never" class="headerlink" title="2）创建一个Pod资源对象，使用的是私有仓库中私有镜像，其镜像的下载策略为：NEVER。 Pod的重启策略为： Never."></a>2）创建一个Pod资源对象，使用的是私有仓库中私有镜像，其镜像的下载策略为：NEVER。 Pod的重启策略为： Never.</h2><pre><code>[root@master ~]# vim pod.yaml
 kind: Pod
 apiVersion: v1
@@ -723,7 +723,7 @@ spec:
     - sleep 90; exit 1
     ports:
     - protocol: TCP
-      containerPort: 80</code></pre><h2 id="3）创建出容器之后，执行非正常退出，查看Pod的最终状态。"><a href="#3）创建出容器之后，执行非正常退出，查看Pod的最终状态。" class="headerlink" title="3）创建出容器之后，执行非正常退出，查看Pod的最终状态。"></a>3）创建出容器之后，执行非正常退出，查看Pod的最终状态。</h2><h3 id="（1）执行一下上面pod的yaml文件"><a href="#（1）执行一下上面pod的yaml文件" class="headerlink" title="（1）执行一下上面pod的yaml文件"></a>（1）执行一下上面pod的yaml文件</h3><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h3 id="（2）动态查看ns中test-pod的信息"><a href="#（2）动态查看ns中test-pod的信息" class="headerlink" title="（2）动态查看ns中test-pod的信息"></a>（2）动态查看ns中test-pod的信息</h3><pre><code>[root@master ~]# kubectl get pod -n xgp  -w | grep test-pod</code></pre><p>![image-20200109135543482](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109135543482.png)</p>
+      containerPort: 80</code></pre><h2 id="3）创建出容器之后，执行非正常退出，查看Pod的最终状态。"><a href="#3）创建出容器之后，执行非正常退出，查看Pod的最终状态。" class="headerlink" title="3）创建出容器之后，执行非正常退出，查看Pod的最终状态。"></a>3）创建出容器之后，执行非正常退出，查看Pod的最终状态。</h2><h3 id="（1）执行一下上面pod的yaml文件"><a href="#（1）执行一下上面pod的yaml文件" class="headerlink" title="（1）执行一下上面pod的yaml文件"></a>（1）执行一下上面pod的yaml文件</h3><pre><code>[root@master ~]# kubectl apply -f pod.yaml </code></pre><h3 id="（2）动态查看ns中test-pod的信息"><a href="#（2）动态查看ns中test-pod的信息" class="headerlink" title="（2）动态查看ns中test-pod的信息"></a>（2）动态查看ns中test-pod的信息</h3><pre><code>[root@master ~]# kubectl get pod -n xgp  -w | grep test-pod</code></pre><p>![image-20200109135543482](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109135543482.png)</p>
 <blockquote>
 <p><strong>删除test-pod</strong></p>
 <pre><code>[root@master ~]# kubectl delete pod -n xgp test-pod </code></pre></blockquote>
@@ -754,8 +754,8 @@ spec:
     app: test-web
   ports:
   - port: 80
-    targetPort: 80</code></pre><h3 id="（2）执行一下"><a href="#（2）执行一下" class="headerlink" title="（2）执行一下"></a>（2）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f svc.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master ~]# kubectl get  pod -o wide -n xgp </code></pre><p>![image-20200109141712910](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109141712910.png)</p>
-<h3 id="（4）访问一下"><a href="#（4）访问一下" class="headerlink" title="（4）访问一下"></a>（4）访问一下</h3><pre><code>[root@master ~]# curl 10.244.1.21</code></pre><p>![image-20200109141749352](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109141749352.png)</p>
+    targetPort: 80</code></pre><h3 id="（2）执行一下"><a href="#（2）执行一下" class="headerlink" title="（2）执行一下"></a>（2）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f svc.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master ~]# kubectl get  pod -o wide -n xgp </code></pre><p>![image-20200109141712910](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109141712910.png)</p>
+<h3 id="（4）访问一下"><a href="#（4）访问一下" class="headerlink" title="（4）访问一下"></a>（4）访问一下</h3><pre><code>[root@master ~]# curl 10.244.1.21</code></pre><p>![image-20200109141749352](E:\软件\博客\Blog\blog\source_posts\06 pod资源对象.assets\image-20200109141749352.png)</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1324,7 +1324,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">35.3k</span>&nbsp;字
+                class="white-color">34.9k</span>&nbsp;字
             
             
             

@@ -498,14 +498,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-02-14
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    2.4k
+                    2.3k
                 </div>
                 
 
@@ -563,16 +563,16 @@ spec:
   - name: shared-volume
     emptyDir: {}</code></pre><p><strong>执行一下</strong></p>
 <pre><code>[root@master yaml]# kubectl apply -f emptyDir.yaml </code></pre><p><strong>查看一下</strong></p>
-<pre><code>[root@master yaml]# kubectl get pod  </code></pre><p>![image-20200205095431565](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205095431565.png)</p>
+<pre><code>[root@master yaml]# kubectl get pod  </code></pre><p>![image-20200205095431565](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205095431565.png)</p>
 <p><strong>查看日志</strong></p>
 <pre><code>[root@master yaml]# kubectl logs  producer-consumer producer
-[root@master yaml]# kubectl logs  producer-consumer consumer</code></pre><p>![image-20200205095543780](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205095543780.png)</p>
+[root@master yaml]# kubectl logs  producer-consumer consumer</code></pre><p>![image-20200205095543780](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205095543780.png)</p>
 <p><strong>查看挂载的目录</strong></p>
 <p><strong>node节点查看容器名，并通过容器名查看挂载的目录</strong></p>
-<pre><code>[root@node01 shared-volume]# docker ps </code></pre><p>![image-20200205102007328](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205102007328.png)</p>
-<pre><code>[root@node01 shared-volume]# docker inspect k8s_consumer_producer-consumer_default_9ec83f9e-e58b-4bf8-8e16-85b0f83febf9_0</code></pre><p>![image-20200205102048470](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205102048470.png)</p>
+<pre><code>[root@node01 shared-volume]# docker ps </code></pre><p>![image-20200205102007328](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205102007328.png)</p>
+<pre><code>[root@node01 shared-volume]# docker inspect k8s_consumer_producer-consumer_default_9ec83f9e-e58b-4bf8-8e16-85b0f83febf9_0</code></pre><p>![image-20200205102048470](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205102048470.png)</p>
 <p><strong>进入挂载目录查看一下</strong></p>
-<p>![image-20200205102128953](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205102128953.png)</p>
+<p>![image-20200205102128953](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205102128953.png)</p>
 </blockquote>
 <h2 id="2-hostPath-Volume：类似docker-数据持久化的-bind-mount"><a href="#2-hostPath-Volume：类似docker-数据持久化的-bind-mount" class="headerlink" title="2.hostPath Volume：类似docker 数据持久化的:bind mount"></a>2.hostPath Volume：类似docker 数据持久化的:bind mount</h2><p><strong>如果Pod被删除，数据会保留，相比较emptyDir要好一点。不过一旦host崩溃，hostPath也无法访问 了。</strong></p>
 <p><strong>docker或者k8s集群本身的存储会采用hostPath这种方式。</strong></p>
@@ -583,7 +583,7 @@ spec:
 /nfsdata *(rw,sync,no_root_squash)</code></pre><p><strong>开启nfs和rpcbind</strong></p>
 <pre><code>[root@master ~]# systemctl start nfs-server.service 
 [root@master ~]# systemctl start rpcbind</code></pre><p><strong>测试一下</strong></p>
-<pre><code>[root@master ~]# showmount -e</code></pre><p>![image-20200205105654925](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205105654925.png)</p>
+<pre><code>[root@master ~]# showmount -e</code></pre><p>![image-20200205105654925](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205105654925.png)</p>
 <h4 id="lt-1-gt-创建nfs-pv的yaml文件"><a href="#lt-1-gt-创建nfs-pv的yaml文件" class="headerlink" title="<1>创建nfs-pv的yaml文件"></a><strong>&lt;1&gt;创建nfs-pv的yaml文件</strong></h4><pre><code>[root@master yaml]# cd yaml/
 [root@master yaml]# vim nfs-pv.yaml
 apiVersion: v1
@@ -609,7 +609,7 @@ spec:
     Recycle: 自动清除数据。
     Retain: 需要管理员手动回收。
     Delete： 云存储专用。</code></pre></blockquote>
-<h4 id="lt-2-gt-执行一下"><a href="#lt-2-gt-执行一下" class="headerlink" title="<2>执行一下"></a><strong>&lt;2&gt;执行一下</strong></h4><pre><code>[root@master yaml]# kubectl apply -f nfs-pv.yaml </code></pre><h4 id="lt-3-gt-查看一下"><a href="#lt-3-gt-查看一下" class="headerlink" title="<3>查看一下"></a>&lt;3&gt;查看一下</h4><pre><code>[root@master yaml]# kubectl get pv</code></pre><p>![image-20200205111307317](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205111307317.png)</p>
+<h4 id="lt-2-gt-执行一下"><a href="#lt-2-gt-执行一下" class="headerlink" title="<2>执行一下"></a><strong>&lt;2&gt;执行一下</strong></h4><pre><code>[root@master yaml]# kubectl apply -f nfs-pv.yaml </code></pre><h4 id="lt-3-gt-查看一下"><a href="#lt-3-gt-查看一下" class="headerlink" title="<3>查看一下"></a>&lt;3&gt;查看一下</h4><pre><code>[root@master yaml]# kubectl get pv</code></pre><p>![image-20200205111307317](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205111307317.png)</p>
 <h4 id="lt-1-gt-创建nfs-pvc的yaml文件"><a href="#lt-1-gt-创建nfs-pvc的yaml文件" class="headerlink" title="<1>创建nfs-pvc的yaml文件"></a><strong>&lt;1&gt;创建nfs-pvc的yaml文件</strong></h4><pre><code>[root@master yaml]# vim nfs-pvc.yaml
 
 apiVersion: v1
@@ -622,8 +622,8 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: nfs</code></pre><h4 id="lt-2-gt-执行一下-1"><a href="#lt-2-gt-执行一下-1" class="headerlink" title="<2>执行一下"></a><strong>&lt;2&gt;执行一下</strong></h4><pre><code>[root@master yaml]# kubectl apply -f nfs-pvc.yaml </code></pre><h4 id="lt-3-gt-查看一下-1"><a href="#lt-3-gt-查看一下-1" class="headerlink" title="<3>查看一下"></a>&lt;3&gt;查看一下</h4><pre><code>[root@master yaml]# kubectl get pvc</code></pre><p>![image-20200205113407860](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205113407860.png)</p>
-<pre><code>[root@master yaml]# kubectl get pv</code></pre><p>![image-20200205113512580](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200205113512580.png)</p>
+  storageClassName: nfs</code></pre><h4 id="lt-2-gt-执行一下-1"><a href="#lt-2-gt-执行一下-1" class="headerlink" title="<2>执行一下"></a><strong>&lt;2&gt;执行一下</strong></h4><pre><code>[root@master yaml]# kubectl apply -f nfs-pvc.yaml </code></pre><h4 id="lt-3-gt-查看一下-1"><a href="#lt-3-gt-查看一下-1" class="headerlink" title="<3>查看一下"></a>&lt;3&gt;查看一下</h4><pre><code>[root@master yaml]# kubectl get pvc</code></pre><p>![image-20200205113407860](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205113407860.png)</p>
+<pre><code>[root@master yaml]# kubectl get pv</code></pre><p>![image-20200205113512580](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200205113512580.png)</p>
 <h3 id="（2）创建一个pod资源"><a href="#（2）创建一个pod资源" class="headerlink" title="（2）创建一个pod资源"></a>（2）创建一个pod资源</h3><pre><code>[root@master yaml]# vim pod.yaml
 kind: Pod
 apiVersion: v1
@@ -643,23 +643,23 @@ spec:
   volumes:
     - name: mydata
       persistentVolumeClaim:
-        claimName: test-pvc</code></pre><h4 id="lt-1-gt-执行一下"><a href="#lt-1-gt-执行一下" class="headerlink" title="<1> 执行一下"></a>&lt;1&gt; 执行一下</h4><pre><code>[root@master yaml]# kubectl apply -f pod.yaml </code></pre><h4 id="lt-2-gt-查看一下"><a href="#lt-2-gt-查看一下" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master yaml]# kubectl get pod -o wide</code></pre><p>![image-20200207100212328](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207100212328.png)</p>
+        claimName: test-pvc</code></pre><h4 id="lt-1-gt-执行一下"><a href="#lt-1-gt-执行一下" class="headerlink" title="<1> 执行一下"></a>&lt;1&gt; 执行一下</h4><pre><code>[root@master yaml]# kubectl apply -f pod.yaml </code></pre><h4 id="lt-2-gt-查看一下"><a href="#lt-2-gt-查看一下" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master yaml]# kubectl get pod -o wide</code></pre><p>![image-20200207100212328](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207100212328.png)</p>
 <p><strong>可以看到现在没有开启成功</strong></p>
-<h5 id="查看一下test-pod的信息看看是哪里的问题"><a href="#查看一下test-pod的信息看看是哪里的问题" class="headerlink" title="查看一下test-pod的信息看看是哪里的问题"></a>查看一下test-pod的信息看看是哪里的问题</h5><pre><code>[root@master yaml]# kubectl describe pod test-pod </code></pre><p>![image-20200207123950227](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207123950227.png)</p>
+<h5 id="查看一下test-pod的信息看看是哪里的问题"><a href="#查看一下test-pod的信息看看是哪里的问题" class="headerlink" title="查看一下test-pod的信息看看是哪里的问题"></a>查看一下test-pod的信息看看是哪里的问题</h5><pre><code>[root@master yaml]# kubectl describe pod test-pod </code></pre><p>![image-20200207123950227](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207123950227.png)</p>
 <h5 id="那是因为pv的本地挂载目录没有创建好"><a href="#那是因为pv的本地挂载目录没有创建好" class="headerlink" title="那是因为pv的本地挂载目录没有创建好"></a>那是因为pv的本地挂载目录没有创建好</h5><pre><code>[root@master yaml]# mkdir /nfsdata/pv1/
 //要和nfs-pv.yaml的名字一样</code></pre><h5 id="重新创建一下pod"><a href="#重新创建一下pod" class="headerlink" title="重新创建一下pod"></a>重新创建一下pod</h5><pre><code>[root@master yaml]# kubectl delete -f pod.yaml 
 [root@master yaml]# kubectl apply -f pod.yaml 
-[root@master yaml]# kubectl get pod -o wide</code></pre><p>![image-20200207102822785](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207102822785.png)</p>
+[root@master yaml]# kubectl get pod -o wide</code></pre><p>![image-20200207102822785](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207102822785.png)</p>
 <h3 id="（3）test-pod创建hello创建文件并添加内容"><a href="#（3）test-pod创建hello创建文件并添加内容" class="headerlink" title="（3）test-pod创建hello创建文件并添加内容"></a>（3）test-pod创建hello创建文件并添加内容</h3><pre><code>[root@master yaml]# kubectl exec test-pod touch /mydata/hello</code></pre><p><strong>进入容器</strong></p>
 <pre><code>[root@master yaml]# kubectl exec -it test-pod  /bin/sh
 / # echo 123 &gt; /mydata/hello
 / # exit</code></pre><p><strong>挂载目录查看一下</strong></p>
-<pre><code>[root@master yaml]# cat  /nfsdata/pv1/hello </code></pre><p>![image-20200207104239153](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207104239153.png)</p>
+<pre><code>[root@master yaml]# cat  /nfsdata/pv1/hello </code></pre><p>![image-20200207104239153](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207104239153.png)</p>
 <p><strong>和刚刚的一样</strong></p>
 <h3 id="（4）测试回收策略"><a href="#（4）测试回收策略" class="headerlink" title="（4）测试回收策略"></a>（4）测试回收策略</h3><h4 id="删除pod和pvc，pv"><a href="#删除pod和pvc，pv" class="headerlink" title="删除pod和pvc，pv"></a>删除pod和pvc，pv</h4><pre><code>[root@master yaml]# kubectl delete pod test-pod 
 [root@master yaml]# kubectl delete pvc test-pvc 
-[root@master yaml]# kubectl delete pv test-pv </code></pre><h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl get pv</code></pre><p>![image-20200207104454636](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207104454636.png)</p>
-<pre><code>[root@master yaml]# cat  /nfsdata/pv1/hello</code></pre><p>![image-20200207104520048](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207104520048.png)</p>
+[root@master yaml]# kubectl delete pv test-pv </code></pre><h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl get pv</code></pre><p>![image-20200207104454636](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207104454636.png)</p>
+<pre><code>[root@master yaml]# cat  /nfsdata/pv1/hello</code></pre><p>![image-20200207104520048](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207104520048.png)</p>
 <p><strong><em>文件已被回收</em></strong></p>
 <h3 id="（5）修改pv的回收策略为手动"><a href="#（5）修改pv的回收策略为手动" class="headerlink" title="（5）修改pv的回收策略为手动"></a>（5）修改pv的回收策略为手动</h3><h4 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h4><pre><code>[root@master yaml]# vim nfs-pv.yaml 
 apiVersion: v1
@@ -675,18 +675,18 @@ spec :
   storageClassName: nfs
   nfs:
     path: /nfsdata/pv1
-    server: 192.168.1.21</code></pre><h4 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master yaml]# kubectl apply -f nfs-pv.yaml </code></pre><h4 id="创建pod"><a href="#创建pod" class="headerlink" title="创建pod"></a>创建pod</h4><pre><code>[root@master yaml]# kubectl apply -f pod.yaml </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><p>![image-20200207105203009](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207105203009.png)</p>
-<pre><code>[root@master yaml]# kubectl describe pod test-pod </code></pre><p>![image-20200207105248025](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207105248025.png)</p>
-<h4 id="创建pvc"><a href="#创建pvc" class="headerlink" title="创建pvc"></a>创建pvc</h4><pre><code>[root@master yaml]# kubectl apply -f nfs-pvc.yaml </code></pre><h4 id="查看一下pod"><a href="#查看一下pod" class="headerlink" title="查看一下pod"></a>查看一下pod</h4><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200207105402354](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207105402354.png)</p>
-<h3 id="（6）test-pod创建hello创建文件并添加内容"><a href="#（6）test-pod创建hello创建文件并添加内容" class="headerlink" title="（6）test-pod创建hello创建文件并添加内容"></a>（6）test-pod创建hello创建文件并添加内容</h3><pre><code>[root@master yaml]# kubectl exec test-pod touch /mydata/k8s</code></pre><h4 id="查看一下挂载目录"><a href="#查看一下挂载目录" class="headerlink" title="查看一下挂载目录"></a>查看一下挂载目录</h4><pre><code>[root@master yaml]# ls /nfsdata/pv1/</code></pre><p>![image-20200207105618318](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207105618318.png)</p>
+    server: 192.168.1.21</code></pre><h4 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master yaml]# kubectl apply -f nfs-pv.yaml </code></pre><h4 id="创建pod"><a href="#创建pod" class="headerlink" title="创建pod"></a>创建pod</h4><pre><code>[root@master yaml]# kubectl apply -f pod.yaml </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><p>![image-20200207105203009](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207105203009.png)</p>
+<pre><code>[root@master yaml]# kubectl describe pod test-pod </code></pre><p>![image-20200207105248025](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207105248025.png)</p>
+<h4 id="创建pvc"><a href="#创建pvc" class="headerlink" title="创建pvc"></a>创建pvc</h4><pre><code>[root@master yaml]# kubectl apply -f nfs-pvc.yaml </code></pre><h4 id="查看一下pod"><a href="#查看一下pod" class="headerlink" title="查看一下pod"></a>查看一下pod</h4><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200207105402354](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207105402354.png)</p>
+<h3 id="（6）test-pod创建hello创建文件并添加内容"><a href="#（6）test-pod创建hello创建文件并添加内容" class="headerlink" title="（6）test-pod创建hello创建文件并添加内容"></a>（6）test-pod创建hello创建文件并添加内容</h3><pre><code>[root@master yaml]# kubectl exec test-pod touch /mydata/k8s</code></pre><h4 id="查看一下挂载目录"><a href="#查看一下挂载目录" class="headerlink" title="查看一下挂载目录"></a>查看一下挂载目录</h4><pre><code>[root@master yaml]# ls /nfsdata/pv1/</code></pre><p>![image-20200207105618318](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207105618318.png)</p>
 <h4 id="删除pod和pvc，pv，再次查看挂载目录"><a href="#删除pod和pvc，pv，再次查看挂载目录" class="headerlink" title="删除pod和pvc，pv，再次查看挂载目录"></a>删除pod和pvc，pv，再次查看挂载目录</h4><pre><code>[root@master yaml]# kubectl delete pod test-pod 
 [root@master yaml]# kubectl delete pvc test-pvc
-[root@master yaml]# kubectl delete pv test-pv </code></pre><h4 id="查看挂载目录"><a href="#查看挂载目录" class="headerlink" title="查看挂载目录"></a>查看挂载目录</h4><pre><code>[root@master yaml]# ls /nfsdata/pv1/</code></pre><p>![image-20200207105757641](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207105757641.png)</p>
+[root@master yaml]# kubectl delete pv test-pv </code></pre><h4 id="查看挂载目录"><a href="#查看挂载目录" class="headerlink" title="查看挂载目录"></a>查看挂载目录</h4><pre><code>[root@master yaml]# ls /nfsdata/pv1/</code></pre><p>![image-20200207105757641](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207105757641.png)</p>
 <p><strong><em>内容还在</em></strong></p>
 <h2 id="4-mysql对数据持久化的应用"><a href="#4-mysql对数据持久化的应用" class="headerlink" title="4.mysql对数据持久化的应用"></a>4.mysql对数据持久化的应用</h2><p><strong>最小化安装系统需要</strong></p>
 <pre><code>yum -y install mariadb</code></pre><h2 id="（1）通过之前的yaml文件，创建pv和pvc"><a href="#（1）通过之前的yaml文件，创建pv和pvc" class="headerlink" title="（1）通过之前的yaml文件，创建pv和pvc"></a>（1）通过之前的yaml文件，创建pv和pvc</h2><pre><code>[root@master yaml]# kubectl apply -f  nfs-pv.yaml 
-[root@master yaml]# kubectl apply -f  nfs-pvc.yaml </code></pre><h3 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master yaml]# kubectl get pv</code></pre><p>![image-20200207110132199](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207110132199.png)</p>
-<pre><code>[root@master yaml]# kubectl get pvc</code></pre><p>![image-20200207110140002](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207110140002.png)</p>
+[root@master yaml]# kubectl apply -f  nfs-pvc.yaml </code></pre><h3 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master yaml]# kubectl get pv</code></pre><p>![image-20200207110132199](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207110132199.png)</p>
+<pre><code>[root@master yaml]# kubectl get pvc</code></pre><p>![image-20200207110140002](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207110140002.png)</p>
 <h2 id="（2）编写一个mysql的yaml文件"><a href="#（2）编写一个mysql的yaml文件" class="headerlink" title="（2）编写一个mysql的yaml文件"></a>（2）编写一个mysql的yaml文件</h2><pre><code>[root@master yaml]# vim mysql.yaml
 
 apiVersion: extensions/v1beta1
@@ -722,14 +722,14 @@ spec:
       volumes:
       - name: mysql-storage
         persistentVolumeClaim:
-          claimName: test-pvc</code></pre><h3 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f mysql.yaml </code></pre><h3 id="查看一下-3"><a href="#查看一下-3" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200207110741833](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207110741833.png)</p>
-<h2 id="（3）进入mysql容器"><a href="#（3）进入mysql容器" class="headerlink" title="（3）进入mysql容器"></a>（3）进入mysql容器</h2><pre><code>[root@master yaml]# kubectl exec -it test-mysql-569f8df4db-rkpwm  -- mysql -u root -p123.com </code></pre><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><pre><code>mysql&gt; create database yun33;</code></pre><h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h3><pre><code>mysql&gt; use yun33;</code></pre><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><pre><code>mysql&gt; create table my_id( id int(4))；</code></pre><h3 id="在表中插入数据"><a href="#在表中插入数据" class="headerlink" title="在表中插入数据"></a>在表中插入数据</h3><pre><code>mysql&gt; insert my_id values(9527);</code></pre><h3 id="查看表"><a href="#查看表" class="headerlink" title="查看表"></a>查看表</h3><pre><code>mysql&gt; select * from my_id;</code></pre><p>![image-20200207113808540](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207113808540.png)</p>
-<h2 id="（4）查看本地的挂载目录"><a href="#（4）查看本地的挂载目录" class="headerlink" title="（4）查看本地的挂载目录"></a>（4）查看本地的挂载目录</h2><pre><code>[root@master yaml]# ls /nfsdata/pv1/</code></pre><p>![image-20200207113909796](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207113909796.png)</p>
-<h3 id="查看一下pod-1"><a href="#查看一下pod-1" class="headerlink" title="查看一下pod"></a>查看一下pod</h3><pre><code>[root@master yaml]# kubectl get pod -o wide -w</code></pre><p>![image-20200207114050117](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207114050117.png)</p>
-<h3 id="挂起node01"><a href="#挂起node01" class="headerlink" title="挂起node01"></a>挂起node01</h3><p>![image-20200207114607518](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207114607518.png)</p>
-<h2 id="（5）查看node02上面数据是否和刚才一样（验证数据的一致性）"><a href="#（5）查看node02上面数据是否和刚才一样（验证数据的一致性）" class="headerlink" title="（5）查看node02上面数据是否和刚才一样（验证数据的一致性）"></a>（5）查看node02上面数据是否和刚才一样（验证数据的一致性）</h2><h3 id="进入数据库"><a href="#进入数据库" class="headerlink" title="进入数据库"></a>进入数据库</h3><pre><code>[root@master yaml]#  kubectl exec -it test-mysql-569f8df4db-nsdnz  -- mysql -u root -p123.com </code></pre><h3 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h3><pre><code>mysql&gt; show databases;</code></pre><p>![image-20200207115253123](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207115253123.png)</p>
-<h3 id="查看表-1"><a href="#查看表-1" class="headerlink" title="查看表"></a>查看表</h3><pre><code>mysql&gt; show tables;</code></pre><p>![image-20200207115352727](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207115352727.png)</p>
-<pre><code>mysql&gt; select * from my_id;</code></pre><p>![image-20200207113808540](G:\四期\虚拟化\kubernetes\k8s文档\11 k8s的存储.assets\image-20200207113808540.png)</p>
+          claimName: test-pvc</code></pre><h3 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master yaml]# kubectl apply -f mysql.yaml </code></pre><h3 id="查看一下-3"><a href="#查看一下-3" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master yaml]# kubectl get pod</code></pre><p>![image-20200207110741833](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207110741833.png)</p>
+<h2 id="（3）进入mysql容器"><a href="#（3）进入mysql容器" class="headerlink" title="（3）进入mysql容器"></a>（3）进入mysql容器</h2><pre><code>[root@master yaml]# kubectl exec -it test-mysql-569f8df4db-rkpwm  -- mysql -u root -p123.com </code></pre><h3 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h3><pre><code>mysql&gt; create database yun33;</code></pre><h3 id="切换数据库"><a href="#切换数据库" class="headerlink" title="切换数据库"></a>切换数据库</h3><pre><code>mysql&gt; use yun33;</code></pre><h3 id="创建表"><a href="#创建表" class="headerlink" title="创建表"></a>创建表</h3><pre><code>mysql&gt; create table my_id( id int(4))；</code></pre><h3 id="在表中插入数据"><a href="#在表中插入数据" class="headerlink" title="在表中插入数据"></a>在表中插入数据</h3><pre><code>mysql&gt; insert my_id values(9527);</code></pre><h3 id="查看表"><a href="#查看表" class="headerlink" title="查看表"></a>查看表</h3><pre><code>mysql&gt; select * from my_id;</code></pre><p>![image-20200207113808540](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207113808540.png)</p>
+<h2 id="（4）查看本地的挂载目录"><a href="#（4）查看本地的挂载目录" class="headerlink" title="（4）查看本地的挂载目录"></a>（4）查看本地的挂载目录</h2><pre><code>[root@master yaml]# ls /nfsdata/pv1/</code></pre><p>![image-20200207113909796](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207113909796.png)</p>
+<h3 id="查看一下pod-1"><a href="#查看一下pod-1" class="headerlink" title="查看一下pod"></a>查看一下pod</h3><pre><code>[root@master yaml]# kubectl get pod -o wide -w</code></pre><p>![image-20200207114050117](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207114050117.png)</p>
+<h3 id="挂起node01"><a href="#挂起node01" class="headerlink" title="挂起node01"></a>挂起node01</h3><p>![image-20200207114607518](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207114607518.png)</p>
+<h2 id="（5）查看node02上面数据是否和刚才一样（验证数据的一致性）"><a href="#（5）查看node02上面数据是否和刚才一样（验证数据的一致性）" class="headerlink" title="（5）查看node02上面数据是否和刚才一样（验证数据的一致性）"></a>（5）查看node02上面数据是否和刚才一样（验证数据的一致性）</h2><h3 id="进入数据库"><a href="#进入数据库" class="headerlink" title="进入数据库"></a>进入数据库</h3><pre><code>[root@master yaml]#  kubectl exec -it test-mysql-569f8df4db-nsdnz  -- mysql -u root -p123.com </code></pre><h3 id="查看数据库"><a href="#查看数据库" class="headerlink" title="查看数据库"></a>查看数据库</h3><pre><code>mysql&gt; show databases;</code></pre><p>![image-20200207115253123](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207115253123.png)</p>
+<h3 id="查看表-1"><a href="#查看表-1" class="headerlink" title="查看表"></a>查看表</h3><pre><code>mysql&gt; show tables;</code></pre><p>![image-20200207115352727](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207115352727.png)</p>
+<pre><code>mysql&gt; select * from my_id;</code></pre><p>![image-20200207113808540](E:\软件\博客\Blog\blog\source_posts\11 k8s的存储.assets\image-20200207113808540.png)</p>
 <p><strong><em>可以看到数据还在</em></strong></p>
 <h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><h4 id="PV的访问控制类型"><a href="#PV的访问控制类型" class="headerlink" title="PV的访问控制类型"></a><strong>PV的访问控制类型</strong></h4><p><strong>accessModes:(PV支持的访问模式)</strong></p>
 <ul>
@@ -1321,7 +1321,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">35.3k</span>&nbsp;字
+                class="white-color">34.9k</span>&nbsp;字
             
             
             

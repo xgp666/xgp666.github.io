@@ -498,14 +498,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-02-24
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    3.1k
+                    3k
                 </div>
                 
 
@@ -592,8 +592,8 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v1</code></pre><h3 id="（1）执行一下"><a href="#（1）执行一下" class="headerlink" title="（1）执行一下"></a>（1）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f xgp.yaml  --recore</code></pre><h3 id="（2）查看一下"><a href="#（2）查看一下" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200108090638488](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090638488.png)</p>
-<h3 id="（3）访问一下"><a href="#（3）访问一下" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h3><pre><code>[root@master ~]# curl 10.244.2.16</code></pre><p>![image-20200108090817058](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090817058.png)</p>
+        image: 192.168.1.21:5000/web:v1</code></pre><h3 id="（1）执行一下"><a href="#（1）执行一下" class="headerlink" title="（1）执行一下"></a>（1）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f xgp.yaml  --recore</code></pre><h3 id="（2）查看一下"><a href="#（2）查看一下" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200108090638488](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108090638488.png)</p>
+<h3 id="（3）访问一下"><a href="#（3）访问一下" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h3><pre><code>[root@master ~]# curl 10.244.2.16</code></pre><p>![image-20200108090817058](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108090817058.png)</p>
 <h3 id="（4）更新一下yaml文件，副本加一"><a href="#（4）更新一下yaml文件，副本加一" class="headerlink" title="（4）更新一下yaml文件，副本加一"></a>（4）更新一下yaml文件，副本加一</h3><pre><code>[root@master ~]# vim xgp.yaml
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -608,7 +608,7 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v1</code></pre><h4 id="lt-1-gt-执行一下"><a href="#lt-1-gt-执行一下" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre><h4 id="lt-2-gt-查看一下"><a href="#lt-2-gt-查看一下" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200108091104534](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091104534.png)</p>
+        image: 192.168.1.21:5000/web:v1</code></pre><h4 id="lt-1-gt-执行一下"><a href="#lt-1-gt-执行一下" class="headerlink" title="<1>执行一下"></a>&lt;1&gt;执行一下</h4><pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre><h4 id="lt-2-gt-查看一下"><a href="#lt-2-gt-查看一下" class="headerlink" title="<2>查看一下"></a>&lt;2&gt;查看一下</h4><pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200108091104534](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108091104534.png)</p>
 <p><strong><em>副本数量加一，如果yaml文件的副本为0，则副本数量还是之前的状态，并不会更新。</em></strong></p>
 <h2 id="2-练习写一个service文件"><a href="#2-练习写一个service文件" class="headerlink" title="2.练习写一个service文件"></a>2.练习写一个service文件</h2><pre><code>[root@master ~]# vim xgp-svc.yaml
 kind: Service
@@ -621,8 +621,8 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80</code></pre><h3 id="（1）执行一下-1"><a href="#（1）执行一下-1" class="headerlink" title="（1）执行一下"></a>（1）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml </code></pre><h3 id="（2）查看一下-1"><a href="#（2）查看一下-1" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200108091909396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091909396.png)</p>
-<h3 id="（3）访问一下-1"><a href="#（3）访问一下-1" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h3><pre><code>[root@master ~]# curl 10.107.119.49</code></pre><p>![image-20200108092011164](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108092011164.png)</p>
+      targetPort: 80</code></pre><h3 id="（1）执行一下-1"><a href="#（1）执行一下-1" class="headerlink" title="（1）执行一下"></a>（1）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml </code></pre><h3 id="（2）查看一下-1"><a href="#（2）查看一下-1" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200108091909396](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108091909396.png)</p>
+<h3 id="（3）访问一下-1"><a href="#（3）访问一下-1" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h3><pre><code>[root@master ~]# curl 10.107.119.49</code></pre><p>![image-20200108092011164](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108092011164.png)</p>
 <h2 id="3-修改yaml文件"><a href="#3-修改yaml文件" class="headerlink" title="3.修改yaml文件"></a>3.修改yaml文件</h2><pre><code>[root@master ~]# vim xgp.yaml 
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -653,24 +653,24 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30123</code></pre><h3 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml </code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200108094404773](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094404773.png)</p>
-<h3 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108094439682](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094439682.png)</p>
-<p>![image-20200108094501253](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094501253.png)</p>
-<h2 id="5-修改三个pod页面内容"><a href="#5-修改三个pod页面内容" class="headerlink" title="5.修改三个pod页面内容"></a>5.修改三个pod页面内容</h2><h3 id="（1）查看一下pod信息"><a href="#（1）查看一下pod信息" class="headerlink" title="（1）查看一下pod信息"></a>（1）查看一下pod信息</h3><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108094953119](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094953119.png)</p>
+      nodePort: 30123</code></pre><h3 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml </code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200108094404773](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108094404773.png)</p>
+<h3 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108094439682](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108094439682.png)</p>
+<p>![image-20200108094501253](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108094501253.png)</p>
+<h2 id="5-修改三个pod页面内容"><a href="#5-修改三个pod页面内容" class="headerlink" title="5.修改三个pod页面内容"></a>5.修改三个pod页面内容</h2><h3 id="（1）查看一下pod信息"><a href="#（1）查看一下pod信息" class="headerlink" title="（1）查看一下pod信息"></a>（1）查看一下pod信息</h3><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108094953119](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108094953119.png)</p>
 <h3 id="（2）修改POD页面内容（三台不一样）"><a href="#（2）修改POD页面内容（三台不一样）" class="headerlink" title="（2）修改POD页面内容（三台不一样）"></a>（2）修改POD页面内容（三台不一样）</h3><pre><code>[root@master ~]# kubectl exec -it xgp-web-8d5f9656f-8z7d9 /bin/bash
 //根据pod名称进入pod之中</code></pre><h3 id="进入容器后修改页面内容"><a href="#进入容器后修改页面内容" class="headerlink" title="进入容器后修改页面内容"></a>进入容器后修改页面内容</h3><pre><code>root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# echo xgp-v1 &gt; htdocs/index.html 
-root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# exit</code></pre><h3 id="访问一下-1"><a href="#访问一下-1" class="headerlink" title="访问一下"></a>访问一下</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108095626532](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108095626532.png)</p>
-<h1 id="二-分析一下k8s负载均衡原理"><a href="#二-分析一下k8s负载均衡原理" class="headerlink" title="二.分析一下k8s负载均衡原理"></a>二.分析一下k8s负载均衡原理</h1><h3 id="（1）查看service的暴露IP"><a href="#（1）查看service的暴露IP" class="headerlink" title="（1）查看service的暴露IP"></a>（1）查看service的暴露IP</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200108101539835](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101539835.png)</p>
+root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# exit</code></pre><h3 id="访问一下-1"><a href="#访问一下-1" class="headerlink" title="访问一下"></a>访问一下</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108095626532](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108095626532.png)</p>
+<h1 id="二-分析一下k8s负载均衡原理"><a href="#二-分析一下k8s负载均衡原理" class="headerlink" title="二.分析一下k8s负载均衡原理"></a>二.分析一下k8s负载均衡原理</h1><h3 id="（1）查看service的暴露IP"><a href="#（1）查看service的暴露IP" class="headerlink" title="（1）查看service的暴露IP"></a>（1）查看service的暴露IP</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200108101539835](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108101539835.png)</p>
 <h3 id="（2）查看一下iptabes规则"><a href="#（2）查看一下iptabes规则" class="headerlink" title="（2）查看一下iptabes规则"></a>（2）查看一下iptabes规则</h3><pre><code>[root@master ~]# iptables-save 
 //查看已配置的规则</code></pre><blockquote>
 <p>SNAT：Source NAT（源地址转换）    </p>
 <p>DNAT：Destination NAT（目标地址转换）</p>
 <p>MASQ：动态的源地址转换</p>
 </blockquote>
-<h3 id="（3）根据service的暴露IP，查看对应的iptabes规则"><a href="#（3）根据service的暴露IP，查看对应的iptabes规则" class="headerlink" title="（3）根据service的暴露IP，查看对应的iptabes规则"></a>（3）根据service的暴露IP，查看对应的iptabes规则</h3><pre><code>[root@master ~]# iptables-save | grep 10.107.119.49</code></pre><p>![image-20200108101726315](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101726315.png)</p>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S</code></pre><p>![image-20200108102003596](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102003596.png)</p>
-<h3 id="（4）对应一下IP是否一致"><a href="#（4）对应一下IP是否一致" class="headerlink" title="（4）对应一下IP是否一致"></a>（4）对应一下IP是否一致</h3><pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-ZHDQ73ZKUBMELLJB</code></pre><p>![image-20200108102137062](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102137062.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108102203144](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102203144.png)</p>
+<h3 id="（3）根据service的暴露IP，查看对应的iptabes规则"><a href="#（3）根据service的暴露IP，查看对应的iptabes规则" class="headerlink" title="（3）根据service的暴露IP，查看对应的iptabes规则"></a>（3）根据service的暴露IP，查看对应的iptabes规则</h3><pre><code>[root@master ~]# iptables-save | grep 10.107.119.49</code></pre><p>![image-20200108101726315](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108101726315.png)</p>
+<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S</code></pre><p>![image-20200108102003596](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108102003596.png)</p>
+<h3 id="（4）对应一下IP是否一致"><a href="#（4）对应一下IP是否一致" class="headerlink" title="（4）对应一下IP是否一致"></a>（4）对应一下IP是否一致</h3><pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-ZHDQ73ZKUBMELLJB</code></pre><p>![image-20200108102137062](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108102137062.png)</p>
+<pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108102203144](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108102203144.png)</p>
 <p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
 <h1 id="三-回滚到指定版本"><a href="#三-回滚到指定版本" class="headerlink" title="三.回滚到指定版本"></a>三.回滚到指定版本</h1><h3 id="（1）删除之前创建的delpoy和service"><a href="#（1）删除之前创建的delpoy和service" class="headerlink" title="（1）删除之前创建的delpoy和service"></a>（1）删除之前创建的delpoy和service</h3><pre><code>[root@master ~]# kubectl  delete -f xgp.yaml 
 [root@master ~]# kubectl  delete -f xgp-svc.yaml </code></pre><h3 id="（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像"><a href="#（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像" class="headerlink" title="（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像"></a>（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像</h3><pre><code>[root@master ~]# vim xgp1.yaml  （三个文件名不相同）
@@ -693,19 +693,19 @@ spec:
           - containerPort: 80</code></pre><p>此处3个yaml文件 指定不同版本的镜像</p>
 <h3 id="（3）运行三个服务，并记录三个版本信息"><a href="#（3）运行三个服务，并记录三个版本信息" class="headerlink" title="（3）运行三个服务，并记录三个版本信息"></a>（3）运行三个服务，并记录三个版本信息</h3><pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml --record 
 [root@master ~]# kubectl apply -f xgp-2.yaml --record 
-[root@master ~]# kubectl apply -f xgp-3.yaml --record </code></pre><h3 id="（4）查看有哪些版本信息"><a href="#（4）查看有哪些版本信息" class="headerlink" title="（4）查看有哪些版本信息"></a>（4）查看有哪些版本信息</h3><pre><code>[root@master ~]# kubectl rollout history deployment xgp-web </code></pre><p>![image-20200108105842447](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108105842447.png)</p>
-<h3 id="（5）运行之前的service文件"><a href="#（5）运行之前的service文件" class="headerlink" title="（5）运行之前的service文件"></a>（5）运行之前的service文件</h3><pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre><h3 id="（6）查看service暴露端口"><a href="#（6）查看service暴露端口" class="headerlink" title="（6）查看service暴露端口"></a>（6）查看service暴露端口</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200108110014614](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110014614.png)</p>
-<h3 id="（7）测试访问"><a href="#（7）测试访问" class="headerlink" title="（7）测试访问"></a>（7）测试访问</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108110049396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110049396.png)</p>
+[root@master ~]# kubectl apply -f xgp-3.yaml --record </code></pre><h3 id="（4）查看有哪些版本信息"><a href="#（4）查看有哪些版本信息" class="headerlink" title="（4）查看有哪些版本信息"></a>（4）查看有哪些版本信息</h3><pre><code>[root@master ~]# kubectl rollout history deployment xgp-web </code></pre><p>![image-20200108105842447](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108105842447.png)</p>
+<h3 id="（5）运行之前的service文件"><a href="#（5）运行之前的service文件" class="headerlink" title="（5）运行之前的service文件"></a>（5）运行之前的service文件</h3><pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre><h3 id="（6）查看service暴露端口"><a href="#（6）查看service暴露端口" class="headerlink" title="（6）查看service暴露端口"></a>（6）查看service暴露端口</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p>![image-20200108110014614](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108110014614.png)</p>
+<h3 id="（7）测试访问"><a href="#（7）测试访问" class="headerlink" title="（7）测试访问"></a>（7）测试访问</h3><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108110049396](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108110049396.png)</p>
 <h3 id="（8）回滚到指定版本"><a href="#（8）回滚到指定版本" class="headerlink" title="（8）回滚到指定版本"></a>（8）回滚到指定版本</h3><pre><code>[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision=1
-//这里指定的是版本信息的编号</code></pre><h4 id="lt-1-gt-访问一下"><a href="#lt-1-gt-访问一下" class="headerlink" title="<1>访问一下"></a>&lt;1&gt;访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
-<h4 id="lt-2-gt-查看有哪些版本信息"><a href="#lt-2-gt-查看有哪些版本信息" class="headerlink" title="<2>查看有哪些版本信息"></a>&lt;2&gt;查看有哪些版本信息</h4><pre><code>[root@master ~]# kubectl rollout history deployment xgp-web </code></pre><p>![image-20200108110443558](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110443558.png)</p>
+//这里指定的是版本信息的编号</code></pre><h4 id="lt-1-gt-访问一下"><a href="#lt-1-gt-访问一下" class="headerlink" title="<1>访问一下"></a>&lt;1&gt;访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108110337266](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
+<h4 id="lt-2-gt-查看有哪些版本信息"><a href="#lt-2-gt-查看有哪些版本信息" class="headerlink" title="<2>查看有哪些版本信息"></a>&lt;2&gt;查看有哪些版本信息</h4><pre><code>[root@master ~]# kubectl rollout history deployment xgp-web </code></pre><p>![image-20200108110443558](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108110443558.png)</p>
 <p><strong><em>编号1已经被编号2替代，从而生的是一个新的编号4</em></strong></p>
 <h1 id="四-用label控制pod的位置"><a href="#四-用label控制pod的位置" class="headerlink" title="四.用label控制pod的位置"></a>四.用label控制pod的位置</h1><blockquote>
 <p>默认情况下，scheduler会将pod调度到所有可用的Node，不过有些情况我们希望将 Pod 部署到指定的 Node，比如将有大量磁盘 I/O 的 Pod 部署到配置了 SSD 的 Node；或者 Pod 需要 GPU，需要运行在配置了 GPU 的节点上。</p>
 <p>kubernetes通过label来实现这个功能</p>
 <p>label 是 key-value 对，各种资源都可以设置 label，灵活添加各种<strong>自定义属性</strong>。比如执行如下命令标注 k8s-node1 是配置了 SSD 的节点</p>
 </blockquote>
-<h4 id="首先我们给node1节点打上一个ssd的标签"><a href="#首先我们给node1节点打上一个ssd的标签" class="headerlink" title="首先我们给node1节点打上一个ssd的标签"></a>首先我们给node1节点打上一个ssd的标签</h4><pre><code>[root@master ~]# kubectl label nodes node02 disk=ssd</code></pre><h3 id="（1）查看标签"><a href="#（1）查看标签" class="headerlink" title="（1）查看标签"></a>（1）查看标签</h3><pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02</code></pre><p>![image-20200108111354832](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108111354832.png)</p>
+<h4 id="首先我们给node1节点打上一个ssd的标签"><a href="#首先我们给node1节点打上一个ssd的标签" class="headerlink" title="首先我们给node1节点打上一个ssd的标签"></a>首先我们给node1节点打上一个ssd的标签</h4><pre><code>[root@master ~]# kubectl label nodes node02 disk=ssd</code></pre><h3 id="（1）查看标签"><a href="#（1）查看标签" class="headerlink" title="（1）查看标签"></a>（1）查看标签</h3><pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02</code></pre><p>![image-20200108111354832](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108111354832.png)</p>
 <h3 id="（2）删除副本一"><a href="#（2）删除副本一" class="headerlink" title="（2）删除副本一"></a>（2）删除副本一</h3><pre><code>[root@master ~]# kubectl delete -f xgp-1.yaml 
 deployment.extensions "xgp-web" deleted
 [root@master ~]# kubectl delete svc xgp-svc </code></pre><h3 id="（3）修改副本一的yaml文件"><a href="#（3）修改副本一的yaml文件" class="headerlink" title="（3）修改副本一的yaml文件"></a>（3）修改副本一的yaml文件</h3><pre><code>[root@master ~]# vim xgp-1.yaml 
@@ -728,9 +728,9 @@ spec:
         ports:
           - containerPort: 80
       nodeSelector:    #添加节点选择器
-        disk: ssd      #和标签内容一致</code></pre><h3 id="（4）执行一下"><a href="#（4）执行一下" class="headerlink" title="（4）执行一下"></a>（4）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108112059395](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112059395.png)</p>
+        disk: ssd      #和标签内容一致</code></pre><h3 id="（4）执行一下"><a href="#（4）执行一下" class="headerlink" title="（4）执行一下"></a>（4）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108112059395](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108112059395.png)</p>
 <p><strong><em>现在pod都在node02上运行</em></strong></p>
-<h3 id="（5）删除标签"><a href="#（5）删除标签" class="headerlink" title="（5）删除标签"></a>（5）删除标签</h3><pre><code>[root@master ~]# kubectl  label nodes node02 disk-</code></pre><h4 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02</code></pre><p>![image-20200108112245347](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112245347.png)</p>
+<h3 id="（5）删除标签"><a href="#（5）删除标签" class="headerlink" title="（5）删除标签"></a>（5）删除标签</h3><pre><code>[root@master ~]# kubectl  label nodes node02 disk-</code></pre><h4 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02</code></pre><p>![image-20200108112245347](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108112245347.png)</p>
 <p><strong><em>没有disk标签了</em></strong></p>
 <h1 id="五，小实验"><a href="#五，小实验" class="headerlink" title="五，小实验"></a>五，小实验</h1><h3 id="1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。"><a href="#1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。" class="headerlink" title="1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。"></a><strong>1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。</strong></h3><h4 id="（1）用label控制pod的位置"><a href="#（1）用label控制pod的位置" class="headerlink" title="（1）用label控制pod的位置"></a>（1）用label控制pod的位置</h4><pre><code>[root@master ~]# kubectl label nodes node01 disk=ssd</code></pre><h4 id="（2）编写源yaml文件"><a href="#（2）编写源yaml文件" class="headerlink" title="（2）编写源yaml文件"></a>（2）编写源yaml文件</h4><pre><code>[root@master ~]# vim xgp.yaml
 kind: Deployment
@@ -764,10 +764,10 @@ spec:
       port: 80
       targetPort: 80
       nodePort: 30123</code></pre><h4 id="（4）执行yaml文件，创建控制器。执行service文件创建映射端口"><a href="#（4）执行yaml文件，创建控制器。执行service文件创建映射端口" class="headerlink" title="（4）执行yaml文件，创建控制器。执行service文件创建映射端口"></a>（4）执行yaml文件，创建控制器。执行service文件创建映射端口</h4><pre><code>[root@master ~]# kubectl apply -f  xgp.yaml 
-[root@master ~]# kubectl apply -f xgp-svc.yaml </code></pre><h4 id="（5）查看一下pod节点"><a href="#（5）查看一下pod节点" class="headerlink" title="（5）查看一下pod节点"></a>（5）查看一下pod节点</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108122424654](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122424654.png)</p>
-<h4 id="（6）记录一个版本"><a href="#（6）记录一个版本" class="headerlink" title="（6）记录一个版本"></a>（6）记录一个版本</h4><pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt</code></pre><p>![image-20200108142016701](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142016701.png)</p>
-<h4 id="（7）访问一下"><a href="#（7）访问一下" class="headerlink" title="（7）访问一下"></a>（7）访问一下</h4><p>![image-20200108122518278](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122518278.png)</p>
-<p>![image-20200108122534683](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122534683.png)</p>
+[root@master ~]# kubectl apply -f xgp-svc.yaml </code></pre><h4 id="（5）查看一下pod节点"><a href="#（5）查看一下pod节点" class="headerlink" title="（5）查看一下pod节点"></a>（5）查看一下pod节点</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108122424654](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108122424654.png)</p>
+<h4 id="（6）记录一个版本"><a href="#（6）记录一个版本" class="headerlink" title="（6）记录一个版本"></a>（6）记录一个版本</h4><pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt</code></pre><p>![image-20200108142016701](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108142016701.png)</p>
+<h4 id="（7）访问一下"><a href="#（7）访问一下" class="headerlink" title="（7）访问一下"></a>（7）访问一下</h4><p>![image-20200108122518278](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108122518278.png)</p>
+<p>![image-20200108122534683](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108122534683.png)</p>
 <h3 id="2）根据上述Deployment，升级为v2版本，记录一个版本。"><a href="#2）根据上述Deployment，升级为v2版本，记录一个版本。" class="headerlink" title="2）根据上述Deployment，升级为v2版本，记录一个版本。"></a><strong>2）根据上述Deployment，升级为v2版本，记录一个版本。</strong></h3><h4 id="（1）修改yaml文件镜像版本"><a href="#（1）修改yaml文件镜像版本" class="headerlink" title="（1）修改yaml文件镜像版本"></a>（1）修改yaml文件镜像版本</h4><pre><code>[root@master ~]# vim xgp.yaml 
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -786,8 +786,8 @@ spec:
         ports:
           - containerPort: 80
       nodeSelector:
-        disk: ssd</code></pre><h4 id="（2）刷新一下yaml文件"><a href="#（2）刷新一下yaml文件" class="headerlink" title="（2）刷新一下yaml文件"></a>（2）刷新一下yaml文件</h4><pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre><h4 id="（3）访问一下-2"><a href="#（3）访问一下-2" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h4><p>![image-20200108141825924](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108141825924.png)</p>
-<h4 id="（4）记录一个版本"><a href="#（4）记录一个版本" class="headerlink" title="（4）记录一个版本"></a>（4）记录一个版本</h4><pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt</code></pre><p>![image-20200108142030157](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142030157.png)</p>
+        disk: ssd</code></pre><h4 id="（2）刷新一下yaml文件"><a href="#（2）刷新一下yaml文件" class="headerlink" title="（2）刷新一下yaml文件"></a>（2）刷新一下yaml文件</h4><pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre><h4 id="（3）访问一下-2"><a href="#（3）访问一下-2" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h4><p>![image-20200108141825924](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108141825924.png)</p>
+<h4 id="（4）记录一个版本"><a href="#（4）记录一个版本" class="headerlink" title="（4）记录一个版本"></a>（4）记录一个版本</h4><pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt</code></pre><p>![image-20200108142030157](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108142030157.png)</p>
 <h3 id="3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。"><a href="#3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。" class="headerlink" title="3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。"></a><strong>3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。</strong></h3><h4 id="1）修改yaml文件镜像版本"><a href="#1）修改yaml文件镜像版本" class="headerlink" title="1）修改yaml文件镜像版本"></a>1）修改yaml文件镜像版本</h4><pre><code>[root@master ~]# vim xgp.yaml 
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -806,17 +806,17 @@ spec:
         ports:
           - containerPort: 80
       nodeSelector:
-        disk: ssd</code></pre><h4 id="（2）刷新一下yaml文件-1"><a href="#（2）刷新一下yaml文件-1" class="headerlink" title="（2）刷新一下yaml文件"></a>（2）刷新一下yaml文件</h4><pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre><h4 id="（3）访问一下-3"><a href="#（3）访问一下-3" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h4><p>![image-20200108142329749](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142329749.png)</p>
-<h4 id="（5）分析访问流量的负载均衡详细情况"><a href="#（5）分析访问流量的负载均衡详细情况" class="headerlink" title="（5）分析访问流量的负载均衡详细情况"></a>（5）分析访问流量的负载均衡详细情况</h4><h5 id="lt-1-gt-查看一下service映射端口"><a href="#lt-1-gt-查看一下service映射端口" class="headerlink" title="<1>查看一下service映射端口"></a>&lt;1&gt;查看一下service映射端口</h5><p>![image-20200108142504637](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142504637.png)</p>
+        disk: ssd</code></pre><h4 id="（2）刷新一下yaml文件-1"><a href="#（2）刷新一下yaml文件-1" class="headerlink" title="（2）刷新一下yaml文件"></a>（2）刷新一下yaml文件</h4><pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre><h4 id="（3）访问一下-3"><a href="#（3）访问一下-3" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h4><p>![image-20200108142329749](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108142329749.png)</p>
+<h4 id="（5）分析访问流量的负载均衡详细情况"><a href="#（5）分析访问流量的负载均衡详细情况" class="headerlink" title="（5）分析访问流量的负载均衡详细情况"></a>（5）分析访问流量的负载均衡详细情况</h4><h5 id="lt-1-gt-查看一下service映射端口"><a href="#lt-1-gt-查看一下service映射端口" class="headerlink" title="<1>查看一下service映射端口"></a>&lt;1&gt;查看一下service映射端口</h5><p>![image-20200108142504637](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108142504637.png)</p>
 <h5 id="lt-2-gt-以ip为起点，分析访问流量的负载均衡详细情况"><a href="#lt-2-gt-以ip为起点，分析访问流量的负载均衡详细情况" class="headerlink" title="<2>以ip为起点，分析访问流量的负载均衡详细情况"></a>&lt;2&gt;以ip为起点，分析访问流量的负载均衡详细情况</h5><p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
 <pre><code>[root@master ~]# iptables-save | grep 10.107.27.229
-//根据service的暴露IP，查看对应的iptabes规则</code></pre><p>![image-20200108143052433](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143052433.png)</p>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S</code></pre><p>![image-20200108143359463](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143359463.png)</p>
+//根据service的暴露IP，查看对应的iptabes规则</code></pre><p>![image-20200108143052433](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108143052433.png)</p>
+<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S</code></pre><p>![image-20200108143359463](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108143359463.png)</p>
 <p><strong><em>这里显示了各节点的负载比例</em></strong></p>
-<h5 id="lt-3-gt-对应一下IP是否一致"><a href="#lt-3-gt-对应一下IP是否一致" class="headerlink" title="<3>对应一下IP是否一致"></a>&lt;3&gt;对应一下IP是否一致</h5><pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-VDKW5WQIWOLZMJ6G</code></pre><p>![image-20200108143547946](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143547946.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108143608942](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143608942.png)</p>
+<h5 id="lt-3-gt-对应一下IP是否一致"><a href="#lt-3-gt-对应一下IP是否一致" class="headerlink" title="<3>对应一下IP是否一致"></a>&lt;3&gt;对应一下IP是否一致</h5><pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-VDKW5WQIWOLZMJ6G</code></pre><p>![image-20200108143547946](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108143547946.png)</p>
+<pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200108143608942](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108143608942.png)</p>
 <h3 id="4）回滚到指定版本v1，并作验证。"><a href="#4）回滚到指定版本v1，并作验证。" class="headerlink" title="4）回滚到指定版本v1，并作验证。"></a><strong>4）回滚到指定版本v1，并作验证。</strong></h3><h4 id="lt-1-gt-回滚到指定版本"><a href="#lt-1-gt-回滚到指定版本" class="headerlink" title="<1>回滚到指定版本"></a>&lt;1&gt;回滚到指定版本</h4><pre><code>[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision=1
-//这里指定的是版本信息的编号</code></pre><h4 id="lt-2-gt-访问一下"><a href="#lt-2-gt-访问一下" class="headerlink" title="<2>访问一下"></a>&lt;2&gt;访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
+//这里指定的是版本信息的编号</code></pre><h4 id="lt-2-gt-访问一下"><a href="#lt-2-gt-访问一下" class="headerlink" title="<2>访问一下"></a>&lt;2&gt;访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30123</code></pre><p>![image-20200108110337266](E:\软件\博客\Blog\blog\source_posts\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
 <blockquote>
 <p><strong>排错思路</strong></p>
 <pre><code>[root@master ~]# less /var/log/messages  | grep kubelet
@@ -1398,7 +1398,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">35.3k</span>&nbsp;字
+                class="white-color">34.9k</span>&nbsp;字
             
             
             

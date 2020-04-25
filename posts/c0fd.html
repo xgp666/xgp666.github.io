@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="21 k8s的持续集成, Xgp &amp; Blog">
+    <meta name="keywords" content="k8s的持续集成, Xgp &amp; Blog">
     <meta name="description" content="Small steel gun article">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>21 k8s的持续集成 | Xgp &amp; Blog</title>
+    <title>k8s的持续集成 | Xgp &amp; Blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -357,12 +357,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">21 k8s的持续集成</h1>
+                    <h1 class="description center-align post-title">k8s的持续集成</h1>
                 </div>
             </div>
         </div>
@@ -477,12 +477,33 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/jenkins/">
+                                <span class="chip bg-color">jenkins</span>
+                            </a>
+                        
+                            <a href="/tags/gitlab/">
+                                <span class="chip bg-color">gitlab</span>
+                            </a>
+                        
+                            <a href="/tags/k8s/">
+                                <span class="chip bg-color">k8s</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/k8s/" class="post-category">
+                                k8s
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -498,21 +519,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-09
+                    2020-04-25
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>Word Count:&nbsp;&nbsp;
-                    4.5k
+                    4.3k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>Read Times:&nbsp;&nbsp;
-                    20 Min
+                    19 Min
                 </div>
                 
 
@@ -557,7 +578,7 @@
 <td><strong>jenkins</strong></td>
 </tr>
 </tbody></table>
-<p>![image-20200309134708695](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200309134708695.png)</p>
+<p>![image-20200309134708695](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200309134708695.png)</p>
 <p><strong>总体流程：</strong></p>
 <ul>
 <li><strong>在开发机开发代码后提交到gitlab</strong></li>
@@ -576,7 +597,7 @@
 <li><strong>更新PowerDNS，向其中插入一条DNS记录，IP地址是边缘节点的IP地址。关于边缘节点，请查看<a href="https://jimmysong.io/kubernetes-handbook/practice/edge-node-configuration.html" target="_blank" rel="noopener">边缘节点配置</a></strong></li>
 <li><strong>Jenkins调用kubernetes的API，部署应用</strong></li>
 </ol>
-<h1 id="一、前期工作"><a href="#一、前期工作" class="headerlink" title="一、前期工作"></a>一、前期工作</h1><h2 id="1、先验证k8s集群（1-21和1-22）"><a href="#1、先验证k8s集群（1-21和1-22）" class="headerlink" title="1、先验证k8s集群（1.21和1.22）"></a>1、先验证k8s集群（1.21和1.22）</h2><pre><code>[root@master ~]# kubectl get nodes</code></pre><p>![image-20200306083959440](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306083959440.png)</p>
+<h1 id="一、前期工作"><a href="#一、前期工作" class="headerlink" title="一、前期工作"></a>一、前期工作</h1><h2 id="1、先验证k8s集群（1-21和1-22）"><a href="#1、先验证k8s集群（1-21和1-22）" class="headerlink" title="1、先验证k8s集群（1.21和1.22）"></a>1、先验证k8s集群（1.21和1.22）</h2><pre><code>[root@master ~]# kubectl get nodes</code></pre><p>![image-20200306083959440](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306083959440.png)</p>
 <h2 id="2、master部署私有仓库"><a href="#2、master部署私有仓库" class="headerlink" title="2、master部署私有仓库"></a>2、master部署私有仓库</h2><h3 id="Docker01部署"><a href="#Docker01部署" class="headerlink" title="Docker01部署"></a><strong>Docker01部署</strong></h3><pre><code>72 docker pull registry
 //下载registry镜像
 
@@ -594,7 +615,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 76 docker tag httpd:latest 192.168.1.11:5000/web:v2
 //把容器重命名一个标签
 
-77 docker ps</code></pre><p>![image-20200309101144205](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200309101144205.png)</p>
+77 docker ps</code></pre><p>![image-20200309101144205](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200309101144205.png)</p>
 <pre><code>78 vim /usr/lib/systemd/system/docker.service #13行修改
 ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.11:5000 
 
@@ -634,7 +655,7 @@ spec:
         ports:
         - containerPort: 80</code></pre><p>执行一下</p>
 <pre><code>[root@master app]# kubectl apply -f deploy.yaml</code></pre><p>查看一下</p>
-<pre><code>[root@master app]# kubectl get pod</code></pre><p>![image-20200306085507559](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306085507559.png)</p>
+<pre><code>[root@master app]# kubectl get pod</code></pre><p>![image-20200306085507559](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306085507559.png)</p>
 <h3 id="可是容器的ip只能在容器本机上访问，集群内的其他主机和集群外的主机都没办法访问，这个时候就需要将容器的端口映射到服务器上的端口了，所以需要做一个service的模板。service-模板可以将容器的端口映射到服务器的端口上，并且可以固定映射在服务器上的端口。"><a href="#可是容器的ip只能在容器本机上访问，集群内的其他主机和集群外的主机都没办法访问，这个时候就需要将容器的端口映射到服务器上的端口了，所以需要做一个service的模板。service-模板可以将容器的端口映射到服务器的端口上，并且可以固定映射在服务器上的端口。" class="headerlink" title="可是容器的ip只能在容器本机上访问，集群内的其他主机和集群外的主机都没办法访问，这个时候就需要将容器的端口映射到服务器上的端口了，所以需要做一个service的模板。service 模板可以将容器的端口映射到服务器的端口上，并且可以固定映射在服务器上的端口。"></a><strong>可是容器的ip只能在容器本机上访问，集群内的其他主机和集群外的主机都没办法访问，这个时候就需要将容器的端口映射到服务器上的端口了，所以需要做一个service的模板。service 模板可以将容器的端口映射到服务器的端口上，并且可以固定映射在服务器上的端口。</strong></h3><pre><code>[root@master app]# vim deploy-svc.yaml
 
 apiVersion: v1
@@ -652,9 +673,9 @@ spec:
   selector:
     name: web</code></pre><p><strong>执行一下</strong></p>
 <pre><code>[root@master app]# kubectl apply -f deploy-svc.yaml</code></pre><p><strong>查看一下</strong></p>
-<pre><code>[root@master app]# kubectl get svc</code></pre><p>![image-20200306085725863](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306085725863.png)</p>
+<pre><code>[root@master app]# kubectl get svc</code></pre><p>![image-20200306085725863](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306085725863.png)</p>
 <p><strong>访问一下<a href="http://192.168.1.21:31234/" target="_blank" rel="noopener">http://192.168.1.21:31234/</a></strong></p>
-<p>![image-20200306085846077](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306085846077.png)</p>
+<p>![image-20200306085846077](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306085846077.png)</p>
 <h3 id="《ok-kubernetes-完毕，-开始配置-jenkins-gitlab联动》"><a href="#《ok-kubernetes-完毕，-开始配置-jenkins-gitlab联动》" class="headerlink" title="《ok kubernetes 完毕， 开始配置 jenkins+gitlab联动》"></a><strong>《ok kubernetes</strong> <strong>完毕， 开始配置 jenkins+gitlab联动》</strong></h3><h3 id="4、git和jenkins加入私有仓库"><a href="#4、git和jenkins加入私有仓库" class="headerlink" title="4、git和jenkins加入私有仓库"></a>4、git和jenkins加入私有仓库</h3><pre><code>78 vim /usr/lib/systemd/system/docker.service #13行修改
 ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.11:5000  
 
@@ -677,14 +698,14 @@ export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
 [root@jenkins ~]#  source /etc/profile
 //环境变量生效
 [root@jenkins ~]#  java -version
-//验证环境变量</code></pre><p>![image-20200306091443071](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306091443071.png)</p>
+//验证环境变量</code></pre><p>![image-20200306091443071](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306091443071.png)</p>
 <h3 id="安装tomcat"><a href="#安装tomcat" class="headerlink" title="安装tomcat"></a>安装tomcat</h3><pre><code>[root@jenkins ~]# tar -zxf apache-tomcat-7.0.54.tar.gz 
 [root@jenkins ~]# mv apache-tomcat-7.0.54 /usr/tomcat7
 [root@jenkins ~]# cd /usr/tomcat7/webapps/
 [root@jenkins webapps]# rm -rf *
 [root@jenkins webapps]# cp /root/jenkins.war . #这几步是jenkins的包放进了tomcat里
 [root@jenkins webapps]# vim /usr/tomcat7/conf/server.xml 
-//修改tomcat的字符集</code></pre><p>![image-20200306092022390](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306092022390.png)</p>
+//修改tomcat的字符集</code></pre><p>![image-20200306092022390](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306092022390.png)</p>
 <pre><code>[root@jenkins webapps]# cd /usr/tomcat7/bin/
 
 [root@jenkins bin]# vim catalina.sh 
@@ -694,14 +715,14 @@ export JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Dhudson.ClassicPluginStra
 //这两行添加的是jenkins的家目录位置，这个很重要
 
 [root@jenkins bin]# ./catalina.sh start 
-//启动tomcat</code></pre><p>![image-20200306092523262](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306092523262.png)</p>
-<pre><code>[root@jenkins bin]# netstat -anput | grep 8080</code></pre><p>![image-20200306110511541](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306110511541.png)</p>
+//启动tomcat</code></pre><p>![image-20200306092523262](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306092523262.png)</p>
+<pre><code>[root@jenkins bin]# netstat -anput | grep 8080</code></pre><p>![image-20200306110511541](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306110511541.png)</p>
 <h3 id="浏览器安装jenkins"><a href="#浏览器安装jenkins" class="headerlink" title="浏览器安装jenkins"></a>浏览器安装jenkins</h3><p><a href="http://192.168.1.11:8080/jenkins" target="_blank" rel="noopener">http://192.168.1.11:8080/jenkins</a></p>
-<p>![image-20200306110627790](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306110627790.png)</p>
+<p>![image-20200306110627790](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306110627790.png)</p>
 <pre><code>[root@jenkins bin]# cat /data/jenkins/secrets/initialAdminPassword
-c577cbf75d934878a94b0f9e00ada328   //复制密码</code></pre><h3 id="（1）推荐安装"><a href="#（1）推荐安装" class="headerlink" title="（1）推荐安装"></a>（1）推荐安装</h3><p>![image-20200308124155279](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200308124155279.png)</p>
+c577cbf75d934878a94b0f9e00ada328   //复制密码</code></pre><h3 id="（1）推荐安装"><a href="#（1）推荐安装" class="headerlink" title="（1）推荐安装"></a>（1）推荐安装</h3><p>![image-20200308124155279](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200308124155279.png)</p>
 <p><strong>#左边是自动安装， 右边是自定义安装，我们选左边的，如果不是这个画面则说明网络很卡或者没有网(推荐使用右边的，然后选择不安装插件，之后可以自定义安装）</strong></p>
-<p>![image-20200306151852889](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306151852889.png)</p>
+<p>![image-20200306151852889](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306151852889.png)</p>
 <h3 id="（2）这个是自定义安装（自己上传的包）"><a href="#（2）这个是自定义安装（自己上传的包）" class="headerlink" title="（2）这个是自定义安装（自己上传的包）"></a>（2）这个是自定义安装（自己上传的包）</h3><pre><code>[root@autoweb bin]# ./catalina.sh stop
 [root@autoweb ~]# cd /data/jenkins/plugins/
 [root@autoweb jenkins]# mv plugins plugins/.bk
@@ -709,25 +730,25 @@ c577cbf75d934878a94b0f9e00ada328   //复制密码</code></pre><h3 id="（1）推
 [root@autoweb jenkins]# tar -zxf plugins.tar.gz 
 [root@autoweb ~]# cd /usr/tomcat7/bin/
 [root@autoweb bin]# ./catalina.sh stop
-[root@autoweb bin]# ./catalina.sh start</code></pre><p>![image-20200306110627790](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306110627790.png)</p>
+[root@autoweb bin]# ./catalina.sh start</code></pre><p>![image-20200306110627790](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306110627790.png)</p>
 <p><strong>输入密码后断网</strong></p>
-<p>![image-20200308124449039](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200308124449039.png)</p>
-<p>![image-20200308123936170](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200308123936170.png)</p>
-<h3 id="（3）两个剩下的方法一样"><a href="#（3）两个剩下的方法一样" class="headerlink" title="（3）两个剩下的方法一样"></a>（3）两个剩下的方法一样</h3><p>![image-20200306151900827](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306151900827.png)</p>
-<p>![image-20200306151905668](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306151905668.png)</p>
-<p>![image-20200306151911675](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306151911675.png)</p>
+<p>![image-20200308124449039](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200308124449039.png)</p>
+<p>![image-20200308123936170](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200308123936170.png)</p>
+<h3 id="（3）两个剩下的方法一样"><a href="#（3）两个剩下的方法一样" class="headerlink" title="（3）两个剩下的方法一样"></a>（3）两个剩下的方法一样</h3><p>![image-20200306151900827](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306151900827.png)</p>
+<p>![image-20200306151905668](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306151905668.png)</p>
+<p>![image-20200306151911675](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306151911675.png)</p>
 <h4 id="下载中文插件"><a href="#下载中文插件" class="headerlink" title="下载中文插件"></a><strong>下载中文插件</strong></h4><p><strong>系统管理—–&gt;插件管理—–&gt;avalilable(可选)然后搜索localization-zh-cn</strong></p>
-<p>![image-20200306152834083](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306152834083.png)</p>
-<p>![image-20200306152957419](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306152957419.png)</p>
+<p>![image-20200306152834083](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306152834083.png)</p>
+<p>![image-20200306152957419](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306152957419.png)</p>
 <p><strong>然后还需要3个插件</strong></p>
-<p>![image-20200306153713286](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306153713286.png)</p>
+<p>![image-20200306153713286](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306153713286.png)</p>
 <h1 id="三、安装gitlab（1-10）"><a href="#三、安装gitlab（1-10）" class="headerlink" title="三、安装gitlab（1.10）"></a>三、安装gitlab（1.10）</h1><p><strong>GitLab CI 是 GitLab 默认集成的 CI 功能，GitLab CI 通过在项目内 .gitlab-ci.yaml 配置文件读取 CI 任务并进行相应处理；GitLab CI 通过其称为 GitLab Runner 的 Agent 端进行 build 操作；Runner 本身可以使用多种方式安装，比如使用 Docker 镜像启动等；Runner 在进行 build 操作时也可以选择多种 build 环境提供者；比如直接在 Runner 所在宿主机 build、通过新创建虚拟机(vmware、virtualbox)进行 build等；同时 Runner 支持 Docker 作为 build 提供者，即每次 build 新启动容器进行 build；GitLab CI 其大致架构如下</strong></p>
-<p>![image-20200309140112958](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200309140112958.png)</p>
+<p>![image-20200309140112958](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200309140112958.png)</p>
 <pre><code># yum -y install curl policycoreutils openssh-server openssh-clients postfix git
 # systemctl enable sshd
 # systemctl start sshd
 # systemctl enable postfix
-# systemctl start postfix</code></pre><p>![image-20200306112315163](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306112315163.png)</p>
+# systemctl start postfix</code></pre><p>![image-20200306112315163](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306112315163.png)</p>
 <h3 id="安装gitlab-ce"><a href="#安装gitlab-ce" class="headerlink" title="安装gitlab-ce"></a><strong>安装gitlab-ce</strong></h3><pre><code>[root@git ~]# curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash</code></pre><p><strong>注：由于网络问题，国内用户，使用清华大学的镜像源进行安装：</strong></p>
 <pre><code>[root@git ~]# vim /etc/yum.repos.d/gitlab-ce.repo
 [gitlab-ce]
@@ -757,26 +778,26 @@ unicorn['port'] = 3000
 
 
 [root@git ~]# ls /etc/yum.repos.d/
-//查看一下</code></pre><p>![image-20200306141100803](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306141100803.png)</p>
+//查看一下</code></pre><p>![image-20200306141100803](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306141100803.png)</p>
 <h3 id="访问192-168-1-10-90"><a href="#访问192-168-1-10-90" class="headerlink" title="访问192.168.1.10:90"></a>访问192.168.1.10:90</h3><p><strong>在网页配置用户密码后则安装完毕。用户默认root，这里让设置一个密码再登录，这里设置12345.com（相对较短的密码不让设置）</strong></p>
-<p>![image-20200306141728312](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306141728312.png)</p>
-<p>![image-20200306142041682](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306142041682.png)</p>
-<p>![image-20200306142219600](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306142219600.png)</p>
+<p>![image-20200306141728312](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306141728312.png)</p>
+<p>![image-20200306142041682](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306142041682.png)</p>
+<p>![image-20200306142219600](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306142219600.png)</p>
 <h1 id="四、jenkins和gitlab相互关联"><a href="#四、jenkins和gitlab相互关联" class="headerlink" title="四、jenkins和gitlab相互关联"></a>四、jenkins和gitlab相互关联</h1><p><strong>jenkins：工具集成平台</strong></p>
 <p><strong>gitlab: 软件托管平台</strong></p>
 <p><strong>部署这两个服务的联动，需要经过ssh验证。</strong></p>
 <h2 id="1、首先我们需要在gitlab上绑定jenkins服务器的ssh公钥，这里我们使用的是root用户的公私钥，切记生产环境是不允许随便用root的"><a href="#1、首先我们需要在gitlab上绑定jenkins服务器的ssh公钥，这里我们使用的是root用户的公私钥，切记生产环境是不允许随便用root的" class="headerlink" title="1、首先我们需要在gitlab上绑定jenkins服务器的ssh公钥，这里我们使用的是root用户的公私钥，切记生产环境是不允许随便用root的"></a>1、<strong>首先我们需要在gitlab上绑定jenkins服务器的ssh公钥，这里我们使用的是root用户的公私钥，切记生产环境是不允许随便用root的</strong></h2><h3 id="（1）jenkins"><a href="#（1）jenkins" class="headerlink" title="（1）jenkins"></a><strong>（1）jenkins</strong></h3><pre><code>[root@jenkins ~]# ssh-keygen -t rsa 
 //然后不输入只回车会生成一对公私钥</code></pre><h4 id="默认在-root-ssh-目录里"><a href="#默认在-root-ssh-目录里" class="headerlink" title="默认在/root/.ssh/目录里"></a><strong>默认在/root/.ssh/目录里</strong></h4><pre><code>[root@jenkins ~]# cat /root/.ssh/id_rsa.pub 
 //查看公钥并复制
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMA4+je3NsxZrF2v8TPLXJp1ejwy1YokXipEFyGVNo5IbtkiBDwBLOAl5i7yromY8YGgoNNriE2g89IM/44BGC5UDCokQ69Ze9Ta9Kynv3/1PDFXIABJJG0f6LsUqt0nKFaFoGz3ZuYAnl6AzLpXEic8DBDrsFk+UGrxvMfSEqHlYO2b7jRXE1HGRnqI/IcVB190cLT1kmBKi7hSqUNBc1cY6t3a6gGiBpp9tc8PW4r/RcLblhAL1LKx8x37NOZkqox8IMh3eM/wtWwAVFlI8XU+sz9akzJOVmd1ArT5Q4w8WA/uVHCDUGVI/fli/ZRv+mNZyF3EH26runctb5LkCT root@jenkins</code></pre><h3 id="（2）gitlab"><a href="#（2）gitlab" class="headerlink" title="（2）gitlab"></a>（2）gitlab</h3><p>![image-20200306195836403](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306195836403.png)</p>
-<h4 id="在这里放刚才拷贝的公钥保存就行了。"><a href="#在这里放刚才拷贝的公钥保存就行了。" class="headerlink" title="在这里放刚才拷贝的公钥保存就行了。"></a><strong>在这里放刚才拷贝的公钥保存就行了。</strong></h4><p>![image-20200306200026493](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306200026493.png)</p>
-<p>![image-20200306200103458](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306200103458.png)</p>
-<h4 id="我们先在gitlab上创建一个代码仓库-点击-new-project"><a href="#我们先在gitlab上创建一个代码仓库-点击-new-project" class="headerlink" title="我们先在gitlab上创建一个代码仓库 点击 new project"></a><strong>我们先在gitlab上创建一个代码仓库 点击 new project</strong></h4><p>![image-20200306200156932](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306200156932.png)</p>
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMA4+je3NsxZrF2v8TPLXJp1ejwy1YokXipEFyGVNo5IbtkiBDwBLOAl5i7yromY8YGgoNNriE2g89IM/44BGC5UDCokQ69Ze9Ta9Kynv3/1PDFXIABJJG0f6LsUqt0nKFaFoGz3ZuYAnl6AzLpXEic8DBDrsFk+UGrxvMfSEqHlYO2b7jRXE1HGRnqI/IcVB190cLT1kmBKi7hSqUNBc1cY6t3a6gGiBpp9tc8PW4r/RcLblhAL1LKx8x37NOZkqox8IMh3eM/wtWwAVFlI8XU+sz9akzJOVmd1ArT5Q4w8WA/uVHCDUGVI/fli/ZRv+mNZyF3EH26runctb5LkCT root@jenkins</code></pre><h3 id="（2）gitlab"><a href="#（2）gitlab" class="headerlink" title="（2）gitlab"></a>（2）gitlab</h3><p>![image-20200306195836403](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306195836403.png)</p>
+<h4 id="在这里放刚才拷贝的公钥保存就行了。"><a href="#在这里放刚才拷贝的公钥保存就行了。" class="headerlink" title="在这里放刚才拷贝的公钥保存就行了。"></a><strong>在这里放刚才拷贝的公钥保存就行了。</strong></h4><p>![image-20200306200026493](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306200026493.png)</p>
+<p>![image-20200306200103458](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306200103458.png)</p>
+<h4 id="我们先在gitlab上创建一个代码仓库-点击-new-project"><a href="#我们先在gitlab上创建一个代码仓库-点击-new-project" class="headerlink" title="我们先在gitlab上创建一个代码仓库 点击 new project"></a><strong>我们先在gitlab上创建一个代码仓库 点击 new project</strong></h4><p>![image-20200306200156932](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306200156932.png)</p>
 <p><strong>输入一个仓库的名字，权限选择公共的（public）然后直接点击创建</strong></p>
-<p>![image-20200306200431858](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306200431858.png)</p>
-<h4 id="点击新建一个new-file"><a href="#点击新建一个new-file" class="headerlink" title="点击新建一个new.file"></a><strong>点击新建一个new.file</strong></h4><p>![image-20200306201437862](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306201437862.png)</p>
-<h4 id="写入代码，起一个名字然后保存"><a href="#写入代码，起一个名字然后保存" class="headerlink" title="写入代码，起一个名字然后保存"></a><strong>写入代码，起一个名字然后保存</strong></h4><p>![image-20200306201558158](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306201558158.png)</p>
-<h4 id="创建好了，然后在本地测试一下是否可用"><a href="#创建好了，然后在本地测试一下是否可用" class="headerlink" title="创建好了，然后在本地测试一下是否可用"></a><strong>创建好了，然后在本地测试一下是否可用</strong></h4><p>![image-20200306201744679](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306201744679.png)</p>
+<p>![image-20200306200431858](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306200431858.png)</p>
+<h4 id="点击新建一个new-file"><a href="#点击新建一个new-file" class="headerlink" title="点击新建一个new.file"></a><strong>点击新建一个new.file</strong></h4><p>![image-20200306201437862](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306201437862.png)</p>
+<h4 id="写入代码，起一个名字然后保存"><a href="#写入代码，起一个名字然后保存" class="headerlink" title="写入代码，起一个名字然后保存"></a><strong>写入代码，起一个名字然后保存</strong></h4><p>![image-20200306201558158](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306201558158.png)</p>
+<h4 id="创建好了，然后在本地测试一下是否可用"><a href="#创建好了，然后在本地测试一下是否可用" class="headerlink" title="创建好了，然后在本地测试一下是否可用"></a><strong>创建好了，然后在本地测试一下是否可用</strong></h4><p>![image-20200306201744679](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306201744679.png)</p>
 <pre><code>[root@git ~]# mkdir xgp
 [root@git ~]# cd xgp/
 [root@git xgp]# git clone git@192.168.1.10:root/xgp-demo.git
@@ -789,21 +810,21 @@ print: "hello word!!!"
 //查看一下</code></pre><h3 id="（3）自动构建"><a href="#（3）自动构建" class="headerlink" title="（3）自动构建"></a>（3）自动构建</h3><p> <strong>安装插件</strong></p>
 <p><strong>先进入到之前查看插件的地方</strong></p>
 <p><strong>系统设置—-插件管理—-高级_—上传插件gitlab-oauth、gitlab-plugin、 windows-slaves、ruby-runt ime、gitlab-hook</strong></p>
-<p>![image-20200306212734302](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306212734302.png)</p>
-<h3 id="（4）如果可以用，则打开jenkins-点击新建"><a href="#（4）如果可以用，则打开jenkins-点击新建" class="headerlink" title="（4）如果可以用，则打开jenkins 点击新建"></a>（4）如果可以用，则打开jenkins 点击新建</h3><p>![image-20200306202647670](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306202647670.png)</p>
-<p>![image-20200306202724313](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306202724313.png)</p>
-<h4 id="地址粘贴进去以后没有报错则没错"><a href="#地址粘贴进去以后没有报错则没错" class="headerlink" title="地址粘贴进去以后没有报错则没错"></a><strong>地址粘贴进去以后没有报错则没错</strong></h4><p>![image-20200306203441474](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306203441474.png)</p>
+<p>![image-20200306212734302](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306212734302.png)</p>
+<h3 id="（4）如果可以用，则打开jenkins-点击新建"><a href="#（4）如果可以用，则打开jenkins-点击新建" class="headerlink" title="（4）如果可以用，则打开jenkins 点击新建"></a>（4）如果可以用，则打开jenkins 点击新建</h3><p>![image-20200306202647670](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306202647670.png)</p>
+<p>![image-20200306202724313](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306202724313.png)</p>
+<h4 id="地址粘贴进去以后没有报错则没错"><a href="#地址粘贴进去以后没有报错则没错" class="headerlink" title="地址粘贴进去以后没有报错则没错"></a><strong>地址粘贴进去以后没有报错则没错</strong></h4><p>![image-20200306203441474](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306203441474.png)</p>
 <p><strong>但是很伤心它报错了，那是因为jenkins和git没有关联上</strong></p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>![image-20200306203407502](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306203407502.png)</p>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>![image-20200306203407502](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306203407502.png)</p>
 <h4 id="git主机生成ssh密钥"><a href="#git主机生成ssh密钥" class="headerlink" title="git主机生成ssh密钥"></a>git主机生成ssh密钥</h4><pre><code>[root@jenkins ~]# ssh-keygen -t rsa 
 //然后不输入只回车会生成一对公私钥
 [root@jenkins ~]# cat /root/.ssh/id_rsa   
-//查看密钥并复制</code></pre><p>![image-20200306203947496](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306203947496.png)</p>
-<p>![image-20200306204232588](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306204232588.png)</p>
+//查看密钥并复制</code></pre><p>![image-20200306203947496](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306203947496.png)</p>
+<p>![image-20200306204232588](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306204232588.png)</p>
 <p><strong>下面的这个插件很重要，就是他实现自动化更新的webhook插件，安装过了就会有这条，然后点击这条下面出来的这些东西保持默认就行。同时注意复制</strong></p>
 <p><strong>这个里面写的是jenkins构建时候会执行的shell脚本，这个是最重要的，就是他实现了下端kubernetes自动更新容器的操作。</strong></p>
-<p>![image-20200306204512237](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306204512237.png)</p>
-<p>![image-20200306204948462](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306204948462.png)</p>
+<p>![image-20200306204512237](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306204512237.png)</p>
+<p>![image-20200306204948462](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306204948462.png)</p>
 <pre><code>#!/bin/bash
 backupcode="/data/backcode/$JOB_NAME/$BUILD_NUMBER"  
 mkdir -p $backupcode     #jenkins创建上述目录
@@ -822,30 +843,30 @@ ssh root@192.168.1.21 kubectl apply -f /root/app/deploy.yaml</code></pre><blockq
 <p><strong>$JENKINS_HOME：jenkins的家目录</strong></p>
 </blockquote>
 <p><strong>完事以后先别保存，首先复制一下上面的jenkins地址，然后去gitlab上绑定webhook</strong></p>
-<p>![image-20200306213050759](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306213050759.png)</p>
+<p>![image-20200306213050759](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306213050759.png)</p>
 <p><strong>保存，登陆gitlab，点击下图这个设置</strong></p>
-<p>![image-20200306213514819](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306213514819.png)</p>
-<p>![image-20200306213829519](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306213829519.png)</p>
+<p>![image-20200306213514819](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306213514819.png)</p>
+<p>![image-20200306213829519](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306213829519.png)</p>
 <p><strong>测试显示下图 的蓝条说明jenkins 已经连通了gitlab</strong></p>
-<p>![image-20200306214117715](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306214117715.png)</p>
-<p>![image-20200306215322180](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306215322180.png)</p>
-<h4 id="回到Jenkins开启匿名访问权限"><a href="#回到Jenkins开启匿名访问权限" class="headerlink" title="回到Jenkins开启匿名访问权限"></a><strong>回到Jenkins开启匿名访问权限</strong></h4><p>![image-20200306215429619](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306215429619.png)</p>
-<p>![image-20200306215504413](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306215504413.png)</p>
-<p>![    ](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306215539717.png)</p>
-<p>![image-20200306215611348](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306215611348.png)</p>
+<p>![image-20200306214117715](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306214117715.png)</p>
+<p>![image-20200306215322180](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306215322180.png)</p>
+<h4 id="回到Jenkins开启匿名访问权限"><a href="#回到Jenkins开启匿名访问权限" class="headerlink" title="回到Jenkins开启匿名访问权限"></a><strong>回到Jenkins开启匿名访问权限</strong></h4><p>![image-20200306215429619](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306215429619.png)</p>
+<p>![image-20200306215504413](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306215504413.png)</p>
+<p>![    ](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306215539717.png)</p>
+<p>![image-20200306215611348](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306215611348.png)</p>
 <p><strong>测试显示下图 的蓝条说明jenkins 已经连通了gitlab</strong></p>
-<p>![image-20200306214126410](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306214126410.png)</p>
+<p>![image-20200306214126410](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200306214126410.png)</p>
 <p><strong>好了，jenkins和gitlab 都已经互相的ssh通过了，然后我们最后需要做的一个ssh是关于jenkins</strong></p>
 <p><strong>///注意，这里是从git和jenkins向master节点做免密登录。</strong></p>
 <pre><code>[root@git ~]# ssh-copy-id root@192.168.1.21
 [root@jenkins ~]# ssh-copy-id root@192.168.1.21</code></pre><p><strong>好了，环境全部部署完毕！！！。开始测试</strong></p>
 <h1 id="五、测试"><a href="#五、测试" class="headerlink" title="五、测试"></a>五、测试</h1><p><strong>测试的方法很简单，就是在gitlab上新建代码，删除代码，修改代码，都会触发webhook进行自动部署。最终会作用在所有的nginx容器中，也就是我们的web服务器。</strong></p>
-<p>![image-20200309100434912](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200309100434912.png)</p>
+<p>![image-20200309100434912](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200309100434912.png)</p>
 <p><strong>这里我修改了之前建立的 index.html文件 保存以后，就打开浏览器 一直访问kubernetes-node 里面的容器了</strong></p>
-<p>![image-20200309100445830](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200309100445830.png)</p>
-<p>![image-20200309100530210](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200309100530210.png)</p>
+<p>![image-20200309100445830](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200309100445830.png)</p>
+<p>![image-20200309100530210](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200309100530210.png)</p>
 <h2 id="访问一下http-192-168-1-21-31234"><a href="#访问一下http-192-168-1-21-31234" class="headerlink" title="访问一下http://192.168.1.21:31234/"></a>访问一下<a href="http://192.168.1.21:31234/" target="_blank" rel="noopener">http://192.168.1.21:31234/</a></h2><p><strong><em>如果没有变，应该注意查看是否在jenkins上构建完成，等以小会就可以了。</em></strong></p>
-<p>![image-20200309100557309](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200309100557309.png)</p>
+<p>![image-20200309100557309](E:\软件\博客\Blog\blog\source_posts\21 k8s持续集成.assets\image-20200309100557309.png)</p>
 <p><strong>构建成功</strong></p>
 <h1 id="六、GitLab-CI-总结"><a href="#六、GitLab-CI-总结" class="headerlink" title="六、GitLab CI 总结"></a>六、GitLab CI 总结</h1><p><strong>CS 架构</strong><br>GitLab 作为 Server 端，控制 Runner 端执行一系列的 CI 任务；代码 clone 等无需关心，GitLab 会自动处理好一切；Runner 每次都会启动新的容器执行 CI 任务</p>
 <p><strong>容器即环境</strong><br>在 Runner 使用 Docker build 的前提下；所有依赖切换、环境切换应当由切换不同镜像实现，即 build 那就使用 build 的镜像，deploy 就用带有 deploy 功能的镜像；通过不同镜像容器实现完整的环境隔离</p>
@@ -931,7 +952,19 @@ ssh root@192.168.1.21 kubectl apply -f /root/app/deploy.yaml</code></pre><blockq
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            <span class="chip bg-color">No tag</span>
+                            
+                                <a href="/tags/jenkins/">
+                                    <span class="chip bg-color">jenkins</span>
+                                </a>
+                            
+                                <a href="/tags/gitlab/">
+                                    <span class="chip bg-color">gitlab</span>
+                                </a>
+                            
+                                <a href="/tags/k8s/">
+                                    <span class="chip bg-color">k8s</span>
+                                </a>
+                            
                         </div>
                     
                 </div>
@@ -1117,56 +1150,46 @@ ssh root@192.168.1.21 kubectl apply -f /root/app/deploy.yaml</code></pre><blockq
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;Current
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/posts/c0fd.html">
+                <a href="/posts/2cda.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="21 k8s的持续集成">
+                        <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="01 部署k8s集群">
                         
-                        <span class="card-title">21 k8s的持续集成</span>
+                        <span class="card-title">01 部署k8s集群</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            实验环境
+                            k8s最基本的硬件要求CPU: 双核Mem: 2G3台dockerhost时间必须同步
+实验环境
 
 
-IP
-主机名称
+主机名
+IP地址
 服务
 
 
 
-192.168.1.21
 master
-k8s
+192.168.1.21
+dockerhost
 
 
-192.168.1.22
 node01
-k8s
-
-
-192.168.1.10
-git
-gitlab
-
-
-192.168.1.13
-jenkins
-
+192.168.1.22
+d
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-04-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -1175,7 +1198,6 @@ jenkins
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -1186,22 +1208,22 @@ jenkins
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/posts/c224.html">
+                <a href="/posts/bf18.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="20 k8s的helm模板">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="HEXO分类和标签的使用">
                         
-                        <span class="card-title">20 k8s的helm模板</span>
+                        <span class="card-title">HEXO分类和标签的使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            自定义helm模板https://hub.helm.sh/
-1、开发自己的chare包[root@master ~]# helm create mychare
-//创建一个名为mychare的chare包
-[root@master ~]# 
+                            Hexo使用攻略-添加分类及标签1、创建“分类”选项1.1 生成“分类”页并添加tpye属性打开命令行，进入博客所在文件夹。执行命令
+hexo new page categories
+成功后会提示：
+INFO  Created: ~/Doc
                         
                     </div>
                     <div class="publish-info">
@@ -1210,11 +1232,23 @@ jenkins
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            Wu Shao Dong
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/HEXO%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-category">
+                                    HEXO的使用
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/HEXO/">
+                        <span class="chip bg-color">HEXO</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1448,7 +1482,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">35.3k</span>&nbsp;字
+                class="white-color">34.9k</span>&nbsp;字
             
             
             

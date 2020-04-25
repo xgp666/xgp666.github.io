@@ -498,7 +498,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-01-07
+                    2020-04-25
                 </div>
                 
 
@@ -582,9 +582,9 @@
 <p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
 <p><strong>7. Flanner：</strong>是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces
-//查看pod信息</code></pre><p>![image-20200104100759831](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104100759831.png)</p>
+//查看pod信息</code></pre><p>![image-20200104100759831](E:\软件\博客\Blog\blog\source_posts\02 k8s架构，基本概念.assets\image-20200104100759831.png)</p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
-//显示pod的节点信息</code></pre><p>![image-20200104101023909](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104101023909.png)</p>
+//显示pod的节点信息</code></pre><p>![image-20200104101023909](E:\软件\博客\Blog\blog\source_posts\02 k8s架构，基本概念.assets\image-20200104101023909.png)</p>
 <h2 id="Node节点"><a href="#Node节点" class="headerlink" title="Node节点"></a>Node节点</h2><p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
 <blockquote>
 <ul>
@@ -611,12 +611,12 @@
 </blockquote>
 <h3 id="运行一个例子（创建一个deployment资源对象-lt-pod控制器-gt-）"><a href="#运行一个例子（创建一个deployment资源对象-lt-pod控制器-gt-）" class="headerlink" title="运行一个例子（创建一个deployment资源对象<pod控制器>）"></a>运行一个例子（创建一个deployment资源对象&lt;pod控制器&gt;）</h3><pre><code>[root@master ~]# kubectl run test-web --image=httpd --replicas=2
 //创建一个deployment资源对象。</code></pre><p><strong><em>运行完成之后，如果有镜像可直接开启，没有的话需要等待一会儿，node节点要在docker hup上下载</em></strong></p>
-<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy</code></pre><p>![image-20200104110812772](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104110812772.png)</p>
-<pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200104110954406](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104110954406.png)</p>
+<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy</code></pre><p>![image-20200104110812772](E:\软件\博客\Blog\blog\source_posts\02 k8s架构，基本概念.assets\image-20200104110812772.png)</p>
+<pre><code>[root@master ~]# kubectl get pod</code></pre><p>![image-20200104110954406](E:\软件\博客\Blog\blog\source_posts\02 k8s架构，基本概念.assets\image-20200104110954406.png)</p>
 <pre><code>[root@master ~]# kubectl get pod  -o wide
-//显示pod的节点信息</code></pre><p>![image-20200104111128779](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104111128779.png)</p>
+//显示pod的节点信息</code></pre><p>![image-20200104111128779](E:\软件\博客\Blog\blog\source_posts\02 k8s架构，基本概念.assets\image-20200104111128779.png)</p>
 <p><strong><em>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart="" kubelet=""></systemctl></em></strong></p>
-<h3 id="如果删除一个pod"><a href="#如果删除一个pod" class="headerlink" title="如果删除一个pod"></a>如果删除一个pod</h3><pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200104112418012](G:\四期\虚拟化\kubernetes\文档\02 k8s架构，基本概念.assets\image-20200104112418012.png)</p>
+<h3 id="如果删除一个pod"><a href="#如果删除一个pod" class="headerlink" title="如果删除一个pod"></a>如果删除一个pod</h3><pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p>![image-20200104112418012](E:\软件\博客\Blog\blog\source_posts\02 k8s架构，基本概念.assets\image-20200104112418012.png)</p>
 <p><strong><em>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</em></strong></p>
 <p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
 <script>
@@ -1228,7 +1228,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">35.3k</span>&nbsp;字
+                class="white-color">34.9k</span>&nbsp;字
             
             
             

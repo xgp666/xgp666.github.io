@@ -498,7 +498,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>Update Date:&nbsp;&nbsp;
-                    2020-03-02
+                    2020-04-25
                 </div>
                 
 
@@ -536,25 +536,25 @@
 //下载hpa-example镜像
 
 [root@master ~]# kubectl run php-apache --image=mirrorgooglecontainers/hpa-example --requests=cpu=200m --expose  --port=80
-//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments.</code></pre><p>![image-20200228102643352](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228102643352.png)</p>
+//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口</code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments.</code></pre><p>![image-20200228102643352](E:\软件\博客\Blog\blog\source_posts\18 HPA自动容与蒲容.assets\image-20200228102643352.png)</p>
 <h2 id="2、创建HPA控制器"><a href="#2、创建HPA控制器" class="headerlink" title="2、创建HPA控制器"></a>2、创建HPA控制器</h2><pre><code>[root@master ~]# kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
-//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个</code></pre><h3 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get hpa</code></pre><p>![image-20200228101908398](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228101908398.png)</p>
+//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个</code></pre><h3 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get hpa</code></pre><p>![image-20200228101908398](E:\软件\博客\Blog\blog\source_posts\18 HPA自动容与蒲容.assets\image-20200228101908398.png)</p>
 <h2 id="3、测试（master开启三个端口）"><a href="#3、测试（master开启三个端口）" class="headerlink" title="3、测试（master开启三个端口）"></a>3、测试（master开启三个端口）</h2><p><strong>新开启多个终端，对pod进行死循环请求php-apache的pod</strong></p>
 <h3 id="端口一"><a href="#端口一" class="headerlink" title="端口一"></a>端口一</h3><h4 id="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。"><a href="#（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。" class="headerlink" title="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。"></a>（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。</h4><pre><code>[root@master ~]# kubectl run -i --tty load-generator --image=busybox /bin/sh</code></pre><h4 id="（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。"><a href="#（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。" class="headerlink" title="（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。"></a>（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。</h4><pre><code>[root@master ~]# while true; do wget -q -O- http://php-apache.default.svc.cluster.local ; done
 //不停地向php-apache的svc资源，发送ok</code></pre><h3 id="端口二"><a href="#端口二" class="headerlink" title="端口二"></a>端口二</h3><pre><code>[root@master ~]# kubectl get hpa -w
-//实时查看pod的cpu状态</code></pre><p>![image-20200228133816724](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228133816724.png)</p>
+//实时查看pod的cpu状态</code></pre><p>![image-20200228133816724](E:\软件\博客\Blog\blog\source_posts\18 k8s的HPA自动容与缩容.assets\image-20200228133816724.png)</p>
 <p><strong>可以看到php-apache的cpu使用情况已经超过了50%</strong></p>
 <h3 id="端口三"><a href="#端口三" class="headerlink" title="端口三"></a>端口三</h3><pre><code>[root@master images]# kubectl get pod -w
-//实时查看pod的状态</code></pre><p>![image-20200228134105507](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228134105507.png)</p>
+//实时查看pod的状态</code></pre><p>![image-20200228134105507](E:\软件\博客\Blog\blog\source_posts\18 k8s的HPA自动容与缩容.assets\image-20200228134105507.png)</p>
 <p><strong>可以看到当php-apache的cpu使用情况超过50%后，就会不断生成新的php-apache来进行负载均衡（目前设置的上线时10个），当然，如果cpu使用情况下降到50%，master就会陆续地删除php-apache，这样的使用可以减少不必要的资源浪费、资源分配不均等情况。</strong></p>
 <h1 id="二、资源限制"><a href="#二、资源限制" class="headerlink" title="二、资源限制"></a>二、资源限制</h1><h2 id="1、基于Pod"><a href="#1、基于Pod" class="headerlink" title="1、基于Pod"></a>1、基于Pod</h2><p><strong>Kubernetes对资源的限制实际上是通过cgroup来控制的，cgroup 是容器的一组用来控制内核如何运行进程的相关属性集合。针对内存、CPU 和各种设备都有对应的cgroup</strong></p>
 <p><strong>默认情况下，Pod运行没有CPU和内存的限额。这意味着系统中的任何 Pod将能够像执行该Pod所在的节点一样，消耗足够多的CPU和内存。一般会针对某些应用的pod资源进行资源限制，这个资源限制是通过</strong></p>
 <p><strong>resources的requests和limits来实现</strong></p>
-<pre><code>[root@master ~]# vim cgroup-pod.yaml</code></pre><p>![image-20200228153809932](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153809932.png)</p>
+<pre><code>[root@master ~]# vim cgroup-pod.yaml</code></pre><p>![image-20200228153809932](E:\软件\博客\Blog\blog\source_posts\18 k8s的HPA自动容与缩容.assets\image-20200228153809932.png)</p>
 <p><strong>requests: 要分配的资源，limits为最高请求的资源值。可以简单的理解为初始值和最大值。</strong></p>
-<h2 id="2、基于名称空间"><a href="#2、基于名称空间" class="headerlink" title="2、基于名称空间"></a><strong>2、基于名称空间</strong></h2><h3 id="1）-计算资源配额"><a href="#1）-计算资源配额" class="headerlink" title="1） 计算资源配额"></a>1） 计算资源配额</h3><pre><code>[root@master ~]# vim compute-resources.yaml</code></pre><p> ![image-20200228153818288](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153818288.png)</p>
-<h3 id="2）配置对象数量配额限制"><a href="#2）配置对象数量配额限制" class="headerlink" title="2）配置对象数量配额限制"></a>2）配置对象数量配额限制</h3><pre><code>[root@master ~]# vim object-counts.yaml</code></pre><p> ![image-20200228153828002](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153828002.png)</p>
-<h3 id="3）-配置CPU和内存的LimitRange"><a href="#3）-配置CPU和内存的LimitRange" class="headerlink" title="3） 配置CPU和内存的LimitRange"></a>3） 配置CPU和内存的LimitRange</h3><pre><code>[root@master ~]# vim limitRange.yaml</code></pre><p> ![image-20200228153834705](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
+<h2 id="2、基于名称空间"><a href="#2、基于名称空间" class="headerlink" title="2、基于名称空间"></a><strong>2、基于名称空间</strong></h2><h3 id="1）-计算资源配额"><a href="#1）-计算资源配额" class="headerlink" title="1） 计算资源配额"></a>1） 计算资源配额</h3><pre><code>[root@master ~]# vim compute-resources.yaml</code></pre><p> ![image-20200228153818288](E:\软件\博客\Blog\blog\source_posts\18 k8s的HPA自动容与缩容.assets\image-20200228153818288.png)</p>
+<h3 id="2）配置对象数量配额限制"><a href="#2）配置对象数量配额限制" class="headerlink" title="2）配置对象数量配额限制"></a>2）配置对象数量配额限制</h3><pre><code>[root@master ~]# vim object-counts.yaml</code></pre><p> ![image-20200228153828002](E:\软件\博客\Blog\blog\source_posts\18 k8s的HPA自动容与缩容.assets\image-20200228153828002.png)</p>
+<h3 id="3）-配置CPU和内存的LimitRange"><a href="#3）-配置CPU和内存的LimitRange" class="headerlink" title="3） 配置CPU和内存的LimitRange"></a>3） 配置CPU和内存的LimitRange</h3><pre><code>[root@master ~]# vim limitRange.yaml</code></pre><p> ![image-20200228153834705](E:\软件\博客\Blog\blog\source_posts\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
 <p><strong>default 即 limit的值。</strong></p>
 <p><strong>defaultRequest 即 request的值。</strong></p>
 <script>
@@ -1130,7 +1130,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">35.3k</span>&nbsp;字
+                class="white-color">34.9k</span>&nbsp;字
             
             
             
