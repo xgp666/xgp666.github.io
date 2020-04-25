@@ -30,8 +30,8 @@
     <script src="/libs/jquery/jquery.min.js"></script>
     <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
+</head>
 
 
 
@@ -598,9 +598,9 @@ spec:
       containers:   #指定容器
       - name: nginx  #容器名称
         image: nginx   #使用的镜像</code></pre><h3 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master ~]# kubectl apply -f web.yaml </code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments.  -o wide
-//查看控制器信息</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262"></p>
+//查看控制器信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209"></p>
+//查看pod节点信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209"></p>
 <h2 id="3-编写一个service-yaml文件"><a href="#3-编写一个service-yaml文件" class="headerlink" title="3.编写一个service.yaml文件"></a>3.编写一个service.yaml文件</h2><pre><code>[root@master ~]# vim web-svc.yaml
 kind: Service  #资源对象是副本
 apiVersion: v1   #api的版本
@@ -617,8 +617,8 @@ spec:
 <p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
 </blockquote>
 <h3 id="（1）执行一下"><a href="#（1）执行一下" class="headerlink" title="（1）执行一下"></a>（1）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f web-svc.yaml </code></pre><h3 id="（2）查看一下"><a href="#（2）查看一下" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get svc
-//查看控制器信息</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972"></p>
-<h3 id="（3）访问一下"><a href="#（3）访问一下" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h3><pre><code>[root@master ~]# curl 10.111.193.168</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353"></p>
+//查看控制器信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972"></p>
+<h3 id="（3）访问一下"><a href="#（3）访问一下" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h3><pre><code>[root@master ~]# curl 10.111.193.168</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353"></p>
 <h2 id="4-外网能够访问服务"><a href="#4-外网能够访问服务" class="headerlink" title="4.外网能够访问服务"></a>4.外网能够访问服务</h2><h3 id="（1）修改web-svc-yaml文件"><a href="#（1）修改web-svc-yaml文件" class="headerlink" title="（1）修改web-svc.yaml文件"></a>（1）修改web-svc.yaml文件</h3><pre><code>kind: Service  #资源对象是副本
 apiVersion: v1   #api的版本
 metadata:
@@ -631,8 +631,8 @@ spec:
   - protocol: TCP
     port: 80            #宿主机的端口
     targetPort: 80      #容器的端口
-    nodePort: 30086     #指定群集映射端口，范围是30000-32767</code></pre><h3 id="（2）刷新一下"><a href="#（2）刷新一下" class="headerlink" title="（2）刷新一下"></a>（2）刷新一下</h3><pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940"></p>
-<h3 id="（4）浏览器测试"><a href="#（4）浏览器测试" class="headerlink" title="（4）浏览器测试"></a>（4）浏览器测试</h3><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952"></p>
+    nodePort: 30086     #指定群集映射端口，范围是30000-32767</code></pre><h3 id="（2）刷新一下"><a href="#（2）刷新一下" class="headerlink" title="（2）刷新一下"></a>（2）刷新一下</h3><pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940"></p>
+<h3 id="（4）浏览器测试"><a href="#（4）浏览器测试" class="headerlink" title="（4）浏览器测试"></a>（4）浏览器测试</h3><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952"></p>
 <h1 id="三、小实验"><a href="#三、小实验" class="headerlink" title="三、小实验"></a>三、小实验</h1><blockquote>
 <p><strong>基于上一篇博客实验继续进行</strong></p>
 </blockquote>
@@ -651,10 +651,10 @@ spec:
       containers:
       - name: web
         image: 192.168.1.21:5000/web:v1   </code></pre><h4 id="（1）执行一下-1"><a href="#（1）执行一下-1" class="headerlink" title="（1）执行一下"></a>（1）执行一下</h4><pre><code>[root@master ~]# kubectl apply -f web-svc.yaml </code></pre><h4 id="（2）查看一下-1"><a href="#（2）查看一下-1" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide
-//查看控制器信息</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208"></p>
+//查看控制器信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152"></p>
-<h4 id="（3）访问一下-1"><a href="#（3）访问一下-1" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h4><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669"></p>
+//查看pod节点信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152"></p>
+<h4 id="（3）访问一下-1"><a href="#（3）访问一下-1" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h4><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669"></p>
 <h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><a href="#2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123" class="headerlink" title="2.  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123."></a><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3><h4 id="编写service文件"><a href="#编写service文件" class="headerlink" title="编写service文件"></a>编写service文件</h4><pre><code>[root@master ~]# vim www-svc.yaml
 kind: Service
 apiVersion: v1
@@ -668,8 +668,8 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-    nodePort: 30123</code></pre><h4 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master ~]# kubectl apply -f www-svc.yaml </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get svc</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525"></p>
-<h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559"></p>
+    nodePort: 30123</code></pre><h4 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master ~]# kubectl apply -f www-svc.yaml </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get svc</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525"></p>
+<h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559"></p>
 <h1 id="四-总结"><a href="#四-总结" class="headerlink" title="四. 总结"></a>四. 总结</h1><h2 id="1-Pod的作用"><a href="#1-Pod的作用" class="headerlink" title="1. Pod的作用"></a><strong>1. Pod的作用</strong></h2><blockquote>
 <p>在k8s中pod是最小的管理单位，在一个pod中通常会包含一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。<br>在每一个Pod中都有一个特殊的Pause容器和一个或多个业务容器，Pause来源于pause-amd64镜像,Pause容器在Pod中具有非常重要的作用：</p>
 <ul>
@@ -1278,7 +1278,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">34.9k</span>&nbsp;字
+                class="white-color">30.4k</span>&nbsp;字
             
             
             

@@ -30,8 +30,8 @@
     <script src="/libs/jquery/jquery.min.js"></script>
     <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
+</head>
 
 
 
@@ -535,13 +535,13 @@
 <h3 id="1、通过–from-literal（文字的）"><a href="#1、通过–from-literal（文字的）" class="headerlink" title="1、通过–from-literal（文字的）"></a>1、通过–from-literal（文字的）</h3><pre><code>[root@master secret]# kubectl create secret generic mysecret1 --from-literal=username=root --from-literal=password=123.com</code></pre><blockquote>
 <p><strong>generic：通用的，一般的加密方式</strong></p>
 </blockquote>
-<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png" alt=""></p>
+<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png" alt></p>
 <p><strong>类型是Opaque（不透明的）</strong></p>
 <h3 id="2、通过from-file（文件）"><a href="#2、通过from-file（文件）" class="headerlink" title="2、通过from-file（文件）"></a>2、通过from-file（文件）</h3><h4 id="新建两个文件并分别写入用户名和密码"><a href="#新建两个文件并分别写入用户名和密码" class="headerlink" title="新建两个文件并分别写入用户名和密码"></a>新建两个文件并分别写入用户名和密码</h4><pre><code>[root@master secret]# echo root &gt; username
-[root@master secret]# echo 123.com  &gt; password</code></pre><h4 id="创建一个secret"><a href="#创建一个secret" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]#  kubectl create secret generic mysecret2 --from-file=username --from-file=password </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png" alt="image-20200214103506842"></p>
+[root@master secret]# echo 123.com  &gt; password</code></pre><h4 id="创建一个secret"><a href="#创建一个secret" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]#  kubectl create secret generic mysecret2 --from-file=username --from-file=password </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png" alt="image-20200214103506842"></p>
 <h3 id="3、通过–-from-env-file"><a href="#3、通过–-from-env-file" class="headerlink" title="3、通过– from- env-file:"></a>3、通过– from- env-file:</h3><h4 id="创建一个文件写入用户名和密码"><a href="#创建一个文件写入用户名和密码" class="headerlink" title="创建一个文件写入用户名和密码"></a>创建一个文件写入用户名和密码</h4><pre><code>[root@master secret]#vim env.txt 
 username=root
-password=123.com</code></pre><h4 id="创建一个secret-1"><a href="#创建一个secret-1" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]# kubectl create secret generic mysecret3 --from-env-file=env.txt </code></pre><h4 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png" alt="image-20200214103905956"></p>
+password=123.com</code></pre><h4 id="创建一个secret-1"><a href="#创建一个secret-1" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]# kubectl create secret generic mysecret3 --from-env-file=env.txt </code></pre><h4 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png" alt="image-20200214103905956"></p>
 <h3 id="4、通过yaml配置文件"><a href="#4、通过yaml配置文件" class="headerlink" title="4、通过yaml配置文件"></a>4、通过yaml配置文件</h3><h4 id="（1）把需要保存的数据加密（”base64“的方式）"><a href="#（1）把需要保存的数据加密（”base64“的方式）" class="headerlink" title="（1）把需要保存的数据加密（”base64“的方式）"></a>（1）把需要保存的数据加密（”base64“的方式）</h4><pre><code>[root@master secret]# echo root | base64
 cm9vdAo=
 [root@master secret]# echo 123.com | base64
@@ -558,7 +558,7 @@ metadata:
   name: mysecret4
 data:
   username: cm9vdAo=
-  password: MTIzLmNvbQo=</code></pre><h5 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h5><pre><code>[root@master secret]# kubectl apply -f secret4.yaml </code></pre><h4 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png" alt="image-20200214104544899"></p>
+  password: MTIzLmNvbQo=</code></pre><h5 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h5><pre><code>[root@master secret]# kubectl apply -f secret4.yaml </code></pre><h4 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png" alt="image-20200214104544899"></p>
 <h2 id="如果来使用Secret资源"><a href="#如果来使用Secret资源" class="headerlink" title="如果来使用Secret资源"></a>如果来使用Secret资源</h2><h3 id="1-以Volume挂载的方式"><a href="#1-以Volume挂载的方式" class="headerlink" title="1. 以Volume挂载的方式"></a>1. 以Volume挂载的方式</h3><h4 id="编写pod的yaml文件"><a href="#编写pod的yaml文件" class="headerlink" title="编写pod的yaml文件"></a><strong>编写pod的yaml文件</strong></h4><pre><code>[root@master secret]# vim pod.yaml 
 
 apiVersion: v1
@@ -621,7 +621,7 @@ spec:
 root</code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><p><strong>会实时更新(这里引用数据，是以volumes挂 载使用数据的方式)。</strong></p>
 <p><strong>更新mysecret1的数据:   password  —&gt;  admin   YWRtaW4K (base64)</strong> </p>
 <p><strong>可以通过edit 命令，直接修改。</strong></p>
-<pre><code>[root@master secret]# kubectl edit secrets mysecret1</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
+<pre><code>[root@master secret]# kubectl edit secrets mysecret1</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
 <h4 id="查看一下-4"><a href="#查看一下-4" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
 //进入容器查看
  # cat /etc/secret-test/my-group/my-password 
@@ -652,13 +652,13 @@ spec:
         valueFrom:
           secretKeyRef:
             name: mysecret2
-            key: password</code></pre><h4 id="执行一下-3"><a href="#执行一下-3" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master secret]# kubectl apply -f pod-env.yaml </code></pre><h4 id="查看一下-5"><a href="#查看一下-5" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get pod</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png" alt="image-20200214111931566"></p>
+            key: password</code></pre><h4 id="执行一下-3"><a href="#执行一下-3" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master secret]# kubectl apply -f pod-env.yaml </code></pre><h4 id="查看一下-5"><a href="#查看一下-5" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get pod</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png" alt="image-20200214111931566"></p>
 <h4 id="进入容器查看保存的数据-1"><a href="#进入容器查看保存的数据-1" class="headerlink" title="进入容器查看保存的数据"></a>进入容器查看保存的数据</h4><pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
 root
 / # echo $SECRET_PASSWORD
 123.com</code></pre><h3 id="2-1-更新sevret文件的内容"><a href="#2-1-更新sevret文件的内容" class="headerlink" title="2.1 更新sevret文件的内容"></a>2.1 更新sevret文件的内容</h3><pre><code> [root@master yaml]# kubectl edit secrets mysecret2
- //修改保存文件的内容</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
+ //修改保存文件的内容</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
 <h4 id="查看一下-6"><a href="#查看一下-6" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
 root
@@ -670,13 +670,13 @@ root
 <p><strong>username：adam</strong></p>
 <p><strong>age：18</strong></p>
 </blockquote>
-<h2 id="创建的四种方式"><a href="#创建的四种方式" class="headerlink" title="创建的四种方式"></a>创建的四种方式</h2><h3 id="1、通过–-from-literal-文字的"><a href="#1、通过–-from-literal-文字的" class="headerlink" title="1、通过– from- literal(文字的):"></a>1、通过– from- literal(文字的):</h3><pre><code>[root@master yaml]# kubectl create configmap myconfigmap1 --from-literal=username=adam --from-literal=age=18</code></pre><h4 id="查看一下-7"><a href="#查看一下-7" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl get cm</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png" alt="image-20200217103048235"></p>
-<pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png" alt="image-20200217103123130"></p>
+<h2 id="创建的四种方式"><a href="#创建的四种方式" class="headerlink" title="创建的四种方式"></a>创建的四种方式</h2><h3 id="1、通过–-from-literal-文字的"><a href="#1、通过–-from-literal-文字的" class="headerlink" title="1、通过– from- literal(文字的):"></a>1、通过– from- literal(文字的):</h3><pre><code>[root@master yaml]# kubectl create configmap myconfigmap1 --from-literal=username=adam --from-literal=age=18</code></pre><h4 id="查看一下-7"><a href="#查看一下-7" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl get cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png" alt="image-20200217103048235"></p>
+<pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png" alt="image-20200217103123130"></p>
 <h3 id="2、通过–from-file-文件"><a href="#2、通过–from-file-文件" class="headerlink" title="2、通过–from-file (文件) :"></a>2、通过–from-file (文件) :</h3><pre><code>[root@master yaml]# echo adam &gt; username
-[root@master yaml]# echo 18 &gt; age</code></pre><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap myconfigmap2 --from-file=username --from-file=age </code></pre><h4 id="查看一下-8"><a href="#查看一下-8" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png" alt="image-20200217103509006"></p>
+[root@master yaml]# echo 18 &gt; age</code></pre><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap myconfigmap2 --from-file=username --from-file=age </code></pre><h4 id="查看一下-8"><a href="#查看一下-8" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png" alt="image-20200217103509006"></p>
 <h3 id="3、通过–from-env-file"><a href="#3、通过–from-env-file" class="headerlink" title="3、通过–from- env-file:"></a>3、通过–from- env-file:</h3><pre><code>[root@master yaml]# vim env.txt 
 username=adam
-age=18</code></pre><h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap  myconfigmap3 --from-env-file=env.txt</code></pre><h4 id="查看一下-9"><a href="#查看一下-9" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl describe cm</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png" alt="image-20200217165039190"></p>
+age=18</code></pre><h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap  myconfigmap3 --from-env-file=env.txt</code></pre><h4 id="查看一下-9"><a href="#查看一下-9" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png" alt="image-20200217165039190"></p>
 <h3 id="4、通过yaml配置文件-1"><a href="#4、通过yaml配置文件-1" class="headerlink" title="4、通过yaml配置文件:"></a>4、通过yaml配置文件:</h3><pre><code>[root@master yaml]# vim configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -684,7 +684,7 @@ metadata:
   name: myconfigmap4
 data:
   username: 'adam'
-  age: '18'</code></pre><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl apply -f configmap.yaml </code></pre><h4 id="查看一下-10"><a href="#查看一下-10" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png" alt="image-20200217104428521"></p>
+  age: '18'</code></pre><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl apply -f configmap.yaml </code></pre><h4 id="查看一下-10"><a href="#查看一下-10" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png" alt="image-20200217104428521"></p>
 <h2 id="如何来使用configmap资源"><a href="#如何来使用configmap资源" class="headerlink" title="如何来使用configmap资源"></a>如何来使用configmap资源</h2><h3 id="1-以Volume挂载的方式-1"><a href="#1-以Volume挂载的方式-1" class="headerlink" title="1. 以Volume挂载的方式"></a>1. 以Volume挂载的方式</h3><pre><code>[root@master yaml]# vim v-pod.yaml 
 apiVersion: v1
 kind: Pod
@@ -740,7 +740,7 @@ spec:
 # cat /etc/cmp-test/my-group/my-username 
 adam/ 
 # cat /etc/cmp-test/my-group/my-age 
-18/ </code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap1</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png" alt="image-20200217172107999"></p>
+18/ </code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap1</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png" alt="image-20200217172107999"></p>
 <h4 id="查看一下-13"><a href="#查看一下-13" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
 //进入容器查看
 # cat /etc/cmp-test/my-group/my-username 
@@ -776,7 +776,7 @@ spec:
 adam
  # echo $CONFIGMAP_AGE
 18</code></pre><h3 id="2-1-更新sevret文件的内容-1"><a href="#2-1-更新sevret文件的内容-1" class="headerlink" title="2.1 更新sevret文件的内容"></a>2.1 更新sevret文件的内容</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap2
- //修改保存文件的内容</code></pre><p><img src="E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png" alt="image-20200217172701793"></p>
+ //修改保存文件的内容</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png" alt="image-20200217172701793"></p>
 <h4 id="查看一下-15"><a href="#查看一下-15" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
 //进入容器查看一下
  # echo $CONFIGMAP_NAME
@@ -1372,7 +1372,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             <br>
             
             &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                class="white-color">34.9k</span>&nbsp;字
+                class="white-color">30.4k</span>&nbsp;字
             
             
             
