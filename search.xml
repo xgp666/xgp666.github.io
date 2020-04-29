@@ -2722,8 +2722,8 @@ fastcgi_cache_key http://$host$request_uri;
       </tags>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>contact</title>
+    <url>/contact/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2745,8 +2745,8 @@ fastcgi_cache_key http://$host$request_uri;
       </script>]]></content>
   </entry>
   <entry>
-    <title>contact</title>
-    <url>/contact/index.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
