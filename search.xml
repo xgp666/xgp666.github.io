@@ -284,13 +284,13 @@ image:
 <h3 id="1、通过–from-literal（文字的）"><a href="#1、通过–from-literal（文字的）" class="headerlink" title="1、通过–from-literal（文字的）"></a>1、通过–from-literal（文字的）</h3><pre><code>[root@master secret]# kubectl create secret generic mysecret1 --from-literal=username=root --from-literal=password=123.com</code></pre><blockquote>
 <p><strong>generic：通用的，一般的加密方式</strong></p>
 </blockquote>
-<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png" alt=""></p>
+<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png"  alt=""></p>
 <p><strong>类型是Opaque（不透明的）</strong></p>
 <h3 id="2、通过from-file（文件）"><a href="#2、通过from-file（文件）" class="headerlink" title="2、通过from-file（文件）"></a>2、通过from-file（文件）</h3><h4 id="新建两个文件并分别写入用户名和密码"><a href="#新建两个文件并分别写入用户名和密码" class="headerlink" title="新建两个文件并分别写入用户名和密码"></a>新建两个文件并分别写入用户名和密码</h4><pre><code>[root@master secret]# echo root &gt; username
-[root@master secret]# echo 123.com  &gt; password</code></pre><h4 id="创建一个secret"><a href="#创建一个secret" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]#  kubectl create secret generic mysecret2 --from-file=username --from-file=password </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png" alt="image-20200214103506842"></p>
+[root@master secret]# echo 123.com  &gt; password</code></pre><h4 id="创建一个secret"><a href="#创建一个secret" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]#  kubectl create secret generic mysecret2 --from-file=username --from-file=password </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png"  alt="image-20200214103506842"></p>
 <h3 id="3、通过–-from-env-file"><a href="#3、通过–-from-env-file" class="headerlink" title="3、通过– from- env-file:"></a>3、通过– from- env-file:</h3><h4 id="创建一个文件写入用户名和密码"><a href="#创建一个文件写入用户名和密码" class="headerlink" title="创建一个文件写入用户名和密码"></a>创建一个文件写入用户名和密码</h4><pre><code>[root@master secret]#vim env.txt 
 username=root
-password=123.com</code></pre><h4 id="创建一个secret-1"><a href="#创建一个secret-1" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]# kubectl create secret generic mysecret3 --from-env-file=env.txt </code></pre><h4 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png" alt="image-20200214103905956"></p>
+password=123.com</code></pre><h4 id="创建一个secret-1"><a href="#创建一个secret-1" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]# kubectl create secret generic mysecret3 --from-env-file=env.txt </code></pre><h4 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png"  alt="image-20200214103905956"></p>
 <h3 id="4、通过yaml配置文件"><a href="#4、通过yaml配置文件" class="headerlink" title="4、通过yaml配置文件"></a>4、通过yaml配置文件</h3><h4 id="（1）把需要保存的数据加密（”base64“的方式）"><a href="#（1）把需要保存的数据加密（”base64“的方式）" class="headerlink" title="（1）把需要保存的数据加密（”base64“的方式）"></a>（1）把需要保存的数据加密（”base64“的方式）</h4><pre><code>[root@master secret]# echo root | base64
 cm9vdAo=
 [root@master secret]# echo 123.com | base64
@@ -307,7 +307,7 @@ metadata:
   name: mysecret4
 data:
   username: cm9vdAo=
-  password: MTIzLmNvbQo=</code></pre><h5 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h5><pre><code>[root@master secret]# kubectl apply -f secret4.yaml </code></pre><h4 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png" alt="image-20200214104544899"></p>
+  password: MTIzLmNvbQo=</code></pre><h5 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h5><pre><code>[root@master secret]# kubectl apply -f secret4.yaml </code></pre><h4 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png"  alt="image-20200214104544899"></p>
 <h2 id="如果来使用Secret资源"><a href="#如果来使用Secret资源" class="headerlink" title="如果来使用Secret资源"></a>如果来使用Secret资源</h2><h3 id="1-以Volume挂载的方式"><a href="#1-以Volume挂载的方式" class="headerlink" title="1. 以Volume挂载的方式"></a>1. 以Volume挂载的方式</h3><h4 id="编写pod的yaml文件"><a href="#编写pod的yaml文件" class="headerlink" title="编写pod的yaml文件"></a><strong>编写pod的yaml文件</strong></h4><pre><code>[root@master secret]# vim pod.yaml 
 
 apiVersion: v1
@@ -370,7 +370,7 @@ spec:
 root</code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><p><strong>会实时更新(这里引用数据，是以volumes挂 载使用数据的方式)。</strong></p>
 <p><strong>更新mysecret1的数据:   password  —&gt;  admin   YWRtaW4K (base64)</strong> </p>
 <p><strong>可以通过edit 命令，直接修改。</strong></p>
-<pre><code>[root@master secret]# kubectl edit secrets mysecret1</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
+<pre><code>[root@master secret]# kubectl edit secrets mysecret1</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
 <h4 id="查看一下-4"><a href="#查看一下-4" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
 //进入容器查看
  # cat /etc/secret-test/my-group/my-password 
@@ -401,13 +401,13 @@ spec:
         valueFrom:
           secretKeyRef:
             name: mysecret2
-            key: password</code></pre><h4 id="执行一下-3"><a href="#执行一下-3" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master secret]# kubectl apply -f pod-env.yaml </code></pre><h4 id="查看一下-5"><a href="#查看一下-5" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get pod</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png" alt="image-20200214111931566"></p>
+            key: password</code></pre><h4 id="执行一下-3"><a href="#执行一下-3" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master secret]# kubectl apply -f pod-env.yaml </code></pre><h4 id="查看一下-5"><a href="#查看一下-5" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get pod</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png"  alt="image-20200214111931566"></p>
 <h4 id="进入容器查看保存的数据-1"><a href="#进入容器查看保存的数据-1" class="headerlink" title="进入容器查看保存的数据"></a>进入容器查看保存的数据</h4><pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
 root
 / # echo $SECRET_PASSWORD
 123.com</code></pre><h3 id="2-1-更新sevret文件的内容"><a href="#2-1-更新sevret文件的内容" class="headerlink" title="2.1 更新sevret文件的内容"></a>2.1 更新sevret文件的内容</h3><pre><code> [root@master yaml]# kubectl edit secrets mysecret2
- //修改保存文件的内容</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
+ //修改保存文件的内容</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
 <h4 id="查看一下-6"><a href="#查看一下-6" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
 root
@@ -419,13 +419,13 @@ root
 <p><strong>username：adam</strong></p>
 <p><strong>age：18</strong></p>
 </blockquote>
-<h2 id="创建的四种方式"><a href="#创建的四种方式" class="headerlink" title="创建的四种方式"></a>创建的四种方式</h2><h3 id="1、通过–-from-literal-文字的"><a href="#1、通过–-from-literal-文字的" class="headerlink" title="1、通过– from- literal(文字的):"></a>1、通过– from- literal(文字的):</h3><pre><code>[root@master yaml]# kubectl create configmap myconfigmap1 --from-literal=username=adam --from-literal=age=18</code></pre><h4 id="查看一下-7"><a href="#查看一下-7" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl get cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png" alt="image-20200217103048235"></p>
-<pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png" alt="image-20200217103123130"></p>
+<h2 id="创建的四种方式"><a href="#创建的四种方式" class="headerlink" title="创建的四种方式"></a>创建的四种方式</h2><h3 id="1、通过–-from-literal-文字的"><a href="#1、通过–-from-literal-文字的" class="headerlink" title="1、通过– from- literal(文字的):"></a>1、通过– from- literal(文字的):</h3><pre><code>[root@master yaml]# kubectl create configmap myconfigmap1 --from-literal=username=adam --from-literal=age=18</code></pre><h4 id="查看一下-7"><a href="#查看一下-7" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl get cm</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png"  alt="image-20200217103048235"></p>
+<pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png"  alt="image-20200217103123130"></p>
 <h3 id="2、通过–from-file-文件"><a href="#2、通过–from-file-文件" class="headerlink" title="2、通过–from-file (文件) :"></a>2、通过–from-file (文件) :</h3><pre><code>[root@master yaml]# echo adam &gt; username
-[root@master yaml]# echo 18 &gt; age</code></pre><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap myconfigmap2 --from-file=username --from-file=age </code></pre><h4 id="查看一下-8"><a href="#查看一下-8" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png" alt="image-20200217103509006"></p>
+[root@master yaml]# echo 18 &gt; age</code></pre><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap myconfigmap2 --from-file=username --from-file=age </code></pre><h4 id="查看一下-8"><a href="#查看一下-8" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png"  alt="image-20200217103509006"></p>
 <h3 id="3、通过–from-env-file"><a href="#3、通过–from-env-file" class="headerlink" title="3、通过–from- env-file:"></a>3、通过–from- env-file:</h3><pre><code>[root@master yaml]# vim env.txt 
 username=adam
-age=18</code></pre><h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap  myconfigmap3 --from-env-file=env.txt</code></pre><h4 id="查看一下-9"><a href="#查看一下-9" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png" alt="image-20200217165039190"></p>
+age=18</code></pre><h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap  myconfigmap3 --from-env-file=env.txt</code></pre><h4 id="查看一下-9"><a href="#查看一下-9" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl describe cm</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png"  alt="image-20200217165039190"></p>
 <h3 id="4、通过yaml配置文件-1"><a href="#4、通过yaml配置文件-1" class="headerlink" title="4、通过yaml配置文件:"></a>4、通过yaml配置文件:</h3><pre><code>[root@master yaml]# vim configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -433,7 +433,7 @@ metadata:
   name: myconfigmap4
 data:
   username: 'adam'
-  age: '18'</code></pre><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl apply -f configmap.yaml </code></pre><h4 id="查看一下-10"><a href="#查看一下-10" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png" alt="image-20200217104428521"></p>
+  age: '18'</code></pre><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl apply -f configmap.yaml </code></pre><h4 id="查看一下-10"><a href="#查看一下-10" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png"  alt="image-20200217104428521"></p>
 <h2 id="如何来使用configmap资源"><a href="#如何来使用configmap资源" class="headerlink" title="如何来使用configmap资源"></a>如何来使用configmap资源</h2><h3 id="1-以Volume挂载的方式-1"><a href="#1-以Volume挂载的方式-1" class="headerlink" title="1. 以Volume挂载的方式"></a>1. 以Volume挂载的方式</h3><pre><code>[root@master yaml]# vim v-pod.yaml 
 apiVersion: v1
 kind: Pod
@@ -489,7 +489,7 @@ spec:
 # cat /etc/cmp-test/my-group/my-username 
 adam/ 
 # cat /etc/cmp-test/my-group/my-age 
-18/ </code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap1</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png" alt="image-20200217172107999"></p>
+18/ </code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap1</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png"  alt="image-20200217172107999"></p>
 <h4 id="查看一下-13"><a href="#查看一下-13" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
 //进入容器查看
 # cat /etc/cmp-test/my-group/my-username 
@@ -525,7 +525,7 @@ spec:
 adam
  # echo $CONFIGMAP_AGE
 18</code></pre><h3 id="2-1-更新sevret文件的内容-1"><a href="#2-1-更新sevret文件的内容-1" class="headerlink" title="2.1 更新sevret文件的内容"></a>2.1 更新sevret文件的内容</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap2
- //修改保存文件的内容</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png" alt="image-20200217172701793"></p>
+ //修改保存文件的内容</code></pre><p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png"  alt="image-20200217172701793"></p>
 <h4 id="查看一下-15"><a href="#查看一下-15" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
 //进入容器查看一下
  # echo $CONFIGMAP_NAME
@@ -1573,7 +1573,7 @@ spec:
 <h2 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h2><blockquote>
 <p>创建一个Deployment对象来生成对应的Replica Set并完成Pod副本的创建过程。<br>检查Deployment的状态来确认部署动作是否完成（Pod副本的数量是否达到预期值）。<br>更新Deployment以创建新的Pod(例如镜像升级的场景)。<br>如果当前Deployment不稳定，回退到上一个Deployment版本。<br>挂起或恢复一个Deployment。</p>
 </blockquote>
-<h1 id="Service介绍"><a href="#Service介绍" class="headerlink" title="Service介绍"></a>Service介绍</h1><p><img src="https://img-blog.csdn.net/20170809212910268?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHV3aF8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
+<h1 id="Service介绍"><a href="#Service介绍" class="headerlink" title="Service介绍"></a>Service介绍</h1><p><img src="/" class="lazyload" data-src="https://img-blog.csdn.net/20170809212910268?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHV3aF8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"  alt="img"></p>
 <p><strong>Service定义了一个服务的访问入口地址，前端应用通过这个入口地址访问其背后的一组由Pod副本组成的集群实例，Service与其后端的Pod副本集群之间是通过Label Selector来实现“无缝对接”。RC保证Service的Pod副本实例数目保持预期水平。</strong></p>
 <h2 id="外部系统访问Service的问题"><a href="#外部系统访问Service的问题" class="headerlink" title="外部系统访问Service的问题"></a>外部系统访问Service的问题</h2><table>
 <thead>
@@ -1956,9 +1956,9 @@ spec:
       containers:   #指定容器
       - name: nginx  #容器名称
         image: nginx   #使用的镜像</code></pre><h3 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h3><pre><code>[root@master ~]# kubectl apply -f web.yaml </code></pre><h3 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# kubectl get deployments.  -o wide
-//查看控制器信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262"></p>
+//查看控制器信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png"  alt="image-20200107100450262"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209"></p>
+//查看pod节点信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png"  alt="image-20200107101803209"></p>
 <h2 id="3-编写一个service-yaml文件"><a href="#3-编写一个service-yaml文件" class="headerlink" title="3.编写一个service.yaml文件"></a>3.编写一个service.yaml文件</h2><pre><code>[root@master ~]# vim web-svc.yaml
 kind: Service  #资源对象是副本
 apiVersion: v1   #api的版本
@@ -1975,8 +1975,8 @@ spec:
 <p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
 </blockquote>
 <h3 id="（1）执行一下"><a href="#（1）执行一下" class="headerlink" title="（1）执行一下"></a>（1）执行一下</h3><pre><code>[root@master ~]# kubectl apply -f web-svc.yaml </code></pre><h3 id="（2）查看一下"><a href="#（2）查看一下" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h3><pre><code>[root@master ~]# kubectl get svc
-//查看控制器信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972"></p>
-<h3 id="（3）访问一下"><a href="#（3）访问一下" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h3><pre><code>[root@master ~]# curl 10.111.193.168</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353"></p>
+//查看控制器信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png"  alt="image-20200107110717972"></p>
+<h3 id="（3）访问一下"><a href="#（3）访问一下" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h3><pre><code>[root@master ~]# curl 10.111.193.168</code></pre><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png"  alt="image-20200107110837353"></p>
 <h2 id="4-外网能够访问服务"><a href="#4-外网能够访问服务" class="headerlink" title="4.外网能够访问服务"></a>4.外网能够访问服务</h2><h3 id="（1）修改web-svc-yaml文件"><a href="#（1）修改web-svc-yaml文件" class="headerlink" title="（1）修改web-svc.yaml文件"></a>（1）修改web-svc.yaml文件</h3><pre><code>kind: Service  #资源对象是副本
 apiVersion: v1   #api的版本
 metadata:
@@ -1989,8 +1989,8 @@ spec:
   - protocol: TCP
     port: 80            #宿主机的端口
     targetPort: 80      #容器的端口
-    nodePort: 30086     #指定群集映射端口，范围是30000-32767</code></pre><h3 id="（2）刷新一下"><a href="#（2）刷新一下" class="headerlink" title="（2）刷新一下"></a>（2）刷新一下</h3><pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940"></p>
-<h3 id="（4）浏览器测试"><a href="#（4）浏览器测试" class="headerlink" title="（4）浏览器测试"></a>（4）浏览器测试</h3><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952"></p>
+    nodePort: 30086     #指定群集映射端口，范围是30000-32767</code></pre><h3 id="（2）刷新一下"><a href="#（2）刷新一下" class="headerlink" title="（2）刷新一下"></a>（2）刷新一下</h3><pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml </code></pre><h3 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h3><pre><code>[root@master ~]# kubectl get svc</code></pre><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png"  alt="image-20200107111338940"></p>
+<h3 id="（4）浏览器测试"><a href="#（4）浏览器测试" class="headerlink" title="（4）浏览器测试"></a>（4）浏览器测试</h3><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png"  alt="image-20200107111451952"></p>
 <h1 id="三、小实验"><a href="#三、小实验" class="headerlink" title="三、小实验"></a>三、小实验</h1><blockquote>
 <p><strong>基于上一篇博客实验继续进行</strong></p>
 </blockquote>
@@ -2009,10 +2009,10 @@ spec:
       containers:
       - name: web
         image: 192.168.1.21:5000/web:v1   </code></pre><h4 id="（1）执行一下-1"><a href="#（1）执行一下-1" class="headerlink" title="（1）执行一下"></a>（1）执行一下</h4><pre><code>[root@master ~]# kubectl apply -f web-svc.yaml </code></pre><h4 id="（2）查看一下-1"><a href="#（2）查看一下-1" class="headerlink" title="（2）查看一下"></a>（2）查看一下</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide
-//查看控制器信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208"></p>
+//查看控制器信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png"  alt="image-20200107120901208"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152"></p>
-<h4 id="（3）访问一下-1"><a href="#（3）访问一下-1" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h4><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669"></p>
+//查看pod节点信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png"  alt="image-20200107121002152"></p>
+<h4 id="（3）访问一下-1"><a href="#（3）访问一下-1" class="headerlink" title="（3）访问一下"></a>（3）访问一下</h4><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png"  alt="image-20200107121147669"></p>
 <h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><a href="#2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123" class="headerlink" title="2.  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123."></a><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3><h4 id="编写service文件"><a href="#编写service文件" class="headerlink" title="编写service文件"></a>编写service文件</h4><pre><code>[root@master ~]# vim www-svc.yaml
 kind: Service
 apiVersion: v1
@@ -2026,8 +2026,8 @@ spec:
   - protocol: TCP
     port: 80
     targetPort: 80
-    nodePort: 30123</code></pre><h4 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master ~]# kubectl apply -f www-svc.yaml </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get svc</code></pre><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525"></p>
-<h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><p><img src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559"></p>
+    nodePort: 30123</code></pre><h4 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master ~]# kubectl apply -f www-svc.yaml </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get svc</code></pre><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png"  alt="image-20200107121929525"></p>
+<h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png"  alt="image-20200107122015559"></p>
 <h1 id="四-总结"><a href="#四-总结" class="headerlink" title="四. 总结"></a>四. 总结</h1><h2 id="1-Pod的作用"><a href="#1-Pod的作用" class="headerlink" title="1. Pod的作用"></a><strong>1. Pod的作用</strong></h2><blockquote>
 <p>在k8s中pod是最小的管理单位，在一个pod中通常会包含一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。<br>在每一个Pod中都有一个特殊的Pause容器和一个或多个业务容器，Pause来源于pause-amd64镜像,Pause容器在Pod中具有非常重要的作用：</p>
 <ul>
@@ -2234,7 +2234,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000</code></pre><p>
 <td></td>
 </tr>
 </tbody></table>
-<h1 id="kubernetes架构"><a href="#kubernetes架构" class="headerlink" title="kubernetes架构"></a>kubernetes架构</h1><p><img src="https://upload-images.jianshu.io/upload_images/2032456-3447c966ff470446.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="img"></p>
+<h1 id="kubernetes架构"><a href="#kubernetes架构" class="headerlink" title="kubernetes架构"></a>kubernetes架构</h1><p><img src="/" class="lazyload" data-src="https://upload-images.jianshu.io/upload_images/2032456-3447c966ff470446.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp"  alt="img"></p>
 <p><strong>kubectl：</strong>k8s是命令行端，用来发送客户的操作指令。</p>
 <h2 id="master节点"><a href="#master节点" class="headerlink" title="master节点"></a>master节点</h2><p><strong>1. API server[资源操作入口]</strong>：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。</p>
 <blockquote>
@@ -2264,9 +2264,9 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000</code></pre><p>
 <p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
 <p><strong>7. Flanner：</strong>是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces
-//查看pod信息</code></pre><p><img src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104100759831.png" alt="image-20200104100759831"></p>
+//查看pod信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104100759831.png"  alt="image-20200104100759831"></p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
-//显示pod的节点信息</code></pre><p><img src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104101023909.png" alt="image-20200104101023909"></p>
+//显示pod的节点信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104101023909.png"  alt="image-20200104101023909"></p>
 <h2 id="Node节点"><a href="#Node节点" class="headerlink" title="Node节点"></a>Node节点</h2><p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
 <blockquote>
 <ul>
@@ -2293,12 +2293,12 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000</code></pre><p>
 </blockquote>
 <h3 id="运行一个例子（创建一个deployment资源对象-lt-pod控制器-gt-）"><a href="#运行一个例子（创建一个deployment资源对象-lt-pod控制器-gt-）" class="headerlink" title="运行一个例子（创建一个deployment资源对象<pod控制器>）"></a>运行一个例子（创建一个deployment资源对象&lt;pod控制器&gt;）</h3><pre><code>[root@master ~]# kubectl run test-web --image=httpd --replicas=2
 //创建一个deployment资源对象。</code></pre><p><strong><em>运行完成之后，如果有镜像可直接开启，没有的话需要等待一会儿，node节点要在docker hup上下载</em></strong></p>
-<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy</code></pre><p><img src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104110812772.png" alt="image-20200104110812772"></p>
-<pre><code>[root@master ~]# kubectl get pod</code></pre><p><img src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104110954406.png" alt="image-20200104110954406"></p>
+<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy</code></pre><p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104110812772.png"  alt="image-20200104110812772"></p>
+<pre><code>[root@master ~]# kubectl get pod</code></pre><p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104110954406.png"  alt="image-20200104110954406"></p>
 <pre><code>[root@master ~]# kubectl get pod  -o wide
-//显示pod的节点信息</code></pre><p><img src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104111128779.png" alt="image-20200104111128779"></p>
+//显示pod的节点信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104111128779.png"  alt="image-20200104111128779"></p>
 <p><strong><em>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart="" kubelet=""></systemctl></em></strong></p>
-<h3 id="如果删除一个pod"><a href="#如果删除一个pod" class="headerlink" title="如果删除一个pod"></a>如果删除一个pod</h3><pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p><img src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104112418012.png" alt="image-20200104112418012"></p>
+<h3 id="如果删除一个pod"><a href="#如果删除一个pod" class="headerlink" title="如果删除一个pod"></a>如果删除一个pod</h3><pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get pod -o wide</code></pre><p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104112418012.png"  alt="image-20200104112418012"></p>
 <p><strong><em>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</em></strong></p>
 <p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
 <script>
@@ -2357,14 +2357,14 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000</code></pre><p>
 [root@localhost ~]# su -</code></pre><p><strong>k8.3</strong></p>
 <pre><code>[root@localhost ~]# hostnamectl set-hostname node02
 [root@localhost ~]# su -</code></pre><p>验证docker是否能使用及版本是否一样</p>
-<pre><code>[root@master ~]# docker -v</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102093813472.png" alt="image-20200102093813472"></p>
+<pre><code>[root@master ~]# docker -v</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102093813472.png"  alt="image-20200102093813472"></p>
 <h3 id="2-关闭防火墙及禁用selinux"><a href="#2-关闭防火墙及禁用selinux" class="headerlink" title="2.关闭防火墙及禁用selinux"></a>2.关闭防火墙及禁用selinux</h3><pre><code>[root@master ~]# systemctl stop firewalld
 [root@master ~]# systemctl disable firewalld
- [root@master ~]# vim /etc/selinux/config</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102115453524.jpg" alt="image-20200102115453524"></p>
+ [root@master ~]# vim /etc/selinux/config</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102115453524.jpg"  alt="image-20200102115453524"></p>
 <h3 id="3-禁用swap（三台）"><a href="#3-禁用swap（三台）" class="headerlink" title="3.  禁用swap（三台）"></a>3.  禁用swap（三台）</h3><pre><code>[root@master ~]# swapoff -a
 //临时禁用swap
 [root@master ~]# free -h
-[root@master ~]# vim /etc/fstab </code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102094039749.png" alt="image-20200102094039749"></p>
+[root@master ~]# vim /etc/fstab </code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102094039749.png"  alt="image-20200102094039749"></p>
 <h3 id="4-添加域名解析（三台）"><a href="#4-添加域名解析（三台）" class="headerlink" title="4.添加域名解析（三台）"></a>4.添加域名解析（三台）</h3><pre><code>[root@master ~]# echo 192.168.1.21 master &gt;&gt; /etc/hosts
 [root@master ~]# echo 192.168.1.22 node01 &gt;&gt; /etc/hosts
 [root@master ~]# echo 192.168.1.23 node02 &gt;&gt; /etc/hosts</code></pre><h3 id="5-做免密登陆（三台）"><a href="#5-做免密登陆（三台）" class="headerlink" title="5.做免密登陆（三台）"></a>5.做免密登陆（三台）</h3><pre><code>[root@master ~]# ssh-keygen -t rsa
@@ -2397,11 +2397,11 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
 EOF</code></pre><p><strong>下载完成之后，查看一下仓库是否可用</strong></p>
-<pre><code>[root@master ~]# yum repolist </code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102095945934.png" alt="image-20200102095945934"></p>
+<pre><code>[root@master ~]# yum repolist </code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102095945934.png"  alt="image-20200102095945934"></p>
 <p><strong>创建本地缓存（三台）</strong></p>
 <pre><code>[root@master ~]# yum makecache fast</code></pre><h2 id="各节点安装所需安装包"><a href="#各节点安装所需安装包" class="headerlink" title="各节点安装所需安装包"></a>各节点安装所需安装包</h2><h3 id="master下载"><a href="#master下载" class="headerlink" title="master下载"></a><strong>master下载</strong></h3><pre><code>[root@master ~]# yum -y install kubeadm-1.15.0-0 kubelet-1.15.0-0 kubectl-1.15.0-0</code></pre><h3 id="node01和node02下载"><a href="#node01和node02下载" class="headerlink" title="node01和node02下载"></a><strong>node01和node02下载</strong></h3><pre><code>[root@node01 ~]# yum -y install kubeadm-1.15.0-0 kubelet-1.15.0-0</code></pre><h3 id="三台主机把-kubelet加入开机自启"><a href="#三台主机把-kubelet加入开机自启" class="headerlink" title="三台主机把 kubelet加入开机自启"></a><strong>三台主机把 kubelet加入开机自启</strong></h3><pre><code>[root@master ~]# systemctl enable kubelet</code></pre><h2 id="master导入，之前准备好的镜像"><a href="#master导入，之前准备好的镜像" class="headerlink" title="master导入，之前准备好的镜像"></a><strong>master导入，之前准备好的镜像</strong></h2><pre><code>[root@master ~]# mkdir images
 [root@master ~]# cd images/
-[root@master images]# ls</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102101531123.png" alt="image-20200102101531123"></p>
+[root@master images]# ls</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102101531123.png"  alt="image-20200102101531123"></p>
 <h3 id="创建一个导入镜像的脚本"><a href="#创建一个导入镜像的脚本" class="headerlink" title="创建一个导入镜像的脚本"></a><strong>创建一个导入镜像的脚本</strong></h3><pre><code>[root@master images]# cat &gt; image.sh &lt;&lt;EOF
 &gt; #!/bin/bash
 &gt; for i in /root/images/*
@@ -2411,11 +2411,11 @@ EOF</code></pre><p><strong>下载完成之后，查看一下仓库是否可用</
 &gt; EOF
 [root@master images]# chmod +x image.sh </code></pre><h3 id="导入镜像"><a href="#导入镜像" class="headerlink" title="导入镜像"></a>导入镜像</h3><pre><code>[root@master images]# sh image.sh </code></pre><h3 id="初始化Kubernetes集群"><a href="#初始化Kubernetes集群" class="headerlink" title="初始化Kubernetes集群"></a>初始化Kubernetes集群</h3><pre><code>[root@master ~]#  kubeadm init --kubernetes-version=v1.15.0 --pod-network-cidr=10.244.0.0/16 --service-cidr=10.96.0.0/12 --ignore-preflight-errors=Swap</code></pre><p><strong>如果以上的命令报错，找出问题后先重置一下（下面的命令），然后再执行以上命令</strong></p>
 <pre><code>[root@master ~]# kubeadm reset
-//重置kubeadm</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102122213788.png" alt="image-20200102122213788"></p>
+//重置kubeadm</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102122213788.png"  alt="image-20200102122213788"></p>
 <pre><code>[root@master images]# kubectl get node
-//查看当前节点信息</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102110808239.png" alt="image-20200102110808239"></p>
+//查看当前节点信息</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102110808239.png"  alt="image-20200102110808239"></p>
 <p><strong>可以看出master的状态是未就绪（NotReady），之所以是这种状态是因为还缺少一个附件flannel，没有网络各Pod是无法通信的</strong></p>
-<h3 id="也可以通过检查组件的健康状态"><a href="#也可以通过检查组件的健康状态" class="headerlink" title="也可以通过检查组件的健康状态"></a><strong>也可以通过检查组件的健康状态</strong></h3><pre><code>[root@master images]# kubectl get cs</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102122413443.png" alt="image-20200102122413443"></p>
+<h3 id="也可以通过检查组件的健康状态"><a href="#也可以通过检查组件的健康状态" class="headerlink" title="也可以通过检查组件的健康状态"></a><strong>也可以通过检查组件的健康状态</strong></h3><pre><code>[root@master images]# kubectl get cs</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102122413443.png"  alt="image-20200102122413443"></p>
 <h3 id="添加网络组件（flannel）"><a href="#添加网络组件（flannel）" class="headerlink" title="添加网络组件（flannel）"></a>添加网络组件（flannel）</h3><p> <strong>组件flannel可以通过<a href="https://github.com/coreos/flannel中获取" target="_blank" rel="noopener">https://github.com/coreos/flannel中获取</a></strong></p>
 <pre><code>[root@master ~]# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml</code></pre><p>以上只是方式之一，在网络状况良好的情况下建议使用上述方法（调用远端文件执行一下），<strong>若网速较差，建议使用以下方法：</strong></p>
 <pre><code>[root@master images]# wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
@@ -2425,19 +2425,19 @@ kube-flannel.yml
 [root@master images]# kubectl apply -f kube-flannel.yml  #指定下载的.yml文件执行相应命令</code></pre><p><strong><em>上述方法，二选一进行配置即可。</em></strong></p>
 <p><strong>看到很多东西被创建是还不够的，还需要查看flannel是否处于正常启动并运行的状态，才算正在的部署完成</strong></p>
 <pre><code>[root@master images]# kubectl get pods --all-namespaces
-//查看所有的名称空间的pod（可以看到flannel网络运行正常）</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102122732587.png" alt="image-20200102122732587"></p>
+//查看所有的名称空间的pod（可以看到flannel网络运行正常）</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102122732587.png"  alt="image-20200102122732587"></p>
 <pre><code>[root@master images]# kubectl get pod -n kube-system
-//查看名称空间为kube-system的pod</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102122826221.png" alt="image-20200102122826221"></p>
+//查看名称空间为kube-system的pod</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102122826221.png"  alt="image-20200102122826221"></p>
 <p>查看当前节点信息</p>
 <pre><code>kubectl get node
-//查看当前节点信息（已经准备好了）</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102111853910.png" alt="image-20200102111853910"></p>
+//查看当前节点信息（已经准备好了）</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102111853910.png"  alt="image-20200102111853910"></p>
 <h1 id="node两台节点，导入镜像并加入群集"><a href="#node两台节点，导入镜像并加入群集" class="headerlink" title="node两台节点，导入镜像并加入群集"></a>node两台节点，导入镜像并加入群集</h1><h2 id="导入镜像-1"><a href="#导入镜像-1" class="headerlink" title="导入镜像"></a>导入镜像</h2><p>上传所需镜像包，也可以使用docker pull下载</p>
-<p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102133744555.png" alt="image-20200102133744555"></p>
+<p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102133744555.png"  alt="image-20200102133744555"></p>
 <pre><code>[root@node01 images]# docker load &lt; kube-proxy-1-15.tar &amp;&amp; docker load -i myflannel-11-0.tar  &amp;&amp; docker load -i pause-3-1.tar</code></pre><pre><code>[root@node01 images]# docker images
-//查看本地镜像</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102134006724.png" alt="image-20200102134006724"></p>
+//查看本地镜像</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102134006724.png"  alt="image-20200102134006724"></p>
 <h2 id="node01和node02加入群集"><a href="#node01和node02加入群集" class="headerlink" title="node01和node02加入群集"></a>node01和node02加入群集</h2><p><strong>这时使用的命令是初始化群集之后生成的令牌（只有24小时的时效）</strong></p>
-<p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102134336922.png" alt="image-20200102134336922"></p>
-<pre><code>[root@node01 ~]# kubeadm join 192.168.1.21:6443 --token z0vknh.s6ib4eu4f8bre2nu     --discovery-token-ca-cert-hash sha256:8da72cc83f45d1247f42ce888658129b43726fe2af4ffc0c4e79faedb4050359</code></pre><h2 id="加入群集之后查看一下"><a href="#加入群集之后查看一下" class="headerlink" title="加入群集之后查看一下"></a>加入群集之后查看一下</h2><pre><code>[root@master images]# kubectl get node</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102114628989.png" alt="image-20200102114628989"></p>
+<p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102134336922.png"  alt="image-20200102134336922"></p>
+<pre><code>[root@node01 ~]# kubeadm join 192.168.1.21:6443 --token z0vknh.s6ib4eu4f8bre2nu     --discovery-token-ca-cert-hash sha256:8da72cc83f45d1247f42ce888658129b43726fe2af4ffc0c4e79faedb4050359</code></pre><h2 id="加入群集之后查看一下"><a href="#加入群集之后查看一下" class="headerlink" title="加入群集之后查看一下"></a>加入群集之后查看一下</h2><pre><code>[root@master images]# kubectl get node</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102114628989.png"  alt="image-20200102114628989"></p>
 <h1 id="各节点优化一下"><a href="#各节点优化一下" class="headerlink" title="各节点优化一下"></a>各节点优化一下</h1><h2 id="设置table键的默认间距；"><a href="#设置table键的默认间距；" class="headerlink" title="设置table键的默认间距；"></a>设置table键的默认间距；</h2><pre><code>[root@master ~]# vim .vimrc
 set tabstop=2
 [root@master ~]# source .vimrc </code></pre><h2 id="设置kubectl命令自动补全"><a href="#设置kubectl命令自动补全" class="headerlink" title="设置kubectl命令自动补全"></a>设置kubectl命令自动补全</h2><pre><code>[root@master ~]# yum  -y install bash-completion
@@ -2445,7 +2445,7 @@ set tabstop=2
 [root@master ~]# source &lt;(kubectl completion bash)
 [root@master ~]# echo "source &lt;(kubectl completion bash)" &gt;&gt; ~/.bashrc</code></pre><h2 id="确认k8s群集没有问题，并设置为开机自启"><a href="#确认k8s群集没有问题，并设置为开机自启" class="headerlink" title="确认k8s群集没有问题，并设置为开机自启"></a>确认k8s群集没有问题，并设置为开机自启</h2><h3 id="master主机操作如下："><a href="#master主机操作如下：" class="headerlink" title="master主机操作如下："></a><strong>master主机操作如下：</strong></h3><pre><code>[root@master ~]# kubectl get pod -n kube-system   
 #查看pod资源，类似于docker中的容器，确保返回的信息都是running
-#“-n kube-system”：是k8s的名称空间</code></pre><p><img src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102142028971.png" alt="image-20200102142028971"></p>
+#“-n kube-system”：是k8s的名称空间</code></pre><p><img src="/" class="lazyload" data-src="/posts/2cda.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200102142028971.png"  alt="image-20200102142028971"></p>
 <h3 id="master和node节点上都需要进行以下操作，以便设置为开机自启："><a href="#master和node节点上都需要进行以下操作，以便设置为开机自启：" class="headerlink" title="master和node节点上都需要进行以下操作，以便设置为开机自启："></a><strong>master和node节点上都需要进行以下操作，以便设置为开机自启：</strong></h3><pre><code>[root@master ~]# systemctl enable kubelet
 [root@master ~]# systemctl enable docker </code></pre><p><strong>设置为开机自启后，k8s群集的配置基本完成了，现在可以重启一下这三台服务器，如果重启后，执行下面的命令，状态都还是running，则表示绝对没有问题了。</strong></p>
 <pre><code>[root@master ~]# kubectl get pod -n kube-system    #重启后验证状态是否还都是running</code></pre><script>
@@ -2560,20 +2560,20 @@ type: <span class="token string">"tags"</span>
 <pre><code>./configure --prefix=/usr/local/nginx1.14 --with-http_dav_module --with-http_stub_status_module --with-http_addition_module  --with-http_sub_module --with-http_flv_module --with-http_mp4_module --with-pcre --with-http_ssl_module --with-http_gzip_static_module --user=nginx --group=nginx
 
 make  &amp;&amp;  make install</code></pre><p>3.创建所需的用户<br>[root@bogon nginx-1.14.0]# useradd nginx -s /sbin/nologin -M<br>4.链接命令目录<br>[root@bogon nginx-1.14.0]#ln -s /usr/local/nginx1.14/sbin/nginx /usr/local/sbin/<br>5.开启nginx，查看端口<br>nginx<br>[root@bogon nginx-1.14.0]# netstat -anpt | grep 80<br>tcp        0      0 0.0.0.0:80              0.0.0.0:*           LISTEN 5671/nginx: master<br>6.修改/usr/local/nginx1.14/conf/nginx.conf<br><a href="https://s1.51cto.com/images/blog/201910/24/1aaadc6aa6cc737acd8a424b97504f4a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/1aaadc6aa6cc737acd8a424b97504f4a.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a><br>7.修改/etc/security/limits.conf<br><a href="https://s1.51cto.com/images/blog/201910/24/a508ad0b699d78707ff1ad65efbb0697.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/a508ad0b699d78707ff1ad65efbb0697.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a><br>8.查看现在是否没变<br><a href="https://s1.51cto.com/images/blog/201910/24/648c8e34c917753ba68c9bc52f9bca4b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/648c8e34c917753ba68c9bc52f9bca4b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a><br>9.注销一下，重新查看一下，是否变化<br><a href="https://s1.51cto.com/images/blog/201910/24/13371a17405ce555d9c2e7b69c5f8a73.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/13371a17405ce555d9c2e7b69c5f8a73.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a><br>10.开启nginx，查看nginx变化<br><a href="https://s1.51cto.com/images/blog/201910/24/f2ad409eac8bec625c5f0e6e4242a203.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/f2ad409eac8bec625c5f0e6e4242a203.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a></p>
-<p><a href="https://s1.51cto.com/images/blog/201910/24/460c4a55096b042947f2c144b0d2d403.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/460c4a55096b042947f2c144b0d2d403.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a>)<br> <a href="https://s1.51cto.com/images/blog/201910/24/ec3da9517fee664957794f6508a714dd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/ec3da9517fee664957794f6508a714dd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a><br>11.页面访问一下nginx<br> <img src="https://s1.51cto.com/images/blog/201910/24/b044fd450fbb18a8ed1b24e5e6954dee.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<p>二、部署 LNMP （部署环境需求：nginx和php在一台，再开启一台apache做防盗链）<br>1.安装php<br>首先安装libmcrypt 和依赖包<br> <img src="/posts/cfe.htm/lor_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br> <img src="https://s1.51cto.com/images/blog/201910/24/7de79265df81e71f3639ea6bc663bb82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<p><a href="https://s1.51cto.com/images/blog/201910/24/460c4a55096b042947f2c144b0d2d403.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/460c4a55096b042947f2c144b0d2d403.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a>)<br> <a href="https://s1.51cto.com/images/blog/201910/24/ec3da9517fee664957794f6508a714dd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/ec3da9517fee664957794f6508a714dd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a><br>11.页面访问一下nginx<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/b044fd450fbb18a8ed1b24e5e6954dee.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p>二、部署 LNMP （部署环境需求：nginx和php在一台，再开启一台apache做防盗链）<br>1.安装php<br>首先安装libmcrypt 和依赖包<br> <img src="/" class="lazyload" data-src="/posts/cfe.htm/lor_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/7de79265df81e71f3639ea6bc663bb82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
 <p>编译安装php</p>
 <pre><code>./configure  --prefix=/usr/local/php5.6  --with-mysql=mysqlnd   --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd   --with-openssl --enable-fpm --enable-sockets  --enable-sysvshm  --enable-mbstring --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib  --with-libxml-dir=/usr --enable-xml  --with-mhash  --with-mcrypt=/usr/local/libmcrypt  --with-config-file-path=/etc --with-config-file-scan-dir=/etc/php.d --with-bz2 --enable-maintainer-zts
 
 make &amp;&amp; make intall</code></pre><p>提供 php 配置文件<br>[root@bogon php-5.6.27]# cp php.ini-production  /etc/php.ini</p>
-<p>为 php-fpm 提供脚本<br> <img src="https://s1.51cto.com/images/blog/201910/24/d397ef1d67c0b73e88fdd43f75c04250.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<p>提供 php-fpm 配置文件并编辑<br> <img src="https://s1.51cto.com/images/blog/201910/24/55501fc53895eb8988bb32024b97b79b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br>修改/usr/local/php5.6/etc/php-fpm.conf</p>
+<p>为 php-fpm 提供脚本<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/d397ef1d67c0b73e88fdd43f75c04250.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p>提供 php-fpm 配置文件并编辑<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/55501fc53895eb8988bb32024b97b79b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>修改/usr/local/php5.6/etc/php-fpm.conf</p>
 <p>启动php 查看9000端口</p>
 <pre><code>/etc/init.d/php-fpm  start
 [root@bogon etc]# netstat -anpt | grep 9000
-tcp        0      0 0.0.0.0:9000            0.0.0.0:*               LISTEN</code></pre><p>修改/usr/local/nginx1.14/conf/nginx.conf<br><img src="https://s1.51cto.com/images/blog/201910/24/69dc6a47aebff7e1aba5d77f36661635.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br> <img src="https://s1.51cto.com/images/blog/201910/24/a93aec7853a978374ff02d8e6858dfe8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<p>创建/usr/local/nginx1.14/html/index.php<br> <img src="https://s1.51cto.com/images/blog/201910/24/89c17abe068b68a6ee991a6ab6348b03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br> <img src="https://s1.51cto.com/images/blog/201910/24/a02e66d9f5d5cc8695781c6b93bf2ac7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<p>测试<br> <img src="https://s1.51cto.com/images/blog/201910/24/d8afb06d3b51ff455eeebacc37ca5282.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+tcp        0      0 0.0.0.0:9000            0.0.0.0:*               LISTEN</code></pre><p>修改/usr/local/nginx1.14/conf/nginx.conf<br><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/69dc6a47aebff7e1aba5d77f36661635.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/a93aec7853a978374ff02d8e6858dfe8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p>创建/usr/local/nginx1.14/html/index.php<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/89c17abe068b68a6ee991a6ab6348b03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/a02e66d9f5d5cc8695781c6b93bf2ac7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p>测试<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/d8afb06d3b51ff455eeebacc37ca5282.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
 <pre><code>内核参数优化 添加 /etc//sysctl.conf
 
 fs.file-max = 999999
@@ -2610,8 +2610,8 @@ net.ipv4.tcp_fin_timeout = 1
 net.ipv4.tcp_keepalive_time = 30
 net.ipv4.ip_local_port_range = 1024 65000
 
-执行 sysctl -p 使内核修改生效</code></pre><p> <img src="https://s1.51cto.com/images/blog/201910/24/713c229373aea83e02c0a8e4d20bcdab.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br>查看更新值<br> <img src="https://s1.51cto.com/images/blog/201910/24/c0bbf25a5e53f9b1afac5af2ff94e034.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<p>修改/usr/local/nginx1.14/conf/nginx.conf<br> <img src="https://s1.51cto.com/images/blog/201910/24/955e6fc97af123b4317de1ac734d9b82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+执行 sysctl -p 使内核修改生效</code></pre><p> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/713c229373aea83e02c0a8e4d20bcdab.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>查看更新值<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/c0bbf25a5e53f9b1afac5af2ff94e034.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p>修改/usr/local/nginx1.14/conf/nginx.conf<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/955e6fc97af123b4317de1ac734d9b82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
 <pre><code>sendfile on;
 tcp_nopush on;
 keepalive_timeout 65;
@@ -2664,7 +2664,7 @@ location / {
 location /status {
 stub_status on;
 }
-把之前php测试页注释掉</code></pre><p> <img src="https://s1.51cto.com/images/blog/201910/24/67ccc5fd235260f2cf030e4f604168a5.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+把之前php测试页注释掉</code></pre><p> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/67ccc5fd235260f2cf030e4f604168a5.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
 <pre><code>location ~ .*\.(php|php5)?$ {
 root html;
 fastcgi_pass 127.0.0.1:9000;
@@ -2679,21 +2679,21 @@ fastcgi_cache_use_stale error timeout invalid_header http_500;
 fastcgi_cache_key http://$host$request_uri;
 }</code></pre><p>重启php<br>nginx   -s  reload</p>
 <p>测试</p>
-<p><img src="https://s1.51cto.com/images/blog/201910/24/77bacba9f977ef69165d77bb52ca576b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/77bacba9f977ef69165d77bb52ca576b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
 <p>三、验证、压力测试<br>查看ab的安装包<br>yum provides ab</p>
 <p>安装httpd-tools<br>yum -y install httpd-tools</p>
-<p>压力测试<br>ab -c 2000 -n 10000 192.168.1.50/index.html<br> <img src="https://s1.51cto.com/images/blog/201910/24/441c6635cdcedaa3d7c38bdd66b9f0bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<p>ab -c 2000 -n 10000 192.168.1.50/index.php<br> <img src="https://s1.51cto.com/images/blog/201910/24/de29a59b7a5a96260bf978504da2599b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br>两次压力测试做对比</p>
+<p>压力测试<br>ab -c 2000 -n 10000 192.168.1.50/index.html<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/441c6635cdcedaa3d7c38bdd66b9f0bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p>ab -c 2000 -n 10000 192.168.1.50/index.php<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/de29a59b7a5a96260bf978504da2599b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>两次压力测试做对比</p>
 <p>验证防盗链<br>使用 apache 做为一个测试站点，域名为 <a href="http://www.test.com，在测试页上做一个超链接，链接" target="_blank" rel="noopener">www.test.com，在测试页上做一个超链接，链接</a> nginx</p>
-<p>在apache主机上创建vim /var/www/html/index.html<br> <img src="https://s1.51cto.com/images/blog/201910/24/ed574cbe8e06795ca0a54e01ffb1430b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br>开启httpd<br>systemctl  start httpd</p>
+<p>在apache主机上创建vim /var/www/html/index.html<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/ed574cbe8e06795ca0a54e01ffb1430b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>开启httpd<br>systemctl  start httpd</p>
 <p>测试</p>
-<p> <img src="https://s1.51cto.com/images/blog/201910/24/c57c74b59eba91b5faf2c3c3d739143c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br><img src="https://s1.51cto.com/images/blog/201910/24/1b699af52241e6050626b9ed6800bd31.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
-<p>论坛<br>Php服务器解压 压缩包<br>unzip Discuz_7.0.0_FULL_SC_UTF8.zip<br>cd Discuz_7.0.0_FULL_SC_UTF8/<br>   ls<br>   ls upload/<br> <img src="https://s1.51cto.com/images/blog/201910/24/abbfa3c66befd53d7187a49e35d42ee1.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""><br>修改/etc/php.ini<br> <img src="https://s1.51cto.com/images/blog/201910/24/51b84e704f1eaf27bbfcd82918b42668.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt=""></p>
+<p> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/c57c74b59eba91b5faf2c3c3d739143c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/1b699af52241e6050626b9ed6800bd31.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p>论坛<br>Php服务器解压 压缩包<br>unzip Discuz_7.0.0_FULL_SC_UTF8.zip<br>cd Discuz_7.0.0_FULL_SC_UTF8/<br>   ls<br>   ls upload/<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/abbfa3c66befd53d7187a49e35d42ee1.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>修改/etc/php.ini<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/51b84e704f1eaf27bbfcd82918b42668.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
 <p>Mysql服务器</p>
 <p>进入MySQL<br>mysql -u root  -p123</p>
 <p>创建数据库<br>create database bbs;</p>
 <p>grant all on <em>.</em>  to  root@’192.168.1.%’ identified by ‘123.com’;</p>
-<p>测试 浏览器输入  http://自己的IP地址/bbs/install<br> <img src="https://s1.51cto.com/101?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" alt="">)<a href="http://xn--ip-im8ckc388bqo2btxq/bbs/install" target="_blank" rel="noopener">http://xn--ip-im8ckc388bqo2btxq/bbs/install</a>)</p>
+<p>测试 浏览器输入  http://自己的IP地址/bbs/install<br> <img src="/" class="lazyload" data-src="https://s1.51cto.com/101?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt="">)<a href="http://xn--ip-im8ckc388bqo2btxq/bbs/install" target="_blank" rel="noopener">http://xn--ip-im8ckc388bqo2btxq/bbs/install</a>)</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2722,8 +2722,8 @@ fastcgi_cache_key http://$host$request_uri;
       </tags>
   </entry>
   <entry>
-    <title>contact</title>
-    <url>/contact/index.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2768,8 +2768,8 @@ fastcgi_cache_key http://$host$request_uri;
       </script>]]></content>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>contact</title>
+    <url>/contact/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -2793,7 +2793,7 @@ fastcgi_cache_key http://$host$request_uri;
   <entry>
     <title></title>
     <url>/lib/canvas-nest/README.html</url>
-    <content><![CDATA[<h1 id="Theme-NexT-Canvas-Nest"><a href="#Theme-NexT-Canvas-Nest" class="headerlink" title="Theme NexT Canvas Nest"></a>Theme NexT Canvas Nest</h1><p><img src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square" alt="Theme Version"></p>
+    <content><![CDATA[<h1 id="Theme-NexT-Canvas-Nest"><a href="#Theme-NexT-Canvas-Nest" class="headerlink" title="Theme NexT Canvas Nest"></a>Theme NexT Canvas Nest</h1><p><img src="/" class="lazyload" data-src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square"  alt="Theme Version"></p>
 <p><a href="https://github.com/hustcc/canvas-nest.js" target="_blank" rel="noopener">canvas-nest.js</a> for <a href="https://github.com/theme-next" target="_blank" rel="noopener">NexT</a>.</p>
 <h2 id="Install"><a href="#Install" class="headerlink" title="Install"></a>Install</h2><h3 id="Step-1-rarr-Go-to-Hexo-dir"><a href="#Step-1-rarr-Go-to-Hexo-dir" class="headerlink" title="Step 1 → Go to Hexo dir"></a>Step 1 → Go to Hexo dir</h3><p>Change dir to <strong>Hexo</strong> directory. There must be <code>scaffolds</code>, <code>source</code>, <code>themes</code> and other directories:</p>
 <pre class=" language-sh"><code class="language-sh">$ cd hexo
