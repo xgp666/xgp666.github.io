@@ -1,26 +1,17 @@
 $(function () {
   var loadFlag = false
   $('a.social-icon.search').on('click', function () {
-    $('body').css('width', '100%')
-    $('body').css('overflow', 'hidden')
-    $('.search-dialog').velocity('stop')
-      .velocity('transition.expandIn', {
-        duration: 300,
-        complete: function () {
-          $('#local-search-input input').focus()
-        }
-      })
-    $('.search-mask').velocity('stop')
-      .velocity('transition.fadeIn', {
-        duration: 300
-      })
+    $('body').css({ width: '100%', overflow: 'hidden' })
+    $('.search-dialog').css('display', 'block')
+    $('#local-search-input input').focus()
+    $('.search-mask').fadeIn()
     if (!loadFlag) {
       search(GLOBAL_CONFIG.localSearch.path)
       loadFlag = true
     }
 
     // shortcut: ESC
-    document.addEventListener('keydown', function f(event) {
+    document.addEventListener('keydown', function f (event) {
       if (event.code === 'Escape') {
         closeSearch()
         document.removeEventListener('keydown', f)
@@ -29,19 +20,26 @@ $(function () {
   })
 
   var closeSearch = function () {
-    $('body').css('overflow', 'auto')
-    $('.search-dialog').velocity('stop')
-      .velocity('transition.expandOut', {
-        duration: 300
-      })
-    $('.search-mask').velocity('stop')
-      .velocity('transition.fadeOut', {
-        duration: 300
-      })
-  }
-  $('.search-mask, .search-close-button').on('click', closeSearch)
+    $('body').css('width', '')
+    $('body').css('overflow', '')
+    $('.search-dialog').css({
+      animation: 'search_close .5s'
+    })
 
-  function search(path) {
+    $('.search-dialog').animate({}, function () {
+      setTimeout(function () {
+        $('.search-dialog').css({
+          animation: '',
+          display: 'none'
+        })
+      }, 500)
+    })
+
+    $('.search-mask').fadeOut()
+  }
+  $('.search-mask, .search-close-button').on('click touchstart', closeSearch)
+
+  function search (path) {
     $.ajax({
       url: GLOBAL_CONFIG.root + path,
       dataType: 'xml',
