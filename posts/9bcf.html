@@ -120,15 +120,15 @@ function activateLightMode(){
 <p><strong>&lt;1&gt;dstat命令的–version选项，除了显示出tat的版本以外，还会显示操作系统的版本、Python语言的版本、cpu的个数，以及dstat支持的插件列表等详细信息。如下所示：</strong></p>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python ~]# dstat --version
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141843251.png"  alt="image-20200429141843251"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141843251.png"  alt="image-20200429141843251"></p>
 <p><strong>&lt;2&gt;dstat --list获取dstat的插件列表</strong></p>
 <pre class=" language-language-shell"><code class="language-language-shell">dstat --list
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141907299.png"  alt="image-20200429141907299"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141907299.png"  alt="image-20200429141907299"></p>
 <p><strong>&lt;3&gt;直接在终端输入dstat命令，dstat将以默认参数运行。默认情况下，dstat会收集cpu、磁盘、网络、换页和系统信息，并以一秒钟一次的频率进行输出，直到我们按 ctrl+c 结束。</strong></p>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python ~]# dstat 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141632842.png"  alt="image-20200429141632842"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141632842.png"  alt="image-20200429141632842"></p>
 <h2 id="4、常用选项如下">4、常用选项如下: .</h2>
 <blockquote>
 <p><strong>直接跟数字，表示#秒收集一次数据，默认为1秒; dstat 5表示5秒更新一次</strong></p>
@@ -257,7 +257,7 @@ usr sys idl wai hiq siq| read  writ| recv  send|  in   out >
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python ~]# sz dstat_output.csv
 //导出本地文件到windows指定位置
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429160149926.png"  alt="image-20200429160149926"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429160149926.png"  alt="image-20200429160149926"></p>
 <h1>二、交互性监控工具glances</h1>
 <h2 id="1、glances简介">1、glances简介</h2>
 <p><strong>glances是一款使用Python语言开发、基于psutil的跨平台系统监控工具。在所有的Linux命令行工具中，它与top命令最相似，都是命令行交互式监控工具。但是，glances实现了比top命令更齐全的监控，提供了更加丰富的功能。</strong></p>
@@ -295,7 +295,7 @@ pip install glances
 <p><strong>lances是一个交互式的工具．因此，我们也可以输入命令来控制glances的行为。</strong></p>
 <pre class=" language-language-shrell"><code class="language-language-shrell">[root@python ~]# glances
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429151108154.png"  alt="image-20200429151108154"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429151108154.png"  alt="image-20200429151108154"></p>
 <h4 id="glances-工作界面的说明"><strong>glances 工作界面的说明 :</strong></h4>
 <p><strong>在图 1 的上部是 CPU 、Load（负载）、Mem（内存使用）、 Swap（交换分区）的使用情况。在图 1 的中上部是网络接口、Processes（进程）的使用情况。通常包括如下字段：</strong></p>
 <ul>
@@ -345,7 +345,7 @@ Glances Web User Interface started on http://0.0.0.0:61208/
 
 </code></pre>
 <h4 id="web访问如下图："><a href="127.0.0.1:61208">web访问如下图：</a></h4>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429185614710.png"  alt="image-20200429185614710"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429185614710.png"  alt="image-20200429185614710"></p>
 <h1>三、Python监控Linux</h1>
 <p><strong>shell查看磁盘的监控信息，如下所示：</strong></p>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python proc]# cat /proc/diskstats 
@@ -400,7 +400,7 @@ echo "磁盘空间利用率：$disk_usage"
 [root@python scripts]# sh monitor.sh
 //执行编写好的脚本
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429165132049.png"  alt="image-20200429165132049"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429165132049.png"  alt="image-20200429165132049"></p>
 <h2 id="2、使用python脚本监控">2、使用python脚本监控</h2>
 <p><strong>编写一个Python脚本，监控磁盘信息，如下所示：</strong></p>
 <h3 id="（1）查看服务启动情况">（1）查看服务启动情况</h3>
@@ -454,7 +454,7 @@ if __name__ == '__main__':
 <h4 id="执行脚本：">执行脚本：</h4>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python scripts]# python3 monitor_dick.py
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429173414704.png"  alt="image-20200429173414704"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429173414704.png"  alt="image-20200429173414704"></p>
 <h3 id="（3）直观图">（3）直观图</h3>
 <pre class=" language-language-python"><code class="language-language-python"># coding=utf-8
 # !/usr/bin/python
@@ -491,7 +491,7 @@ if __name__ == '__main__':
 <h4 id="执行脚本：-2">执行脚本：</h4>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python scripts]# python3 monitor_dick.py
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429180049979.png"  alt="image-20200429180049979"></p>
+<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429180049979.png"  alt="image-20200429180049979"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {

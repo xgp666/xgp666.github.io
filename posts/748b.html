@@ -190,11 +190,11 @@ spec:
 <pre><code>[root@master ~]# kubectl get deployments.  -o wide
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png"  alt="image-20200107100450262"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png"  alt="image-20200107100450262"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
 //查看pod节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png"  alt="image-20200107101803209"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png"  alt="image-20200107101803209"></p>
 <h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
 <pre><code>[root@master ~]# vim web-svc.yaml
 kind: Service  #资源对象是副本
@@ -220,11 +220,11 @@ spec:
 <pre><code>[root@master ~]# kubectl get svc
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png"  alt="image-20200107110717972"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png"  alt="image-20200107110717972"></p>
 <h3 id="（3）访问一下">（3）访问一下</h3>
 <pre><code>[root@master ~]# curl 10.111.193.168
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png"  alt="image-20200107110837353"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png"  alt="image-20200107110837353"></p>
 <h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
 <h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
 <pre><code>kind: Service  #资源对象是副本
@@ -247,9 +247,9 @@ spec:
 <h3 id="（3）查看一下">（3）查看一下</h3>
 <pre><code>[root@master ~]# kubectl get svc
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png"  alt="image-20200107111338940"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png"  alt="image-20200107111338940"></p>
 <h3 id="（4）浏览器测试">（4）浏览器测试</h3>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png"  alt="image-20200107111451952"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png"  alt="image-20200107111451952"></p>
 <h1>三、小实验</h1>
 <blockquote>
 <p><strong>基于上一篇博客实验继续进行</strong></p>
@@ -279,13 +279,13 @@ spec:
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png"  alt="image-20200107120901208"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png"  alt="image-20200107120901208"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
 //查看pod节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png"  alt="image-20200107121002152"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png"  alt="image-20200107121002152"></p>
 <h4 id="（3）访问一下-2">（3）访问一下</h4>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png"  alt="image-20200107121147669"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png"  alt="image-20200107121147669"></p>
 <h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
 <h4 id="编写service文件">编写service文件</h4>
 <pre><code>[root@master ~]# vim www-svc.yaml
@@ -309,9 +309,9 @@ spec:
 <h4 id="查看一下-2">查看一下</h4>
 <pre><code>[root@master ~]# kubectl get svc
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png"  alt="image-20200107121929525"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png"  alt="image-20200107121929525"></p>
 <h4 id="访问一下">访问一下</h4>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png"  alt="image-20200107122015559"></p>
+<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png"  alt="image-20200107122015559"></p>
 <h1>四. 总结</h1>
 <h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
 <blockquote>
