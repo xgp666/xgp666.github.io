@@ -274,7 +274,7 @@ set tabstop=2
     <url>/posts/xxxx.html</url>
     <content><![CDATA[<p><img src="/" class="lazyload" data-src="/posts/.%5Cxgp%5Cimage-20200102110722214.png"  alt="image-20200501002500703"></p>
 <p><img src="/" class="lazyload" data-src="/posts/image-20200102110722214-1588267414224.png"  alt="image-20200501002500703"></p>
-<img src="/"  lazyloadclass="" title="This is an test image" data-src="/posts/xxxx/image-20200102110722214-1588267414224.png">
+<img src="/" class="lazyload" data-src="/posts/xxxx/image-20200102110722214-1588267414224.png"  class title="This is an example image">
 <p><img src="/" class="lazyload" data-src="/posts/image-20200102110722214-1588267414224.png"  alt="图片1"></p>
 <script>
         document.querySelectorAll('.github-emoji')
@@ -1185,7 +1185,7 @@ image:
 <h4 id="查看一下">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png"  alt=""></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png"  alt></p>
 <p><strong>类型是Opaque（不透明的）</strong></p>
 <h3 id="2、通过from-file（文件）">2、通过from-file（文件）</h3>
 <h4 id="新建两个文件并分别写入用户名和密码">新建两个文件并分别写入用户名和密码</h4>
@@ -2116,7 +2116,7 @@ kubectl logs<br>
 <p><strong>kube- api( application interface) k8s的前端接口</strong></p>
 <p>**Scheduler[集群分发调度器]**负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
 <p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
-<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p>**Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <h3 id="Node组件：">Node组件：</h3>
 <p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
@@ -2300,7 +2300,7 @@ spec:
 <p>![image-20200115092801882](E:\软件\博客\Blog\blog\source_posts\09 Job资源对象.assets\image-20200115092801882.png)</p>
 <p><em><strong>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</strong></em></p>
 <h1>二、提高Job的执行效率</h1>
-<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href="">parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
+<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
 <hr>
 <h3 id="（1）编写一个job的yaml文件-2">（1）编写一个job的yaml文件</h3>
 <pre><code>[root@master yaml]# vim jop.yaml
@@ -2601,8 +2601,8 @@ spec:
 <p>![image-20200114101915248](E:\软件\博客\Blog\blog\source_posts\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
 <p><strong>如果标签有多个，标签选择器选择其中一个，也可以关联成功。相反，如果选择器有多个，那么标签必须完全满足条件，才可以关联成功。</strong></p>
 <h2 id="4-标签选择器：标签的查询过滤条件。">4. 标签选择器：标签的查询过滤条件。</h2>
-<p><strong><a href="">基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
-<p><strong><a href="">基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
+<p><strong><a href>基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
+<p><strong><a href>基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
 <h4 id="使用标签选择器的逻辑：">使用标签选择器的逻辑：</h4>
 <ul>
 <li><strong>同时指定的多个选择器之间的逻辑关系为“与”操作。</strong></li>
@@ -4418,7 +4418,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <p>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</p>
 <p>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</p>
 </blockquote>
-<p>**5. Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p>**5. Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
 <p>**7. Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces
@@ -4476,7 +4476,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 //显示pod的节点信息
 </code></pre>
 <p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104111128779.png"  alt="image-20200104111128779"></p>
-<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart="" kubelet=""></systemctl></strong></em></p>
+<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
 <h3 id="如果删除一个pod">如果删除一个pod</h3>
 <pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
 </code></pre>
@@ -4575,7 +4575,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 [root@master ~]# free -h
 [root@master ~]# vim /etc/fstab 
 </code></pre>
-<img src="/"  lazyloadclass="" title="This is an test image" data-src="/posts/2cda/image-20200102094039749.png">
+<img src="/" class="lazyload" data-src="/posts/2cda/image-20200102094039749.png"  class title="This is an test image">
 <h3 id="4-添加域名解析（三台）">4.添加域名解析（三台）</h3>
 <pre><code>[root@master ~]# echo 192.168.1.21 master &gt;&gt; /etc/hosts
 [root@master ~]# echo 192.168.1.22 node01 &gt;&gt; /etc/hosts
@@ -4920,12 +4920,12 @@ tcp        0      0 0.0.0.0:80              0.0.0.0:*           LISTEN 5671/ngin
 <p><a href="https://s1.51cto.com/images/blog/201910/24/460c4a55096b042947f2c144b0d2d403.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/460c4a55096b042947f2c144b0d2d403.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a>)<br>
 <a href="https://s1.51cto.com/images/blog/201910/24/ec3da9517fee664957794f6508a714dd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=" target="_blank" rel="noopener">https://s1.51cto.com/images/blog/201910/24/ec3da9517fee664957794f6508a714dd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk=</a><br>
 11.页面访问一下nginx<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/b044fd450fbb18a8ed1b24e5e6954dee.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/b044fd450fbb18a8ed1b24e5e6954dee.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>二、部署 LNMP （部署环境需求：nginx和php在一台，再开启一台apache做防盗链）<br>
 1.安装php<br>
 首先安装libmcrypt 和依赖包<br>
-<img src="/" class="lazyload" data-src="/posts/lor_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/7de79265df81e71f3639ea6bc663bb82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="/posts/lor_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/7de79265df81e71f3639ea6bc663bb82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>编译安装php</p>
 <pre><code>./configure  --prefix=/usr/local/php5.6  --with-mysql=mysqlnd   --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd   --with-openssl --enable-fpm --enable-sockets  --enable-sysvshm  --enable-mbstring --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib  --with-libxml-dir=/usr --enable-xml  --with-mhash  --with-mcrypt=/usr/local/libmcrypt  --with-config-file-path=/etc --with-config-file-scan-dir=/etc/php.d --with-bz2 --enable-maintainer-zts
 
@@ -4934,9 +4934,9 @@ make &amp;&amp; make intall
 <p>提供 php 配置文件<br>
 [root@bogon php-5.6.27]# cp php.ini-production  /etc/php.ini</p>
 <p>为 php-fpm 提供脚本<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/d397ef1d67c0b73e88fdd43f75c04250.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/d397ef1d67c0b73e88fdd43f75c04250.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>提供 php-fpm 配置文件并编辑<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/55501fc53895eb8988bb32024b97b79b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/55501fc53895eb8988bb32024b97b79b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
 修改/usr/local/php5.6/etc/php-fpm.conf</p>
 <p>启动php 查看9000端口</p>
 <pre><code>/etc/init.d/php-fpm  start
@@ -4944,13 +4944,13 @@ make &amp;&amp; make intall
 tcp        0      0 0.0.0.0:9000            0.0.0.0:*               LISTEN
 </code></pre>
 <p>修改/usr/local/nginx1.14/conf/nginx.conf<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/69dc6a47aebff7e1aba5d77f36661635.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/a93aec7853a978374ff02d8e6858dfe8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/69dc6a47aebff7e1aba5d77f36661635.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/a93aec7853a978374ff02d8e6858dfe8.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>创建/usr/local/nginx1.14/html/index.php<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/89c17abe068b68a6ee991a6ab6348b03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/a02e66d9f5d5cc8695781c6b93bf2ac7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/89c17abe068b68a6ee991a6ab6348b03.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/a02e66d9f5d5cc8695781c6b93bf2ac7.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>测试<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/d8afb06d3b51ff455eeebacc37ca5282.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/d8afb06d3b51ff455eeebacc37ca5282.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <pre><code>内核参数优化 添加 /etc//sysctl.conf
 
 fs.file-max = 999999
@@ -4989,11 +4989,11 @@ net.ipv4.ip_local_port_range = 1024 65000
 
 执行 sysctl -p 使内核修改生效
 </code></pre>
-<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/713c229373aea83e02c0a8e4d20bcdab.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
+<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/713c229373aea83e02c0a8e4d20bcdab.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
 查看更新值<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/c0bbf25a5e53f9b1afac5af2ff94e034.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/c0bbf25a5e53f9b1afac5af2ff94e034.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>修改/usr/local/nginx1.14/conf/nginx.conf<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/955e6fc97af123b4317de1ac734d9b82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/955e6fc97af123b4317de1ac734d9b82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <pre><code>sendfile on;
 tcp_nopush on;
 keepalive_timeout 65;
@@ -5048,7 +5048,7 @@ stub_status on;
 }
 把之前php测试页注释掉
 </code></pre>
-<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/67ccc5fd235260f2cf030e4f604168a5.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/67ccc5fd235260f2cf030e4f604168a5.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <pre><code>location ~ .*\.(php|php5)?$ {
 root html;
 fastcgi_pass 127.0.0.1:9000;
@@ -5066,7 +5066,7 @@ fastcgi_cache_key http://$host$request_uri;
 <p>重启php<br>
 nginx   -s  reload</p>
 <p>测试</p>
-<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/77bacba9f977ef69165d77bb52ca576b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/77bacba9f977ef69165d77bb52ca576b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>三、验证、压力测试<br>
 查看ab的安装包<br>
 yum provides ab</p>
@@ -5074,28 +5074,28 @@ yum provides ab</p>
 yum -y install httpd-tools</p>
 <p>压力测试<br>
 ab -c 2000 -n 10000 192.168.1.50/index.html<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/441c6635cdcedaa3d7c38bdd66b9f0bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/441c6635cdcedaa3d7c38bdd66b9f0bd.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>ab -c 2000 -n 10000 192.168.1.50/index.php<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/de29a59b7a5a96260bf978504da2599b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/de29a59b7a5a96260bf978504da2599b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
 两次压力测试做对比</p>
 <p>验证防盗链<br>
 使用 apache 做为一个测试站点，域名为 <a href="http://www.test.com" target="_blank" rel="noopener">www.test.com</a>，在测试页上做一个超链接，链接 nginx</p>
 <p>在apache主机上创建vim /var/www/html/index.html<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/ed574cbe8e06795ca0a54e01ffb1430b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/ed574cbe8e06795ca0a54e01ffb1430b.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
 开启httpd<br>
 systemctl  start httpd</p>
 <p>测试</p>
-<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/c57c74b59eba91b5faf2c3c3d739143c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/1b699af52241e6050626b9ed6800bd31.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<p><img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/c57c74b59eba91b5faf2c3c3d739143c.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/1b699af52241e6050626b9ed6800bd31.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>论坛<br>
 Php服务器解压 压缩包<br>
 unzip Discuz_7.0.0_FULL_SC_UTF8.zip<br>
 cd Discuz_7.0.0_FULL_SC_UTF8/<br>
 ls<br>
 ls upload/<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/abbfa3c66befd53d7187a49e35d42ee1.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/abbfa3c66befd53d7187a49e35d42ee1.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><br>
 修改/etc/php.ini<br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/51b84e704f1eaf27bbfcd82918b42668.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/51b84e704f1eaf27bbfcd82918b42668.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt></p>
 <p>Mysql服务器</p>
 <p>进入MySQL<br>
 mysql -u root  -p123</p>
@@ -5103,7 +5103,7 @@ mysql -u root  -p123</p>
 create database bbs;</p>
 <p>grant all on <em>.</em>  to  root@‘192.168.1.%’ identified by ‘<a href="http://123.com" target="_blank" rel="noopener">123.com</a>’;</p>
 <p>测试 浏览器输入  <a href="http://xn--IP-im8ckc388bqo2btxq/bbs/install" target="_blank" rel="noopener">http://自己的IP地址/bbs/install</a><br>
-<img src="/" class="lazyload" data-src="https://s1.51cto.com/101?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><a href="http://xn--ip-im8ckc388bqo2btxq/bbs/install" target="_blank" rel="noopener">http://自己的ip地址/bbs/install</a>)</p>
+<img src="/" class="lazyload" data-src="https://s1.51cto.com/101?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt><a href="http://xn--ip-im8ckc388bqo2btxq/bbs/install" target="_blank" rel="noopener">http://自己的ip地址/bbs/install</a>)</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -5155,8 +5155,8 @@ create database bbs;</p>
       </script>]]></content>
   </entry>
   <entry>
-    <title>contact</title>
-    <url>/contact/index.html</url>
+    <title>tags</title>
+    <url>/tags/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -5178,8 +5178,8 @@ create database bbs;</p>
       </script>]]></content>
   </entry>
   <entry>
-    <title>tags</title>
-    <url>/tags/index.html</url>
+    <title>contact</title>
+    <url>/contact/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -5258,7 +5258,7 @@ custom_file_path:
   <entry>
     <title></title>
     <url>/lib/canvas-nest/canvas-nest.min.js</url>
-    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -5291,7 +5291,7 @@ custom_file_path:
         return;
       }
     }
-	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
