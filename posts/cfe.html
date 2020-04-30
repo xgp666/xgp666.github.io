@@ -129,7 +129,7 @@ tcp        0      0 0.0.0.0:80              0.0.0.0:*           LISTEN 5671/ngin
 <p>二、部署 LNMP （部署环境需求：nginx和php在一台，再开启一台apache做防盗链）<br>
 1.安装php<br>
 首先安装libmcrypt 和依赖包<br>
-<img src="/" class="lazyload" data-src="/posts/cfe.htm/lor_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
+<img src="/" class="lazyload" data-src="/posts/lor_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
 <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/7de79265df81e71f3639ea6bc663bb82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
 <p>编译安装php</p>
 <pre><code>./configure  --prefix=/usr/local/php5.6  --with-mysql=mysqlnd   --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd   --with-openssl --enable-fpm --enable-sockets  --enable-sysvshm  --enable-mbstring --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib  --with-libxml-dir=/usr --enable-xml  --with-mhash  --with-mcrypt=/usr/local/libmcrypt  --with-config-file-path=/etc --with-config-file-scan-dir=/etc/php.d --with-bz2 --enable-maintainer-zts

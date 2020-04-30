@@ -98,7 +98,7 @@ function activateLightMode(){
 <h4 id="查看一下">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png"  alt=""></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png"  alt=""></p>
 <p><strong>类型是Opaque（不透明的）</strong></p>
 <h3 id="2、通过from-file（文件）">2、通过from-file（文件）</h3>
 <h4 id="新建两个文件并分别写入用户名和密码">新建两个文件并分别写入用户名和密码</h4>
@@ -111,7 +111,7 @@ function activateLightMode(){
 <h4 id="查看一下-2">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png"  alt="image-20200214103506842"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png"  alt="image-20200214103506842"></p>
 <h3 id="3、通过-from-env-file">3、通过-- from- env-file:</h3>
 <h4 id="创建一个文件写入用户名和密码">创建一个文件写入用户名和密码</h4>
 <pre><code>[root@master secret]#vim env.txt 
@@ -124,7 +124,7 @@ password=123.com
 <h4 id="查看一下-3">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png"  alt="image-20200214103905956"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png"  alt="image-20200214103905956"></p>
 <h3 id="4、通过yaml配置文件">4、通过yaml配置文件</h3>
 <h4 id="（1）把需要保存的数据加密（”base64“的方式）">（1）把需要保存的数据加密（”base64“的方式）</h4>
 <pre><code>[root@master secret]# echo root | base64
@@ -156,7 +156,7 @@ data:
 <h4 id="（3）查看一下">（3）查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png"  alt="image-20200214104544899"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png"  alt="image-20200214104544899"></p>
 <h2 id="如果来使用Secret资源">如果来使用Secret资源</h2>
 <h3 id="1-以Volume挂载的方式">1. 以Volume挂载的方式</h3>
 <h4 id="编写pod的yaml文件"><strong>编写pod的yaml文件</strong></h4>
@@ -247,7 +247,7 @@ root
 <p><strong>可以通过edit 命令，直接修改。</strong></p>
 <pre><code>[root@master secret]# kubectl edit secrets mysecret1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
 <h4 id="查看一下-5">查看一下</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
 //进入容器查看
@@ -290,7 +290,7 @@ spec:
 <h4 id="查看一下-6">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get pod
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png"  alt="image-20200214111931566"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png"  alt="image-20200214111931566"></p>
 <h4 id="进入容器查看保存的数据-2">进入容器查看保存的数据</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
@@ -302,7 +302,7 @@ root
 <pre><code> [root@master yaml]# kubectl edit secrets mysecret2
  //修改保存文件的内容
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
 <h4 id="查看一下-7">查看一下</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
@@ -326,10 +326,10 @@ root
 <h4 id="查看一下-8">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl get cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png"  alt="image-20200217103048235"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png"  alt="image-20200217103048235"></p>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png"  alt="image-20200217103123130"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png"  alt="image-20200217103123130"></p>
 <h3 id="2、通过–from-file-文件">2、通过–from-file (文件) :</h3>
 <pre><code>[root@master yaml]# echo adam &gt; username
 [root@master yaml]# echo 18 &gt; age
@@ -340,7 +340,7 @@ root
 <h4 id="查看一下-9">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png"  alt="image-20200217103509006"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png"  alt="image-20200217103509006"></p>
 <h3 id="3、通过–from-env-file">3、通过–from- env-file:</h3>
 <pre><code>[root@master yaml]# vim env.txt 
 username=adam
@@ -352,7 +352,7 @@ age=18
 <h4 id="查看一下-10">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png"  alt="image-20200217165039190"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png"  alt="image-20200217165039190"></p>
 <h3 id="4、通过yaml配置文件-2">4、通过yaml配置文件:</h3>
 <pre><code>[root@master yaml]# vim configmap.yaml
 apiVersion: v1
@@ -369,7 +369,7 @@ data:
 <h4 id="查看一下-11">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png"  alt="image-20200217104428521"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png"  alt="image-20200217104428521"></p>
 <h2 id="如何来使用configmap资源">如何来使用configmap资源</h2>
 <h3 id="1-以Volume挂载的方式-2">1. 以Volume挂载的方式</h3>
 <pre><code>[root@master yaml]# vim v-pod.yaml 
@@ -447,7 +447,7 @@ adam/
 <h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-2">1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3>
 <pre><code>[root@master configmap]# kubectl edit cm myconfigmap1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png"  alt="image-20200217172107999"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png"  alt="image-20200217172107999"></p>
 <h4 id="查看一下-14">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
 //进入容器查看
@@ -498,7 +498,7 @@ adam
 <pre><code>[root@master configmap]# kubectl edit cm myconfigmap2
  //修改保存文件的内容
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png"  alt="image-20200217172701793"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png"  alt="image-20200217172701793"></p>
 <h4 id="查看一下-16">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
 //进入容器查看一下
