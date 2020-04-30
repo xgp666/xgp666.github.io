@@ -54,15 +54,15 @@
 <p>验证docker是否能使用及版本是否一样</p>
 <pre><code>[root@master ~]# docker -v
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/2cda.htm/image-20200102093813472.png"  alt="image-20200102093813472"></p>
+<p><img src="/" class="lazyload" data-src="/posts/image-20200102093813472.png"  alt="image-20200102093813472"></p>
 <h3 id="2-关闭防火墙及禁用selinux">2.关闭防火墙及禁用selinux</h3>
 <pre><code>[root@master ~]# systemctl stop firewalld
 [root@master ~]# systemctl disable firewalld
  [root@master ~]# vim /etc/selinux/config
 </code></pre>
 
-<p><img src="/" class="lazyload" data-src="/posts/2cda.htm/picture_path"  alt="description" title="image-20200102115453524.png"></p>
-<p><img src="/" class="lazyload" data-src="/posts/2cda.htm/image-20200102115453524.png"  alt="image-20200501001702921"></p>
+<p><img src="/" class="lazyload" data-src="/posts/picture_path"  alt="description" title="image-20200102115453524.png"></p>
+<p><img src="/" class="lazyload" data-src="/posts/image-20200102115453524.png"  alt="image-20200501001702921"></p>
 <h3 id="3-禁用swap（三台）">3.  禁用swap（三台）</h3>
 <pre><code>[root@master ~]# swapoff -a
 //临时禁用swap
@@ -272,10 +272,10 @@ set tabstop=2
   <entry>
     <title>xgp</title>
     <url>/posts/xxxx.html</url>
-    <content><![CDATA[<p><img src="/" class="lazyload" data-src="/posts/xxxx.htm/.%5Cxgp%5Cimage-20200102110722214.png"  alt="image-20200501002500703"></p>
-<p><img src="/" class="lazyload" data-src="/posts/xxxx.htm/image-20200102110722214-1588267414224.png"  alt="image-20200501002500703"></p>
-<img src="/"  lazyloadclass="" title="This is an test image" data-src="/posts/xxxx.htm/xxxx/image-20200102110722214-1588267414224.png">
-<p><img src="/" class="lazyload" data-src="/posts/xxxx.htm/image-20200102110722214-1588267414224.png"  alt="图片1"></p>
+    <content><![CDATA[<p><img src="/" class="lazyload" data-src="/posts/.%5Cxgp%5Cimage-20200102110722214.png"  alt="image-20200501002500703"></p>
+<p><img src="/" class="lazyload" data-src="/posts/image-20200102110722214-1588267414224.png"  alt="image-20200501002500703"></p>
+<img src="/"  lazyloadclass="" title="This is an test image" data-src="/posts/xxxx/image-20200102110722214-1588267414224.png">
+<p><img src="/" class="lazyload" data-src="/posts/image-20200102110722214-1588267414224.png"  alt="图片1"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -337,15 +337,15 @@ set tabstop=2
 <p><strong>&lt;1&gt;dstat命令的–version选项，除了显示出tat的版本以外，还会显示操作系统的版本、Python语言的版本、cpu的个数，以及dstat支持的插件列表等详细信息。如下所示：</strong></p>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python ~]# dstat --version
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141843251.png"  alt="image-20200429141843251"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141843251.png"  alt="image-20200429141843251"></p>
 <p><strong>&lt;2&gt;dstat --list获取dstat的插件列表</strong></p>
 <pre class=" language-language-shell"><code class="language-language-shell">dstat --list
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141907299.png"  alt="image-20200429141907299"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141907299.png"  alt="image-20200429141907299"></p>
 <p><strong>&lt;3&gt;直接在终端输入dstat命令，dstat将以默认参数运行。默认情况下，dstat会收集cpu、磁盘、网络、换页和系统信息，并以一秒钟一次的频率进行输出，直到我们按 ctrl+c 结束。</strong></p>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python ~]# dstat 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141632842.png"  alt="image-20200429141632842"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429141632842.png"  alt="image-20200429141632842"></p>
 <h2 id="4、常用选项如下">4、常用选项如下: .</h2>
 <blockquote>
 <p><strong>直接跟数字，表示#秒收集一次数据，默认为1秒; dstat 5表示5秒更新一次</strong></p>
@@ -474,7 +474,7 @@ usr sys idl wai hiq siq| read  writ| recv  send|  in   out >
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python ~]# sz dstat_output.csv
 //导出本地文件到windows指定位置
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429160149926.png"  alt="image-20200429160149926"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429160149926.png"  alt="image-20200429160149926"></p>
 <h1>二、交互性监控工具glances</h1>
 <h2 id="1、glances简介">1、glances简介</h2>
 <p><strong>glances是一款使用Python语言开发、基于psutil的跨平台系统监控工具。在所有的Linux命令行工具中，它与top命令最相似，都是命令行交互式监控工具。但是，glances实现了比top命令更齐全的监控，提供了更加丰富的功能。</strong></p>
@@ -512,7 +512,7 @@ pip install glances
 <p><strong>lances是一个交互式的工具．因此，我们也可以输入命令来控制glances的行为。</strong></p>
 <pre class=" language-language-shrell"><code class="language-language-shrell">[root@python ~]# glances
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429151108154.png"  alt="image-20200429151108154"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429151108154.png"  alt="image-20200429151108154"></p>
 <h4 id="glances-工作界面的说明"><strong>glances 工作界面的说明 :</strong></h4>
 <p><strong>在图 1 的上部是 CPU 、Load（负载）、Mem（内存使用）、 Swap（交换分区）的使用情况。在图 1 的中上部是网络接口、Processes（进程）的使用情况。通常包括如下字段：</strong></p>
 <ul>
@@ -562,7 +562,7 @@ Glances Web User Interface started on http://0.0.0.0:61208/
 
 </code></pre>
 <h4 id="web访问如下图："><a href="127.0.0.1:61208">web访问如下图：</a></h4>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429185614710.png"  alt="image-20200429185614710"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429185614710.png"  alt="image-20200429185614710"></p>
 <h1>三、Python监控Linux</h1>
 <p><strong>shell查看磁盘的监控信息，如下所示：</strong></p>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python proc]# cat /proc/diskstats 
@@ -617,7 +617,7 @@ echo "磁盘空间利用率：$disk_usage"
 [root@python scripts]# sh monitor.sh
 //执行编写好的脚本
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429165132049.png"  alt="image-20200429165132049"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429165132049.png"  alt="image-20200429165132049"></p>
 <h2 id="2、使用python脚本监控">2、使用python脚本监控</h2>
 <p><strong>编写一个Python脚本，监控磁盘信息，如下所示：</strong></p>
 <h3 id="（1）查看服务启动情况">（1）查看服务启动情况</h3>
@@ -671,7 +671,7 @@ if __name__ == '__main__':
 <h4 id="执行脚本：">执行脚本：</h4>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python scripts]# python3 monitor_dick.py
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429173414704.png"  alt="image-20200429173414704"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429173414704.png"  alt="image-20200429173414704"></p>
 <h3 id="（3）直观图">（3）直观图</h3>
 <pre class=" language-language-python"><code class="language-language-python"># coding=utf-8
 # !/usr/bin/python
@@ -708,7 +708,7 @@ if __name__ == '__main__':
 <h4 id="执行脚本：-2">执行脚本：</h4>
 <pre class=" language-language-shell"><code class="language-language-shell">[root@python scripts]# python3 monitor_dick.py
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/9bcf.htm/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429180049979.png"  alt="image-20200429180049979"></p>
+<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5Cpython%5Cpython%E6%96%87%E6%A1%A3%5C26.assets%5Cimage-20200429180049979.png"  alt="image-20200429180049979"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -1185,7 +1185,7 @@ image:
 <h4 id="查看一下">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png"  alt=""></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png"  alt=""></p>
 <p><strong>类型是Opaque（不透明的）</strong></p>
 <h3 id="2、通过from-file（文件）">2、通过from-file（文件）</h3>
 <h4 id="新建两个文件并分别写入用户名和密码">新建两个文件并分别写入用户名和密码</h4>
@@ -1198,7 +1198,7 @@ image:
 <h4 id="查看一下-2">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png"  alt="image-20200214103506842"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png"  alt="image-20200214103506842"></p>
 <h3 id="3、通过-from-env-file">3、通过-- from- env-file:</h3>
 <h4 id="创建一个文件写入用户名和密码">创建一个文件写入用户名和密码</h4>
 <pre><code>[root@master secret]#vim env.txt 
@@ -1211,7 +1211,7 @@ password=123.com
 <h4 id="查看一下-3">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png"  alt="image-20200214103905956"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png"  alt="image-20200214103905956"></p>
 <h3 id="4、通过yaml配置文件">4、通过yaml配置文件</h3>
 <h4 id="（1）把需要保存的数据加密（”base64“的方式）">（1）把需要保存的数据加密（”base64“的方式）</h4>
 <pre><code>[root@master secret]# echo root | base64
@@ -1243,7 +1243,7 @@ data:
 <h4 id="（3）查看一下">（3）查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png"  alt="image-20200214104544899"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png"  alt="image-20200214104544899"></p>
 <h2 id="如果来使用Secret资源">如果来使用Secret资源</h2>
 <h3 id="1-以Volume挂载的方式">1. 以Volume挂载的方式</h3>
 <h4 id="编写pod的yaml文件"><strong>编写pod的yaml文件</strong></h4>
@@ -1334,7 +1334,7 @@ root
 <p><strong>可以通过edit 命令，直接修改。</strong></p>
 <pre><code>[root@master secret]# kubectl edit secrets mysecret1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
 <h4 id="查看一下-5">查看一下</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
 //进入容器查看
@@ -1377,7 +1377,7 @@ spec:
 <h4 id="查看一下-6">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get pod
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png"  alt="image-20200214111931566"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png"  alt="image-20200214111931566"></p>
 <h4 id="进入容器查看保存的数据-2">进入容器查看保存的数据</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
@@ -1389,7 +1389,7 @@ root
 <pre><code> [root@master yaml]# kubectl edit secrets mysecret2
  //修改保存文件的内容
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
 <h4 id="查看一下-7">查看一下</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
@@ -1413,10 +1413,10 @@ root
 <h4 id="查看一下-8">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl get cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png"  alt="image-20200217103048235"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png"  alt="image-20200217103048235"></p>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png"  alt="image-20200217103123130"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png"  alt="image-20200217103123130"></p>
 <h3 id="2、通过–from-file-文件">2、通过–from-file (文件) :</h3>
 <pre><code>[root@master yaml]# echo adam &gt; username
 [root@master yaml]# echo 18 &gt; age
@@ -1427,7 +1427,7 @@ root
 <h4 id="查看一下-9">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png"  alt="image-20200217103509006"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png"  alt="image-20200217103509006"></p>
 <h3 id="3、通过–from-env-file">3、通过–from- env-file:</h3>
 <pre><code>[root@master yaml]# vim env.txt 
 username=adam
@@ -1439,7 +1439,7 @@ age=18
 <h4 id="查看一下-10">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png"  alt="image-20200217165039190"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png"  alt="image-20200217165039190"></p>
 <h3 id="4、通过yaml配置文件-2">4、通过yaml配置文件:</h3>
 <pre><code>[root@master yaml]# vim configmap.yaml
 apiVersion: v1
@@ -1456,7 +1456,7 @@ data:
 <h4 id="查看一下-11">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png"  alt="image-20200217104428521"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png"  alt="image-20200217104428521"></p>
 <h2 id="如何来使用configmap资源">如何来使用configmap资源</h2>
 <h3 id="1-以Volume挂载的方式-2">1. 以Volume挂载的方式</h3>
 <pre><code>[root@master yaml]# vim v-pod.yaml 
@@ -1534,7 +1534,7 @@ adam/
 <h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-2">1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3>
 <pre><code>[root@master configmap]# kubectl edit cm myconfigmap1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png"  alt="image-20200217172107999"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png"  alt="image-20200217172107999"></p>
 <h4 id="查看一下-14">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
 //进入容器查看
@@ -1585,7 +1585,7 @@ adam
 <pre><code>[root@master configmap]# kubectl edit cm myconfigmap2
  //修改保存文件的内容
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png"  alt="image-20200217172701793"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png"  alt="image-20200217172701793"></p>
 <h4 id="查看一下-16">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
 //进入容器查看一下
@@ -3858,11 +3858,11 @@ spec:
 <pre><code>[root@master ~]# kubectl get deployments.  -o wide
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png"  alt="image-20200107100450262"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png"  alt="image-20200107100450262"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
 //查看pod节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png"  alt="image-20200107101803209"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png"  alt="image-20200107101803209"></p>
 <h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
 <pre><code>[root@master ~]# vim web-svc.yaml
 kind: Service  #资源对象是副本
@@ -3888,11 +3888,11 @@ spec:
 <pre><code>[root@master ~]# kubectl get svc
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png"  alt="image-20200107110717972"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png"  alt="image-20200107110717972"></p>
 <h3 id="（3）访问一下">（3）访问一下</h3>
 <pre><code>[root@master ~]# curl 10.111.193.168
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png"  alt="image-20200107110837353"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png"  alt="image-20200107110837353"></p>
 <h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
 <h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
 <pre><code>kind: Service  #资源对象是副本
@@ -3915,9 +3915,9 @@ spec:
 <h3 id="（3）查看一下">（3）查看一下</h3>
 <pre><code>[root@master ~]# kubectl get svc
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png"  alt="image-20200107111338940"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png"  alt="image-20200107111338940"></p>
 <h3 id="（4）浏览器测试">（4）浏览器测试</h3>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png"  alt="image-20200107111451952"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png"  alt="image-20200107111451952"></p>
 <h1>三、小实验</h1>
 <blockquote>
 <p><strong>基于上一篇博客实验继续进行</strong></p>
@@ -3947,13 +3947,13 @@ spec:
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png"  alt="image-20200107120901208"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png"  alt="image-20200107120901208"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
 //查看pod节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png"  alt="image-20200107121002152"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png"  alt="image-20200107121002152"></p>
 <h4 id="（3）访问一下-2">（3）访问一下</h4>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png"  alt="image-20200107121147669"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png"  alt="image-20200107121147669"></p>
 <h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
 <h4 id="编写service文件">编写service文件</h4>
 <pre><code>[root@master ~]# vim www-svc.yaml
@@ -3977,9 +3977,9 @@ spec:
 <h4 id="查看一下-2">查看一下</h4>
 <pre><code>[root@master ~]# kubectl get svc
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png"  alt="image-20200107121929525"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png"  alt="image-20200107121929525"></p>
 <h4 id="访问一下">访问一下</h4>
-<p><img src="/" class="lazyload" data-src="/posts/748b.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png"  alt="image-20200107122015559"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png"  alt="image-20200107122015559"></p>
 <h1>四. 总结</h1>
 <h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
 <blockquote>
@@ -4424,11 +4424,11 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces
 //查看pod信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104100759831.png"  alt="image-20200104100759831"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104100759831.png"  alt="image-20200104100759831"></p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
 //显示pod的节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104101023909.png"  alt="image-20200104101023909"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104101023909.png"  alt="image-20200104101023909"></p>
 <h2 id="Node节点">Node节点</h2>
 <p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
 <blockquote>
@@ -4468,14 +4468,14 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <h4 id="查看一下">查看一下</h4>
 <pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104110812772.png"  alt="image-20200104110812772"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104110812772.png"  alt="image-20200104110812772"></p>
 <pre><code>[root@master ~]# kubectl get pod
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104110954406.png"  alt="image-20200104110954406"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104110954406.png"  alt="image-20200104110954406"></p>
 <pre><code>[root@master ~]# kubectl get pod  -o wide
 //显示pod的节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104111128779.png"  alt="image-20200104111128779"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104111128779.png"  alt="image-20200104111128779"></p>
 <p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart="" kubelet=""></systemctl></strong></em></p>
 <h3 id="如果删除一个pod">如果删除一个pod</h3>
 <pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
@@ -4483,7 +4483,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <h4 id="查看一下-2">查看一下</h4>
 <pre><code>[root@master ~]# kubectl get pod -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/cd85.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104112418012.png"  alt="image-20200104112418012"></p>
+<p><img src="/" class="lazyload" data-src="/posts/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5Cpost-name%5Cimage-20200104112418012.png"  alt="image-20200104112418012"></p>
 <p><em><strong>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</strong></em></p>
 <p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
 <script>
@@ -4560,22 +4560,22 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <p>验证docker是否能使用及版本是否一样</p>
 <pre><code>[root@master ~]# docker -v
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/2cda.htm/image-20200102093813472.png"  alt="image-20200102093813472"></p>
+<p><img src="/" class="lazyload" data-src="/posts/image-20200102093813472.png"  alt="image-20200102093813472"></p>
 <h3 id="2-关闭防火墙及禁用selinux">2.关闭防火墙及禁用selinux</h3>
 <pre><code>[root@master ~]# systemctl stop firewalld
 [root@master ~]# systemctl disable firewalld
  [root@master ~]# vim /etc/selinux/config
 </code></pre>
 
-<p><img src="/" class="lazyload" data-src="/posts/2cda.htm/picture_path"  alt="description" title="image-20200102115453524.jpg"></p>
-<p><img src="/" class="lazyload" data-src="/posts/2cda.htm/image-20200102115453524.jpg"  alt="image-20200501001702921"></p>
+<p><img src="/" class="lazyload" data-src="/posts/picture_path"  alt="description" title="image-20200102115453524.jpg"></p>
+<p><img src="/" class="lazyload" data-src="/posts/image-20200102115453524.jpg"  alt="image-20200501001702921"></p>
 <h3 id="3-禁用swap（三台）">3.  禁用swap（三台）</h3>
 <pre><code>[root@master ~]# swapoff -a
 //临时禁用swap
 [root@master ~]# free -h
 [root@master ~]# vim /etc/fstab 
 </code></pre>
-<img src="/"  lazyloadclass="" title="This is an test image" data-src="/posts/2cda.htm/2cda/image-20200102094039749.png">
+<img src="/"  lazyloadclass="" title="This is an test image" data-src="/posts/2cda/image-20200102094039749.png">
 <h3 id="4-添加域名解析（三台）">4.添加域名解析（三台）</h3>
 <pre><code>[root@master ~]# echo 192.168.1.21 master &gt;&gt; /etc/hosts
 [root@master ~]# echo 192.168.1.22 node01 &gt;&gt; /etc/hosts
@@ -4924,7 +4924,7 @@ tcp        0      0 0.0.0.0:80              0.0.0.0:*           LISTEN 5671/ngin
 <p>二、部署 LNMP （部署环境需求：nginx和php在一台，再开启一台apache做防盗链）<br>
 1.安装php<br>
 首先安装libmcrypt 和依赖包<br>
-<img src="/" class="lazyload" data-src="/posts/cfe.htm/lor_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
+<img src="/" class="lazyload" data-src="/posts/lor_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""><br>
 <img src="/" class="lazyload" data-src="https://s1.51cto.com/images/blog/201910/24/7de79265df81e71f3639ea6bc663bb82.png?x-oss-process=image/watermark,size_16,text_QDUxQ1RP5Y2a5a6i,color_FFFFFF,t_100,g_se,x_10,y_10,shadow_90,type_ZmFuZ3poZW5naGVpdGk="  alt=""></p>
 <p>编译安装php</p>
 <pre><code>./configure  --prefix=/usr/local/php5.6  --with-mysql=mysqlnd   --with-pdo-mysql=mysqlnd --with-mysqli=mysqlnd   --with-openssl --enable-fpm --enable-sockets  --enable-sysvshm  --enable-mbstring --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib  --with-libxml-dir=/usr --enable-xml  --with-mhash  --with-mcrypt=/usr/local/libmcrypt  --with-config-file-path=/etc --with-config-file-scan-dir=/etc/php.d --with-bz2 --enable-maintainer-zts
@@ -5132,8 +5132,8 @@ create database bbs;</p>
       </tags>
   </entry>
   <entry>
-    <title>contact</title>
-    <url>/contact/index.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -5155,8 +5155,8 @@ create database bbs;</p>
       </script>]]></content>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>contact</title>
+    <url>/contact/index.html</url>
     <content><![CDATA[<script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -5181,62 +5181,6 @@ create database bbs;</p>
     <title>tags</title>
     <url>/tags/index.html</url>
     <content><![CDATA[<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
-    <content><![CDATA[!function(){
-	var userAgentInfo = navigator.userAgent;
-    var Agents = ["iPad", "iPhone", "Android", 
-          "SymbianOS", "Windows Phone",
-           "iPod", "webOS", "BlackBerry", "IEMobile"];
-    for (var v = 0; v &lt; Agents.length; v++) {
-      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
-        return;
-      }
-    }
-	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/lib/canvas-nest/canvas-nest.min.js</url>
-    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -5292,6 +5236,62 @@ custom_file_path:
   #style: source/_data/styles.styl
 </code></pre>
 <script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/lib/canvas-nest/canvas-nest.min.js</url>
+    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
+    <content><![CDATA[!function(){
+	var userAgentInfo = navigator.userAgent;
+    var Agents = ["iPad", "iPhone", "Android", 
+          "SymbianOS", "Windows Phone",
+           "iPod", "webOS", "BlackBerry", "IEMobile"];
+    for (var v = 0; v &lt; Agents.length; v++) {
+      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
+        return;
+      }
+    }
+	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
