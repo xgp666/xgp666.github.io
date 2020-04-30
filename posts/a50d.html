@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="14 k8s的Secret（密文）和configmap（明文）的使用教程"><meta name="keywords" content=""><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><title>14 k8s的Secret（密文）和configmap（明文）的使用教程 | Xgp &amp; Blog</title><link rel="shortcut icon" href="/melody-favicon.ico"><link rel="stylesheet" href="/css/index.css?version=1.7.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css?version=1.7.0"><meta name="format-detection" content="telephone=no"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  }
+} </script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div id="sidebar" data-display="true"><div class="toggle-sidebar-info text-center"><span data-toggle="切换文章详情">切换站点概览</span><hr></div><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar"></div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、Secret"><span class="toc-number">1.</span> <span class="toc-text">一、Secret</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#举例-保存数据库的用户名和密码"><span class="toc-number">1.1.</span> <span class="toc-text">举例:保存数据库的用户名和密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、通过–from-literal（文字的）"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、通过–from-literal（文字的）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、通过from-file（文件）"><span class="toc-number">1.1.2.</span> <span class="toc-text">2、通过from-file（文件）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#新建两个文件并分别写入用户名和密码"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">新建两个文件并分别写入用户名和密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个secret"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">创建一个secret</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-1"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、通过–-from-env-file"><span class="toc-number">1.1.3.</span> <span class="toc-text">3、通过– from- env-file:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个文件写入用户名和密码"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">创建一个文件写入用户名和密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#创建一个secret-1"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">创建一个secret</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-2"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、通过yaml配置文件"><span class="toc-number">1.1.4.</span> <span class="toc-text">4、通过yaml配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）把需要保存的数据加密（”base64“的方式）"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">（1）把需要保存的数据加密（”base64“的方式）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）编写secre4的yaml文件"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">（2）编写secre4的yaml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#执行一下"><span class="toc-number">1.1.4.2.1.</span> <span class="toc-text">执行一下</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）查看一下"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">（3）查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如果来使用Secret资源"><span class="toc-number">1.2.</span> <span class="toc-text">如果来使用Secret资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-以Volume挂载的方式"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 以Volume挂载的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#编写pod的yaml文件"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">编写pod的yaml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-1"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进入容器查看保存的数据"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">进入容器查看保存的数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试是否有只读权限"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">测试是否有只读权限</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-自定义存放数据的文件名的yaml文件"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.1 自定义存放数据的文件名的yaml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-2"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-3"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新"><span class="toc-number">1.2.3.</span> <span class="toc-text">1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-4"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、以环境变量的方式"><span class="toc-number">1.2.4.</span> <span class="toc-text">2、以环境变量的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-3"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-5"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#进入容器查看保存的数据-1"><span class="toc-number">1.2.4.3.</span> <span class="toc-text">进入容器查看保存的数据</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-更新sevret文件的内容"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.1 更新sevret文件的内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-6"><span class="toc-number">1.2.5.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">1.3.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、ConfigMap"><span class="toc-number">2.</span> <span class="toc-text">二、ConfigMap</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建的四种方式"><span class="toc-number">2.1.</span> <span class="toc-text">创建的四种方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、通过–-from-literal-文字的"><span class="toc-number">2.1.1.</span> <span class="toc-text">1、通过– from- literal(文字的):</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-7"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、通过–from-file-文件"><span class="toc-number">2.1.2.</span> <span class="toc-text">2、通过–from-file (文件) :</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-8"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、通过–from-env-file"><span class="toc-number">2.1.3.</span> <span class="toc-text">3、通过–from- env-file:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建-1"><span class="toc-number">2.1.3.1.</span> <span class="toc-text">创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-9"><span class="toc-number">2.1.3.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、通过yaml配置文件-1"><span class="toc-number">2.1.4.</span> <span class="toc-text">4、通过yaml配置文件:</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#创建-2"><span class="toc-number">2.1.4.1.</span> <span class="toc-text">创建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-10"><span class="toc-number">2.1.4.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何来使用configmap资源"><span class="toc-number">2.2.</span> <span class="toc-text">如何来使用configmap资源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-以Volume挂载的方式-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">1. 以Volume挂载的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-4"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-11"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-自定义存放数据的文件名的yaml文件-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">1.1 自定义存放数据的文件名的yaml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-5"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-12"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1"><span class="toc-number">2.2.3.</span> <span class="toc-text">1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-13"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-以环境变量的方式"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.以环境变量的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-6"><span class="toc-number">2.2.4.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-14"><span class="toc-number">2.2.4.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-更新sevret文件的内容-1"><span class="toc-number">2.2.5.</span> <span class="toc-text">2.1 更新sevret文件的内容</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-15"><span class="toc-number">2.2.5.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结configmap、与secret资源有什么相同和不同之处。"><span class="toc-number">2.3.</span> <span class="toc-text">总结configmap、与secret资源有什么相同和不同之处。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Secret-与-ConfigMap-对比"><span class="toc-number">2.3.1.</span> <span class="toc-text">Secret 与 ConfigMap 对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。"><span class="toc-number">2.4.</span> <span class="toc-text">总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。</span></a></li></ol></li></ol></div></div><div class="author-info hide"><div class="author-info__avatar text-center"><img src="/img/avatar.png"></div><div class="author-info__name text-center">Wu Shao Dong</div><div class="author-info__description text-center">Small steel gun article</div><hr><div class="author-info-articles"><a class="author-info-articles__archives article-meta" href="/archives"><span class="pull-left">文章</span><span class="pull-right">16</span></a><a class="author-info-articles__tags article-meta" href="/tags"><span class="pull-left">标签</span><span class="pull-right">3</span></a><a class="author-info-articles__categories article-meta" href="/categories"><span class="pull-left">分类</span><span class="pull-right">2</span></a></div></div></div><div id="content-outer"><div class="no-bg" id="top-container"><div id="page-header"><span class="pull-left"> <a id="site-name" href="/">Xgp &amp; Blog</a></span><i class="fa fa-bars toggle-menu pull-right" aria-hidden="true"></i><span class="pull-right menus">   <a class="site-page" href="/">Home</a><a class="site-page" href="/archives">Archives</a><a class="site-page" href="/tags">Tags</a><a class="site-page" href="/categories">Categories</a></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title">14 k8s的Secret（密文）和configmap（明文）的使用教程</div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 2020-04-25</time></div></div></div><div class="layout" id="content-inner"><article id="post"><div class="article-container" id="post-content"><h1 id="一、Secret"><a href="#一、Secret" class="headerlink" title="一、Secret"></a>一、Secret</h1><p><strong><em>Secret :用来保存一些敏感信息，比如数据库的用户名密码或者秘钥。</em></strong></p>
+<h2 id="举例-保存数据库的用户名和密码"><a href="#举例-保存数据库的用户名和密码" class="headerlink" title="举例:保存数据库的用户名和密码"></a>举例:保存数据库的用户名和密码</h2><blockquote>
+<p><strong>用户名：</strong>        <strong>root</strong><br><strong>密码：</strong>           <strong>123.com</strong></p>
+</blockquote>
+<h3 id="1、通过–from-literal（文字的）"><a href="#1、通过–from-literal（文字的）" class="headerlink" title="1、通过–from-literal（文字的）"></a>1、通过–from-literal（文字的）</h3><pre><code>[root@master secret]# kubectl create secret generic mysecret1 --from-literal=username=root --from-literal=password=123.com</code></pre><blockquote>
+<p><strong>generic：通用的，一般的加密方式</strong></p>
+</blockquote>
+<h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214100419966.png" alt=""></p>
+<p><strong>类型是Opaque（不透明的）</strong></p>
+<h3 id="2、通过from-file（文件）"><a href="#2、通过from-file（文件）" class="headerlink" title="2、通过from-file（文件）"></a>2、通过from-file（文件）</h3><h4 id="新建两个文件并分别写入用户名和密码"><a href="#新建两个文件并分别写入用户名和密码" class="headerlink" title="新建两个文件并分别写入用户名和密码"></a>新建两个文件并分别写入用户名和密码</h4><pre><code>[root@master secret]# echo root &gt; username
+[root@master secret]# echo 123.com  &gt; password</code></pre><h4 id="创建一个secret"><a href="#创建一个secret" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]#  kubectl create secret generic mysecret2 --from-file=username --from-file=password </code></pre><h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103506842.png" alt="image-20200214103506842"></p>
+<h3 id="3、通过–-from-env-file"><a href="#3、通过–-from-env-file" class="headerlink" title="3、通过– from- env-file:"></a>3、通过– from- env-file:</h3><h4 id="创建一个文件写入用户名和密码"><a href="#创建一个文件写入用户名和密码" class="headerlink" title="创建一个文件写入用户名和密码"></a>创建一个文件写入用户名和密码</h4><pre><code>[root@master secret]#vim env.txt 
+username=root
+password=123.com</code></pre><h4 id="创建一个secret-1"><a href="#创建一个secret-1" class="headerlink" title="创建一个secret"></a>创建一个secret</h4><pre><code>[root@master secret]# kubectl create secret generic mysecret3 --from-env-file=env.txt </code></pre><h4 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214103905956.png" alt="image-20200214103905956"></p>
+<h3 id="4、通过yaml配置文件"><a href="#4、通过yaml配置文件" class="headerlink" title="4、通过yaml配置文件"></a>4、通过yaml配置文件</h3><h4 id="（1）把需要保存的数据加密（”base64“的方式）"><a href="#（1）把需要保存的数据加密（”base64“的方式）" class="headerlink" title="（1）把需要保存的数据加密（”base64“的方式）"></a>（1）把需要保存的数据加密（”base64“的方式）</h4><pre><code>[root@master secret]# echo root | base64
+cm9vdAo=
+[root@master secret]# echo 123.com | base64
+MTIzLmNvbQo=</code></pre><blockquote>
+<p><strong>解码：</strong></p>
+<pre><code>[root@master secret]# echo -n cm9vdAo | base64 --decode 
+root
+[root@master secret]# echo -n MTIzLmNvbQo | base64 --decode 
+123.com</code></pre></blockquote>
+<h4 id="（2）编写secre4的yaml文件"><a href="#（2）编写secre4的yaml文件" class="headerlink" title="（2）编写secre4的yaml文件"></a>（2）编写secre4的yaml文件</h4><pre><code>[root@master secret]# vim secret4.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret4
+data:
+  username: cm9vdAo=
+  password: MTIzLmNvbQo=</code></pre><h5 id="执行一下"><a href="#执行一下" class="headerlink" title="执行一下"></a>执行一下</h5><pre><code>[root@master secret]# kubectl apply -f secret4.yaml </code></pre><h4 id="（3）查看一下"><a href="#（3）查看一下" class="headerlink" title="（3）查看一下"></a>（3）查看一下</h4><pre><code>[root@master secret]# kubectl get secrets </code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214104544899.png" alt="image-20200214104544899"></p>
+<h2 id="如果来使用Secret资源"><a href="#如果来使用Secret资源" class="headerlink" title="如果来使用Secret资源"></a>如果来使用Secret资源</h2><h3 id="1-以Volume挂载的方式"><a href="#1-以Volume挂载的方式" class="headerlink" title="1. 以Volume挂载的方式"></a>1. 以Volume挂载的方式</h3><h4 id="编写pod的yaml文件"><a href="#编写pod的yaml文件" class="headerlink" title="编写pod的yaml文件"></a><strong>编写pod的yaml文件</strong></h4><pre><code>[root@master secret]# vim pod.yaml 
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    volumeMounts:
+    - name: secret-test
+      mountPath: "/etc/secret-test"  #pod中的路径
+      readOnly: true                 #是否只读
+  volumes:
+  - name: secret-test
+    secret:
+      secretName: mysecret1</code></pre><p><strong>还可以自定义存放数据的文件名</strong></p>
+<h4 id="执行一下-1"><a href="#执行一下-1" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master secret]# kubectl apply -f pod.yaml </code></pre><h4 id="进入容器查看保存的数据"><a href="#进入容器查看保存的数据" class="headerlink" title="进入容器查看保存的数据"></a>进入容器查看保存的数据</h4><pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
+/ # cd /etc/secret-test/
+/etc/secret-test # ls
+pasword   username</code></pre><pre><code>/etc/secret-test # cat username 
+root
+/etc/secret-test # cat pasword 
+123.com</code></pre><h4 id="测试是否有只读权限"><a href="#测试是否有只读权限" class="headerlink" title="测试是否有只读权限"></a>测试是否有只读权限</h4><pre><code>123.com/etc/secret-test # echo admin &gt; username
+/bin/sh: can't create username: Read-only file system</code></pre><h3 id="1-1-自定义存放数据的文件名的yaml文件"><a href="#1-1-自定义存放数据的文件名的yaml文件" class="headerlink" title="1.1 自定义存放数据的文件名的yaml文件"></a>1.1 自定义存放数据的文件名的yaml文件</h3><pre><code>[root@master yaml]#  vim pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    volumeMounts:
+    - name: secret-test
+      mountPath: "/etc/secret-test"  #pod中的路径
+      readOnly: true                 #是否只读
+  volumes:
+  - name: secret-test
+    secret:
+      secretName: mysecret1
+      items:
+      - key: username
+        path: my-group/my-username   #自定义的容器中的目录
+      - key: password
+        path: my-group/my-password   #自定义的容器中的目录</code></pre><h4 id="执行一下-2"><a href="#执行一下-2" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master yaml]# kubectl apply -f pod.yaml</code></pre><h4 id="查看一下-3"><a href="#查看一下-3" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
+//进入容器查看
+ # cat /etc/secret-test/my-group/my-password 
+123.com 
+ # cat /etc/secret-test/my-group/my-username 
+root</code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><p><strong>会实时更新(这里引用数据，是以volumes挂 载使用数据的方式)。</strong></p>
+<p><strong>更新mysecret1的数据:   password  —&gt;  admin   YWRtaW4K (base64)</strong> </p>
+<p><strong>可以通过edit 命令，直接修改。</strong></p>
+<pre><code>[root@master secret]# kubectl edit secrets mysecret1</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
+<h4 id="查看一下-4"><a href="#查看一下-4" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
+//进入容器查看
+ # cat /etc/secret-test/my-group/my-password 
+admin
+ # cat /etc/secret-test/my-group/my-username 
+root</code></pre><p><strong><em>数据已经成功更新了</em></strong></p>
+<h3 id="2、以环境变量的方式"><a href="#2、以环境变量的方式" class="headerlink" title="2、以环境变量的方式"></a>2、以环境变量的方式</h3><p><strong>编写pod的yaml文件</strong></p>
+<pre><code>[root@master secret]# vim pod-env.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod2
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    env:
+      - name: SECRET_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: mysecret2
+            key: username
+      - name: SECRET_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mysecret2
+            key: password</code></pre><h4 id="执行一下-3"><a href="#执行一下-3" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master secret]# kubectl apply -f pod-env.yaml </code></pre><h4 id="查看一下-5"><a href="#查看一下-5" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl get pod</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200214111931566.png" alt="image-20200214111931566"></p>
+<h4 id="进入容器查看保存的数据-1"><a href="#进入容器查看保存的数据-1" class="headerlink" title="进入容器查看保存的数据"></a>进入容器查看保存的数据</h4><pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
+/ # echo $SECRET_USERNAME
+root
+/ # echo $SECRET_PASSWORD
+123.com</code></pre><h3 id="2-1-更新sevret文件的内容"><a href="#2-1-更新sevret文件的内容" class="headerlink" title="2.1 更新sevret文件的内容"></a>2.1 更新sevret文件的内容</h3><pre><code> [root@master yaml]# kubectl edit secrets mysecret2
+ //修改保存文件的内容</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
+<h4 id="查看一下-6"><a href="#查看一下-6" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
+/ # echo $SECRET_USERNAME
+root
+/ # echo $SECRET_PASSWORD
+123.com</code></pre><p><strong><em>等待了一定时间后，可以看到这个数据并没有没有改变</em></strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>如果引用secret数据的应用， 要求会随着secret资源对象内保存的数据的更新，而实时更新，那么应该使用volumes挂载的方式引用资源因为用环境变量的方式引用不会实时更新数据。</strong></p>
+<h1 id="二、ConfigMap"><a href="#二、ConfigMap" class="headerlink" title="二、ConfigMap"></a>二、ConfigMap</h1><p><strong>和Secret资源类似，不同之处在于，secret 资源保存的是敏感信息，而Configmap保存的是以明文方式存放的数据。</strong></p>
+<blockquote>
+<p><strong>username：adam</strong></p>
+<p><strong>age：18</strong></p>
+</blockquote>
+<h2 id="创建的四种方式"><a href="#创建的四种方式" class="headerlink" title="创建的四种方式"></a>创建的四种方式</h2><h3 id="1、通过–-from-literal-文字的"><a href="#1、通过–-from-literal-文字的" class="headerlink" title="1、通过– from- literal(文字的):"></a>1、通过– from- literal(文字的):</h3><pre><code>[root@master yaml]# kubectl create configmap myconfigmap1 --from-literal=username=adam --from-literal=age=18</code></pre><h4 id="查看一下-7"><a href="#查看一下-7" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl get cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103048235.png" alt="image-20200217103048235"></p>
+<pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103123130.png" alt="image-20200217103123130"></p>
+<h3 id="2、通过–from-file-文件"><a href="#2、通过–from-file-文件" class="headerlink" title="2、通过–from-file (文件) :"></a>2、通过–from-file (文件) :</h3><pre><code>[root@master yaml]# echo adam &gt; username
+[root@master yaml]# echo 18 &gt; age</code></pre><h4 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap myconfigmap2 --from-file=username --from-file=age </code></pre><h4 id="查看一下-8"><a href="#查看一下-8" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217103509006.png" alt="image-20200217103509006"></p>
+<h3 id="3、通过–from-env-file"><a href="#3、通过–from-env-file" class="headerlink" title="3、通过–from- env-file:"></a>3、通过–from- env-file:</h3><pre><code>[root@master yaml]# vim env.txt 
+username=adam
+age=18</code></pre><h4 id="创建-1"><a href="#创建-1" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl create configmap  myconfigmap3 --from-env-file=env.txt</code></pre><h4 id="查看一下-9"><a href="#查看一下-9" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217165039190.png" alt="image-20200217165039190"></p>
+<h3 id="4、通过yaml配置文件-1"><a href="#4、通过yaml配置文件-1" class="headerlink" title="4、通过yaml配置文件:"></a>4、通过yaml配置文件:</h3><pre><code>[root@master yaml]# vim configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap4
+data:
+  username: 'adam'
+  age: '18'</code></pre><h4 id="创建-2"><a href="#创建-2" class="headerlink" title="创建"></a>创建</h4><pre><code>[root@master yaml]# kubectl apply -f configmap.yaml </code></pre><h4 id="查看一下-10"><a href="#查看一下-10" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master yaml]# kubectl describe cm</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217104428521.png" alt="image-20200217104428521"></p>
+<h2 id="如何来使用configmap资源"><a href="#如何来使用configmap资源" class="headerlink" title="如何来使用configmap资源"></a>如何来使用configmap资源</h2><h3 id="1-以Volume挂载的方式-1"><a href="#1-以Volume挂载的方式-1" class="headerlink" title="1. 以Volume挂载的方式"></a>1. 以Volume挂载的方式</h3><pre><code>[root@master yaml]# vim v-pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    volumeMounts:
+    - name: cmp-test
+      mountPath: "/etc/cmp-test"
+      readOnly: true
+  volumes:
+  - name: cmp-test
+    configMap:
+      name: myconfigmap1</code></pre><h4 id="执行一下-4"><a href="#执行一下-4" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master configmap]# kubectl apply -f v-pod.yaml </code></pre><h4 id="查看一下-11"><a href="#查看一下-11" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod1 /bin/sh
+//进入容器查看一下
+ # cat /etc/cmp-test/age 
+18/ 
+ # cat /etc/cmp-test/username 
+adam/ </code></pre><h3 id="1-1-自定义存放数据的文件名的yaml文件-1"><a href="#1-1-自定义存放数据的文件名的yaml文件-1" class="headerlink" title="1.1 自定义存放数据的文件名的yaml文件"></a>1.1 自定义存放数据的文件名的yaml文件</h3><pre><code>[root@master configmap]# vim v-pod2.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod3
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    volumeMounts:
+    - name: cmp-test
+      mountPath: "/etc/cmp-test"
+      readOnly: true
+  volumes:
+  - name: cmp-test
+    configMap:
+      name: myconfigmap1
+      items:
+      - key: username
+        path: my-group/my-username   #自定义的容器中的目录
+      - key: age
+        path: my-group/my-age   #自定义的容器中的目录 </code></pre><h4 id="执行一下-5"><a href="#执行一下-5" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master configmap]# kubectl apply -f v-pod2.yaml</code></pre><h4 id="查看一下-12"><a href="#查看一下-12" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
+//进入容器查看
+# cat /etc/cmp-test/my-group/my-username 
+adam/ 
+# cat /etc/cmp-test/my-group/my-age 
+18/ </code></pre><h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1"><a href="#1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-1" class="headerlink" title="1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?"></a>1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap1</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172107999.png" alt="image-20200217172107999"></p>
+<h4 id="查看一下-13"><a href="#查看一下-13" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
+//进入容器查看
+# cat /etc/cmp-test/my-group/my-username 
+adam/ 
+# cat /etc/cmp-test/my-group/my-age 
+10</code></pre><p><strong><em>可以看到更新成功</em></strong></p>
+<h3 id="2-以环境变量的方式"><a href="#2-以环境变量的方式" class="headerlink" title="2.以环境变量的方式"></a>2.以环境变量的方式</h3><pre><code>[root@master configmap]# vim e-pod.yaml 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod2
+spec:
+  containers:
+  - name: mypod
+    image: busybox
+    args:
+      - /bin/sh
+      - -c
+      - sleep 300000
+    env:
+      - name: CONFIGMAP_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: myconfigmap2
+            key: username
+      - name: CONFIGMAP_AGE
+        valueFrom:
+          configMapKeyRef:
+            name: myconfigmap2
+            key: age</code></pre><h4 id="执行一下-6"><a href="#执行一下-6" class="headerlink" title="执行一下"></a>执行一下</h4><pre><code>[root@master configmap]# kubectl apply -f e-pod.yaml </code></pre><h4 id="查看一下-14"><a href="#查看一下-14" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
+//进入容器查看一下
+ # echo $CONFIGMAP_NAME
+adam
+ # echo $CONFIGMAP_AGE
+18</code></pre><h3 id="2-1-更新sevret文件的内容-1"><a href="#2-1-更新sevret文件的内容-1" class="headerlink" title="2.1 更新sevret文件的内容"></a>2.1 更新sevret文件的内容</h3><pre><code>[root@master configmap]# kubectl edit cm myconfigmap2
+ //修改保存文件的内容</code></pre><p><img src="/posts/a50d.htm/E:%5C%E8%BD%AF%E4%BB%B6%5C%E5%8D%9A%E5%AE%A2%5CBlog%5Cblog%5Csource_posts%5C14.assets%5Cimage-20200217172701793.png" alt="image-20200217172701793"></p>
+<h4 id="查看一下-15"><a href="#查看一下-15" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
+//进入容器查看一下
+ # echo $CONFIGMAP_NAME
+adam
+ # echo $CONFIGMAP_AGE
+18</code></pre><p><strong><em>等待了一定时间后，可以看到这个数据并没有没有改变</em></strong></p>
+<p><strong>可以看出这个configmap和secret的更新效果基本没有区别。</strong></p>
+<h2 id="总结configmap、与secret资源有什么相同和不同之处。"><a href="#总结configmap、与secret资源有什么相同和不同之处。" class="headerlink" title="总结configmap、与secret资源有什么相同和不同之处。"></a><strong>总结configmap、与secret资源有什么相同和不同之处。</strong></h2><h3 id="Secret-与-ConfigMap-对比"><a href="#Secret-与-ConfigMap-对比" class="headerlink" title="Secret 与 ConfigMap 对比"></a>Secret 与 ConfigMap 对比</h3><p><strong>相同点：</strong></p>
+<blockquote>
+<p><strong>key/value的形式</strong></p>
+<p><strong>属于某个特定的namespace</strong></p>
+<p><strong>可以导出到环境变量</strong></p>
+<p><strong>可以通过目录/文件形式挂载</strong></p>
+<p><strong>通过 volume 挂载的配置信息均可热更新</strong></p>
+</blockquote>
+<p><strong>不同点：</strong></p>
+<blockquote>
+<p><strong>Secret 可以被 ServerAccount 关联</strong></p>
+<p><strong>Secret 可以存储 docker register 的鉴权信息，用在 ImagePullSecret 参数中，用于拉取私有仓库的镜像</strong></p>
+<p><strong>Secret 支持 Base64 加密</strong></p>
+<p><strong>Secret 分为 kubernetes.io/service-account-token、kubernetes.io/dockerconfigjson、Opaque 三种类型，而 Configmap 不区分类型</strong></p>
+</blockquote>
+<h2 id="总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。"><a href="#总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。" class="headerlink" title="总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。"></a>总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。</h2><p><strong>volumes挂载(可根据更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己所填路径和secret或configmap创建的文件，进行查看。</strong></p>
+<p><strong>环境变量(不因更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己环境变量，进行查看。</strong></p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wu Shao Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wsdlxgp.top/posts/a50d.html">https://wsdlxgp.top/posts/a50d.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wsdlxgp.top">Xgp & Blog</a>！</span></div></div><div class="post-meta__tag-list"></div><nav id="pagination"><div class="prev-post pull-left"><a href="/posts/2643.html"><i class="fa fa-chevron-left">  </i><span>18 k8s的HPA自动扩容与缩容</span></a></div><div class="next-post pull-right"><a href="/posts/5849.html"><span>11 k8s持久化存储应用</span><i class="fa fa-chevron-right"></i></a></div></nav></div></div><footer><div class="layout" id="footer"><div class="copyright">&copy;2013 - 2020 By Wu Shao Dong</div><div class="framework-info"><span>驱动 - </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 - </span><a href="https://github.com/Molunerfinn/hexo-theme-melody" target="_blank" rel="noopener"><span>Melody</span></a></div><div class="busuanzi"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><span id="busuanzi_container_page_pv"><i class="fa fa-file"></i><span id="busuanzi_value_page_pv"></span><span></span></span></div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@latest/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-ui-pack@latest/velocity.ui.min.js"></script><script src="/js/utils.js?version=1.7.0"></script><script src="/js/fancybox.js?version=1.7.0"></script><script src="/js/sidebar.js?version=1.7.0"></script><script src="/js/copy.js?version=1.7.0"></script><script src="/js/fireworks.js?version=1.7.0"></script><script src="/js/transition.js?version=1.7.0"></script><script src="/js/scroll.js?version=1.7.0"></script><script src="/js/head.js?version=1.7.0"></script><script>if(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(navigator.userAgent)) {
+  $('#nav').addClass('is-mobile')
+  $('footer').addClass('is-mobile')
+  $('#top-container').addClass('is-mobile')
+}</script></body></html>
