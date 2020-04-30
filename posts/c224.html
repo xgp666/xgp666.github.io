@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>20 k8s的helm模板 | Xgp &amp; Blog</title><meta name="description" content="自定义helm模板https:&#x2F;&#x2F;hub.helm.sh&#x2F; 1、开发自己的chare包[root@master ~]# helm create mychare &#x2F;&#x2F;创建一个名为mychare的chare包 [root@master ~]# tree -C mychare&#x2F; &#x2F;&#x2F;以树状图查看一下chare包 mychare&#x2F; ├── charts ├── Chart.yaml ├── templat"><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="20 k8s的helm模板"><meta name="twitter:description" content="自定义helm模板https:&#x2F;&#x2F;hub.helm.sh&#x2F; 1、开发自己的chare包[root@master ~]# helm create mychare &#x2F;&#x2F;创建一个名为mychare的chare包 [root@master ~]# tree -C mychare&#x2F; &#x2F;&#x2F;以树状图查看一下chare包 mychare&#x2F; ├── charts ├── Chart.yaml ├── templat"><meta name="twitter:image" content="https://wsdlxgp.top/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="20 k8s的helm模板"><meta property="og:url" content="https://wsdlxgp.top/posts/c224.html"><meta property="og:site_name" content="Xgp &amp; Blog"><meta property="og:description" content="自定义helm模板https:&#x2F;&#x2F;hub.helm.sh&#x2F; 1、开发自己的chare包[root@master ~]# helm create mychare &#x2F;&#x2F;创建一个名为mychare的chare包 [root@master ~]# tree -C mychare&#x2F; &#x2F;&#x2F;以树状图查看一下chare包 mychare&#x2F; ├── charts ├── Chart.yaml ├── templat"><meta property="og:image" content="https://wsdlxgp.top/img/post.jpg"><meta property="article:published_time" content="2020-04-25T03:29:33.973Z"><meta property="article:modified_time" content="2020-04-25T03:43:20.528Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+<!DOCTYPE html><html lang="zh-Hans" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>20 k8s的helm模板 | Xgp &amp; Blog</title><meta name="description" content="自定义helm模板 https:&#x2F;&#x2F;hub.helm.sh&#x2F; 1、开发自己的chare包 [root@master ~]# helm create mychare &#x2F;&#x2F;创建一个名为mychare的chare包 [root@master ~]# tree -C mychare&#x2F; &#x2F;&#x2F;以树状图查看一下chare包 mychare&#x2F; ├── charts ├── Chart.yaml ├── templ"><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="20 k8s的helm模板"><meta name="twitter:description" content="自定义helm模板 https:&#x2F;&#x2F;hub.helm.sh&#x2F; 1、开发自己的chare包 [root@master ~]# helm create mychare &#x2F;&#x2F;创建一个名为mychare的chare包 [root@master ~]# tree -C mychare&#x2F; &#x2F;&#x2F;以树状图查看一下chare包 mychare&#x2F; ├── charts ├── Chart.yaml ├── templ"><meta name="twitter:image" content="https://wsdlxgp.top/img/post.jpg"><meta property="og:type" content="article"><meta property="og:title" content="20 k8s的helm模板"><meta property="og:url" content="https://wsdlxgp.top/posts/c224.html"><meta property="og:site_name" content="Xgp &amp; Blog"><meta property="og:description" content="自定义helm模板 https:&#x2F;&#x2F;hub.helm.sh&#x2F; 1、开发自己的chare包 [root@master ~]# helm create mychare &#x2F;&#x2F;创建一个名为mychare的chare包 [root@master ~]# tree -C mychare&#x2F; &#x2F;&#x2F;以树状图查看一下chare包 mychare&#x2F; ├── charts ├── Chart.yaml ├── templ"><meta property="og:image" content="https://wsdlxgp.top/img/post.jpg"><meta property="article:published_time" content="2020-04-25T03:29:33.973Z"><meta property="article:modified_time" content="2020-04-25T03:43:20.528Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
 var t = Cookies.get("theme")
 if (autoChangeMode == '1'){
   var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -82,9 +82,10 @@ function activateLightMode(){
   opacity: 1
 }
 </style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">3</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-heartbeat" aria-hidden="true"></i><span> 清单</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义helm模板"><span class="toc-number">1.</span> <span class="toc-text">自定义helm模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、开发自己的chare包"><span class="toc-number">1.1.</span> <span class="toc-text">1、开发自己的chare包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、调试chart"><span class="toc-number">1.2.</span> <span class="toc-text">2、调试chart</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、安装chart"><span class="toc-number">1.3.</span> <span class="toc-text">3、安装chart</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）通过仓库安装"><span class="toc-number">1.3.1.</span> <span class="toc-text">（1）通过仓库安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）通过tar包安装"><span class="toc-number">1.3.2.</span> <span class="toc-text">（2）通过tar包安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）通过chare本地目录安装"><span class="toc-number">1.3.3.</span> <span class="toc-text">（3）通过chare本地目录安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）通过URL安装"><span class="toc-number">1.3.4.</span> <span class="toc-text">（4）通过URL安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、例子"><span class="toc-number">1.4.</span> <span class="toc-text">4、例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更改镜像为私有镜像"><span class="toc-number">1.4.1.</span> <span class="toc-text">更改镜像为私有镜像</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建自己的Repo仓库"><span class="toc-number">2.</span> <span class="toc-text">创建自己的Repo仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、node01启动一个httpd的容器"><span class="toc-number">2.1.</span> <span class="toc-text">1、node01启动一个httpd的容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、master节点上，将mychart目录打包。"><span class="toc-number">2.2.</span> <span class="toc-text">2、master节点上，将mychart目录打包。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、生成仓库的index文件。"><span class="toc-number">2.3.</span> <span class="toc-text">3、生成仓库的index文件。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下"><span class="toc-number">2.4.</span> <span class="toc-text">4、将生成的tar包和index.yaml上传到node01的&#x2F;var&#x2F;www&#x2F;charts目录下.</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#node01创建目录"><span class="toc-number">2.4.1.</span> <span class="toc-text">node01创建目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#master移动动到"><span class="toc-number">2.4.2.</span> <span class="toc-text">master移动动到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node01查看一下"><span class="toc-number">2.4.3.</span> <span class="toc-text">node01查看一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、添加新的repo仓库。"><span class="toc-number">2.5.</span> <span class="toc-text">5、添加新的repo仓库。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、我们就可以直接使用新的repo仓库部署实例了。"><span class="toc-number">2.6.</span> <span class="toc-text">6、我们就可以直接使用新的repo仓库部署实例了。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。"><span class="toc-number">2.7.</span> <span class="toc-text">7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1）创建helm的私有仓库，以自己的名字命名。"><span class="toc-number">2.8.</span> <span class="toc-text">1）创建helm的私有仓库，以自己的名字命名。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、node01启动一个httpd的容器-1"><span class="toc-number">2.8.1.</span> <span class="toc-text">1、node01启动一个httpd的容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、生成仓库的index文件。-1"><span class="toc-number">2.8.2.</span> <span class="toc-text">3、生成仓库的index文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、将生成的index-yaml上传到node01的-var-www-charts目录下"><span class="toc-number">2.8.3.</span> <span class="toc-text">4、将生成的index.yaml上传到node01的&#x2F;var&#x2F;www&#x2F;charts目录下.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#node01创建目录-1"><span class="toc-number">2.8.3.1.</span> <span class="toc-text">node01创建目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#master移动动到-1"><span class="toc-number">2.8.3.2.</span> <span class="toc-text">master移动动到</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#node01查看一下-1"><span class="toc-number">2.8.3.3.</span> <span class="toc-text">node01查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、添加新的repo仓库"><span class="toc-number">2.8.4.</span> <span class="toc-text">5、添加新的repo仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000"><span class="toc-number">2.9.</span> <span class="toc-text">2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义一个chart包"><span class="toc-number">2.9.0.1.</span> <span class="toc-text">自定义一个chart包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按照要求修改配置文件"><span class="toc-number">2.9.0.2.</span> <span class="toc-text">按照要求修改配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试一下"><span class="toc-number">2.9.0.3.</span> <span class="toc-text">测试一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下镜像版本"><span class="toc-number">2.9.0.4.</span> <span class="toc-text">查看一下镜像版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问一下"><span class="toc-number">2.9.0.5.</span> <span class="toc-text">访问一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-将实例进行更新，要求镜像生产v2版本。"><span class="toc-number">2.10.</span> <span class="toc-text">3)  将实例进行更新，要求镜像生产v2版本。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、修改values-yaml"><span class="toc-number">2.10.1.</span> <span class="toc-text">1、修改values.yaml</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下"><span class="toc-number">2.10.1.1.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问一下-1"><span class="toc-number">2.10.1.2.</span> <span class="toc-text">访问一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、使用edit进行版本更新"><span class="toc-number">2.10.2.</span> <span class="toc-text">2、使用edit进行版本更新</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-1"><span class="toc-number">2.10.2.1.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问一下-2"><span class="toc-number">2.10.2.2.</span> <span class="toc-text">访问一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。"><span class="toc-number">2.11.</span> <span class="toc-text">4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看一下-2"><span class="toc-number">2.11.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-heartbeat" aria-hidden="true"></i><span> 清单</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">20 k8s的helm模板</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="Created 2020-04-25 11:29:33"><i class="fa fa-calendar" aria-hidden="true"></i> Created 2020-04-25</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="Updated 2020-04-25 11:43:20"><i class="fa fa-history" aria-hidden="true"></i> Updated 2020-04-25</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>Word count:</span><span class="word-count">2.2k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>Reading time: 10 min</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>Post View:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h1 id="自定义helm模板"><a href="#自定义helm模板" class="headerlink" title="自定义helm模板"></a>自定义helm模板</h1><p><a href="https://hub.helm.sh/" target="_blank" rel="noopener">https://hub.helm.sh/</a></p>
-<h2 id="1、开发自己的chare包"><a href="#1、开发自己的chare包" class="headerlink" title="1、开发自己的chare包"></a>1、开发自己的chare包</h2><pre><code>[root@master ~]# helm create mychare
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">Articles</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">Tags</div><div class="length_num">3</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">Categories</div><div class="length_num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-heartbeat" aria-hidden="true"></i><span> 清单</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">Catalog</div><div class="sidebar-toc__progress"><span class="progress-notice">You've read</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">自定义helm模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、开发自己的chare包"><span class="toc-number">1.1.</span> <span class="toc-text">1、开发自己的chare包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、调试chart"><span class="toc-number">1.2.</span> <span class="toc-text">2、调试chart</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、安装chart"><span class="toc-number">1.3.</span> <span class="toc-text">3、安装chart</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）通过仓库安装"><span class="toc-number">1.3.1.</span> <span class="toc-text">（1）通过仓库安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）通过tar包安装"><span class="toc-number">1.3.2.</span> <span class="toc-text">（2）通过tar包安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）通过chare本地目录安装"><span class="toc-number">1.3.3.</span> <span class="toc-text">（3）通过chare本地目录安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）通过URL安装"><span class="toc-number">1.3.4.</span> <span class="toc-text">（4）通过URL安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、例子"><span class="toc-number">1.4.</span> <span class="toc-text">4、例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#更改镜像为私有镜像"><span class="toc-number">1.4.1.</span> <span class="toc-text">更改镜像为私有镜像</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">创建自己的Repo仓库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、node01启动一个httpd的容器"><span class="toc-number">2.1.</span> <span class="toc-text">1、node01启动一个httpd的容器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、master节点上，将mychart目录打包。"><span class="toc-number">2.2.</span> <span class="toc-text">2、master节点上，将mychart目录打包。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、生成仓库的index文件。"><span class="toc-number">2.3.</span> <span class="toc-text">3、生成仓库的index文件。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下"><span class="toc-number">2.4.</span> <span class="toc-text">4、将生成的tar包和index.yaml上传到node01的&#x2F;var&#x2F;www&#x2F;charts目录下.</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#node01创建目录"><span class="toc-number">2.4.1.</span> <span class="toc-text">node01创建目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#master移动动到"><span class="toc-number">2.4.2.</span> <span class="toc-text">master移动动到</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node01查看一下"><span class="toc-number">2.4.3.</span> <span class="toc-text">node01查看一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、添加新的repo仓库。"><span class="toc-number">2.5.</span> <span class="toc-text">5、添加新的repo仓库。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、我们就可以直接使用新的repo仓库部署实例了。"><span class="toc-number">2.6.</span> <span class="toc-text">6、我们就可以直接使用新的repo仓库部署实例了。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。"><span class="toc-number">2.7.</span> <span class="toc-text">7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1）创建helm的私有仓库，以自己的名字命名。"><span class="toc-number">2.8.</span> <span class="toc-text">1）创建helm的私有仓库，以自己的名字命名。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、node01启动一个httpd的容器-2"><span class="toc-number">2.8.1.</span> <span class="toc-text">1、node01启动一个httpd的容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、生成仓库的index文件。-2"><span class="toc-number">2.8.2.</span> <span class="toc-text">3、生成仓库的index文件。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、将生成的index-yaml上传到node01的-var-www-charts目录下"><span class="toc-number">2.8.3.</span> <span class="toc-text">4、将生成的index.yaml上传到node01的&#x2F;var&#x2F;www&#x2F;charts目录下.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#node01创建目录-2"><span class="toc-number">2.8.3.1.</span> <span class="toc-text">node01创建目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#master移动动到-2"><span class="toc-number">2.8.3.2.</span> <span class="toc-text">master移动动到</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#node01查看一下-2"><span class="toc-number">2.8.3.3.</span> <span class="toc-text">node01查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、添加新的repo仓库"><span class="toc-number">2.8.4.</span> <span class="toc-text">5、添加新的repo仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000"><span class="toc-number">2.9.</span> <span class="toc-text">2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#自定义一个chart包"><span class="toc-number">2.9.0.1.</span> <span class="toc-text">自定义一个chart包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#按照要求修改配置文件"><span class="toc-number">2.9.0.2.</span> <span class="toc-text">按照要求修改配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#测试一下"><span class="toc-number">2.9.0.3.</span> <span class="toc-text">测试一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下镜像版本"><span class="toc-number">2.9.0.4.</span> <span class="toc-text">查看一下镜像版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问一下"><span class="toc-number">2.9.0.5.</span> <span class="toc-text">访问一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-将实例进行更新，要求镜像生产v2版本。"><span class="toc-number">2.10.</span> <span class="toc-text">3)  将实例进行更新，要求镜像生产v2版本。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、修改values-yaml"><span class="toc-number">2.10.1.</span> <span class="toc-text">1、修改values.yaml</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下"><span class="toc-number">2.10.1.1.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问一下-2"><span class="toc-number">2.10.1.2.</span> <span class="toc-text">访问一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、使用edit进行版本更新"><span class="toc-number">2.10.2.</span> <span class="toc-text">2、使用edit进行版本更新</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-2"><span class="toc-number">2.10.2.1.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#访问一下-3"><span class="toc-number">2.10.2.2.</span> <span class="toc-text">访问一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。"><span class="toc-number">2.11.</span> <span class="toc-text">4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看一下-3"><span class="toc-number">2.11.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(/img/post.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-heartbeat" aria-hidden="true"></i><span> 清单</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/Gallery/"><i class="fa-fw fa fa-picture-o"></i><span> 照片</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 电影</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">20 k8s的helm模板</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="Created 2020-04-25 11:29:33"><i class="fa fa-calendar" aria-hidden="true"></i> Created 2020-04-25</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="Updated 2020-04-25 11:43:20"><i class="fa fa-history" aria-hidden="true"></i> Updated 2020-04-25</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon fa fa-file-word-o" aria-hidden="true"></i><span>Word count:</span><span class="word-count">2.3k</span><span class="post-meta__separator">|</span><i class="post-meta__icon fa fa-clock-o" aria-hidden="true"></i><span>Reading time: 10 min</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>Post View:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div id="article-container"><h1>自定义helm模板</h1>
+<p><a href="https://hub.helm.sh/" target="_blank" rel="noopener">https://hub.helm.sh/</a></p>
+<h2 id="1、开发自己的chare包">1、开发自己的chare包</h2>
+<pre><code>[root@master ~]# helm create mychare
 //创建一个名为mychare的chare包
 [root@master ~]# tree -C mychare/
 //以树状图查看一下chare包
@@ -92,19 +93,35 @@ mychare/
 ├── charts
 ├── Chart.yaml
 ├── templates
-│   ├── deployment.yaml
-│   ├── _helpers.tpl
-│   ├── ingress.yaml
-│   ├── NOTES.txt
-│   ├── service.yaml
-│   └── tests
-│       └── test-connection.yaml
-└── values.yaml</code></pre><h2 id="2、调试chart"><a href="#2、调试chart" class="headerlink" title="2、调试chart"></a>2、调试chart</h2><pre><code>[root@master mychare]# cd
+│&nbsp;&nbsp; ├── deployment.yaml
+│&nbsp;&nbsp; ├── _helpers.tpl
+│&nbsp;&nbsp; ├── ingress.yaml
+│&nbsp;&nbsp; ├── NOTES.txt
+│&nbsp;&nbsp; ├── service.yaml
+│&nbsp;&nbsp; └── tests
+│&nbsp;&nbsp;     └── test-connection.yaml
+└── values.yaml
+</code></pre>
+<h2 id="2、调试chart">2、调试chart</h2>
+<pre><code>[root@master mychare]# cd
 [root@master ~]# helm install --dry-run --debug mychare
-//检查这个mychare是否有问题</code></pre><h2 id="3、安装chart"><a href="#3、安装chart" class="headerlink" title="3、安装chart"></a>3、安装chart</h2><pre><code>[root@node02 ~]# docker pull nginx:stable</code></pre><h3 id="（1）通过仓库安装"><a href="#（1）通过仓库安装" class="headerlink" title="（1）通过仓库安装"></a>（1）通过仓库安装</h3><pre><code>[root@master mychare]# helm search redis
-//搜索chare包</code></pre><pre><code>[root@master mychare]# helm repo list
-//查看是否有能访问仓库</code></pre><pre><code>[root@master mychare]# helm install stable/redis
-//安装</code></pre><h3 id="（2）通过tar包安装"><a href="#（2）通过tar包安装" class="headerlink" title="（2）通过tar包安装"></a>（2）通过tar包安装</h3><pre><code>[root@master ~]# helm fetch stable/redis
+//检查这个mychare是否有问题
+</code></pre>
+<h2 id="3、安装chart">3、安装chart</h2>
+<pre><code>[root@node02 ~]# docker pull nginx:stable
+</code></pre>
+<h3 id="（1）通过仓库安装">（1）通过仓库安装</h3>
+<pre><code>[root@master mychare]# helm search redis
+//搜索chare包
+</code></pre>
+<pre><code>[root@master mychare]# helm repo list
+//查看是否有能访问仓库
+</code></pre>
+<pre><code>[root@master mychare]# helm install stable/redis
+//安装
+</code></pre>
+<h3 id="（2）通过tar包安装">（2）通过tar包安装</h3>
+<pre><code>[root@master ~]# helm fetch stable/redis
 //直接下载chare包
 [root@master ~]# tar -zxf redis-1.1.15.tgz
 //解压下载的chare包
@@ -113,53 +130,115 @@ redis
 ├── Chart.yaml
 ├── README.md
 ├── templates
-│   ├── deployment.yaml
-│   ├── _helpers.tpl
-│   ├── networkpolicy.yaml
-│   ├── NOTES.txt
-│   ├── pvc.yaml
-│   ├── secrets.yaml
-│   └── svc.yaml
-└── values.yaml</code></pre><h3 id="（3）通过chare本地目录安装"><a href="#（3）通过chare本地目录安装" class="headerlink" title="（3）通过chare本地目录安装"></a>（3）通过chare本地目录安装</h3><pre><code>[root@master ~]# helm fetch stable/redis
+│&nbsp;&nbsp; ├── deployment.yaml
+│&nbsp;&nbsp; ├── _helpers.tpl
+│&nbsp;&nbsp; ├── networkpolicy.yaml
+│&nbsp;&nbsp; ├── NOTES.txt
+│&nbsp;&nbsp; ├── pvc.yaml
+│&nbsp;&nbsp; ├── secrets.yaml
+│&nbsp;&nbsp; └── svc.yaml
+└── values.yaml
+</code></pre>
+<h3 id="（3）通过chare本地目录安装">（3）通过chare本地目录安装</h3>
+<pre><code>[root@master ~]# helm fetch stable/redis
 //直接下载chare包
 [root@master ~]# tar -zxf redis-1.1.15.tgz
 //解压下载的chare包
-[root@master ~]# helm install redis</code></pre><h3 id="（4）通过URL安装"><a href="#（4）通过URL安装" class="headerlink" title="（4）通过URL安装"></a>（4）通过URL安装</h3><pre><code>[root@master ~]# helm install https://example.com/charts/foo-1.2.3.tgz</code></pre><p>使用本地目录安装：</p>
+[root@master ~]# helm install redis
+</code></pre>
+<h3 id="（4）通过URL安装">（4）通过URL安装</h3>
+<pre><code>[root@master ~]# helm install https://example.com/charts/foo-1.2.3.tgz
+</code></pre>
+<p>使用本地目录安装：</p>
 <pre><code>[root@master ~]# cd mychare/
-[root@master mychare]# vim values.yaml </code></pre><p>![image-20200304094840738](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304094840738.png)</p>
+[root@master mychare]# vim values.yaml 
+</code></pre>
+<p>![image-20200304094840738](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304094840738.png)</p>
 <pre><code>[root@master mychare]# cd templates/
-[root@master templates]# vim service.yaml </code></pre><p>![image-20200304095647172](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304095647172.png)</p>
+[root@master templates]# vim service.yaml 
+</code></pre>
+<p>![image-20200304095647172](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304095647172.png)</p>
 <pre><code>[root@master templates]# cd ..
 [root@master mychare]# helm install -n test ../mychare/
-[root@master ~]# helm upgrade test mychare/ -f  mychare/values.yaml </code></pre><h2 id="4、例子"><a href="#4、例子" class="headerlink" title="4、例子"></a>4、例子</h2><p><strong>使用mychart部署一个实例: xgp。使用镜像为私有镜像v1 版本。</strong></p>
+[root@master ~]# helm upgrade test mychare/ -f  mychare/values.yaml 
+</code></pre>
+<h2 id="4、例子">4、例子</h2>
+<p><strong>使用mychart部署一个实例: xgp。使用镜像为私有镜像v1 版本。</strong></p>
 <p><strong>完成之后，镜像版本。</strong></p>
 <p><strong>全部成功之后，将实例做一个升级，将镜像改为v2版本。</strong></p>
-<h3 id="更改镜像为私有镜像"><a href="#更改镜像为私有镜像" class="headerlink" title="更改镜像为私有镜像"></a>更改镜像为私有镜像</h3><pre><code>[root@master ~]# vim mychare/values.yaml</code></pre><p>![image-20200304104416415](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304104416415.png)</p>
+<h3 id="更改镜像为私有镜像">更改镜像为私有镜像</h3>
+<pre><code>[root@master ~]# vim mychare/values.yaml
+</code></pre>
+<p>![image-20200304104416415](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304104416415.png)</p>
 <pre><code>[root@master ~]#  helm install -n xgp mychare/ -f mychare/values.yaml
-[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304104645260](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304104645260.png)</p>
-<pre><code>[root@master ~]# vim mychare/values.yaml</code></pre><p>![image-20200304105120894](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304105120894.png)</p>
+[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304104645260](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304104645260.png)</p>
+<pre><code>[root@master ~]# vim mychare/values.yaml
+</code></pre>
+<p>![image-20200304105120894](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304105120894.png)</p>
 <pre><code>[root@master ~]# helm upgrade  xgp mychare/  -f mychare/values.yaml 
-[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304105211506](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304105211506.png)</p>
-<pre><code>[root@master ~]# kubectl edit deployments. xgp-mychare</code></pre><p>![image-20200304105334541](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304105334541.png)</p>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304105359184](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304105359184.png)</p>
-<h1 id="创建自己的Repo仓库"><a href="#创建自己的Repo仓库" class="headerlink" title="创建自己的Repo仓库"></a>创建自己的Repo仓库</h1><h2 id="1、node01启动一个httpd的容器"><a href="#1、node01启动一个httpd的容器" class="headerlink" title="1、node01启动一个httpd的容器"></a>1、node01启动一个httpd的容器</h2><pre><code>[root@node01 ~]# mkdir /var/xgp
+[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304105211506](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304105211506.png)</p>
+<pre><code>[root@master ~]# kubectl edit deployments. xgp-mychare
+</code></pre>
+<p>![image-20200304105334541](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304105334541.png)</p>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304105359184](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304105359184.png)</p>
+<h1>创建自己的Repo仓库</h1>
+<h2 id="1、node01启动一个httpd的容器">1、node01启动一个httpd的容器</h2>
+<pre><code>[root@node01 ~]# mkdir /var/xgp
 //创建一个目录
 [root@node01 ~]# docker pull httpd
 //下载httpd镜像
 [root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
-//启动一个httpd的容器</code></pre><h2 id="2、master节点上，将mychart目录打包。"><a href="#2、master节点上，将mychart目录打包。" class="headerlink" title="2、master节点上，将mychart目录打包。"></a>2、master节点上，将mychart目录打包。</h2><pre><code>[root@master ~]# helm package mychare/
-Successfully packaged chart and saved it to: /root/mychare-0.1.0.tgz</code></pre><h2 id="3、生成仓库的index文件。"><a href="#3、生成仓库的index文件。" class="headerlink" title="3、生成仓库的index文件。"></a>3、生成仓库的index文件。</h2><pre><code>[root@master ~]# mkdir myrepo
+//启动一个httpd的容器
+</code></pre>
+<h2 id="2、master节点上，将mychart目录打包。">2、master节点上，将mychart目录打包。</h2>
+<pre><code>[root@master ~]# helm package mychare/
+Successfully packaged chart and saved it to: /root/mychare-0.1.0.tgz
+</code></pre>
+<h2 id="3、生成仓库的index文件。">3、生成仓库的index文件。</h2>
+<pre><code>[root@master ~]# mkdir myrepo
 //创建一个目录存放打包的chare
 [root@master ~]# mv mychare-0.1.0.tgz myrepo/
 //移动打包好的文件
 [root@master ~]# helm repo index myrepo/ --url http://192.168.1.22:8080/charts
 //生成仓库的index文件
 [root@master ~]# ls myrepo/
-index.yaml  mychare-0.1.0.tgz</code></pre><h2 id="4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下"><a href="#4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下" class="headerlink" title="4、将生成的tar包和index.yaml上传到node01的/var/www/charts目录下."></a>4、将生成的tar包和index.yaml上传到node01的/var/www/charts目录下.</h2><h3 id="node01创建目录"><a href="#node01创建目录" class="headerlink" title="node01创建目录"></a>node01创建目录</h3><pre><code>[root@node01 ~]# mkdir /var/xgp/charts</code></pre><h3 id="master移动动到"><a href="#master移动动到" class="headerlink" title="master移动动到"></a>master移动动到</h3><pre><code>[root@master ~]# scp myrepo/* node01:/var/xgp/charts/</code></pre><h3 id="node01查看一下"><a href="#node01查看一下" class="headerlink" title="node01查看一下"></a>node01查看一下</h3><pre><code>[root@node01 ~]# ls /var/xgp/charts/
-index.yaml  mychare-0.1.0.tgz</code></pre><h2 id="5、添加新的repo仓库。"><a href="#5、添加新的repo仓库。" class="headerlink" title="5、添加新的repo仓库。"></a>5、添加新的repo仓库。</h2><pre><code>[root@master ~]# helm repo add newrepo http://192.168.1.22:8080/charts</code></pre><pre><code>[root@master ~]# helm repo list</code></pre><p>![image-20200304112410286](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304112410286.png)</p>
-<pre><code>[root@master ~]# helm search mychare</code></pre><p>![image-20200304112443931](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304112443931.png)</p>
-<h2 id="6、我们就可以直接使用新的repo仓库部署实例了。"><a href="#6、我们就可以直接使用新的repo仓库部署实例了。" class="headerlink" title="6、我们就可以直接使用新的repo仓库部署实例了。"></a>6、我们就可以直接使用新的repo仓库部署实例了。</h2><pre><code>[root@master ~]# helm install newrepo/mychare -n wsd</code></pre><pre><code>[root@master ~]# helm list </code></pre><p>![image-20200304112515084](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304112515084.png)</p>
-<h2 id="7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。"><a href="#7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。" class="headerlink" title="7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。"></a>7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。</h2><p> 练习：<br>    新创建一个bdqn.的chart包。然后将chart包上传到上述repo源中。</p>
+index.yaml  mychare-0.1.0.tgz
+</code></pre>
+<h2 id="4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下">4、将生成的tar包和index.yaml上传到node01的/var/www/charts目录下.</h2>
+<h3 id="node01创建目录">node01创建目录</h3>
+<pre><code>[root@node01 ~]# mkdir /var/xgp/charts
+</code></pre>
+<h3 id="master移动动到">master移动动到</h3>
+<pre><code>[root@master ~]# scp myrepo/* node01:/var/xgp/charts/
+</code></pre>
+<h3 id="node01查看一下">node01查看一下</h3>
+<pre><code>[root@node01 ~]# ls /var/xgp/charts/
+index.yaml  mychare-0.1.0.tgz
+</code></pre>
+<h2 id="5、添加新的repo仓库。">5、添加新的repo仓库。</h2>
+<pre><code>[root@master ~]# helm repo add newrepo http://192.168.1.22:8080/charts
+</code></pre>
+<pre><code>[root@master ~]# helm repo list
+</code></pre>
+<p>![image-20200304112410286](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304112410286.png)</p>
+<pre><code>[root@master ~]# helm search mychare
+</code></pre>
+<p>![image-20200304112443931](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304112443931.png)</p>
+<h2 id="6、我们就可以直接使用新的repo仓库部署实例了。">6、我们就可以直接使用新的repo仓库部署实例了。</h2>
+<pre><code>[root@master ~]# helm install newrepo/mychare -n wsd
+</code></pre>
+<pre><code>[root@master ~]# helm list 
+</code></pre>
+<p>![image-20200304112515084](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304112515084.png)</p>
+<h2 id="7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。">7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。</h2>
+<p>练习：<br>
+新创建一个bdqn.的chart包。然后将chart包上传到上述repo源中。</p>
 <pre><code>[root@master ~]# helm create bdqn
 [root@master ~]# helm package bdqn/
 [root@master ~]# mv bdqn-0.1.0.tgz myrepo/
@@ -168,19 +247,46 @@ index.yaml  mychare-0.1.0.tgz</code></pre><h2 id="5、添加新的repo仓库。"
 [root@master myrepo]# helm repo update
 [root@master myrepo]# helm search bdqn
 [root@master myrepo]# helm install http://192.168.1.22:8080/charts/bdqn-0.1.0.tgz
-</code></pre><h2 id="1）创建helm的私有仓库，以自己的名字命名。"><a href="#1）创建helm的私有仓库，以自己的名字命名。" class="headerlink" title="1）创建helm的私有仓库，以自己的名字命名。"></a>1）创建helm的私有仓库，以自己的名字命名。</h2><h3 id="1、node01启动一个httpd的容器-1"><a href="#1、node01启动一个httpd的容器-1" class="headerlink" title="1、node01启动一个httpd的容器"></a>1、node01启动一个httpd的容器</h3><pre><code>[root@node01 ~]# mkdir /var/xgp
+
+</code></pre>
+<h2 id="1）创建helm的私有仓库，以自己的名字命名。">1）创建helm的私有仓库，以自己的名字命名。</h2>
+<h3 id="1、node01启动一个httpd的容器-2">1、node01启动一个httpd的容器</h3>
+<pre><code>[root@node01 ~]# mkdir /var/xgp
 //创建一个目录
 [root@node01 ~]# docker pull httpd
 //下载httpd镜像
 [root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
-//启动一个httpd的容器</code></pre><h3 id="3、生成仓库的index文件。-1"><a href="#3、生成仓库的index文件。-1" class="headerlink" title="3、生成仓库的index文件。"></a>3、生成仓库的index文件。</h3><pre><code>[root@master ~]# mkdir xgprepo
+//启动一个httpd的容器
+</code></pre>
+<h3 id="3、生成仓库的index文件。-2">3、生成仓库的index文件。</h3>
+<pre><code>[root@master ~]# mkdir xgprepo
 //创建一个目录存放打包的chare
 [root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
-//生成仓库的index文件</code></pre><h3 id="4、将生成的index-yaml上传到node01的-var-www-charts目录下"><a href="#4、将生成的index-yaml上传到node01的-var-www-charts目录下" class="headerlink" title="4、将生成的index.yaml上传到node01的/var/www/charts目录下."></a>4、将生成的index.yaml上传到node01的/var/www/charts目录下.</h3><h4 id="node01创建目录-1"><a href="#node01创建目录-1" class="headerlink" title="node01创建目录"></a>node01创建目录</h4><pre><code>[root@node01 ~]# mkdir /var/xgp/charts</code></pre><h4 id="master移动动到-1"><a href="#master移动动到-1" class="headerlink" title="master移动动到"></a>master移动动到</h4><pre><code>[root@master ~]# scp xgprepo/* node01:/var/xgp/charts/</code></pre><h4 id="node01查看一下-1"><a href="#node01查看一下-1" class="headerlink" title="node01查看一下"></a>node01查看一下</h4><pre><code>[root@node01 ~]# ls /var/xgp/charts/
-index.yaml  </code></pre><h3 id="5、添加新的repo仓库"><a href="#5、添加新的repo仓库" class="headerlink" title="5、添加新的repo仓库"></a>5、添加新的repo仓库</h3><pre><code>[root@master ~]# helm repo add xgp http://192.168.1.22:8080/charts
-[root@master ~]# helm repo list </code></pre><p>![image-20200304132528938](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304132528938.png)</p>
-<h2 id="2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000"><a href="#2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000" class="headerlink" title="2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000"></a>2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</h2><h4 id="自定义一个chart包"><a href="#自定义一个chart包" class="headerlink" title="自定义一个chart包"></a>自定义一个chart包</h4><pre><code>[root@master ~]# helm create wsd
-//创建一个名为wsd的chares包</code></pre><h4 id="按照要求修改配置文件"><a href="#按照要求修改配置文件" class="headerlink" title="按照要求修改配置文件"></a>按照要求修改配置文件</h4><pre><code>[root@master ~]# cd wsd/
+//生成仓库的index文件
+</code></pre>
+<h3 id="4、将生成的index-yaml上传到node01的-var-www-charts目录下">4、将生成的index.yaml上传到node01的/var/www/charts目录下.</h3>
+<h4 id="node01创建目录-2">node01创建目录</h4>
+<pre><code>[root@node01 ~]# mkdir /var/xgp/charts
+</code></pre>
+<h4 id="master移动动到-2">master移动动到</h4>
+<pre><code>[root@master ~]# scp xgprepo/* node01:/var/xgp/charts/
+</code></pre>
+<h4 id="node01查看一下-2">node01查看一下</h4>
+<pre><code>[root@node01 ~]# ls /var/xgp/charts/
+index.yaml  
+</code></pre>
+<h3 id="5、添加新的repo仓库">5、添加新的repo仓库</h3>
+<pre><code>[root@master ~]# helm repo add xgp http://192.168.1.22:8080/charts
+[root@master ~]# helm repo list 
+</code></pre>
+<p>![image-20200304132528938](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304132528938.png)</p>
+<h2 id="2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000">2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</h2>
+<h4 id="自定义一个chart包">自定义一个chart包</h4>
+<pre><code>[root@master ~]# helm create wsd
+//创建一个名为wsd的chares包
+</code></pre>
+<h4 id="按照要求修改配置文件">按照要求修改配置文件</h4>
+<pre><code>[root@master ~]# cd wsd/
 //进入这个chart包
 [root@master wsd]# vim values.yaml
 //修改wsd的配置文件
@@ -218,11 +324,24 @@ spec:
       nodePort: {{ .Values.service.nodePort }}    #“添加”能让服务识别到nodePort的端口
   selector:
     app.kubernetes.io/name: {{ include "wsd.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}</code></pre><h4 id="测试一下"><a href="#测试一下" class="headerlink" title="测试一下"></a>测试一下</h4><pre><code>[root@master ~]# helm install -n wsd  wsd/ -f wsd/values.yaml </code></pre><p>![image-20200304134959273](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304134959273.png)</p>
-<h4 id="查看一下镜像版本"><a href="#查看一下镜像版本" class="headerlink" title="查看一下镜像版本"></a>查看一下镜像版本</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304135106081](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304135106081.png)</p>
-<h4 id="访问一下"><a href="#访问一下" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p>![image-20200304150609552](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304150609552.png)</p>
-<h2 id="3-将实例进行更新，要求镜像生产v2版本。"><a href="#3-将实例进行更新，要求镜像生产v2版本。" class="headerlink" title="3)  将实例进行更新，要求镜像生产v2版本。"></a>3)  将实例进行更新，要求镜像生产v2版本。</h2><p><strong>私有镜像和官方镜像升级有所不同，官方的只需通过 （helm upgrade –set imageTag=“标签” 服务名称 charts包名 ）进行更改标签即可，而私有镜像需通过更改values.yaml中的标签才行比较麻烦一点。</strong></p>
-<h3 id="1、修改values-yaml"><a href="#1、修改values-yaml" class="headerlink" title="1、修改values.yaml"></a>1、修改values.yaml</h3><pre><code>[root@master ~]# vim wsd/values.yaml 
+    app.kubernetes.io/instance: {{ .Release.Name }}
+</code></pre>
+<h4 id="测试一下">测试一下</h4>
+<pre><code>[root@master ~]# helm install -n wsd  wsd/ -f wsd/values.yaml 
+</code></pre>
+<p>![image-20200304134959273](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304134959273.png)</p>
+<h4 id="查看一下镜像版本">查看一下镜像版本</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304135106081](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304135106081.png)</p>
+<h4 id="访问一下">访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30000
+</code></pre>
+<p>![image-20200304150609552](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304150609552.png)</p>
+<h2 id="3-将实例进行更新，要求镜像生产v2版本。">3)  将实例进行更新，要求镜像生产v2版本。</h2>
+<p><strong>私有镜像和官方镜像升级有所不同，官方的只需通过 （helm upgrade --set imageTag=“标签” 服务名称 charts包名 ）进行更改标签即可，而私有镜像需通过更改values.yaml中的标签才行比较麻烦一点。</strong></p>
+<h3 id="1、修改values-yaml">1、修改values.yaml</h3>
+<pre><code>[root@master ~]# vim wsd/values.yaml 
 
 # Default values for wsd.
 # This is a YAML-formatted file.
@@ -235,13 +354,33 @@ image:
   tag: v2                            #修改标签为v2
   pullPolicy: IfNotPresent
 [root@master ~]# helm upgrade wsd wsd/ -f wsd/values.yaml
-//基于配置文件刷新一下wsd服务</code></pre><h4 id="查看一下"><a href="#查看一下" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304140054269](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304140054269.png)</p>
-<h4 id="访问一下-1"><a href="#访问一下-1" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p>![image-20200304150742815](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304150742815.png)</p>
-<h3 id="2、使用edit进行版本更新"><a href="#2、使用edit进行版本更新" class="headerlink" title="2、使用edit进行版本更新"></a>2、使用edit进行版本更新</h3><p><strong><em>确定wsd这个服务开启</em></strong></p>
-<pre><code>[root@master ~]# kubectl edit deployments. wsd</code></pre><p>![](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304140425336.png)</p>
-<h4 id="查看一下-1"><a href="#查看一下-1" class="headerlink" title="查看一下"></a>查看一下</h4><pre><code>[root@master ~]# kubectl get deployments. -o wide</code></pre><p>![image-20200304140520342](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304140520342.png)</p>
-<h4 id="访问一下-2"><a href="#访问一下-2" class="headerlink" title="访问一下"></a>访问一下</h4><pre><code>[root@master ~]# curl 127.0.0.1:30000</code></pre><p>![image-20200304150839440](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304150839440.png)</p>
-<h2 id="4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。"><a href="#4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。" class="headerlink" title="4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。"></a>4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。</h2><pre><code>[root@master ~]# helm repo list </code></pre><p>![image-20200304142059023](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304142059023.png)</p>
+//基于配置文件刷新一下wsd服务
+</code></pre>
+<h4 id="查看一下">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304140054269](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304140054269.png)</p>
+<h4 id="访问一下-2">访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30000
+</code></pre>
+<p>![image-20200304150742815](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304150742815.png)</p>
+<h3 id="2、使用edit进行版本更新">2、使用edit进行版本更新</h3>
+<p><em><strong>确定wsd这个服务开启</strong></em></p>
+<pre><code>[root@master ~]# kubectl edit deployments. wsd
+</code></pre>
+<p>![](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304140425336.png)</p>
+<h4 id="查看一下-2">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304140520342](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304140520342.png)</p>
+<h4 id="访问一下-3">访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30000
+</code></pre>
+<p>![image-20200304150839440](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304150839440.png)</p>
+<h2 id="4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。">4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。</h2>
+<pre><code>[root@master ~]# helm repo list 
+</code></pre>
+<p>![image-20200304142059023](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304142059023.png)</p>
 <pre><code>[root@master ~]# helm create xgp-wsd
 //创建一个名为xgp-wsd的charts包
 
@@ -258,7 +397,12 @@ image:
 //将仓库目录的文件移动到httpd服务上，使各个主机可以访问，下载仓库的charts包
 
 [root@master ~]# helm repo update 
-//更新一下chart存储库</code></pre><h3 id="查看一下-2"><a href="#查看一下-2" class="headerlink" title="查看一下"></a>查看一下</h3><pre><code>[root@master ~]# helm search xgp-wsd</code></pre><p>![image-20200304142009776](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304142009776.png)</p>
+//更新一下chart存储库
+</code></pre>
+<h3 id="查看一下-3">查看一下</h3>
+<pre><code>[root@master ~]# helm search xgp-wsd
+</code></pre>
+<p>![image-20200304142009776](E:\软件\博客\Blog\blog\source_posts\20 k8s的helm模板.assets\image-20200304142009776.png)</p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
