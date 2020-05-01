@@ -1462,8 +1462,6 @@ canvas:not(#ribbon-canvas),
   background: #263238;
   color: #eff;
   line-height: 20px;
-  counter-reset: line;
-  white-space: pre-wrap;
 }
 .code-area-wrap {
   position: relative;
@@ -1526,15 +1524,6 @@ blockquote footer cite:before {
 #article-container figure.highlight .line::selection {
   background: rgba(128,203,196,0.125);
   color: #eff;
-}
-#article-container figure.highlight .line:before {
-  display: inline-block;
-  padding: 0 0.3rem 0 0;
-  min-width: 1.6rem;
-  color: #37474f;
-  content: counter(line);
-  counter-increment: line;
-  text-align: left;
 }
 #article-container figure.highlight .line.marked {
   background-color: rgba(128,203,196,0.125);
