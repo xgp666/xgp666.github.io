@@ -136,7 +136,7 @@ function activateLightMode(){
 <p>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</p>
 <p>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</p>
 </blockquote>
-<p>**5. Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p>**5. Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
 <p>**7. Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces
@@ -194,7 +194,7 @@ function activateLightMode(){
 //显示pod的节点信息
 </code></pre>
 <p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png"  alt="image-20200104111128779"></p>
-<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart="" kubelet=""></systemctl></strong></em></p>
+<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
 <h3 id="如果删除一个pod">如果删除一个pod</h3>
 <pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
 </code></pre>
