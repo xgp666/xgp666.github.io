@@ -1,72 +1,96 @@
-$(function () {
-  $('.toggle-sidebar-info > span').on('click', function () {
-    var toggleText = $(this).attr('data-toggle')
-    $(this).attr('data-toggle', $(this).text())
-    $(this).text(toggleText)
-    changeSideBarInfo()
-  })
-  $('#toggle-sidebar').on('click', function () {
-    if (!isMobile() && $('#sidebar').is(':visible')) {
-      var isOpen = $(this).hasClass('on')
-      isOpen ? $(this).removeClass('on') : $(this).addClass('on')
-      if (isOpen) {
-        $('#page-header').removeClass('open-sidebar')
-        $('body').velocity('stop').velocity({
-          paddingLeft: '0px'
-        }, {
-          duration: 200
-        })
-        $('#sidebar').velocity('stop').velocity({
-          translateX: '0px'
-        }, {
-          duration: 200
-        })
-        $('#toggle-sidebar').velocity('stop').velocity({
-          rotateZ: '0deg',
-          color: '#1F2D3D'
-        }, {
-          duration: 200
-        })
-      } else {
-        $('#page-header').addClass('open-sidebar')
-        $('body').velocity('stop').velocity({
-          paddingLeft: '300px'
-        }, {
-          duration: 200
-        })
-        $('#sidebar').velocity('stop').velocity({
-          translateX: '300px'
-        }, {
-          duration: 200
-        })
-        $('#toggle-sidebar').velocity('stop').velocity({
-          rotateZ: '180deg',
-          color: '#99a9bf'
-        }, {
-          duration: 200
-        })
-      }
-    }
-  })
-  function changeSideBarInfo () {
-    if ($('.author-info').is(':visible')) {
-      $('.author-info').velocity('stop')
-        .velocity('transition.slideLeftOut', {
-          duration: 300,
-          complete: function () {
-            $('.sidebar-toc').velocity('stop')
-              .velocity('transition.slideRightIn', { duration: 500 })
-          }
-        })
+document.addEventListener("DOMContentLoaded", function() {
+  /**
+   * display TOC
+   */
+  // main of scroll
+  window.addEventListener("scroll", () => {
+    scrollPercent(window.scrollY);
+  });
+
+  if (document.querySelectorAll(".toc-link").length) {
+    let tocList = document
+      .querySelector(".post-content")
+      .querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+    window.addEventListener("scroll", function() {
+      findHeadPosition(tocList, window.scrollY);
+    });
+  }
+
+  // toggle sidebar nav and panel
+  document.querySelectorAll(".sidebar-nav li").forEach(el => {
+    el.onclick = function() {
+      const activeTabClass = "sidebar-nav-active";
+      const activePanelClass = "sidebar-panel-active";
+      if (this.classList.contains(activeTabClass)) return;
+      document
+        .querySelector("." + activePanelClass)
+        .classList.remove(activePanelClass);
+      document
+        .querySelector("#" + this.dataset.target)
+        .classList.add(activePanelClass);
+      document
+        .querySelector("." + activeTabClass)
+        .classList.remove(activeTabClass);
+      this.classList.add(activeTabClass);
+    };
+  });
+
+  // progress
+  function scrollPercent(curTop) {
+    const bodyHeight = document.body.clientHeight;
+    const windowHeight = window.innerHeight;
+    let percent = 0;
+    if (bodyHeight > windowHeight) {
+      percent = Math.floor((curTop / (bodyHeight - windowHeight)) * 100);
     } else {
-      $('.sidebar-toc').velocity('stop')
-        .velocity('transition.slideRightOut', {
-          duration: 300,
-          complete: function () {
-            $('.author-info').velocity('stop')
-              .velocity('transition.slideLeftIn', { duration: 500 })
-          }
-        })
+      percent = 100;
+    }
+    document.querySelector(".progress-num").innerText = percent;
+    document.querySelector(".post-toc-progress .progress-bar").style.width =
+      percent + "%";
+  }
+
+  function updateAnchor(anchor) {
+    if (window.history.replaceState && anchor !== window.location.hash) {
+      window.history.replaceState(undefined, undefined, anchor);
     }
   }
-})
+
+  function activeLink(link) {
+    document.querySelectorAll(".toc-item").forEach(item => {
+      item.classList.remove("active");
+    });
+    let linkParent = link.parentNode;
+    linkParent.classList.add("active");
+    while (linkParent.parentNode.classList.contains("toc-child")) {
+      linkParent = linkParent.parentNode.parentNode;
+      linkParent.classList.add("active");
+    }
+  }
+
+  // add active class for cur toc
+  // DOM Hierarchy:
+  // ol.toc > (li.toc-item, ...)
+  // li.toc-item > (a.toc-link, ol.toc-child > (li.toc-item, ...))
+  function findHeadPosition(tocList, top) {
+    let curId = "";
+    for (let i = 0; i < tocList.length; i++) {
+      const el = tocList[i];
+      if (top > el.offsetTop - 64) {
+        curId = "#" + el.attributes.id.value;
+      } else {
+        break;
+      }
+    }
+
+    let curActiveLink = document.querySelector(".toc-link.active");
+
+    if (!curId) curId = "#" + document.querySelector("h2").id;
+    if (!curActiveLink || curActiveLink.attributes.href !== curId) {
+      let curLink = document.querySelector(".toc-link[href='" + curId + "']");
+      activeLink(curLink);
+      updateAnchor(curId);
+    }
+  }
+});
