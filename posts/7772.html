@@ -182,8 +182,8 @@ spec:
 <p>![image-20200114101915248](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
 <p><strong>如果标签有多个，标签选择器选择其中一个，也可以关联成功。相反，如果选择器有多个，那么标签必须完全满足条件，才可以关联成功。</strong></p>
 <h2 id="4-标签选择器：标签的查询过滤条件。">4. 标签选择器：标签的查询过滤条件。</h2>
-<p><strong><a href>基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
-<p><strong><a href>基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
+<p><strong><a href="">基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
+<p><strong><a href="">基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
 <h4 id="使用标签选择器的逻辑：">使用标签选择器的逻辑：</h4>
 <ul>
 <li><strong>同时指定的多个选择器之间的逻辑关系为“与”操作。</strong></li>
