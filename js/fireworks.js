@@ -10,11 +10,11 @@ if (canvasEl) {
   var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C']
 
   var setCanvasSize = debounce(function () {
-    canvasEl.width = window.innerWidth
-    canvasEl.height = window.innerHeight
+    canvasEl.width = window.innerWidth * 2
+    canvasEl.height = window.innerHeight * 2
     canvasEl.style.width = window.innerWidth + 'px'
     canvasEl.style.height = window.innerHeight + 'px'
-    canvasEl.getContext('2d').scale(1, 1)
+    canvasEl.getContext('2d').scale(2, 2)
   }, 500)
 
   var render = anime({
@@ -101,12 +101,8 @@ function animateParticules (x, y) {
   }
   anime.timeline().add({
     targets: particules,
-    x: function (p) {
-      return p.endPos.x
-    },
-    y: function (p) {
-      return p.endPos.y
-    },
+    x: function (p) { return p.endPos.x },
+    y: function (p) { return p.endPos.y },
     radius: 0.1,
     duration: anime.random(1200, 1800),
     easing: 'easeOutExpo',
