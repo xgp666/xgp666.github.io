@@ -903,7 +903,7 @@ image:
 <h4 id="查看一下">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200214100419966.png"  alt=""></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200214100419966.png" alt></p>
 <p><strong>类型是Opaque（不透明的）</strong></p>
 <h3 id="2、通过from-file（文件）">2、通过from-file（文件）</h3>
 <h4 id="新建两个文件并分别写入用户名和密码">新建两个文件并分别写入用户名和密码</h4>
@@ -916,7 +916,7 @@ image:
 <h4 id="查看一下-2">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214103506842.png"  alt="image-20200214103506842"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214103506842.png" alt="image-20200214103506842"></p>
 <h3 id="3、通过-from-env-file">3、通过-- from- env-file:</h3>
 <h4 id="创建一个文件写入用户名和密码">创建一个文件写入用户名和密码</h4>
 <pre><code>[root@master secret]#vim env.txt 
@@ -929,7 +929,7 @@ password=123.com
 <h4 id="查看一下-3">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214103905956.png"  alt="image-20200214103905956"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214103905956.png" alt="image-20200214103905956"></p>
 <h3 id="4、通过yaml配置文件">4、通过yaml配置文件</h3>
 <h4 id="（1）把需要保存的数据加密（”base64“的方式）">（1）把需要保存的数据加密（”base64“的方式）</h4>
 <pre><code>[root@master secret]# echo root | base64
@@ -961,7 +961,7 @@ data:
 <h4 id="（3）查看一下">（3）查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214104544899.png"  alt="image-20200214104544899"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214104544899.png" alt="image-20200214104544899"></p>
 <h2 id="如果来使用Secret资源">如果来使用Secret资源</h2>
 <h3 id="1-以Volume挂载的方式">1. 以Volume挂载的方式</h3>
 <h4 id="编写pod的yaml文件"><strong>编写pod的yaml文件</strong></h4>
@@ -1052,7 +1052,7 @@ root
 <p><strong>可以通过edit 命令，直接修改。</strong></p>
 <pre><code>[root@master secret]# kubectl edit secrets mysecret1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
 <h4 id="查看一下-5">查看一下</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod /bin/sh
 //进入容器查看
@@ -1095,7 +1095,7 @@ spec:
 <h4 id="查看一下-6">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get pod
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214111931566.png"  alt="image-20200214111931566"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200214111931566.png" alt="image-20200214111931566"></p>
 <h4 id="进入容器查看保存的数据-2">进入容器查看保存的数据</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
@@ -1107,7 +1107,7 @@ root
 <pre><code> [root@master yaml]# kubectl edit secrets mysecret2
  //修改保存文件的内容
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217162834490.png"  alt="image-20200217162834490"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217162834490.png" alt="image-20200217162834490"></p>
 <h4 id="查看一下-7">查看一下</h4>
 <pre><code>[root@master secret]# kubectl exec -it mypod2 /bin/sh
 / # echo $SECRET_USERNAME
@@ -1131,10 +1131,10 @@ root
 <h4 id="查看一下-8">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl get cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103048235.png"  alt="image-20200217103048235"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103048235.png" alt="image-20200217103048235"></p>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103123130.png"  alt="image-20200217103123130"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103123130.png" alt="image-20200217103123130"></p>
 <h3 id="2、通过–from-file-文件">2、通过–from-file (文件) :</h3>
 <pre><code>[root@master yaml]# echo adam &gt; username
 [root@master yaml]# echo 18 &gt; age
@@ -1145,7 +1145,7 @@ root
 <h4 id="查看一下-9">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103509006.png"  alt="image-20200217103509006"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217103509006.png" alt="image-20200217103509006"></p>
 <h3 id="3、通过–from-env-file">3、通过–from- env-file:</h3>
 <pre><code>[root@master yaml]# vim env.txt 
 username=adam
@@ -1157,7 +1157,7 @@ age=18
 <h4 id="查看一下-10">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217165039190.png"  alt="image-20200217165039190"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217165039190.png" alt="image-20200217165039190"></p>
 <h3 id="4、通过yaml配置文件-2">4、通过yaml配置文件:</h3>
 <pre><code>[root@master yaml]# vim configmap.yaml
 apiVersion: v1
@@ -1174,7 +1174,7 @@ data:
 <h4 id="查看一下-11">查看一下</h4>
 <pre><code>[root@master yaml]# kubectl describe cm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217104428521.png"  alt="image-20200217104428521"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217104428521.png" alt="image-20200217104428521"></p>
 <h2 id="如何来使用configmap资源">如何来使用configmap资源</h2>
 <h3 id="1-以Volume挂载的方式-2">1. 以Volume挂载的方式</h3>
 <pre><code>[root@master yaml]# vim v-pod.yaml 
@@ -1252,7 +1252,7 @@ adam/
 <h3 id="1-2-如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新-2">1.2 如果，现在将secret资源内保存的数据进行更新，请问，使用此数据的应用内，数据是是否也会更新?</h3>
 <pre><code>[root@master configmap]# kubectl edit cm myconfigmap1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217172107999.png"  alt="image-20200217172107999"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217172107999.png" alt="image-20200217172107999"></p>
 <h4 id="查看一下-14">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl exec -it pod3 /bin/sh
 //进入容器查看
@@ -1303,7 +1303,7 @@ adam
 <pre><code>[root@master configmap]# kubectl edit cm myconfigmap2
  //修改保存文件的内容
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217172701793.png"  alt="image-20200217172701793"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C14.assets%5Cimage-20200217172701793.png" alt="image-20200217172701793"></p>
 <h4 id="查看一下-16">查看一下</h4>
 <pre><code>[root@master configmap]# kubectl exec -it pod2 /bin/sh
 //进入容器查看一下
@@ -1834,7 +1834,7 @@ kubectl logs<br>
 <p><strong>kube- api( application interface) k8s的前端接口</strong></p>
 <p>**Scheduler[集群分发调度器]**负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
 <p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
-<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p>**Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <h3 id="Node组件：">Node组件：</h3>
 <p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
@@ -2018,7 +2018,7 @@ spec:
 <p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
 <p><em><strong>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</strong></em></p>
 <h1>二、提高Job的执行效率</h1>
-<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href="">parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
+<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
 <hr>
 <h3 id="（1）编写一个job的yaml文件-2">（1）编写一个job的yaml文件</h3>
 <pre><code>[root@master yaml]# vim jop.yaml
@@ -2319,8 +2319,8 @@ spec:
 <p>![image-20200114101915248](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
 <p><strong>如果标签有多个，标签选择器选择其中一个，也可以关联成功。相反，如果选择器有多个，那么标签必须完全满足条件，才可以关联成功。</strong></p>
 <h2 id="4-标签选择器：标签的查询过滤条件。">4. 标签选择器：标签的查询过滤条件。</h2>
-<p><strong><a href="">基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
-<p><strong><a href="">基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
+<p><strong><a href>基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
+<p><strong><a href>基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
 <h4 id="使用标签选择器的逻辑：">使用标签选择器的逻辑：</h4>
 <ul>
 <li><strong>同时指定的多个选择器之间的逻辑关系为“与”操作。</strong></li>
@@ -2950,7 +2950,7 @@ spec:
 挂起或恢复一个Deployment。</p>
 </blockquote>
 <h1>Service介绍</h1>
-<p><img src="/" class="lazyload" data-src="https://img-blog.csdn.net/20170809212910268?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHV3aF8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"  alt="img"></p>
+<p><img src="https://img-blog.csdn.net/20170809212910268?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHV3aF8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img"></p>
 <p><strong>Service定义了一个服务的访问入口地址，前端应用通过这个入口地址访问其背后的一组由Pod副本组成的集群实例，Service与其后端的Pod副本集群之间是通过Label Selector来实现“无缝对接”。RC保证Service的Pod副本实例数目保持预期水平。</strong></p>
 <h2 id="外部系统访问Service的问题">外部系统访问Service的问题</h2>
 <table>
@@ -3576,11 +3576,11 @@ spec:
 <pre><code>[root@master ~]# kubectl get deployments.  -o wide
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png"  alt="image-20200107100450262"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
 //查看pod节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png"  alt="image-20200107101803209"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209"></p>
 <h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
 <pre><code>[root@master ~]# vim web-svc.yaml
 kind: Service  #资源对象是副本
@@ -3606,11 +3606,11 @@ spec:
 <pre><code>[root@master ~]# kubectl get svc
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png"  alt="image-20200107110717972"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972"></p>
 <h3 id="（3）访问一下">（3）访问一下</h3>
 <pre><code>[root@master ~]# curl 10.111.193.168
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png"  alt="image-20200107110837353"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353"></p>
 <h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
 <h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
 <pre><code>kind: Service  #资源对象是副本
@@ -3633,9 +3633,9 @@ spec:
 <h3 id="（3）查看一下">（3）查看一下</h3>
 <pre><code>[root@master ~]# kubectl get svc
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png"  alt="image-20200107111338940"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940"></p>
 <h3 id="（4）浏览器测试">（4）浏览器测试</h3>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png"  alt="image-20200107111451952"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952"></p>
 <h1>三、小实验</h1>
 <blockquote>
 <p><strong>基于上一篇博客实验继续进行</strong></p>
@@ -3665,13 +3665,13 @@ spec:
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 //查看控制器信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png"  alt="image-20200107120901208"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208"></p>
 <pre><code>[root@master ~]# kubectl get pod -o wide
 //查看pod节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png"  alt="image-20200107121002152"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152"></p>
 <h4 id="（3）访问一下-2">（3）访问一下</h4>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png"  alt="image-20200107121147669"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669"></p>
 <h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
 <h4 id="编写service文件">编写service文件</h4>
 <pre><code>[root@master ~]# vim www-svc.yaml
@@ -3695,9 +3695,9 @@ spec:
 <h4 id="查看一下-2">查看一下</h4>
 <pre><code>[root@master ~]# kubectl get svc
 </code></pre>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png"  alt="image-20200107121929525"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525"></p>
 <h4 id="访问一下">访问一下</h4>
-<p><img src="/" class="lazyload" data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png"  alt="image-20200107122015559"></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559"></p>
 <h1>四. 总结</h1>
 <h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
 <blockquote>
@@ -3802,24 +3802,24 @@ spec:
 <pre><code>[root@master ~]# kubectl get deployments.
 //查看控制器情况
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093615852.png"  alt="image-20200106093615852"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093615852.png" alt="image-20200106093615852"></p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
 //显示pod的节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093922849.png"  alt="image-20200106093922849"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093922849.png" alt="image-20200106093922849"></p>
 <h3 id="（2）">（2）</h3>
 <pre><code>[root@master ~]# kubectl get namespaces 
 //查看k8s名称空间
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093850247.png"  alt="image-20200106093850247"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093850247.png" alt="image-20200106093850247"></p>
 <pre><code>[root@master ~]# kubectl describe deployments. test-web
 //查看资源详细信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093723330.png"  alt="image-20200106093723330"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093723330.png" alt="image-20200106093723330"></p>
 <p><em><strong>查看某种资源对象，没有指定名称空间，默认是在default名称空间。可以加上-n选项，查看指定名称空间的资源。</strong></em></p>
 <pre><code>[root@master ~]# kubectl get pod -n kube-system 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106094343401.png"  alt="image-20200106094343401"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106094343401.png" alt="image-20200106094343401"></p>
 <h2 id="3-删除test-web控制器">3.删除test-web控制器</h2>
 <pre><code>[root@master ~]# kubectl delete deployments. test-web 
 </code></pre>
@@ -3830,16 +3830,16 @@ spec:
 <pre><code>[root@master ~]# kubectl get pod -o wide
 //查看一下pod的节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106095722353.png"  alt="image-20200106095722353"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106095722353.png" alt="image-20200106095722353"></p>
 <pre><code>[root@master ~]# kubectl describe deployments. web 
 //查看资源详细信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100606861.png"  alt="image-20200106100606861"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100606861.png" alt="image-20200106100606861"></p>
 <p><em><strong>注意：直接运行创建的deployment资源对象，是经常使用的一个控制器资源类型，除了deployment，还有rc、rs等等pod控制器，deployment是一个高级的pod控制器。</strong></em></p>
 <h3 id="本机测试访问nginx">本机测试访问nginx</h3>
 <pre><code>[root@master ~]# curl 10.244.1.7
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100827131.png"  alt="image-20200106100827131"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100827131.png" alt="image-20200106100827131"></p>
 <h2 id="5-创建service资源类型">5.创建service资源类型</h2>
 <pre><code>[root@master ~]# kubectl expose deployment web --name=web-xgp --port=80 --type=NodePort
 //创建service资源类型，这里我们设置了映射端口
@@ -3849,28 +3849,28 @@ spec:
 <h3 id="查看service信息">查看service信息</h3>
 <pre><code>[root@master ~]# kubectl get svc
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101443348.png"  alt="image-20200106101443348"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101443348.png" alt="image-20200106101443348"></p>
 <h3 id="浏览器测试访问http-192-168-1-21-30493">浏览器测试访问http://192.168.1.21:30493/</h3>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101624954.png"  alt="image-20200106101624954"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101624954.png" alt="image-20200106101624954"></p>
 <h1>二、服务的扩容与缩容</h1>
 <h2 id="1-查看控制器信息">1. 查看控制器信息</h2>
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104638757.png"  alt="image-20200106104638757"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104638757.png" alt="image-20200106104638757"></p>
 <h2 id="2-扩容">2.扩容</h2>
 <pre><code>[root@master ~]# kubectl scale deployment web --replicas=8
 </code></pre>
 <h3 id="查看一下">查看一下</h3>
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104757123.png"  alt="image-20200106104757123"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104757123.png" alt="image-20200106104757123"></p>
 <h2 id="3-缩容">3.缩容</h2>
 <pre><code>[root@master ~]# kubectl scale deployment web --replicas=4
 </code></pre>
 <h3 id="查看一下-2">查看一下</h3>
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105536316.png"  alt="image-20200106105536316"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105536316.png" alt="image-20200106105536316"></p>
 <h2 id="3-通过修改web的yaml文件进行扩容缩容">3.通过修改web的yaml文件进行扩容缩容</h2>
 <h3 id="备份web的yaml文件">备份web的yaml文件</h3>
 <pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; web.yaml
@@ -3878,11 +3878,11 @@ spec:
 <h3 id="使用edit修改web的yaml文件">使用edit修改web的yaml文件</h3>
 <pre><code>[root@master ~]# kubectl edit deployments. web 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png"  alt="image-20200106105924531"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531"></p>
 <h3 id="查看一下-3">查看一下</h3>
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105816339.png"  alt="image-20200106105816339"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105816339.png" alt="image-20200106105816339"></p>
 <h1>三、服务的升级与回滚</h1>
 <h2 id="node01和node02下载1-15版本的nginx">node01和node02下载1.15版本的nginx</h2>
 <pre><code>[root@master ~]# docker pull nginx:1.15
@@ -3891,21 +3891,21 @@ spec:
 <pre><code>[root@master ~]#  kubectl set image deployment web web=nginx:1.15
 </code></pre>
 <h3 id="查看一下-4">查看一下</h3>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111227960.png"  alt="image-20200106111227960"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111227960.png" alt="image-20200106111227960"></p>
 <h2 id="2-master设置服务回滚">2.master设置服务回滚</h2>
 <h3 id="（1）修改配置文件回滚">（1）修改配置文件回滚</h3>
 <h3 id="使用edit修改web的yaml文件-2">使用edit修改web的yaml文件</h3>
 <pre><code>[root@master ~]# kubectl edit deployments. web 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111523148.png"  alt="image-20200106111523148"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111523148.png" alt="image-20200106111523148"></p>
 <h3 id="查看一下-5">查看一下</h3>
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111319699.png"  alt="image-20200106111319699"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111319699.png" alt="image-20200106111319699"></p>
 <h3 id="（2）命令回滚">（2）命令回滚</h3>
 <pre><code>[root@master ~]# kubectl rollout undo deployment web 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111733617.png"  alt="image-20200106111733617"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111733617.png" alt="image-20200106111733617"></p>
 <p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
 <h1>四、实验环境</h1>
 <table>
@@ -3972,7 +3972,7 @@ COPY index.html /usr/local/apache2/htdocs/index.html
 <pre><code>[root@master xgp]# vim /usr/lib/systemd/system/docker.service
 ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106120848869.png"  alt="image-20200106120848869"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106120848869.png" alt="image-20200106120848869"></p>
 <h3 id="（4）重启docker（三台）">（4）重启docker（三台）</h3>
 <pre><code>[root@master xgp]# systemctl daemon-reload 
 [root@master xgp]# systemctl restart docker
@@ -3994,18 +3994,18 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <h3 id="查看一下-6">查看一下</h3>
 <pre><code>[root@master xgp]# kubectl get pod
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122026271.png"  alt="image-20200106122026271"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122026271.png" alt="image-20200106122026271"></p>
 <h3 id="本地访问一下">本地访问一下</h3>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122426308.png"  alt="image-20200106122426308"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122426308.png" alt="image-20200106122426308"></p>
 <h3 id="5-将上述Deployment暴露一个service资源对象，使外网能否访问服务。">5.将上述Deployment暴露一个service资源对象，使外网能否访问服务。</h3>
 <pre><code>[root@master xgp]#  kubectl expose deployment www1 --name=web-xgp --port=80 --type=NodePort
 </code></pre>
 <h3 id="查看一下-7">查看一下</h3>
 <pre><code>[root@master xgp]# kubectl get svc
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122313996.png"  alt="image-20200106122313996"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122313996.png" alt="image-20200106122313996"></p>
 <h3 id="浏览器访问一下">浏览器访问一下</h3>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122340747.png"  alt="image-20200106122340747"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122340747.png" alt="image-20200106122340747"></p>
 <h2 id="6-将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。">6.将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。</h2>
 <h2 id="（1）扩容">（1）扩容</h2>
 <pre><code>[root@master xgp]# kubectl scale deployment www1 --replicas=8
@@ -4013,7 +4013,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <h3 id="查看一下-8">查看一下</h3>
 <pre><code>[root@master xgp]# kubectl get deployments. -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122722977.png"  alt="image-20200106122722977"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122722977.png" alt="image-20200106122722977"></p>
 <h2 id="（2）缩容">（2）缩容</h2>
 <h3 id="修改k8s配置文件">修改k8s配置文件</h3>
 <h3 id="备份web的yaml文件-2">备份web的yaml文件</h3>
@@ -4022,11 +4022,11 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <h3 id="使用edit修改web的yaml文件-3">使用edit修改web的yaml文件</h3>
 <pre><code>[root@master ~]# kubectl edit deployments. www1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png"  alt="image-20200106105924531"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531"></p>
 <h3 id="查看一下-9">查看一下</h3>
 <pre><code>[root@master xgp]# kubectl get deployments. -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122953397.png"  alt="image-20200106122953397"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122953397.png" alt="image-20200106122953397"></p>
 <h2 id="7-将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。">7.将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。</h2>
 <h2 id="（1）升级版本为web2">（1）升级版本为web2</h2>
 <pre><code>[root@master ~]# kubectl set image deployment www1 www1=192.168.1.21:5000/web2
@@ -4035,30 +4035,30 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <pre><code>[root@master ~]# curl 127.0.0.1:30996
 &lt;h1&gt;xgp | test-web | httpd:v2&lt;h1&gt;
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125722931.png"  alt="image-20200106125722931"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125722931.png" alt="image-20200106125722931"></p>
 <h3 id="浏览器测试访问">浏览器测试访问</h3>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125750021.png"  alt="image-20200106125750021"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125750021.png" alt="image-20200106125750021"></p>
 <h2 id="（2）回滚版本到web1">（2）回滚版本到web1</h2>
 <h3 id="1-修改配置文件回滚">&lt;1&gt;修改配置文件回滚</h3>
 <h3 id="使用edit修改web的yaml文件-4">使用edit修改web的yaml文件</h3>
 <pre><code>[root@master ~]# kubectl edit deployments. www1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130010344.png"  alt="image-20200106130010344"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130010344.png" alt="image-20200106130010344"></p>
 <h3 id="查看一下-10">查看一下</h3>
 <pre><code>[root@master ~]# kubectl get deployments. -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130304423.png"  alt="image-20200106130304423"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130304423.png" alt="image-20200106130304423"></p>
 <h3 id="访问一下">访问一下</h3>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130435212.png"  alt="image-20200106130435212"></p>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130447693.png"  alt="image-20200106130447693"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130435212.png" alt="image-20200106130435212"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130447693.png" alt="image-20200106130447693"></p>
 <h3 id="2-命令回滚">&lt;2&gt;命令回滚</h3>
 <pre><code>[root@master ~]# kubectl rollout undo deployment www1
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130317956.png"  alt="image-20200106130317956"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130317956.png" alt="image-20200106130317956"></p>
 <p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
 <h3 id="访问一下-2">访问一下</h3>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130357339.png"  alt="image-20200106130357339"></p>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130414060.png"  alt="image-20200106130414060"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130357339.png" alt="image-20200106130357339"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130414060.png" alt="image-20200106130414060"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -4109,7 +4109,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 </tbody>
 </table>
 <h1>kubernetes架构</h1>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/qqq.png"  alt="image-20200104100759831"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/qqq.png" alt="image-20200104100759831"></p>
 <p><strong>kubectl</strong>：k8s是命令行端，用来发送客户的操作指令。</p>
 <h2 id="master节点">master节点</h2>
 <p><strong>1. API server[资源操作入口]</strong>：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。</p>
@@ -4136,17 +4136,17 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <p><strong>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</strong></p>
 <p><strong>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</strong></p>
 </blockquote>
-<p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
 <p><strong>7. Flanner</strong>：是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces
 //查看pod信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104100759831.png"  alt="image-20200104100759831"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104100759831.png" alt="image-20200104100759831"></p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
 //显示pod的节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104101023909.png"  alt="image-20200104101023909"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104101023909.png" alt="image-20200104101023909"></p>
 <h2 id="Node节点">Node节点</h2>
 <p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
 <blockquote>
@@ -4186,22 +4186,22 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <h4 id="查看一下">查看一下</h4>
 <pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110812772.png"  alt="image-20200104110812772"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110812772.png" alt="image-20200104110812772"></p>
 <pre><code>[root@master ~]# kubectl get pod
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110954406.png"  alt="image-20200104110954406"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110954406.png" alt="image-20200104110954406"></p>
 <pre><code>[root@master ~]# kubectl get pod  -o wide
 //显示pod的节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png"  alt="image-20200104111128779"></p>
-<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart="" kubelet=""></systemctl></strong></em></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png" alt="image-20200104111128779"></p>
+<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
 <h3 id="如果删除一个pod">如果删除一个pod</h3>
 <pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
 </code></pre>
 <h4 id="查看一下-2">查看一下</h4>
 <pre><code>[root@master ~]# kubectl get pod -o wide
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png"  alt="image-20200104112418012"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png" alt="image-20200104112418012"></p>
 <p><em><strong>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</strong></em></p>
 <p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
 <script>
@@ -4278,20 +4278,20 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <p>验证docker是否能使用及版本是否一样</p>
 <pre><code>[root@master ~]# docker -v
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102093813472.png"  alt="image-20200102093813472"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102093813472.png" alt="image-20200102093813472"></p>
 <h3 id="2-关闭防火墙及禁用selinux">2.关闭防火墙及禁用selinux</h3>
 <pre><code>[root@master ~]# systemctl stop firewalld
 [root@master ~]# systemctl disable firewalld
  [root@master ~]# vim /etc/selinux/config
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102115453524.png"  alt="image-20200102115453524"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102115453524.png" alt="image-20200102115453524"></p>
 <h3 id="3-禁用swap（三台）">3.  禁用swap（三台）</h3>
 <pre><code>[root@master ~]# swapoff -a
 //临时禁用swap
 [root@master ~]# free -h
 [root@master ~]# vim /etc/fstab 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102094039749.png"  alt="image-20200102094039749"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102094039749.png" alt="image-20200102094039749"></p>
 <h3 id="4-添加域名解析（三台）">4.添加域名解析（三台）</h3>
 <pre><code>[root@master ~]# echo 192.168.1.21 master &gt;&gt; /etc/hosts
 [root@master ~]# echo 192.168.1.22 node01 &gt;&gt; /etc/hosts
@@ -4350,7 +4350,7 @@ EOF
 <p><strong>下载完成之后，查看一下仓库是否可用</strong></p>
 <pre><code>[root@master ~]# yum repolist 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102095945934.png"  alt="image-20200102095945934"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102095945934.png" alt="image-20200102095945934"></p>
 <p><strong>创建本地缓存（三台）</strong></p>
 <pre><code>[root@master ~]# yum makecache fast
 </code></pre>
@@ -4369,7 +4369,7 @@ EOF
 [root@master ~]# cd images/
 [root@master images]# ls
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102101531123.png"  alt="image-20200102101531123"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102101531123.png" alt="image-20200102101531123"></p>
 <h3 id="创建一个导入镜像的脚本"><strong>创建一个导入镜像的脚本</strong></h3>
 <pre><code>[root@master images]# cat &gt; image.sh &lt;&lt;EOF
 &gt; #!/bin/bash
@@ -4390,16 +4390,16 @@ EOF
 <pre><code>[root@master ~]# kubeadm reset
 //重置kubeadm
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102122213788.png"  alt="image-20200102122213788"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102122213788.png" alt="image-20200102122213788"></p>
 <pre><code>[root@master images]# kubectl get node
 //查看当前节点信息
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102110808239.png"  alt="image-20200102110808239"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102110808239.png" alt="image-20200102110808239"></p>
 <p><strong>可以看出master的状态是未就绪（NotReady），之所以是这种状态是因为还缺少一个附件flannel，没有网络各Pod是无法通信的</strong></p>
 <h3 id="也可以通过检查组件的健康状态"><strong>也可以通过检查组件的健康状态</strong></h3>
 <pre><code>[root@master images]# kubectl get cs
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102122413443.png"  alt="image-20200102122413443"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102122413443.png" alt="image-20200102122413443"></p>
 <h3 id="添加网络组件（flannel）">添加网络组件（flannel）</h3>
 <p><strong>组件flannel可以通过https://github.com/coreos/flannel中获取</strong></p>
 <pre><code>[root@master ~]# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
@@ -4416,35 +4416,35 @@ kube-flannel.yml
 <pre><code>[root@master images]# kubectl get pods --all-namespaces
 //查看所有的名称空间的pod（可以看到flannel网络运行正常）
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102122732587.png"  alt="image-20200102122732587"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102122732587.png" alt="image-20200102122732587"></p>
 <pre><code>[root@master images]# kubectl get pod -n kube-system
 //查看名称空间为kube-system的pod
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102122826221.png"  alt="image-20200102122826221"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102122826221.png" alt="image-20200102122826221"></p>
 <p>查看当前节点信息</p>
 <pre><code>kubectl get node
 //查看当前节点信息（已经准备好了）
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102111853910.png"  alt="image-20200102111853910"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102111853910.png" alt="image-20200102111853910"></p>
 <h1>node两台节点，导入镜像并加入群集</h1>
 <h2 id="导入镜像-2">导入镜像</h2>
 <p>上传所需镜像包，也可以使用docker pull下载</p>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102133744555.png"  alt="image-20200102133744555"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102133744555.png" alt="image-20200102133744555"></p>
 <pre><code>[root@node01 images]# docker load &lt; kube-proxy-1-15.tar &amp;&amp; docker load -i myflannel-11-0.tar  &amp;&amp; docker load -i pause-3-1.tar
 </code></pre>
 <pre><code>[root@node01 images]# docker images
 //查看本地镜像
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102134006724.png"  alt="image-20200102134006724"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102134006724.png" alt="image-20200102134006724"></p>
 <h2 id="node01和node02加入群集">node01和node02加入群集</h2>
 <p><strong>这时使用的命令是初始化群集之后生成的令牌（只有24小时的时效）</strong></p>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102134336922.png"  alt="image-20200102134336922"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102134336922.png" alt="image-20200102134336922"></p>
 <pre><code>[root@node01 ~]# kubeadm join 192.168.1.21:6443 --token z0vknh.s6ib4eu4f8bre2nu     --discovery-token-ca-cert-hash sha256:8da72cc83f45d1247f42ce888658129b43726fe2af4ffc0c4e79faedb4050359
 </code></pre>
 <h2 id="加入群集之后查看一下">加入群集之后查看一下</h2>
 <pre><code>[root@master images]# kubectl get node
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102114628989.png"  alt="image-20200102114628989"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102114628989.png" alt="image-20200102114628989"></p>
 <h1>各节点优化一下</h1>
 <h2 id="设置table键的默认间距；">设置table键的默认间距；</h2>
 <pre><code>[root@master ~]# vim .vimrc
@@ -4463,7 +4463,7 @@ set tabstop=2
 #查看pod资源，类似于docker中的容器，确保返回的信息都是running
 #“-n kube-system”：是k8s的名称空间
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102142028971.png"  alt="image-20200102142028971"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200102142028971.png" alt="image-20200102142028971"></p>
 <h3 id="master和node节点上都需要进行以下操作，以便设置为开机自启："><strong>master和node节点上都需要进行以下操作，以便设置为开机自启</strong>：</h3>
 <pre><code>[root@master ~]# systemctl enable kubelet
 [root@master ~]# systemctl enable docker 
@@ -4494,15 +4494,15 @@ set tabstop=2
   <entry>
     <title>xgp</title>
     <url>/posts/cfe.html</url>
-    <content><![CDATA[<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/docker/image-20191224101214064.png"  alt="img"></p>
+    <content><![CDATA[<p><img src="http://xgp-cunchu.test.upcdn.net/docker/image-20191224101214064.png" alt="img"></p>
 <p><a href="http://xgp-cunchu.test.upcdn.net/xgp/image-20200102093813472.png" target="_blank" rel="noopener">http://xgp-cunchu.test.upcdn.net/xgp/image-20200102093813472.png</a></p>
 <p><a href="http://xgp-cunchu.test.upcdn.net/xgp/image-20200102094039749.png" target="_blank" rel="noopener">http://xgp-cunchu.test.upcdn.net/xgp/image-20200102094039749.png</a></p>
-<img src="/"  lazyloadclass="" title="This is an example image" data-src="/posts/cfe/1.png">
-<img src="/"  lazyloadclass="" title="This is an example image" data-src="/posts/cfe/1.png">
-<img src="/"  lazyloadclass="" title="This is an example image" data-src="/posts/cfe/1.png">
+<img src="/posts/cfe/1.png" class title="This is an example image">
+<img src="/posts/cfe/1.png" class title="This is an example image">
+<img src="/posts/cfe/1.png" class title="This is an example image">
 <p>./xgp/1.png</p>
-<p><img src="/" class="lazyload" data-src="/posts/1.png"  alt="1"></p>
-<p><img src="/" class="lazyload" data-src="/posts/1.png"  alt="1"></p>
+<p><img src="/posts/1.png" alt="1"></p>
+<p><img src="/posts/1.png" alt="1"></p>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
@@ -4529,29 +4529,6 @@ set tabstop=2
         <tag>测试</tag>
         <tag>图片</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>contact</title>
-    <url>/contact/index.html</url>
-    <content><![CDATA[<script>
-        document.querySelectorAll('.github-emoji')
-          .forEach(el => {
-            if (!el.dataset.src) { return; }
-            const img = document.createElement('img');
-            img.style = 'display:none !important;';
-            img.src = el.dataset.src;
-            img.addEventListener('error', () => {
-              img.remove();
-              el.style.color = 'inherit';
-              el.style.backgroundImage = 'none';
-              el.style.background = 'none';
-            });
-            img.addEventListener('load', () => {
-              img.remove();
-            });
-            document.body.appendChild(img);
-          });
-      </script>]]></content>
   </entry>
   <entry>
     <title>categories</title>
@@ -4600,10 +4577,33 @@ set tabstop=2
       </script>]]></content>
   </entry>
   <entry>
+    <title>contact</title>
+    <url>/contact/index.html</url>
+    <content><![CDATA[<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
     <title></title>
     <url>/lib/canvas-nest/README.html</url>
     <content><![CDATA[<h1>Theme NexT Canvas Nest</h1>
-<p><img src="/" class="lazyload" data-src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square"  alt="Theme Version"></p>
+<p><img src="https://img.shields.io/badge/NexT-v7.3.0+-blue?style=flat-square" alt="Theme Version"></p>
 <p><a href="https://github.com/hustcc/canvas-nest.js" target="_blank" rel="noopener">canvas-nest.js</a> for <a href="https://github.com/theme-next" target="_blank" rel="noopener">NexT</a>.</p>
 <h2 id="Install">Install</h2>
 <h3 id="Step-1-→-Go-to-Hexo-dir">Step 1 → Go to Hexo dir</h3>
@@ -4656,18 +4656,8 @@ custom_file_path:
   </entry>
   <entry>
     <title></title>
-    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
-    <content><![CDATA[!function(){
-	var userAgentInfo = navigator.userAgent;
-    var Agents = ["iPad", "iPhone", "Android", 
-          "SymbianOS", "Windows Phone",
-           "iPod", "webOS", "BlackBerry", "IEMobile"];
-    for (var v = 0; v &lt; Agents.length; v++) {
-      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
-        return;
-      }
-    }
-	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+    <url>/lib/canvas-nest/canvas-nest.min.js</url>
+    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
@@ -4689,8 +4679,18 @@ custom_file_path:
   </entry>
   <entry>
     <title></title>
-    <url>/lib/canvas-nest/canvas-nest.min.js</url>
-    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
+    <content><![CDATA[!function(){
+	var userAgentInfo = navigator.userAgent;
+    var Agents = ["iPad", "iPhone", "Android", 
+          "SymbianOS", "Windows Phone",
+           "iPod", "webOS", "BlackBerry", "IEMobile"];
+    for (var v = 0; v &lt; Agents.length; v++) {
+      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
+        return;
+      }
+    }
+	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
             if (!el.dataset.src) { return; }
