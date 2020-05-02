@@ -446,13 +446,6 @@ $(function () {
   }
 
   /**
-   * lazyload
-   */
-  if (GLOBAL_CONFIG.islazyload) {
-    window.lozad('img').observe()
-  }
-
-  /**
    * 滾動處理
    */
   var initTop = 0
@@ -539,13 +532,11 @@ $(function () {
       }, 100)
     }
 
-    // anchor
-    var isanchor = GLOBAL_CONFIG.isanchor
-    var updateAnchor = function (anchor) {
-      if (window.history.replaceState && anchor !== window.location.hash) {
-        window.history.replaceState(undefined, undefined, anchor)
-      }
-    }
+    // function updateAnchor (anchor) {
+    //   if (window.history.replaceState && anchor !== window.location.hash) {
+    //     window.history.replaceState(null, null, anchor)
+    //   }
+    // }
 
     // find head position & add active class
     // DOM Hierarchy:
@@ -574,7 +565,7 @@ $(function () {
 
       var currentActive = $('.toc-link.active')
       if (currentId && currentActive.attr('href') !== currentId) {
-        if (isanchor) updateAnchor(currentId)
+        // updateAnchor(currentId)
 
         $('.toc-link').removeClass('active')
 
@@ -720,7 +711,11 @@ $(function () {
 
   $darkModeButtom.click(function () {
     switchReadMode()
-    if (typeof utterancesTheme === 'function') utterancesTheme()
+    try {
+      utterancesTheme()
+    } catch (e) {
+      return false
+    }
   })
 
   /**
