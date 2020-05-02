@@ -208,8 +208,8 @@ export CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar
 
 [root@jenkins bin]# vim catalina.sh 
 #!/bin/sh
-export CATALINA_OPTS=&quot;-DJENKINS_HOME=/data/jenkins&quot;
-export JENKINS_JAVA_OPTIONS=&quot;-Djava.awt.headless=true -Dhudson.ClassicPluginStrategy.noBytecodeTransformer=true&quot;
+export CATALINA_OPTS="-DJENKINS_HOME=/data/jenkins"
+export JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Dhudson.ClassicPluginStrategy.noBytecodeTransformer=true"
 //这两行添加的是jenkins的家目录位置，这个很重要
 
 [root@jenkins bin]# ./catalina.sh start 
@@ -340,7 +340,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMA4+je3NsxZrF2v8TPLXJp1ejwy1YokXipEFyGVNo
 [root@git xgp]# ls xgp-demo/
 index.html
 [root@git xgp]# cat xgp-demo/index.html 
-print: &quot;hello word!!!&quot;
+print: "hello word!!!"
 //查看一下
 </code></pre>
 <h3 id="（3）自动构建">（3）自动构建</h3>
@@ -369,15 +369,15 @@ print: &quot;hello word!!!&quot;
 <p>![image-20200306204512237](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306204512237.png)</p>
 <p>![image-20200306204948462](G:\四期\虚拟化\kubernetes\k8s文档\21 k8s持续集成.assets\image-20200306204948462.png)</p>
 <pre><code>#!/bin/bash
-backupcode=&quot;/data/backcode/$JOB_NAME/$BUILD_NUMBER&quot;  
+backupcode="/data/backcode/$JOB_NAME/$BUILD_NUMBER"  
 mkdir -p $backupcode     #jenkins创建上述目录
-chmod 644 &quot;$JENKINS_HOME&quot;/workspace/&quot;$JOB_NAME&quot;/*
-rsync -acP   &quot;$JENKINS_HOME&quot;/workspace/&quot;$JOB_NAME&quot;/*  $backupcode #$JENKINS_HOME和$JOB_NAME同步最新消息
+chmod 644 "$JENKINS_HOME"/workspace/"$JOB_NAME"/*
+rsync -acP   "$JENKINS_HOME"/workspace/"$JOB_NAME"/*  $backupcode #$JENKINS_HOME和$JOB_NAME同步最新消息
 #ssh root@192.168.1.21 sed -i 's/v1/v2/g' /root/app/deploy.yaml #更改镜像版本
-echo From  192.168.1.21:5000/web:v1 &gt; &quot;$JENKINS_HOME&quot;/workspace/Dockerfile
-echo COPY ./&quot;$JOB_NAME&quot;/* /usr/local/apache2/htdocs/ &gt;&gt; &quot;$JENKINS_HOME&quot;/workspace/Dockerfile
+echo From  192.168.1.21:5000/web:v1 &gt; "$JENKINS_HOME"/workspace/Dockerfile
+echo COPY ./"$JOB_NAME"/* /usr/local/apache2/htdocs/ &gt;&gt; "$JENKINS_HOME"/workspace/Dockerfile
 docker rmi 192.168.1.21:5000/web:v1
-docker build -t 192.168.1.21:5000/web:v1 /&quot;$JENKINS_HOME&quot;/workspace/.
+docker build -t 192.168.1.21:5000/web:v1 /"$JENKINS_HOME"/workspace/.
 docker push 192.168.1.21:5000/web:v1
 ssh root@192.168.1.21 kubectl delete deployment web
 ssh root@192.168.1.21 kubectl apply -f /root/app/deploy.yaml
@@ -427,7 +427,25 @@ GitLab 作为 Server 端，控制 Runner 端执行一系列的 CI 任务；代�
 不同的 CI 任务实际上就是在使用不同镜像的容器中执行 <a href="https://www.centos.bz/tag/shell/" target="_blank" rel="noopener">SHELL</a> 命令，自动化 CI 就是执行预先写好的一些小脚本</p>
 <p><strong>敏感信息走环境变量</strong><br>
 一切重要的敏感信息，如账户密码等，不要写到 CI 配置中，直接放到 GitLab 的环境变量中；GitLab 会保证将其推送到远端 Runner 的 SHELL 变量中</p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>20 k8s的helm模板</title>
@@ -443,13 +461,13 @@ mychare/
 ├── charts
 ├── Chart.yaml
 ├── templates
-│   ├── deployment.yaml
-│   ├── _helpers.tpl
-│   ├── ingress.yaml
-│   ├── NOTES.txt
-│   ├── service.yaml
-│   └── tests
-│       └── test-connection.yaml
+│&nbsp;&nbsp; ├── deployment.yaml
+│&nbsp;&nbsp; ├── _helpers.tpl
+│&nbsp;&nbsp; ├── ingress.yaml
+│&nbsp;&nbsp; ├── NOTES.txt
+│&nbsp;&nbsp; ├── service.yaml
+│&nbsp;&nbsp; └── tests
+│&nbsp;&nbsp;     └── test-connection.yaml
 └── values.yaml
 </code></pre>
 <h2 id="2、调试chart">2、调试chart</h2>
@@ -480,13 +498,13 @@ redis
 ├── Chart.yaml
 ├── README.md
 ├── templates
-│   ├── deployment.yaml
-│   ├── _helpers.tpl
-│   ├── networkpolicy.yaml
-│   ├── NOTES.txt
-│   ├── pvc.yaml
-│   ├── secrets.yaml
-│   └── svc.yaml
+│&nbsp;&nbsp; ├── deployment.yaml
+│&nbsp;&nbsp; ├── _helpers.tpl
+│&nbsp;&nbsp; ├── networkpolicy.yaml
+│&nbsp;&nbsp; ├── NOTES.txt
+│&nbsp;&nbsp; ├── pvc.yaml
+│&nbsp;&nbsp; ├── secrets.yaml
+│&nbsp;&nbsp; └── svc.yaml
 └── values.yaml
 </code></pre>
 <h3 id="（3）通过chare本地目录安装">（3）通过chare本地目录安装</h3>
@@ -648,8 +666,8 @@ image:
   pullPolicy: IfNotPresent              
 
 imagePullSecrets: []
-nameOverride: &quot;&quot;
-fullnameOverride: &quot;&quot;
+nameOverride: ""
+fullnameOverride: ""
 
 service:
   type: NodePort              #修改模式为映射端口
@@ -753,7 +771,25 @@ image:
 <pre><code>[root@master ~]# helm search xgp-wsd
 </code></pre>
 <p>![image-20200304142009776](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304142009776.png)</p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>18 k8s的HPA自动扩容与缩容</title>
@@ -828,7 +864,25 @@ image:
 <p>![image-20200228153834705](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
 <p><strong>default 即 limit的值。</strong></p>
 <p><strong>defaultRequest 即 request的值。</strong></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>14 k8s的Secret（密文）和configmap（明文）的使用教程</title>
@@ -849,7 +903,7 @@ image:
 <h4 id="查看一下">查看一下</h4>
 <pre><code>[root@master secret]# kubectl get secrets 
 </code></pre>
-<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200214100419966.png"  alt></p>
+<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200214100419966.png"  alt=""></p>
 <p><strong>类型是Opaque（不透明的）</strong></p>
 <h3 id="2、通过from-file（文件）">2、通过from-file（文件）</h3>
 <h4 id="新建两个文件并分别写入用户名和密码">新建两个文件并分别写入用户名和密码</h4>
@@ -927,7 +981,7 @@ spec:
       - sleep 300000
     volumeMounts:
     - name: secret-test
-      mountPath: &quot;/etc/secret-test&quot;  #pod中的路径
+      mountPath: "/etc/secret-test"  #pod中的路径
       readOnly: true                 #是否只读
   volumes:
   - name: secret-test
@@ -969,7 +1023,7 @@ spec:
       - sleep 300000
     volumeMounts:
     - name: secret-test
-      mountPath: &quot;/etc/secret-test&quot;  #pod中的路径
+      mountPath: "/etc/secret-test"  #pod中的路径
       readOnly: true                 #是否只读
   volumes:
   - name: secret-test
@@ -1138,7 +1192,7 @@ spec:
       - sleep 300000
     volumeMounts:
     - name: cmp-test
-      mountPath: &quot;/etc/cmp-test&quot;
+      mountPath: "/etc/cmp-test"
       readOnly: true
   volumes:
   - name: cmp-test
@@ -1172,7 +1226,7 @@ spec:
       - sleep 300000
     volumeMounts:
     - name: cmp-test
-      mountPath: &quot;/etc/cmp-test&quot;
+      mountPath: "/etc/cmp-test"
       readOnly: true
   volumes:
   - name: cmp-test
@@ -1280,7 +1334,25 @@ adam
 <h2 id="总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。">总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。</h2>
 <p><strong>volumes挂载(可根据更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己所填路径和secret或configmap创建的文件，进行查看。</strong></p>
 <p><strong>环境变量(不因更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己环境变量，进行查看。</strong></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>11 k8s持久化存储应用</title>
@@ -1308,7 +1380,7 @@ spec:
     args:
     - /bin/sh
     - -c
-    - echo &quot;hello k8s&quot; &gt; /producer_dir/hello; sleep 30000
+    - echo "hello k8s" &gt; /producer_dir/hello; sleep 30000
   - image: busybox
     name: consumer
     volumeMounts:
@@ -1448,7 +1520,7 @@ spec:
       - -c
       - sleep 30000
       volumeMounts:
-      - mountPath: &quot;/mydata&quot;
+      - mountPath: "/mydata"
         name: mydata
   volumes:
     - name: mydata
@@ -1684,7 +1756,25 @@ spec:
 kubectl logs<br>
 /var/ log/messages<br>
 查看该节点的kubelet的日志。</p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>10 复习 </title>
@@ -1744,7 +1834,7 @@ kubectl logs<br>
 <p><strong>kube- api( application interface) k8s的前端接口</strong></p>
 <p>**Scheduler[集群分发调度器]**负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
 <p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
-<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p>**Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <h3 id="Node组件：">Node组件：</h3>
 <p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
@@ -1798,7 +1888,25 @@ spec:
 ​					Readiness: 探测失败将pod设置为不可用<br>
 kubelet：控制pod</p>
 <p>DaemonSet :会在每一个节点都会运行，并且只运行一个Pod</p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>09 Job资源对象</title>
@@ -1838,7 +1946,7 @@ spec:
       containers:
       - name: hello
         image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+        command: ["echo","hello k8s job!"]
       restartPolicy: Never
 </code></pre>
 <h3 id="（2）执行一下">（2）执行一下</h3>
@@ -1867,7 +1975,7 @@ spec:
       containers:
       - name: hello
         image: busybox
-        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;] #修改
+        command: ["asdasxsddwefew","hello k8s job!"] #修改
       restartPolicy: Never
 </code></pre>
 <h3 id="（5）先删除之前的pod">（5）先删除之前的pod</h3>
@@ -1895,7 +2003,7 @@ spec:
       containers:
       - name: hello
         image: busybox
-        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;]
+        command: ["asdasxsddwefew","hello k8s job!"]
       restartPolicy: OnFailure
 </code></pre>
 <h3 id="（9）先删除之前的pod">（9）先删除之前的pod</h3>
@@ -1910,7 +2018,7 @@ spec:
 <p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
 <p><em><strong>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</strong></em></p>
 <h1>二、提高Job的执行效率</h1>
-<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
+<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href="">parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
 <hr>
 <h3 id="（1）编写一个job的yaml文件-2">（1）编写一个job的yaml文件</h3>
 <pre><code>[root@master yaml]# vim jop.yaml
@@ -1927,7 +2035,7 @@ spec:
       containers:
       - name: hello
         image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+        command: ["echo","hello k8s job!"]
       restartPolicy: OnFailure
 </code></pre>
 <h3 id="（3）执行一下">（3）执行一下</h3>
@@ -1956,7 +2064,7 @@ spec:
       containers:
       - name: hello
         image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+        command: ["echo","hello k8s job!"]
       restartPolicy: OnFailure
 </code></pre>
 <p><strong>job 字段解释：</strong></p>
@@ -1984,7 +2092,7 @@ apiVersion: batch/v1beta1
 metadata:
   name: hello
 spec:
-  schedule: &quot;*/1 * * * *&quot; #限定时间
+  schedule: "*/1 * * * *" #限定时间
   jobTemplate:
     spec:
       template:
@@ -1992,7 +2100,7 @@ spec:
           containers:
           - name: hello
             image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+            command: ["echo","hello","cronjob"]
           restartPolicy: OnFailure
 </code></pre>
 <h3 id="（2）先删除之前的pod-2">（2）先删除之前的pod</h3>
@@ -2018,7 +2126,7 @@ apiVersion: batch/v1beta1
 metadata:
   name: hello
 spec:
-  schedule: &quot;5 10 15 1 *&quot; #限定时间
+  schedule: "5 10 15 1 *" #限定时间
   jobTemplate:
     spec:
       template:
@@ -2026,7 +2134,7 @@ spec:
           containers:
           - name: hello
             image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+            command: ["echo","hello","cronjob"]
           restartPolicy: OnFailure
 </code></pre>
 <h3 id="（2）先删除之前的pod-3">（2）先删除之前的pod</h3>
@@ -2063,7 +2171,7 @@ apiVersion: batch/v1beta1
 metadata:
   name: hello
 spec:
-  schedule: &quot;47 10 15 1 *&quot; #限定时间
+  schedule: "47 10 15 1 *" #限定时间
   jobTemplate:
     spec:
       template:
@@ -2071,7 +2179,7 @@ spec:
           containers:
           - name: hello
             image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+            command: ["echo","hello","cronjob"]
           restartPolicy: OnFailure
 </code></pre>
 <h3 id="（9）执行一下">（9）执行一下</h3>
@@ -2088,7 +2196,25 @@ spec:
 <p><strong>Job 作为 Kubernetes 中用于处理任务的资源，与其他的资源没有太多的区别，它也使用 Kubernetes 中常见的控制器模式，监听 Informer 中的事件并运行 <code>syncHandler</code> 同步任务</strong></p>
 <p><strong>而 CronJob 由于其功能的特殊性，每隔 10s 会从 apiserver 中取出资源并进行检查是否应该触发调度创建新的资源，需要注意的是 CronJob 并不能保证在准确的目标时间执行，执行会有一定程度的滞后。</strong></p>
 <p><strong>两个控制器的实现都比较清晰，只是边界条件比较多，分析其实现原理时一定要多注意。</strong></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>08 ReplicaSet、DaemonSet</title>
@@ -2193,8 +2319,8 @@ spec:
 <p>![image-20200114101915248](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
 <p><strong>如果标签有多个，标签选择器选择其中一个，也可以关联成功。相反，如果选择器有多个，那么标签必须完全满足条件，才可以关联成功。</strong></p>
 <h2 id="4-标签选择器：标签的查询过滤条件。">4. 标签选择器：标签的查询过滤条件。</h2>
-<p><strong><a href>基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
-<p><strong><a href>基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
+<p><strong><a href="">基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
+<p><strong><a href="">基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
 <h4 id="使用标签选择器的逻辑：">使用标签选择器的逻辑：</h4>
 <ul>
 <li><strong>同时指定的多个选择器之间的逻辑关系为“与”操作。</strong></li>
@@ -2377,7 +2503,25 @@ spec:
 <h2 id="4）整理关于标签和标签选择器都有什么作用？"><strong>4）整理关于标签和标签选择器都有什么作用？</strong></h2>
 <p><strong>&lt;1&gt;标签：解决同类型的资源对象，为了更好的管理，按照标签分组。</strong></p>
 <p><strong>&lt;2&gt;标签选择器：标签的查询过滤条件。</strong></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>06 pod资源对象</title>
@@ -2772,7 +2916,25 @@ spec:
 <pre><code>[root@master ~]# curl 10.244.1.21
 </code></pre>
 <p>![image-20200109141749352](G:\四期\虚拟化\kubernetes\k8s文档\06 pod资源对象.assets\image-20200109141749352.png)</p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>05 Delpoyment、service</title>
@@ -3090,7 +3252,7 @@ spec:
 <p>![image-20200108111354832](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108111354832.png)</p>
 <h3 id="（2）删除副本一">（2）删除副本一</h3>
 <pre><code>[root@master ~]# kubectl delete -f xgp-1.yaml 
-deployment.extensions &quot;xgp-web&quot; deleted
+deployment.extensions "xgp-web" deleted
 [root@master ~]# kubectl delete svc xgp-svc 
 </code></pre>
 <h3 id="（3）修改副本一的yaml文件">（3）修改副本一的yaml文件</h3>
@@ -3283,7 +3445,25 @@ spec:
 [root@master ~]# kubectl describe pod xgp-web-7d478f5bb7-bd4bj 
 </code></pre>
 </blockquote>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>04 配置清单</title>
@@ -3348,7 +3528,7 @@ spec:
 <strong>(3) metadata: 元数据 名称字段（必写）</strong></p>
 <blockquote>
 <p><strong>提供以下几个字段</strong>：<br>
-　　<strong>creationTimestamp: &quot;2019-06-24T12:18:48Z&quot;</strong><br>
+　　<strong>creationTimestamp: "2019-06-24T12:18:48Z"</strong><br>
 　　<strong>generateName: myweb-5b59c8b9d-</strong><br>
 　　<strong>labels: （对象标签）</strong><br>
 　　　　<strong>pod-template-hash: 5b59c8b9d</strong><br>
@@ -3362,7 +3542,7 @@ spec:
 　　　　<strong>kind: ReplicaSet</strong><br>
 　　　　<strong>name: myweb-5b59c8b9d</strong><br>
 　　　　<strong>uid: 37f38f64-967a-11e9-8b4b-000c291028e5</strong><br>
-　　<strong>resourceVersion: &quot;943&quot;</strong><br>
+　　<strong>resourceVersion: "943"</strong><br>
 　　<strong>selfLink: /api/v1/namespaces/default/pods/myweb-5b59c8b9d-gwzz5</strong><br>
 　　<strong>uid: 37f653a6-967a-11e9-8b4b-000c291028e5</strong><br>
 　　<strong>annotations（资源注解，这个需要提前定义，默认是没有的）</strong><br>
@@ -3540,7 +3720,25 @@ spec:
 </blockquote>
 <h2 id="3-流量走向">3.流量走向</h2>
 <p><strong>我们在创建完成一个服务之后，用户首先应该访问的是nginx反向代理的ip，然后通过nginx访问到后端的k8s服务器（master节点）的“NodePort暴露IP 及 映射的端口“，master的apiserver接受到客户端发送来的访问指令，将访问指令通知Controller Manager控制器，Scheduler执行调度任务，将访问指令分发到各节点之上，通过”master节点“的“ip+映射端口”访问到后端k8s节点的信息，节点的Kubelet（pod代理）当Scheduler确定让那个节点返回访问信息之后，kube-proxy将访问信息负载均衡到该节点的容器上，各容器返回信息，并向Master报告运行状态</strong></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>03 创建资源的两种方式</title>
@@ -3746,19 +3944,19 @@ FROM httpd
 COPY index.html /usr/local/apache2/htdocs/index.html
 </code></pre>
 <h3 id="（3）创建测试网页v1">（3）创建测试网页v1</h3>
-<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
+<pre><code>[root@master xgp]#echo "&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;" &gt; index.html
 </code></pre>
 <h3 id="（4）基于Dockerfile创建镜像-web1">（4）基于Dockerfile创建镜像 web1</h3>
 <pre><code>[root@master xgp]# docker build -t web1 .
 </code></pre>
 <h3 id="（5）创建测试网页v2">（5）创建测试网页v2</h3>
-<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
+<pre><code>[root@master xgp]#echo "&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;" &gt; index.html
 </code></pre>
 <h3 id="（6）基于Dockerfile创建镜像-web2">（6）基于Dockerfile创建镜像 web2</h3>
 <pre><code>[root@master xgp]# docker build -t web2 .
 </code></pre>
 <h3 id="（7）创建测试网页v3">（7）创建测试网页v3</h3>
-<pre><code>[root@master xgp]# echo &quot;&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;&quot; &gt; index.html
+<pre><code>[root@master xgp]# echo "&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;" &gt; index.html
 </code></pre>
 <h3 id="（8）基于Dockerfile创建镜像-web3">（8）基于Dockerfile创建镜像 web3</h3>
 <pre><code>[root@master xgp]# docker build -t web3 .
@@ -3861,7 +4059,25 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <h3 id="访问一下-2">访问一下</h3>
 <p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130357339.png"  alt="image-20200106130357339"></p>
 <p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130414060.png"  alt="image-20200106130414060"></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>02 k8s架构，基本概念</title>
@@ -3920,7 +4136,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <p><strong>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</strong></p>
 <p><strong>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</strong></p>
 </blockquote>
-<p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href="">（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
 <p><strong>7. Flanner</strong>：是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces
@@ -3978,7 +4194,7 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 //显示pod的节点信息
 </code></pre>
 <p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png"  alt="image-20200104111128779"></p>
-<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
+<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart="" kubelet=""></systemctl></strong></em></p>
 <h3 id="如果删除一个pod">如果删除一个pod</h3>
 <pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
 </code></pre>
@@ -3988,7 +4204,25 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png"  alt="image-20200104112418012"></p>
 <p><em><strong>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</strong></em></p>
 <p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>01 部署k8s集群</title>
@@ -4221,7 +4455,7 @@ set tabstop=2
 <pre><code>[root@master ~]# yum  -y install bash-completion
 [root@master ~]#  source /usr/share/bash-completion/bash_completion 
 [root@master ~]# source &lt;(kubectl completion bash)
-[root@master ~]# echo &quot;source &lt;(kubectl completion bash)&quot; &gt;&gt; ~/.bashrc
+[root@master ~]# echo "source &lt;(kubectl completion bash)" &gt;&gt; ~/.bashrc
 </code></pre>
 <h2 id="确认k8s群集没有问题，并设置为开机自启">确认k8s群集没有问题，并设置为开机自启</h2>
 <h3 id="master主机操作如下："><strong>master主机操作如下</strong>：</h3>
@@ -4237,7 +4471,25 @@ set tabstop=2
 <p><strong>设置为开机自启后，k8s群集的配置基本完成了，现在可以重启一下这三台服务器，如果重启后，执行下面的命令，状态都还是running，则表示绝对没有问题了。</strong></p>
 <pre><code>[root@master ~]# kubectl get pod -n kube-system    #重启后验证状态是否还都是running
 </code></pre>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>xgp</title>
@@ -4245,13 +4497,31 @@ set tabstop=2
     <content><![CDATA[<p><img src="/" class="lazyload" data-src="http://xgp-cunchu.test.upcdn.net/docker/image-20191224101214064.png"  alt="img"></p>
 <p><a href="http://xgp-cunchu.test.upcdn.net/xgp/image-20200102093813472.png" target="_blank" rel="noopener">http://xgp-cunchu.test.upcdn.net/xgp/image-20200102093813472.png</a></p>
 <p><a href="http://xgp-cunchu.test.upcdn.net/xgp/image-20200102094039749.png" target="_blank" rel="noopener">http://xgp-cunchu.test.upcdn.net/xgp/image-20200102094039749.png</a></p>
-<img src="/" class="lazyload" data-src="/posts/cfe/1.png"  class title="This is an example image">
-<img src="/" class="lazyload" data-src="/posts/cfe/1.png"  class title="This is an example image">
-<img src="/" class="lazyload" data-src="/posts/cfe/1.png"  class title="This is an example image">
+<img src="/"  lazyloadclass="" title="This is an example image" data-src="/posts/cfe/1.png">
+<img src="/"  lazyloadclass="" title="This is an example image" data-src="/posts/cfe/1.png">
+<img src="/"  lazyloadclass="" title="This is an example image" data-src="/posts/cfe/1.png">
 <p>./xgp/1.png</p>
 <p><img src="/" class="lazyload" data-src="/posts/1.png"  alt="1"></p>
 <p><img src="/" class="lazyload" data-src="/posts/1.png"  alt="1"></p>
-]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
       <categories>
         <category>测试</category>
       </categories>
@@ -4263,17 +4533,94 @@ set tabstop=2
   <entry>
     <title>contact</title>
     <url>/contact/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title>tags</title>
     <url>/tags/index.html</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
+    <title>categories</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/lib/canvas-nest/canvas-nest.min.js</url>
+    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title></title>
@@ -4283,12 +4630,30 @@ set tabstop=2
     var Agents = ["iPad", "iPhone", "Android", 
           "SymbianOS", "Windows Phone",
            "iPod", "webOS", "BlackBerry", "IEMobile"];
-    for (var v = 0; v < Agents.length; v++) {
-      if (userAgentInfo.indexOf(Agents[v]) > 0) {
+    for (var v = 0; v &lt; Agents.length; v++) {
+      if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {
         return;
       }
     }
-	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y></0?-1:1,i.ya*=i.y>]]></content>
+	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x&gt;r||i.x&lt;0?-1:1,i.ya*=i.y&gt;n||i.y&lt;0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y>=x.max/2&amp;&amp;(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n&gt;p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();<!--0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y--><!--0?-1:1,i.ya*=i.y--></w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){b=i.x-x.x,z=i.y-x.y,y=b*b+z*z;y<x.max&&(x===f&&y><script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
   <entry>
     <title></title>
@@ -4325,11 +4690,24 @@ custom_file_path:
   #mixin: source/_data/mixins.styl
   #style: source/_data/styles.styl
 </code></pre>
-]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/lib/canvas-nest/canvas-nest.min.js</url>
-    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y></0?-1:1,i.ya*=i.y>]]></content>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script>]]></content>
   </entry>
 </search>
