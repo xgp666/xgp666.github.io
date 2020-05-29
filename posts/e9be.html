@@ -118,7 +118,7 @@ spec:
 <p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
 <p><em><strong>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</strong></em></p>
 <h1>二、提高Job的执行效率</h1>
-<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href="">parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
+<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
 <hr>
 <h3 id="（1）编写一个job的yaml文件-2">（1）编写一个job的yaml文件</h3>
 <pre><code>[root@master yaml]# vim jop.yaml
