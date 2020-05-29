@@ -767,26 +767,6 @@ body {
   fill: currentColor;
   overflow: hidden;
 }
-.bg-img-container {
-  position: fixed;
-  z-index: -2;
-  top: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-}
-.bg-img {
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-  background-image: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-0-blur-30px.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  animation-name: bgFadeIn;
-  animation-duration: 2.5s;
-}
 .fireworks {
   position: fixed;
   left: 0;
