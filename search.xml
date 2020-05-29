@@ -2330,14 +2330,14 @@ spec:
 <h3 id="（1）例子">（1）例子</h3>
 <p>![image-20200114110334223](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114110334223.png)</p>
 <h4 id="编写一个selector的yaml’文件">编写一个selector的yaml’文件</h4>
-<pre class=" language-language-yaml"><code class="language-language-yaml">[root@master ~]# vim selector.yaml
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">[root@master ~]# vim selector.yaml
 selector:
   matchLabels:
     app: nginx
   mathExpressions:
     - {key: name,operator: In,values: [zhangsan,lisi]}
     - {key: age,operator: Exists,values:}
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <ul>
 <li><strong>selector：当前控制器匹配Pod对此项副本的标签选择器</strong></li>
 <li><strong>matchLabels: 指定键值对表示的标签选择器。</strong></li>
@@ -4608,19 +4608,19 @@ set tabstop=2
 <h2 id="Install">Install</h2>
 <h3 id="Step-1-→-Go-to-Hexo-dir">Step 1 → Go to Hexo dir</h3>
 <p>Change dir to <strong>Hexo</strong> directory. There must be <code>scaffolds</code>, <code>source</code>, <code>themes</code> and other directories:</p>
-<pre class=" language-language-sh"><code class="language-language-sh">$ cd hexo
+<pre class="line-numbers language-language-sh"><code class="language-language-sh">$ cd hexo
 $ ls
 scaffolds  source  themes  _config.yml  package.json
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <h3 id="Step-2-→-Create-footer-swig">Step 2 → Create <code>footer.swig</code></h3>
 <p>Create a file named <code>footer.swig</code> in <code>hexo/source/_data</code> directory (create <code>_data</code> directory if it does not exist).</p>
 <p>Edit this file and add the following content:</p>
-<pre class=" language-language-xml"><code class="language-language-xml"><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
-</code></pre>
+<pre class="line-numbers language-language-xml"><code class="language-language-xml"><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 <p>You can customize these options.</p>
 <h3 id="Step-3-→-Set-it-up">Step 3 → Set it up</h3>
 <p>In the NexT <code>_config.yml</code>, uncomment <code>footer</code> under the <code>custom_file_path</code> section.</p>
-<pre class=" language-language-yml"><code class="language-language-yml"># Define custom file paths.
+<pre class="line-numbers language-language-yml"><code class="language-language-yml"># Define custom file paths.
 # Create your custom files in site directory `source/_data` and uncomment needed files below.
 custom_file_path:
   #head: source/_data/head.swig
@@ -4633,7 +4633,7 @@ custom_file_path:
   #variable: source/_data/variables.styl
   #mixin: source/_data/mixins.styl
   #style: source/_data/styles.styl
-</code></pre>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <script>
         document.querySelectorAll('.github-emoji')
           .forEach(el => {
