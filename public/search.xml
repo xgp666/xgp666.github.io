@@ -377,6 +377,327 @@ set tabstop=2
 ]]></content>
   </entry>
   <entry>
+    <title>03 创建资源的两种方式</title>
+    <url>/posts/6989.html</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td></td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td></td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1>两种创建资源的方法</h1>
+<h2 id="基于命令的方式：">基于命令的方式：</h2>
+<ol>
+<li><strong>简单直观快捷，上手快。</strong></li>
+<li><strong>适合临时测试或实验。</strong></li>
+</ol>
+<h2 id="基于配置文件的方式：">基于配置文件的方式：</h2>
+<ol>
+<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
+<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
+<li><strong>可以像管理代码一样管理部署。</strong></li>
+<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
+<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
+</ol>
+<h1>一，用命令行的方式创建资源</h1>
+<h3 id="仅接受json格式"><em>仅接受json格式</em></h3>
+<h2 id="配置清单（yml、yaml）">配置清单（yml、yaml）</h2>
+<pre><code>[root@master ~]# cd /etc/kubernetes/manifests/
+//k8s的yml、yaml文件
+</code></pre>
+<h2 id="1-node01和node02下载nginx镜像">1.node01和node02下载nginx镜像</h2>
+<pre><code>docker pull nginx
+//下载nginx镜像
+</code></pre>
+<h2 id="2-master创建Pod控制器（test-web），deployment">2.master创建Pod控制器（test-web），deployment</h2>
+<pre><code>[root@master ~]# kubectl run test-web --image=nginx --replicas=5
+//创建Pod控制器，deployment
+</code></pre>
+<h2 id="3-查看控制器情况">3.查看控制器情况</h2>
+<h3 id="（1）">（1）</h3>
+<pre><code>[root@master ~]# kubectl get deployments.
+//查看控制器情况
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093615852.png" alt="image-20200106093615852" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
+//显示pod的节点信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093922849.png" alt="image-20200106093922849" loading="lazy"></p>
+<h3 id="（2）">（2）</h3>
+<pre><code>[root@master ~]# kubectl get namespaces 
+//查看k8s名称空间
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093850247.png" alt="image-20200106093850247" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl describe deployments. test-web
+//查看资源详细信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093723330.png" alt="image-20200106093723330" loading="lazy"></p>
+<p><em><strong>查看某种资源对象，没有指定名称空间，默认是在default名称空间。可以加上-n选项，查看指定名称空间的资源。</strong></em></p>
+<pre><code>[root@master ~]# kubectl get pod -n kube-system 
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106094343401.png" alt="image-20200106094343401" loading="lazy"></p>
+<h2 id="3-删除test-web控制器">3.删除test-web控制器</h2>
+<pre><code>[root@master ~]# kubectl delete deployments. test-web 
+</code></pre>
+<h2 id="4-master创建Pod控制器（web），deployment">4.master创建Pod控制器（web），deployment</h2>
+<pre><code>[root@master ~]# kubectl run web --image=nginx --replicas=5
+</code></pre>
+<h3 id="查看一下pod信息">查看一下pod信息</h3>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看一下pod的节点信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106095722353.png" alt="image-20200106095722353" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl describe deployments. web 
+//查看资源详细信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100606861.png" alt="image-20200106100606861" loading="lazy"></p>
+<p><em><strong>注意：直接运行创建的deployment资源对象，是经常使用的一个控制器资源类型，除了deployment，还有rc、rs等等pod控制器，deployment是一个高级的pod控制器。</strong></em></p>
+<h3 id="本机测试访问nginx">本机测试访问nginx</h3>
+<pre><code>[root@master ~]# curl 10.244.1.7
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100827131.png" alt="image-20200106100827131" loading="lazy"></p>
+<h2 id="5-创建service资源类型">5.创建service资源类型</h2>
+<pre><code>[root@master ~]# kubectl expose deployment web --name=web-xgp --port=80 --type=NodePort
+//创建service资源类型，这里我们设置了映射端口
+</code></pre>
+<p><em><strong>如果想要外网能够访问服务，可以暴露deployment资源，得到service资源，但svc资源的类型必须为NodePort。</strong></em></p>
+<p><strong>映射端口范围：30000-32767</strong></p>
+<h3 id="查看service信息">查看service信息</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101443348.png" alt="image-20200106101443348" loading="lazy"></p>
+<h3 id="浏览器测试访问http-192-168-1-21-30493">浏览器测试访问http://192.168.1.21:30493/</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101624954.png" alt="image-20200106101624954" loading="lazy"></p>
+<h1>二、服务的扩容与缩容</h1>
+<h2 id="1-查看控制器信息">1. 查看控制器信息</h2>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104638757.png" alt="image-20200106104638757" loading="lazy"></p>
+<h2 id="2-扩容">2.扩容</h2>
+<pre><code>[root@master ~]# kubectl scale deployment web --replicas=8
+</code></pre>
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104757123.png" alt="image-20200106104757123" loading="lazy"></p>
+<h2 id="3-缩容">3.缩容</h2>
+<pre><code>[root@master ~]# kubectl scale deployment web --replicas=4
+</code></pre>
+<h3 id="查看一下-2">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105536316.png" alt="image-20200106105536316" loading="lazy"></p>
+<h2 id="3-通过修改web的yaml文件进行扩容缩容">3.通过修改web的yaml文件进行扩容缩容</h2>
+<h3 id="备份web的yaml文件">备份web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; web.yaml
+</code></pre>
+<h3 id="使用edit修改web的yaml文件">使用edit修改web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl edit deployments. web 
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531" loading="lazy"></p>
+<h3 id="查看一下-3">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105816339.png" alt="image-20200106105816339" loading="lazy"></p>
+<h1>三、服务的升级与回滚</h1>
+<h2 id="node01和node02下载1-15版本的nginx">node01和node02下载1.15版本的nginx</h2>
+<pre><code>[root@master ~]# docker pull nginx:1.15
+</code></pre>
+<h2 id="1-master设置服务升级">1.master设置服务升级</h2>
+<pre><code>[root@master ~]#  kubectl set image deployment web web=nginx:1.15
+</code></pre>
+<h3 id="查看一下-4">查看一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111227960.png" alt="image-20200106111227960" loading="lazy"></p>
+<h2 id="2-master设置服务回滚">2.master设置服务回滚</h2>
+<h3 id="（1）修改配置文件回滚">（1）修改配置文件回滚</h3>
+<h3 id="使用edit修改web的yaml文件-2">使用edit修改web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl edit deployments. web 
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111523148.png" alt="image-20200106111523148" loading="lazy"></p>
+<h3 id="查看一下-5">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111319699.png" alt="image-20200106111319699" loading="lazy"></p>
+<h3 id="（2）命令回滚">（2）命令回滚</h3>
+<pre><code>[root@master ~]# kubectl rollout undo deployment web 
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111733617.png" alt="image-20200106111733617" loading="lazy"></p>
+<p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
+<h1>四、实验环境</h1>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td>registry+Deployment</td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td></td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-master-基于httpd制作自己的镜像，需要3个版本，v1-v2-v3-并且对应的版本镜像，访问的主目录内容不一样">1.master 基于httpd制作自己的镜像，需要3个版本，v1,v2,v3.并且对应的版本镜像，访问的主目录内容不一样</h2>
+<h3 id="（1）master下载httpd镜像">（1）master下载httpd镜像</h3>
+<pre><code>[root@master ~]# docker pull httpd
+</code></pre>
+<h3 id="（2）编写Dockerfile">（2）编写Dockerfile</h3>
+<pre><code>[root@master xgp]# vim Dockerfile
+FROM httpd
+COPY index.html /usr/local/apache2/htdocs/index.html
+</code></pre>
+<h3 id="（3）创建测试网页v1">（3）创建测试网页v1</h3>
+<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
+</code></pre>
+<h3 id="（4）基于Dockerfile创建镜像-web1">（4）基于Dockerfile创建镜像 web1</h3>
+<pre><code>[root@master xgp]# docker build -t web1 .
+</code></pre>
+<h3 id="（5）创建测试网页v2">（5）创建测试网页v2</h3>
+<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
+</code></pre>
+<h3 id="（6）基于Dockerfile创建镜像-web2">（6）基于Dockerfile创建镜像 web2</h3>
+<pre><code>[root@master xgp]# docker build -t web2 .
+</code></pre>
+<h3 id="（7）创建测试网页v3">（7）创建测试网页v3</h3>
+<pre><code>[root@master xgp]# echo &quot;&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;&quot; &gt; index.html
+</code></pre>
+<h3 id="（8）基于Dockerfile创建镜像-web3">（8）基于Dockerfile创建镜像 web3</h3>
+<pre><code>[root@master xgp]# docker build -t web3 .
+</code></pre>
+<h2 id="2-master部署私有仓库">2.master部署私有仓库</h2>
+<h3 id="（1）master下载registry镜像">（1）master下载registry镜像</h3>
+<pre><code>[root@master ~]# docker pull registry
+</code></pre>
+<h3 id="（2）启动registry">（2）启动registry</h3>
+<pre><code>[root@master xgp]# docker run -itd --name registry -p 5000:5000 --restart=always registry:latest 
+</code></pre>
+<h3 id="（3）修改docker配置文件，加入私有仓库（三台）">（3）修改docker配置文件，加入私有仓库（三台）</h3>
+<pre><code>[root@master xgp]# vim /usr/lib/systemd/system/docker.service
+ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106120848869.png" alt="image-20200106120848869" loading="lazy"></p>
+<h3 id="（4）重启docker（三台）">（4）重启docker（三台）</h3>
+<pre><code>[root@master xgp]# systemctl daemon-reload 
+[root@master xgp]# systemctl restart docker
+</code></pre>
+<h2 id="3-上传之前创建的三个web镜像到私有仓库">3.上传之前创建的三个web镜像到私有仓库</h2>
+<h3 id="（1）修改镜像标签">（1）修改镜像标签</h3>
+<pre><code>[root@master xgp]# docker tag web1:latest 192.168.1.21:5000/web1:latest
+[root@master xgp]# docker tag web2:latest 192.168.1.21:5000/web2:latest
+[root@master xgp]# docker tag web3:latest 192.168.1.21:5000/web3:latest
+</code></pre>
+<h3 id="（2）将三个web镜像上传到私有仓库">（2）将三个web镜像上传到私有仓库</h3>
+<pre><code>[root@master xgp]# docker push  192.168.1.21:5000/web1:latest 
+[root@master xgp]# docker push  192.168.1.21:5000/web2:latest
+[root@master xgp]# docker push  192.168.1.21:5000/web3:latest 
+</code></pre>
+<h2 id="4-部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。">4.部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。</h2>
+<pre><code>[root@master xgp]# kubectl run www1 --image=192.168.1.21:5000/web1:latest --replicas=6
+</code></pre>
+<h3 id="查看一下-6">查看一下</h3>
+<pre><code>[root@master xgp]# kubectl get pod
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122026271.png" alt="image-20200106122026271" loading="lazy"></p>
+<h3 id="本地访问一下">本地访问一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122426308.png" alt="image-20200106122426308" loading="lazy"></p>
+<h3 id="5-将上述Deployment暴露一个service资源对象，使外网能否访问服务。">5.将上述Deployment暴露一个service资源对象，使外网能否访问服务。</h3>
+<pre><code>[root@master xgp]#  kubectl expose deployment www1 --name=web-xgp --port=80 --type=NodePort
+</code></pre>
+<h3 id="查看一下-7">查看一下</h3>
+<pre><code>[root@master xgp]# kubectl get svc
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122313996.png" alt="image-20200106122313996" loading="lazy"></p>
+<h3 id="浏览器访问一下">浏览器访问一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122340747.png" alt="image-20200106122340747" loading="lazy"></p>
+<h2 id="6-将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。">6.将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。</h2>
+<h2 id="（1）扩容">（1）扩容</h2>
+<pre><code>[root@master xgp]# kubectl scale deployment www1 --replicas=8
+</code></pre>
+<h3 id="查看一下-8">查看一下</h3>
+<pre><code>[root@master xgp]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122722977.png" alt="image-20200106122722977" loading="lazy"></p>
+<h2 id="（2）缩容">（2）缩容</h2>
+<h3 id="修改k8s配置文件">修改k8s配置文件</h3>
+<h3 id="备份web的yaml文件-2">备份web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; www1.yaml
+</code></pre>
+<h3 id="使用edit修改web的yaml文件-3">使用edit修改web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl edit deployments. www1
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531" loading="lazy"></p>
+<h3 id="查看一下-9">查看一下</h3>
+<pre><code>[root@master xgp]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122953397.png" alt="image-20200106122953397" loading="lazy"></p>
+<h2 id="7-将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。">7.将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。</h2>
+<h2 id="（1）升级版本为web2">（1）升级版本为web2</h2>
+<pre><code>[root@master ~]# kubectl set image deployment www1 www1=192.168.1.21:5000/web2
+</code></pre>
+<h3 id="本机测试访问">本机测试访问</h3>
+<pre><code>[root@master ~]# curl 127.0.0.1:30996
+&lt;h1&gt;xgp | test-web | httpd:v2&lt;h1&gt;
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125722931.png" alt="image-20200106125722931" loading="lazy"></p>
+<h3 id="浏览器测试访问">浏览器测试访问</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125750021.png" alt="image-20200106125750021" loading="lazy"></p>
+<h2 id="（2）回滚版本到web1">（2）回滚版本到web1</h2>
+<h3 id="1-修改配置文件回滚">&lt;1&gt;修改配置文件回滚</h3>
+<h3 id="使用edit修改web的yaml文件-4">使用edit修改web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl edit deployments. www1
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130010344.png" alt="image-20200106130010344" loading="lazy"></p>
+<h3 id="查看一下-10">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130304423.png" alt="image-20200106130304423" loading="lazy"></p>
+<h3 id="访问一下">访问一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130435212.png" alt="image-20200106130435212" loading="lazy"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130447693.png" alt="image-20200106130447693" loading="lazy"></p>
+<h3 id="2-命令回滚">&lt;2&gt;命令回滚</h3>
+<pre><code>[root@master ~]# kubectl rollout undo deployment www1
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130317956.png" alt="image-20200106130317956" loading="lazy"></p>
+<p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
+<h3 id="访问一下-2">访问一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130357339.png" alt="image-20200106130357339" loading="lazy"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130414060.png" alt="image-20200106130414060" loading="lazy"></p>
+]]></content>
+  </entry>
+  <entry>
     <title>04 配置清单</title>
     <url>/posts/748b.html</url>
     <content><![CDATA[<h1>一，两种创建资源的方法</h1>
@@ -1540,617 +1861,6 @@ spec:
 ]]></content>
   </entry>
   <entry>
-    <title>09 Job资源对象</title>
-    <url>/posts/e9be.html</url>
-    <content><![CDATA[<h1>Job资源对象</h1>
-<blockquote>
-<p>**服务类的Pod容器：**RC、RS、DS、Deployment</p>
-<p>**工作类的Pod容器：**Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。</p>
-</blockquote>
-<p><strong>注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里</strong><br>
-<strong>的容器重启策略只能是: Never和 OnFailure。</strong></p>
-<h1>概念</h1>
-<p><strong>在有些场景下，是想要运行一些容器执行某种特定的任务，任务一旦执行完成，容器也就没有存在的必要了。在这种场景下，创建pod就显得不那么合适。于是就是了Job，Job指的就是那些一次性任务。通过Job运行一个容器，当其任务执行完以后，就自动退出，集群也不再重新将其唤醒。</strong></p>
-<p><strong>从程序的运行形态上来区分，可以将Pod分为两类：长时运行服务（jboss、mysql等）和一次性任务（数据计算、测试）。RC创建的Pod都是长时运行的服务，Job多用于执行一次性任务、批处理工作等，执行完成后便会停止（status.phase变为Succeeded）。</strong></p>
-<h1>一、kubernetes支持以下几种job</h1>
-<blockquote>
-<ul>
-<li><strong>非并行job：通常创建一个pod直至其成功结束。</strong></li>
-<li><strong>固定结束次数的job：设置spec.completions,创建多个pod，直到.spec.completions个pod成功结束。</strong></li>
-<li><strong>带有工作队列的并行job：设置.spec.Parallelism但不设置.spec.completions,当所有pod结束并且至少一个成功时，job就认为是成功。</strong></li>
-</ul>
-</blockquote>
-<h2 id="Job-Controller">Job Controller</h2>
-<p><strong>Job Controller负责根据Job Spec创建pod，并持续监控pod的状态，直至其成功结束，如果失败，则根据restartPolicy（只支持OnFailure和Never，不支持Always）决定是否创建新的pod再次重试任务。</strong></p>
-<h2 id="例子"><strong>例子</strong></h2>
-<h3 id="（1）编写一个job的yaml文件">（1）编写一个job的yaml文件</h3>
-<pre><code>[root@master yaml]# vim jop.yaml
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
-      restartPolicy: Never
-</code></pre>
-<h3 id="（2）执行一下">（2）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（3）查看一下">（3）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
-<p>![image-20200115090831524](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115090831524.png)</p>
-<h4 id="查看日志">查看日志</h4>
-<pre><code>[root@master yaml]# kubectl logs test-job-gs45w 
-</code></pre>
-<p>![image-20200115091213349](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091213349.png)</p>
-<p><strong>我们可以看到job与其他资源对象不同，仅执行一次性任务，默认pod借宿运行后job即结束，状态为Completed。</strong></p>
-<h3 id="（4）修改一下jop的yaml文件，把echo命令换成乱码">（4）修改一下jop的yaml文件，把echo命令换成乱码</h3>
-<pre><code>[root@master yaml]# vim jop.yaml
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;] #修改
-      restartPolicy: Never
-</code></pre>
-<h3 id="（5）先删除之前的pod">（5）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job  
-</code></pre>
-<h3 id="（6）执行一下">（6）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（7）查看一下">（7）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod -w
-</code></pre>
-<p>![image-20200115091647925](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091647925.png)</p>
-<p><em><strong>它会一直创建pod直到完成命令。</strong></em></p>
-<h3 id="（8）修改一下jop的yaml文件，修改重启策略">（8）修改一下jop的yaml文件，修改重启策略</h3>
-<pre><code>[root@master yaml]# vim jop.yaml 
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;]
-      restartPolicy: OnFailure
-</code></pre>
-<h3 id="（9）先删除之前的pod">（9）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
-</code></pre>
-<h3 id="（10）执行一下">（10）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（11）查看一下">（11）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod -w
-</code></pre>
-<p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
-<p><em><strong>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</strong></em></p>
-<h1>二、提高Job的执行效率</h1>
-<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
-<hr>
-<h3 id="（1）编写一个job的yaml文件-2">（1）编写一个job的yaml文件</h3>
-<pre><code>[root@master yaml]# vim jop.yaml
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  parallelism: 2    #同时启用几个pod
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
-      restartPolicy: OnFailure
-</code></pre>
-<h3 id="（3）执行一下">（3）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（4）查看一下">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
-<p>![image-20200115093854913](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115093854913.png)</p>
-<h4 id="查看日志-2">查看日志</h4>
-<p>![image-20200115094002236](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094002236.png)</p>
-<h2 id="2-我们可以在Job-spec字段下加上complations选项。表示总共需要完成Pod的数量">2. 我们可以在Job.spec字段下加上complations选项。表示总共需要完成Pod的数量</h2>
-<h3 id="（1）编写一个job的yaml文件-3">（1）编写一个job的yaml文件</h3>
-<pre><code>[root@master yaml]# vim jop.yaml
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  complations: 8            #运行pod的总数量8个
-  parallelism: 2            #同时运行2个pod
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
-      restartPolicy: OnFailure
-</code></pre>
-<p><strong>job 字段解释：</strong></p>
-<blockquote>
-<p><strong>标志Job结束需要成功运行的Pod个数，默认为1</strong><br>
-<strong>parallelism：标志并行运行的Pod的个数，默认为1</strong><br>
-<strong>activeDeadlineSeconds：标志失败Pod的重试最大时间，超过这个时间不会继续重试.</strong></p>
-</blockquote>
-<h3 id="（2）先删除之前的pod">（2）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
-</code></pre>
-<h3 id="（3）执行一下-2">（3）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（4）查看一下-2">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
-<p>![image-20200115094519494](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094519494.png)</p>
-<p><strong>可以看到pod是两个两个的启动的。</strong></p>
-<h2 id="3-如何定时执行Job">3. 如何定时执行Job</h2>
-<h3 id="（1）编写一个cronjob的yaml文件">（1）编写一个cronjob的yaml文件</h3>
-<pre><code>[root@master yaml]# vim cronjop.yaml
-kind: CronJob
-apiVersion: batch/v1beta1
-metadata:
-  name: hello
-spec:
-  schedule: &quot;*/1 * * * *&quot; #限定时间
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: hello
-            image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
-          restartPolicy: OnFailure
-</code></pre>
-<h3 id="（2）先删除之前的pod-2">（2）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
-</code></pre>
-<h3 id="（3）执行一下-3">（3）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（4）查看一下-3">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
-<p>![image-20200115095857428](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095857428.png)</p>
-<pre><code>[root@master yaml]# kubectl get cronjobs.batch 
-</code></pre>
-<p>![image-20200115095920740](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095920740.png)</p>
-<p><strong>此时查看Pod的状态，会发现，每分钟都会运行一个新的Pod来执行命令规定的任</strong><br>
-<strong>务。</strong></p>
-<h2 id="练习：规定2020-1-15-10-5分运行上面的crontab任务。">练习：规定2020.1.15.10.5分运行上面的crontab任务。</h2>
-<h3 id="（1）编写一个cronjob的yaml文件-2">（1）编写一个cronjob的yaml文件</h3>
-<pre><code>[root@master yaml]# vim cronjop.yaml
-kind: CronJob
-apiVersion: batch/v1beta1
-metadata:
-  name: hello
-spec:
-  schedule: &quot;5 10 15 1 *&quot; #限定时间
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: hello
-            image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
-          restartPolicy: OnFailure
-</code></pre>
-<h3 id="（2）先删除之前的pod-3">（2）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete cronjobs.batch hello 
-</code></pre>
-<h3 id="（3）执行一下-4">（3）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（4）查看一下-4">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
-<p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
-<p><strong>这时会发现，如果规定具体时间，可能并不会执行任务。</strong></p>
-<h3 id="（5）添加apiVersion库">（5）添加apiVersion库</h3>
-<pre><code>[root@master yaml]# vim /etc/kubernetes/manifests/kube-apiserver.yaml 
-spec:
-  containers:
-  - command:
-    - kube-apiserver
-    - --runtime-config=batch/v2alpha1=true    #添加
-</code></pre>
-<p>![image-20200115104218361](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104218361.png)</p>
-<h3 id="（6）重启kubelet">（6）重启kubelet</h3>
-<pre><code>[root@master yaml]# systemctl restart kubelet.service 
-</code></pre>
-<h3 id="（7）查看api版本">（7）查看api版本</h3>
-<pre><code>[root@master yaml]# kubectl api-versions 
-</code></pre>
-<p>![image-20200115104521662](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104521662.png)</p>
-<h3 id="（8）编写一个cronjob的yaml文件">（8）编写一个cronjob的yaml文件</h3>
-<pre><code>[root@master yaml]# vim cronjop.yaml
-kind: CronJob
-apiVersion: batch/v1beta1
-metadata:
-  name: hello
-spec:
-  schedule: &quot;47 10 15 1 *&quot; #限定时间
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: hello
-            image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
-          restartPolicy: OnFailure
-</code></pre>
-<h3 id="（9）执行一下">（9）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（4）查看一下-5">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod -w
-</code></pre>
-<p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
-<p><strong>注意：此时仍然不能正常运行指定时间的Job，这是因为K8s官方在cronjob这个资源对象的支持中还没有完善此功能，还待开发。</strong></p>
-<p><strong>跟Job资源一样在cronjob.spec.jobTemplate.spec 下同样支持并发Job参数:</strong><br>
-<strong>parallelism，也支持完成Pod的总数参数: completionsr</strong></p>
-<h1>总结</h1>
-<p><strong>Job 作为 Kubernetes 中用于处理任务的资源，与其他的资源没有太多的区别，它也使用 Kubernetes 中常见的控制器模式，监听 Informer 中的事件并运行 <code>syncHandler</code> 同步任务</strong></p>
-<p><strong>而 CronJob 由于其功能的特殊性，每隔 10s 会从 apiserver 中取出资源并进行检查是否应该触发调度创建新的资源，需要注意的是 CronJob 并不能保证在准确的目标时间执行，执行会有一定程度的滞后。</strong></p>
-<p><strong>两个控制器的实现都比较清晰，只是边界条件比较多，分析其实现原理时一定要多注意。</strong></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>03 创建资源的两种方式</title>
-    <url>/posts/6989.html</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP地址</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>192.168.1.21</td>
-<td></td>
-</tr>
-<tr>
-<td>node01</td>
-<td>192.168.1.22</td>
-<td></td>
-</tr>
-<tr>
-<td>node02</td>
-<td>192.168.1.23</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h1>两种创建资源的方法</h1>
-<h2 id="基于命令的方式：">基于命令的方式：</h2>
-<ol>
-<li><strong>简单直观快捷，上手快。</strong></li>
-<li><strong>适合临时测试或实验。</strong></li>
-</ol>
-<h2 id="基于配置文件的方式：">基于配置文件的方式：</h2>
-<ol>
-<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
-<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
-<li><strong>可以像管理代码一样管理部署。</strong></li>
-<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
-<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
-</ol>
-<h1>一，用命令行的方式创建资源</h1>
-<h3 id="仅接受json格式"><em>仅接受json格式</em></h3>
-<h2 id="配置清单（yml、yaml）">配置清单（yml、yaml）</h2>
-<pre><code>[root@master ~]# cd /etc/kubernetes/manifests/
-//k8s的yml、yaml文件
-</code></pre>
-<h2 id="1-node01和node02下载nginx镜像">1.node01和node02下载nginx镜像</h2>
-<pre><code>docker pull nginx
-//下载nginx镜像
-</code></pre>
-<h2 id="2-master创建Pod控制器（test-web），deployment">2.master创建Pod控制器（test-web），deployment</h2>
-<pre><code>[root@master ~]# kubectl run test-web --image=nginx --replicas=5
-//创建Pod控制器，deployment
-</code></pre>
-<h2 id="3-查看控制器情况">3.查看控制器情况</h2>
-<h3 id="（1）">（1）</h3>
-<pre><code>[root@master ~]# kubectl get deployments.
-//查看控制器情况
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093615852.png" alt="image-20200106093615852" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
-//显示pod的节点信息
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093922849.png" alt="image-20200106093922849" loading="lazy"></p>
-<h3 id="（2）">（2）</h3>
-<pre><code>[root@master ~]# kubectl get namespaces 
-//查看k8s名称空间
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093850247.png" alt="image-20200106093850247" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl describe deployments. test-web
-//查看资源详细信息
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093723330.png" alt="image-20200106093723330" loading="lazy"></p>
-<p><em><strong>查看某种资源对象，没有指定名称空间，默认是在default名称空间。可以加上-n选项，查看指定名称空间的资源。</strong></em></p>
-<pre><code>[root@master ~]# kubectl get pod -n kube-system 
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106094343401.png" alt="image-20200106094343401" loading="lazy"></p>
-<h2 id="3-删除test-web控制器">3.删除test-web控制器</h2>
-<pre><code>[root@master ~]# kubectl delete deployments. test-web 
-</code></pre>
-<h2 id="4-master创建Pod控制器（web），deployment">4.master创建Pod控制器（web），deployment</h2>
-<pre><code>[root@master ~]# kubectl run web --image=nginx --replicas=5
-</code></pre>
-<h3 id="查看一下pod信息">查看一下pod信息</h3>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-//查看一下pod的节点信息
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106095722353.png" alt="image-20200106095722353" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl describe deployments. web 
-//查看资源详细信息
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100606861.png" alt="image-20200106100606861" loading="lazy"></p>
-<p><em><strong>注意：直接运行创建的deployment资源对象，是经常使用的一个控制器资源类型，除了deployment，还有rc、rs等等pod控制器，deployment是一个高级的pod控制器。</strong></em></p>
-<h3 id="本机测试访问nginx">本机测试访问nginx</h3>
-<pre><code>[root@master ~]# curl 10.244.1.7
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100827131.png" alt="image-20200106100827131" loading="lazy"></p>
-<h2 id="5-创建service资源类型">5.创建service资源类型</h2>
-<pre><code>[root@master ~]# kubectl expose deployment web --name=web-xgp --port=80 --type=NodePort
-//创建service资源类型，这里我们设置了映射端口
-</code></pre>
-<p><em><strong>如果想要外网能够访问服务，可以暴露deployment资源，得到service资源，但svc资源的类型必须为NodePort。</strong></em></p>
-<p><strong>映射端口范围：30000-32767</strong></p>
-<h3 id="查看service信息">查看service信息</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101443348.png" alt="image-20200106101443348" loading="lazy"></p>
-<h3 id="浏览器测试访问http-192-168-1-21-30493">浏览器测试访问http://192.168.1.21:30493/</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101624954.png" alt="image-20200106101624954" loading="lazy"></p>
-<h1>二、服务的扩容与缩容</h1>
-<h2 id="1-查看控制器信息">1. 查看控制器信息</h2>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104638757.png" alt="image-20200106104638757" loading="lazy"></p>
-<h2 id="2-扩容">2.扩容</h2>
-<pre><code>[root@master ~]# kubectl scale deployment web --replicas=8
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104757123.png" alt="image-20200106104757123" loading="lazy"></p>
-<h2 id="3-缩容">3.缩容</h2>
-<pre><code>[root@master ~]# kubectl scale deployment web --replicas=4
-</code></pre>
-<h3 id="查看一下-2">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105536316.png" alt="image-20200106105536316" loading="lazy"></p>
-<h2 id="3-通过修改web的yaml文件进行扩容缩容">3.通过修改web的yaml文件进行扩容缩容</h2>
-<h3 id="备份web的yaml文件">备份web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; web.yaml
-</code></pre>
-<h3 id="使用edit修改web的yaml文件">使用edit修改web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl edit deployments. web 
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531" loading="lazy"></p>
-<h3 id="查看一下-3">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105816339.png" alt="image-20200106105816339" loading="lazy"></p>
-<h1>三、服务的升级与回滚</h1>
-<h2 id="node01和node02下载1-15版本的nginx">node01和node02下载1.15版本的nginx</h2>
-<pre><code>[root@master ~]# docker pull nginx:1.15
-</code></pre>
-<h2 id="1-master设置服务升级">1.master设置服务升级</h2>
-<pre><code>[root@master ~]#  kubectl set image deployment web web=nginx:1.15
-</code></pre>
-<h3 id="查看一下-4">查看一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111227960.png" alt="image-20200106111227960" loading="lazy"></p>
-<h2 id="2-master设置服务回滚">2.master设置服务回滚</h2>
-<h3 id="（1）修改配置文件回滚">（1）修改配置文件回滚</h3>
-<h3 id="使用edit修改web的yaml文件-2">使用edit修改web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl edit deployments. web 
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111523148.png" alt="image-20200106111523148" loading="lazy"></p>
-<h3 id="查看一下-5">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111319699.png" alt="image-20200106111319699" loading="lazy"></p>
-<h3 id="（2）命令回滚">（2）命令回滚</h3>
-<pre><code>[root@master ~]# kubectl rollout undo deployment web 
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111733617.png" alt="image-20200106111733617" loading="lazy"></p>
-<p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
-<h1>四、实验环境</h1>
-<table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP地址</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>192.168.1.21</td>
-<td>registry+Deployment</td>
-</tr>
-<tr>
-<td>node01</td>
-<td>192.168.1.22</td>
-<td></td>
-</tr>
-<tr>
-<td>node02</td>
-<td>192.168.1.23</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="1-master-基于httpd制作自己的镜像，需要3个版本，v1-v2-v3-并且对应的版本镜像，访问的主目录内容不一样">1.master 基于httpd制作自己的镜像，需要3个版本，v1,v2,v3.并且对应的版本镜像，访问的主目录内容不一样</h2>
-<h3 id="（1）master下载httpd镜像">（1）master下载httpd镜像</h3>
-<pre><code>[root@master ~]# docker pull httpd
-</code></pre>
-<h3 id="（2）编写Dockerfile">（2）编写Dockerfile</h3>
-<pre><code>[root@master xgp]# vim Dockerfile
-FROM httpd
-COPY index.html /usr/local/apache2/htdocs/index.html
-</code></pre>
-<h3 id="（3）创建测试网页v1">（3）创建测试网页v1</h3>
-<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
-</code></pre>
-<h3 id="（4）基于Dockerfile创建镜像-web1">（4）基于Dockerfile创建镜像 web1</h3>
-<pre><code>[root@master xgp]# docker build -t web1 .
-</code></pre>
-<h3 id="（5）创建测试网页v2">（5）创建测试网页v2</h3>
-<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
-</code></pre>
-<h3 id="（6）基于Dockerfile创建镜像-web2">（6）基于Dockerfile创建镜像 web2</h3>
-<pre><code>[root@master xgp]# docker build -t web2 .
-</code></pre>
-<h3 id="（7）创建测试网页v3">（7）创建测试网页v3</h3>
-<pre><code>[root@master xgp]# echo &quot;&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;&quot; &gt; index.html
-</code></pre>
-<h3 id="（8）基于Dockerfile创建镜像-web3">（8）基于Dockerfile创建镜像 web3</h3>
-<pre><code>[root@master xgp]# docker build -t web3 .
-</code></pre>
-<h2 id="2-master部署私有仓库">2.master部署私有仓库</h2>
-<h3 id="（1）master下载registry镜像">（1）master下载registry镜像</h3>
-<pre><code>[root@master ~]# docker pull registry
-</code></pre>
-<h3 id="（2）启动registry">（2）启动registry</h3>
-<pre><code>[root@master xgp]# docker run -itd --name registry -p 5000:5000 --restart=always registry:latest 
-</code></pre>
-<h3 id="（3）修改docker配置文件，加入私有仓库（三台）">（3）修改docker配置文件，加入私有仓库（三台）</h3>
-<pre><code>[root@master xgp]# vim /usr/lib/systemd/system/docker.service
-ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106120848869.png" alt="image-20200106120848869" loading="lazy"></p>
-<h3 id="（4）重启docker（三台）">（4）重启docker（三台）</h3>
-<pre><code>[root@master xgp]# systemctl daemon-reload 
-[root@master xgp]# systemctl restart docker
-</code></pre>
-<h2 id="3-上传之前创建的三个web镜像到私有仓库">3.上传之前创建的三个web镜像到私有仓库</h2>
-<h3 id="（1）修改镜像标签">（1）修改镜像标签</h3>
-<pre><code>[root@master xgp]# docker tag web1:latest 192.168.1.21:5000/web1:latest
-[root@master xgp]# docker tag web2:latest 192.168.1.21:5000/web2:latest
-[root@master xgp]# docker tag web3:latest 192.168.1.21:5000/web3:latest
-</code></pre>
-<h3 id="（2）将三个web镜像上传到私有仓库">（2）将三个web镜像上传到私有仓库</h3>
-<pre><code>[root@master xgp]# docker push  192.168.1.21:5000/web1:latest 
-[root@master xgp]# docker push  192.168.1.21:5000/web2:latest
-[root@master xgp]# docker push  192.168.1.21:5000/web3:latest 
-</code></pre>
-<h2 id="4-部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。">4.部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。</h2>
-<pre><code>[root@master xgp]# kubectl run www1 --image=192.168.1.21:5000/web1:latest --replicas=6
-</code></pre>
-<h3 id="查看一下-6">查看一下</h3>
-<pre><code>[root@master xgp]# kubectl get pod
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122026271.png" alt="image-20200106122026271" loading="lazy"></p>
-<h3 id="本地访问一下">本地访问一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122426308.png" alt="image-20200106122426308" loading="lazy"></p>
-<h3 id="5-将上述Deployment暴露一个service资源对象，使外网能否访问服务。">5.将上述Deployment暴露一个service资源对象，使外网能否访问服务。</h3>
-<pre><code>[root@master xgp]#  kubectl expose deployment www1 --name=web-xgp --port=80 --type=NodePort
-</code></pre>
-<h3 id="查看一下-7">查看一下</h3>
-<pre><code>[root@master xgp]# kubectl get svc
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122313996.png" alt="image-20200106122313996" loading="lazy"></p>
-<h3 id="浏览器访问一下">浏览器访问一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122340747.png" alt="image-20200106122340747" loading="lazy"></p>
-<h2 id="6-将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。">6.将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。</h2>
-<h2 id="（1）扩容">（1）扩容</h2>
-<pre><code>[root@master xgp]# kubectl scale deployment www1 --replicas=8
-</code></pre>
-<h3 id="查看一下-8">查看一下</h3>
-<pre><code>[root@master xgp]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122722977.png" alt="image-20200106122722977" loading="lazy"></p>
-<h2 id="（2）缩容">（2）缩容</h2>
-<h3 id="修改k8s配置文件">修改k8s配置文件</h3>
-<h3 id="备份web的yaml文件-2">备份web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; www1.yaml
-</code></pre>
-<h3 id="使用edit修改web的yaml文件-3">使用edit修改web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl edit deployments. www1
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531" loading="lazy"></p>
-<h3 id="查看一下-9">查看一下</h3>
-<pre><code>[root@master xgp]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122953397.png" alt="image-20200106122953397" loading="lazy"></p>
-<h2 id="7-将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。">7.将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。</h2>
-<h2 id="（1）升级版本为web2">（1）升级版本为web2</h2>
-<pre><code>[root@master ~]# kubectl set image deployment www1 www1=192.168.1.21:5000/web2
-</code></pre>
-<h3 id="本机测试访问">本机测试访问</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30996
-&lt;h1&gt;xgp | test-web | httpd:v2&lt;h1&gt;
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125722931.png" alt="image-20200106125722931" loading="lazy"></p>
-<h3 id="浏览器测试访问">浏览器测试访问</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125750021.png" alt="image-20200106125750021" loading="lazy"></p>
-<h2 id="（2）回滚版本到web1">（2）回滚版本到web1</h2>
-<h3 id="1-修改配置文件回滚">&lt;1&gt;修改配置文件回滚</h3>
-<h3 id="使用edit修改web的yaml文件-4">使用edit修改web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl edit deployments. www1
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130010344.png" alt="image-20200106130010344" loading="lazy"></p>
-<h3 id="查看一下-10">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130304423.png" alt="image-20200106130304423" loading="lazy"></p>
-<h3 id="访问一下">访问一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130435212.png" alt="image-20200106130435212" loading="lazy"></p>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130447693.png" alt="image-20200106130447693" loading="lazy"></p>
-<h3 id="2-命令回滚">&lt;2&gt;命令回滚</h3>
-<pre><code>[root@master ~]# kubectl rollout undo deployment www1
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130317956.png" alt="image-20200106130317956" loading="lazy"></p>
-<p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
-<h3 id="访问一下-2">访问一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130357339.png" alt="image-20200106130357339" loading="lazy"></p>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130414060.png" alt="image-20200106130414060" loading="lazy"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>08 ReplicaSet、DaemonSet</title>
     <url>/posts/7772.html</url>
     <content><![CDATA[<h1>ReplicaSet简单介绍</h1>
@@ -2551,6 +2261,296 @@ spec:
 ​					Readiness: 探测失败将pod设置为不可用<br>
 kubelet：控制pod</p>
 <p>DaemonSet :会在每一个节点都会运行，并且只运行一个Pod</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>09 Job资源对象</title>
+    <url>/posts/e9be.html</url>
+    <content><![CDATA[<h1>Job资源对象</h1>
+<blockquote>
+<p>**服务类的Pod容器：**RC、RS、DS、Deployment</p>
+<p>**工作类的Pod容器：**Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。</p>
+</blockquote>
+<p><strong>注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里</strong><br>
+<strong>的容器重启策略只能是: Never和 OnFailure。</strong></p>
+<h1>概念</h1>
+<p><strong>在有些场景下，是想要运行一些容器执行某种特定的任务，任务一旦执行完成，容器也就没有存在的必要了。在这种场景下，创建pod就显得不那么合适。于是就是了Job，Job指的就是那些一次性任务。通过Job运行一个容器，当其任务执行完以后，就自动退出，集群也不再重新将其唤醒。</strong></p>
+<p><strong>从程序的运行形态上来区分，可以将Pod分为两类：长时运行服务（jboss、mysql等）和一次性任务（数据计算、测试）。RC创建的Pod都是长时运行的服务，Job多用于执行一次性任务、批处理工作等，执行完成后便会停止（status.phase变为Succeeded）。</strong></p>
+<h1>一、kubernetes支持以下几种job</h1>
+<blockquote>
+<ul>
+<li><strong>非并行job：通常创建一个pod直至其成功结束。</strong></li>
+<li><strong>固定结束次数的job：设置spec.completions,创建多个pod，直到.spec.completions个pod成功结束。</strong></li>
+<li><strong>带有工作队列的并行job：设置.spec.Parallelism但不设置.spec.completions,当所有pod结束并且至少一个成功时，job就认为是成功。</strong></li>
+</ul>
+</blockquote>
+<h2 id="Job-Controller">Job Controller</h2>
+<p><strong>Job Controller负责根据Job Spec创建pod，并持续监控pod的状态，直至其成功结束，如果失败，则根据restartPolicy（只支持OnFailure和Never，不支持Always）决定是否创建新的pod再次重试任务。</strong></p>
+<h2 id="例子"><strong>例子</strong></h2>
+<h3 id="（1）编写一个job的yaml文件">（1）编写一个job的yaml文件</h3>
+<pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+      restartPolicy: Never
+</code></pre>
+<h3 id="（2）执行一下">（2）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（3）查看一下">（3）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115090831524](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115090831524.png)</p>
+<h4 id="查看日志">查看日志</h4>
+<pre><code>[root@master yaml]# kubectl logs test-job-gs45w 
+</code></pre>
+<p>![image-20200115091213349](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091213349.png)</p>
+<p><strong>我们可以看到job与其他资源对象不同，仅执行一次性任务，默认pod借宿运行后job即结束，状态为Completed。</strong></p>
+<h3 id="（4）修改一下jop的yaml文件，把echo命令换成乱码">（4）修改一下jop的yaml文件，把echo命令换成乱码</h3>
+<pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;] #修改
+      restartPolicy: Never
+</code></pre>
+<h3 id="（5）先删除之前的pod">（5）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job  
+</code></pre>
+<h3 id="（6）执行一下">（6）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（7）查看一下">（7）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod -w
+</code></pre>
+<p>![image-20200115091647925](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091647925.png)</p>
+<p><em><strong>它会一直创建pod直到完成命令。</strong></em></p>
+<h3 id="（8）修改一下jop的yaml文件，修改重启策略">（8）修改一下jop的yaml文件，修改重启策略</h3>
+<pre><code>[root@master yaml]# vim jop.yaml 
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;]
+      restartPolicy: OnFailure
+</code></pre>
+<h3 id="（9）先删除之前的pod">（9）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
+</code></pre>
+<h3 id="（10）执行一下">（10）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（11）查看一下">（11）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod -w
+</code></pre>
+<p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
+<p><em><strong>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</strong></em></p>
+<h1>二、提高Job的执行效率</h1>
+<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
+<hr>
+<h3 id="（1）编写一个job的yaml文件-2">（1）编写一个job的yaml文件</h3>
+<pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  parallelism: 2    #同时启用几个pod
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+      restartPolicy: OnFailure
+</code></pre>
+<h3 id="（3）执行一下">（3）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115093854913](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115093854913.png)</p>
+<h4 id="查看日志-2">查看日志</h4>
+<p>![image-20200115094002236](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094002236.png)</p>
+<h2 id="2-我们可以在Job-spec字段下加上complations选项。表示总共需要完成Pod的数量">2. 我们可以在Job.spec字段下加上complations选项。表示总共需要完成Pod的数量</h2>
+<h3 id="（1）编写一个job的yaml文件-3">（1）编写一个job的yaml文件</h3>
+<pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  complations: 8            #运行pod的总数量8个
+  parallelism: 2            #同时运行2个pod
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+      restartPolicy: OnFailure
+</code></pre>
+<p><strong>job 字段解释：</strong></p>
+<blockquote>
+<p><strong>标志Job结束需要成功运行的Pod个数，默认为1</strong><br>
+<strong>parallelism：标志并行运行的Pod的个数，默认为1</strong><br>
+<strong>activeDeadlineSeconds：标志失败Pod的重试最大时间，超过这个时间不会继续重试.</strong></p>
+</blockquote>
+<h3 id="（2）先删除之前的pod">（2）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
+</code></pre>
+<h3 id="（3）执行一下-2">（3）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下-2">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115094519494](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094519494.png)</p>
+<p><strong>可以看到pod是两个两个的启动的。</strong></p>
+<h2 id="3-如何定时执行Job">3. 如何定时执行Job</h2>
+<h3 id="（1）编写一个cronjob的yaml文件">（1）编写一个cronjob的yaml文件</h3>
+<pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: &quot;*/1 * * * *&quot; #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+          restartPolicy: OnFailure
+</code></pre>
+<h3 id="（2）先删除之前的pod-2">（2）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
+</code></pre>
+<h3 id="（3）执行一下-3">（3）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下-3">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115095857428](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095857428.png)</p>
+<pre><code>[root@master yaml]# kubectl get cronjobs.batch 
+</code></pre>
+<p>![image-20200115095920740](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095920740.png)</p>
+<p><strong>此时查看Pod的状态，会发现，每分钟都会运行一个新的Pod来执行命令规定的任</strong><br>
+<strong>务。</strong></p>
+<h2 id="练习：规定2020-1-15-10-5分运行上面的crontab任务。">练习：规定2020.1.15.10.5分运行上面的crontab任务。</h2>
+<h3 id="（1）编写一个cronjob的yaml文件-2">（1）编写一个cronjob的yaml文件</h3>
+<pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: &quot;5 10 15 1 *&quot; #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+          restartPolicy: OnFailure
+</code></pre>
+<h3 id="（2）先删除之前的pod-3">（2）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete cronjobs.batch hello 
+</code></pre>
+<h3 id="（3）执行一下-4">（3）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下-4">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
+<p><strong>这时会发现，如果规定具体时间，可能并不会执行任务。</strong></p>
+<h3 id="（5）添加apiVersion库">（5）添加apiVersion库</h3>
+<pre><code>[root@master yaml]# vim /etc/kubernetes/manifests/kube-apiserver.yaml 
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --runtime-config=batch/v2alpha1=true    #添加
+</code></pre>
+<p>![image-20200115104218361](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104218361.png)</p>
+<h3 id="（6）重启kubelet">（6）重启kubelet</h3>
+<pre><code>[root@master yaml]# systemctl restart kubelet.service 
+</code></pre>
+<h3 id="（7）查看api版本">（7）查看api版本</h3>
+<pre><code>[root@master yaml]# kubectl api-versions 
+</code></pre>
+<p>![image-20200115104521662](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104521662.png)</p>
+<h3 id="（8）编写一个cronjob的yaml文件">（8）编写一个cronjob的yaml文件</h3>
+<pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: &quot;47 10 15 1 *&quot; #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+          restartPolicy: OnFailure
+</code></pre>
+<h3 id="（9）执行一下">（9）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下-5">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod -w
+</code></pre>
+<p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
+<p><strong>注意：此时仍然不能正常运行指定时间的Job，这是因为K8s官方在cronjob这个资源对象的支持中还没有完善此功能，还待开发。</strong></p>
+<p><strong>跟Job资源一样在cronjob.spec.jobTemplate.spec 下同样支持并发Job参数:</strong><br>
+<strong>parallelism，也支持完成Pod的总数参数: completionsr</strong></p>
+<h1>总结</h1>
+<p><strong>Job 作为 Kubernetes 中用于处理任务的资源，与其他的资源没有太多的区别，它也使用 Kubernetes 中常见的控制器模式，监听 Informer 中的事件并运行 <code>syncHandler</code> 同步任务</strong></p>
+<p><strong>而 CronJob 由于其功能的特殊性，每隔 10s 会从 apiserver 中取出资源并进行检查是否应该触发调度创建新的资源，需要注意的是 CronJob 并不能保证在准确的目标时间执行，执行会有一定程度的滞后。</strong></p>
+<p><strong>两个控制器的实现都比较清晰，只是边界条件比较多，分析其实现原理时一定要多注意。</strong></p>
 ]]></content>
   </entry>
   <entry>
