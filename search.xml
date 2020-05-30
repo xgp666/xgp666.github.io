@@ -4261,8 +4261,8 @@ set tabstop=2
       </tags>
   </entry>
   <entry>
-    <title>网站感想</title>
-    <url>/about/site.html</url>
+    <title>categories</title>
+    <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -4271,8 +4271,8 @@ set tabstop=2
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
+    <title>网站感想</title>
+    <url>/about/site.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
