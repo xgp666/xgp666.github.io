@@ -250,6 +250,263 @@ set tabstop=2
 ]]></content>
   </entry>
   <entry>
+    <title>04 配置清单</title>
+    <url>/posts/748b.html</url>
+    <content><![CDATA[<h1>一，两种创建资源的方法</h1>
+<h2 id="1-基于命令的方式：">1. 基于命令的方式：</h2>
+<ol>
+<li><strong>简单直观快捷，上手快。</strong></li>
+<li><strong>适合临时测试或实验。</strong></li>
+</ol>
+<h2 id="2-基于配置清单的方式：">2. 基于配置清单的方式：</h2>
+<ol>
+<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
+<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
+<li><strong>可以像管理代码一样管理部署。</strong></li>
+<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
+<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
+</ol>
+<h2 id="环境介绍">环境介绍</h2>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td>k8s</td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td>k8s</td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td>k8s</td>
+</tr>
+</tbody>
+</table>
+<h1>二. 配置清单（yam，yaml）</h1>
+<p><strong>在k8s中，一般使用yaml格式的文件来创建符合我们预期期望的pod，这样的yaml文件我们一般称为资源清单</strong></p>
+<blockquote>
+<p><strong>/etc/kubernetes/manifests/</strong>    k8s存放（yam、yaml）文件的地方</p>
+<p>**kubectl explain deployment（通过explain参数加上资源类别就能看到该资源应该怎么定义）</p>
+<p><strong>kubectl explain deployment.metadata</strong> 通过资源类别加上带有Object标记的字段，我们就可以看到一级字段下二级字段的内容有那些怎么去定义等</p>
+<p><strong>kubectl explain deployment.metadata.ownerReferences</strong> 通过加上不同级别的字段名称来看下字段下的内容，而且前面的[]号代表对象列表</p>
+</blockquote>
+<h2 id="1-常见yaml文件写法，以及字段的作用">1.常见yaml文件写法，以及字段的作用</h2>
+<p><strong>(1) apiVersion：api版本信息</strong></p>
+<p><em><strong>（用来定义当前属于哪个组和那个版本，这个直接关系到最终提供使用的是那个版本）</strong></em></p>
+<pre><code>[root@master manifests]# kubectl api-versions
+//查看到当前所有api的版本
+</code></pre>
+<p><strong>(2) kind: 资源对象的类别</strong></p>
+<p><em><strong>(用来定义创建的对象是属于什么类别，是pod，service，还是deployment等对象，可以按照其固定的语法格式来自定义。)</strong></em><br>
+<strong>(3) metadata: 元数据 名称字段（必写）</strong></p>
+<blockquote>
+<p><strong>提供以下几个字段</strong>：<br>
+　　<strong>creationTimestamp: &quot;2019-06-24T12:18:48Z&quot;</strong><br>
+　　<strong>generateName: myweb-5b59c8b9d-</strong><br>
+　　<strong>labels: （对象标签）</strong><br>
+　　　　<strong>pod-template-hash: 5b59c8b9d</strong><br>
+　　　　<strong>run: myweb</strong><br>
+　　<strong>name: myweb-5b59c8b9d-gwzz5 （pods对象的名称，同一个类别当中的pod对象名称是唯一的，不能重复）</strong><br>
+　　<strong>namespace: default （对象所属的名称空间，同一名称空间内可以重复，这个名称空间也是k8s级别的名称空间，不和容器的名称空间混淆）</strong><br>
+　　<strong>ownerReferences:</strong></p>
+<p>- <strong>apiVersion: apps/v1</strong><br>
+　　　　<strong>blockOwnerDeletion: true</strong><br>
+　　　　<strong>controller: true</strong><br>
+　　　　<strong>kind: ReplicaSet</strong><br>
+　　　　<strong>name: myweb-5b59c8b9d</strong><br>
+　　　　<strong>uid: 37f38f64-967a-11e9-8b4b-000c291028e5</strong><br>
+　　<strong>resourceVersion: &quot;943&quot;</strong><br>
+　　<strong>selfLink: /api/v1/namespaces/default/pods/myweb-5b59c8b9d-gwzz5</strong><br>
+　　<strong>uid: 37f653a6-967a-11e9-8b4b-000c291028e5</strong><br>
+　　<strong>annotations（资源注解，这个需要提前定义，默认是没有的）</strong><br>
+<strong>通过这些标识定义了每个资源引用的path：即/api/group/version/namespaces/名称空间/资源类别/对象名称</strong></p>
+</blockquote>
+<p><strong>(4) spec： 用户期望的状态</strong></p>
+<p><em><strong>（这个字段最重要，因为spec是用来定义目标状态的‘disired state’，而且资源不通导致spec所嵌套的字段也各不相同，也就因为spec重要且字段不相同，k8s在内部自建了一个spec的说明用于查询）</strong></em></p>
+<p><strong>(5) status：资源现在处于什么样的状态</strong></p>
+<p><em><strong>（当前状态，’current state‘，这个字段有k8s集群来生成和维护，不能自定义，属于一个只读字段）</strong></em></p>
+<h2 id="2-编写一个yaml文件">2.编写一个yaml文件</h2>
+<pre><code>[root@master ~]# vim web.yaml
+kind: Deployment  #资源对象是控制器
+apiVersion: extensions/v1beta1   #api的版本
+metadata:      #描述kind（资源类型）
+  name: web   #定义控制器名称
+spec:
+  replicas: 2   #副本数量
+  template:     #模板
+    metadata:    
+      labels:   #标签
+        app: web_server
+    spec:
+      containers:   #指定容器
+      - name: nginx  #容器名称
+        image: nginx   #使用的镜像
+</code></pre>
+<h3 id="执行一下">执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f web.yaml 
+</code></pre>
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments.  -o wide
+//查看控制器信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看pod节点信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209" loading="lazy"></p>
+<h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
+<pre><code>[root@master ~]# vim web-svc.yaml
+kind: Service  #资源对象是副本
+apiVersion: v1   #api的版本
+metadata:
+  name: web-svc
+spec:
+  selector:     #标签选择器
+    app: web-server  #须和web.yaml的标签一致
+  ports:              #端口
+  - protocol: TCP
+    port: 80            #宿主机的端口
+    targetPort: 80      #容器的端口
+</code></pre>
+<blockquote>
+<p><strong>使用相同标签和标签选择器内容，使两个资源对象相互关联。</strong></p>
+<p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
+</blockquote>
+<h3 id="（1）执行一下">（1）执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
+</code></pre>
+<h3 id="（2）查看一下">（2）查看一下</h3>
+<pre><code>[root@master ~]# kubectl get svc
+//查看控制器信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972" loading="lazy"></p>
+<h3 id="（3）访问一下">（3）访问一下</h3>
+<pre><code>[root@master ~]# curl 10.111.193.168
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353" loading="lazy"></p>
+<h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
+<h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
+<pre><code>kind: Service  #资源对象是副本
+apiVersion: v1   #api的版本
+metadata:
+  name: web-svc
+spec:
+  type: NodePort    #添加 更改网络类型
+  selector:     #标签选择器
+    app: web_server  #须和web.yaml的标签一致
+  ports:              #端口
+  - protocol: TCP
+    port: 80            #宿主机的端口
+    targetPort: 80      #容器的端口
+    nodePort: 30086     #指定群集映射端口，范围是30000-32767
+</code></pre>
+<h3 id="（2）刷新一下">（2）刷新一下</h3>
+<pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml 
+</code></pre>
+<h3 id="（3）查看一下">（3）查看一下</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940" loading="lazy"></p>
+<h3 id="（4）浏览器测试">（4）浏览器测试</h3>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952" loading="lazy"></p>
+<h1>三、小实验</h1>
+<blockquote>
+<p><strong>基于上一篇博客实验继续进行</strong></p>
+</blockquote>
+<h3 id="1-使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。">1.使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。</h3>
+<h3 id="编写yaml文件">编写yaml文件</h3>
+<pre><code>[root@master ~]# vim www.yaml
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: www_server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1   
+</code></pre>
+<h4 id="（1）执行一下-2">（1）执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
+</code></pre>
+<h4 id="（2）查看一下-2">（2）查看一下</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+//查看控制器信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看pod节点信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152" loading="lazy"></p>
+<h4 id="（3）访问一下-2">（3）访问一下</h4>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669" loading="lazy"></p>
+<h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
+<h4 id="编写service文件">编写service文件</h4>
+<pre><code>[root@master ~]# vim www-svc.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: www-svc
+spec:
+  type: NodePort
+  selector:
+    app: www_server
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30123
+</code></pre>
+<h4 id="执行一下-2">执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f www-svc.yaml 
+</code></pre>
+<h4 id="查看一下-2">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525" loading="lazy"></p>
+<h4 id="访问一下">访问一下</h4>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559" loading="lazy"></p>
+<h1>四. 总结</h1>
+<h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
+<blockquote>
+<p>在k8s中pod是最小的管理单位，在一个pod中通常会包含一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。<br>
+在每一个Pod中都有一个特殊的Pause容器和一个或多个业务容器，Pause来源于pause-amd64镜像,Pause容器在Pod中具有非常重要的作用：</p>
+<ul>
+<li>Pause容器作为Pod容器的根容器，其本地于业务容器无关，它的状态代表了整个pod的状态。</li>
+<li>Pod里的多个业务容器共享Pause容器的IP，每个Pod被分配一个独立的IP地址，Pod中的每个容器共享网络命名空间，包括IP地址和网络端口。Pod内的容器可以使用localhost相互通信。k8s支持底层网络集群内任意两个Pod之间进行通信。</li>
+<li>Pod中的所有容器都可以访问共享volumes，允许这些容器共享数据。volumes还用于Pod中的数据持久化，以防其中一个容器需要重新启动而丢失数据。</li>
+</ul>
+</blockquote>
+<h2 id="2-Service的作用"><strong>2. Service的作用</strong></h2>
+<p><strong>Service 是后端真实服务的抽象，一个 Service 可以代表多个相同的后端服务</strong></p>
+<p><strong>Service 为 POD 控制器控制的 POD 集群提供一个固定的访问端点，Service 的工作还依赖于 K8s 中的一个附件，就是 CoreDNS ，它将 Service 地址提供一个域名解析。</strong></p>
+<h3 id="NodePort-类型的-service">NodePort 类型的 service</h3>
+<blockquote>
+<p><strong>clusterIP</strong>：指定 Service 处于 service 网络的哪个 IP，默认为动态分配</p>
+<p><strong>NodePort 是在 ClusterIP 类型上增加了一个暴露在了 node 的网络命名空间上的一个 nodePort，所以用户可以从集群外部访问到集群了，因而用户的请求流程是：Client -&gt; NodeIP:NodePort -&gt; ClusterIP:ServicePort -&gt; PodIP:ContainerPort。</strong></p>
+<p><strong>可以理解为 NodePort 增强了 ClusterIP 的功能，让客户端可以在每个集群外部访问任意一个 nodeip 从而访问到 clusterIP，再由 clusterIP 进行负载均衡至 POD。</strong></p>
+</blockquote>
+<h2 id="3-流量走向">3.流量走向</h2>
+<p><strong>我们在创建完成一个服务之后，用户首先应该访问的是nginx反向代理的ip，然后通过nginx访问到后端的k8s服务器（master节点）的“NodePort暴露IP 及 映射的端口“，master的apiserver接受到客户端发送来的访问指令，将访问指令通知Controller Manager控制器，Scheduler执行调度任务，将访问指令分发到各节点之上，通过”master节点“的“ip+映射端口”访问到后端k8s节点的信息，节点的Kubelet（pod代理）当Scheduler确定让那个节点返回访问信息之后，kube-proxy将访问信息负载均衡到该节点的容器上，各容器返回信息，并向Master报告运行状态</strong></p>
+]]></content>
+  </entry>
+  <entry>
     <title>02 k8s架构，基本概念</title>
     <url>/posts/cd85.html</url>
     <content><![CDATA[<table>
@@ -695,263 +952,6 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 <h3 id="访问一下-2">访问一下</h3>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130357339.png" alt="image-20200106130357339" loading="lazy"></p>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130414060.png" alt="image-20200106130414060" loading="lazy"></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>04 配置清单</title>
-    <url>/posts/748b.html</url>
-    <content><![CDATA[<h1>一，两种创建资源的方法</h1>
-<h2 id="1-基于命令的方式：">1. 基于命令的方式：</h2>
-<ol>
-<li><strong>简单直观快捷，上手快。</strong></li>
-<li><strong>适合临时测试或实验。</strong></li>
-</ol>
-<h2 id="2-基于配置清单的方式：">2. 基于配置清单的方式：</h2>
-<ol>
-<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
-<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
-<li><strong>可以像管理代码一样管理部署。</strong></li>
-<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
-<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
-</ol>
-<h2 id="环境介绍">环境介绍</h2>
-<table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP地址</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>192.168.1.21</td>
-<td>k8s</td>
-</tr>
-<tr>
-<td>node01</td>
-<td>192.168.1.22</td>
-<td>k8s</td>
-</tr>
-<tr>
-<td>node02</td>
-<td>192.168.1.23</td>
-<td>k8s</td>
-</tr>
-</tbody>
-</table>
-<h1>二. 配置清单（yam，yaml）</h1>
-<p><strong>在k8s中，一般使用yaml格式的文件来创建符合我们预期期望的pod，这样的yaml文件我们一般称为资源清单</strong></p>
-<blockquote>
-<p><strong>/etc/kubernetes/manifests/</strong>    k8s存放（yam、yaml）文件的地方</p>
-<p>**kubectl explain deployment（通过explain参数加上资源类别就能看到该资源应该怎么定义）</p>
-<p><strong>kubectl explain deployment.metadata</strong> 通过资源类别加上带有Object标记的字段，我们就可以看到一级字段下二级字段的内容有那些怎么去定义等</p>
-<p><strong>kubectl explain deployment.metadata.ownerReferences</strong> 通过加上不同级别的字段名称来看下字段下的内容，而且前面的[]号代表对象列表</p>
-</blockquote>
-<h2 id="1-常见yaml文件写法，以及字段的作用">1.常见yaml文件写法，以及字段的作用</h2>
-<p><strong>(1) apiVersion：api版本信息</strong></p>
-<p><em><strong>（用来定义当前属于哪个组和那个版本，这个直接关系到最终提供使用的是那个版本）</strong></em></p>
-<pre><code>[root@master manifests]# kubectl api-versions
-//查看到当前所有api的版本
-</code></pre>
-<p><strong>(2) kind: 资源对象的类别</strong></p>
-<p><em><strong>(用来定义创建的对象是属于什么类别，是pod，service，还是deployment等对象，可以按照其固定的语法格式来自定义。)</strong></em><br>
-<strong>(3) metadata: 元数据 名称字段（必写）</strong></p>
-<blockquote>
-<p><strong>提供以下几个字段</strong>：<br>
-　　<strong>creationTimestamp: &quot;2019-06-24T12:18:48Z&quot;</strong><br>
-　　<strong>generateName: myweb-5b59c8b9d-</strong><br>
-　　<strong>labels: （对象标签）</strong><br>
-　　　　<strong>pod-template-hash: 5b59c8b9d</strong><br>
-　　　　<strong>run: myweb</strong><br>
-　　<strong>name: myweb-5b59c8b9d-gwzz5 （pods对象的名称，同一个类别当中的pod对象名称是唯一的，不能重复）</strong><br>
-　　<strong>namespace: default （对象所属的名称空间，同一名称空间内可以重复，这个名称空间也是k8s级别的名称空间，不和容器的名称空间混淆）</strong><br>
-　　<strong>ownerReferences:</strong></p>
-<p>- <strong>apiVersion: apps/v1</strong><br>
-　　　　<strong>blockOwnerDeletion: true</strong><br>
-　　　　<strong>controller: true</strong><br>
-　　　　<strong>kind: ReplicaSet</strong><br>
-　　　　<strong>name: myweb-5b59c8b9d</strong><br>
-　　　　<strong>uid: 37f38f64-967a-11e9-8b4b-000c291028e5</strong><br>
-　　<strong>resourceVersion: &quot;943&quot;</strong><br>
-　　<strong>selfLink: /api/v1/namespaces/default/pods/myweb-5b59c8b9d-gwzz5</strong><br>
-　　<strong>uid: 37f653a6-967a-11e9-8b4b-000c291028e5</strong><br>
-　　<strong>annotations（资源注解，这个需要提前定义，默认是没有的）</strong><br>
-<strong>通过这些标识定义了每个资源引用的path：即/api/group/version/namespaces/名称空间/资源类别/对象名称</strong></p>
-</blockquote>
-<p><strong>(4) spec： 用户期望的状态</strong></p>
-<p><em><strong>（这个字段最重要，因为spec是用来定义目标状态的‘disired state’，而且资源不通导致spec所嵌套的字段也各不相同，也就因为spec重要且字段不相同，k8s在内部自建了一个spec的说明用于查询）</strong></em></p>
-<p><strong>(5) status：资源现在处于什么样的状态</strong></p>
-<p><em><strong>（当前状态，’current state‘，这个字段有k8s集群来生成和维护，不能自定义，属于一个只读字段）</strong></em></p>
-<h2 id="2-编写一个yaml文件">2.编写一个yaml文件</h2>
-<pre><code>[root@master ~]# vim web.yaml
-kind: Deployment  #资源对象是控制器
-apiVersion: extensions/v1beta1   #api的版本
-metadata:      #描述kind（资源类型）
-  name: web   #定义控制器名称
-spec:
-  replicas: 2   #副本数量
-  template:     #模板
-    metadata:    
-      labels:   #标签
-        app: web_server
-    spec:
-      containers:   #指定容器
-      - name: nginx  #容器名称
-        image: nginx   #使用的镜像
-</code></pre>
-<h3 id="执行一下">执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f web.yaml 
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments.  -o wide
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209" loading="lazy"></p>
-<h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
-<pre><code>[root@master ~]# vim web-svc.yaml
-kind: Service  #资源对象是副本
-apiVersion: v1   #api的版本
-metadata:
-  name: web-svc
-spec:
-  selector:     #标签选择器
-    app: web-server  #须和web.yaml的标签一致
-  ports:              #端口
-  - protocol: TCP
-    port: 80            #宿主机的端口
-    targetPort: 80      #容器的端口
-</code></pre>
-<blockquote>
-<p><strong>使用相同标签和标签选择器内容，使两个资源对象相互关联。</strong></p>
-<p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
-</blockquote>
-<h3 id="（1）执行一下">（1）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
-</code></pre>
-<h3 id="（2）查看一下">（2）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972" loading="lazy"></p>
-<h3 id="（3）访问一下">（3）访问一下</h3>
-<pre><code>[root@master ~]# curl 10.111.193.168
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353" loading="lazy"></p>
-<h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
-<h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
-<pre><code>kind: Service  #资源对象是副本
-apiVersion: v1   #api的版本
-metadata:
-  name: web-svc
-spec:
-  type: NodePort    #添加 更改网络类型
-  selector:     #标签选择器
-    app: web_server  #须和web.yaml的标签一致
-  ports:              #端口
-  - protocol: TCP
-    port: 80            #宿主机的端口
-    targetPort: 80      #容器的端口
-    nodePort: 30086     #指定群集映射端口，范围是30000-32767
-</code></pre>
-<h3 id="（2）刷新一下">（2）刷新一下</h3>
-<pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml 
-</code></pre>
-<h3 id="（3）查看一下">（3）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940" loading="lazy"></p>
-<h3 id="（4）浏览器测试">（4）浏览器测试</h3>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952" loading="lazy"></p>
-<h1>三、小实验</h1>
-<blockquote>
-<p><strong>基于上一篇博客实验继续进行</strong></p>
-</blockquote>
-<h3 id="1-使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。">1.使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。</h3>
-<h3 id="编写yaml文件">编写yaml文件</h3>
-<pre><code>[root@master ~]# vim www.yaml
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: www_server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1   
-</code></pre>
-<h4 id="（1）执行一下-2">（1）执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
-</code></pre>
-<h4 id="（2）查看一下-2">（2）查看一下</h4>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152" loading="lazy"></p>
-<h4 id="（3）访问一下-2">（3）访问一下</h4>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669" loading="lazy"></p>
-<h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
-<h4 id="编写service文件">编写service文件</h4>
-<pre><code>[root@master ~]# vim www-svc.yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: www-svc
-spec:
-  type: NodePort
-  selector:
-    app: www_server
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-    nodePort: 30123
-</code></pre>
-<h4 id="执行一下-2">执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f www-svc.yaml 
-</code></pre>
-<h4 id="查看一下-2">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525" loading="lazy"></p>
-<h4 id="访问一下">访问一下</h4>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559" loading="lazy"></p>
-<h1>四. 总结</h1>
-<h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
-<blockquote>
-<p>在k8s中pod是最小的管理单位，在一个pod中通常会包含一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。<br>
-在每一个Pod中都有一个特殊的Pause容器和一个或多个业务容器，Pause来源于pause-amd64镜像,Pause容器在Pod中具有非常重要的作用：</p>
-<ul>
-<li>Pause容器作为Pod容器的根容器，其本地于业务容器无关，它的状态代表了整个pod的状态。</li>
-<li>Pod里的多个业务容器共享Pause容器的IP，每个Pod被分配一个独立的IP地址，Pod中的每个容器共享网络命名空间，包括IP地址和网络端口。Pod内的容器可以使用localhost相互通信。k8s支持底层网络集群内任意两个Pod之间进行通信。</li>
-<li>Pod中的所有容器都可以访问共享volumes，允许这些容器共享数据。volumes还用于Pod中的数据持久化，以防其中一个容器需要重新启动而丢失数据。</li>
-</ul>
-</blockquote>
-<h2 id="2-Service的作用"><strong>2. Service的作用</strong></h2>
-<p><strong>Service 是后端真实服务的抽象，一个 Service 可以代表多个相同的后端服务</strong></p>
-<p><strong>Service 为 POD 控制器控制的 POD 集群提供一个固定的访问端点，Service 的工作还依赖于 K8s 中的一个附件，就是 CoreDNS ，它将 Service 地址提供一个域名解析。</strong></p>
-<h3 id="NodePort-类型的-service">NodePort 类型的 service</h3>
-<blockquote>
-<p><strong>clusterIP</strong>：指定 Service 处于 service 网络的哪个 IP，默认为动态分配</p>
-<p><strong>NodePort 是在 ClusterIP 类型上增加了一个暴露在了 node 的网络命名空间上的一个 nodePort，所以用户可以从集群外部访问到集群了，因而用户的请求流程是：Client -&gt; NodeIP:NodePort -&gt; ClusterIP:ServicePort -&gt; PodIP:ContainerPort。</strong></p>
-<p><strong>可以理解为 NodePort 增强了 ClusterIP 的功能，让客户端可以在每个集群外部访问任意一个 nodeip 从而访问到 clusterIP，再由 clusterIP 进行负载均衡至 POD。</strong></p>
-</blockquote>
-<h2 id="3-流量走向">3.流量走向</h2>
-<p><strong>我们在创建完成一个服务之后，用户首先应该访问的是nginx反向代理的ip，然后通过nginx访问到后端的k8s服务器（master节点）的“NodePort暴露IP 及 映射的端口“，master的apiserver接受到客户端发送来的访问指令，将访问指令通知Controller Manager控制器，Scheduler执行调度任务，将访问指令分发到各节点之上，通过”master节点“的“ip+映射端口”访问到后端k8s节点的信息，节点的Kubelet（pod代理）当Scheduler确定让那个节点返回访问信息之后，kube-proxy将访问信息负载均衡到该节点的容器上，各容器返回信息，并向Master报告运行状态</strong></p>
 ]]></content>
   </entry>
   <entry>
@@ -1861,295 +1861,6 @@ spec:
 ]]></content>
   </entry>
   <entry>
-    <title>08 ReplicaSet、DaemonSet</title>
-    <url>/posts/7772.html</url>
-    <content><![CDATA[<h1>ReplicaSet简单介绍</h1>
-<h2 id="1-RC：ReplicationController（老一代的pod控制器）">1. RC：ReplicationController（老一代的pod控制器）</h2>
-<p><strong>用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</strong></p>
-<h3 id="特点：">特点：</h3>
-<ul>
-<li>​		<strong>确保Pod资源对象的数量精准。</strong></li>
-<li>​		<strong>确保pod健康运行。</strong></li>
-<li>​		<strong>弹性伸缩</strong></li>
-</ul>
-<p><strong>同样，它也可以通过yaml或json格式的资源清单来创建。其中spec字段一般嵌套以下字段：</strong></p>
-<ul>
-<li>​		<strong>replicas：期望的Pod对象副本数量。</strong></li>
-<li>​		<strong>selector：当前控制器匹配Pod对此项副本的标签选择器</strong></li>
-<li>​		<strong>template：pod副本的模板</strong></li>
-</ul>
-<p><strong>与RC相比而言，RS不仅支持<em>基于等值</em>的标签选择器，而且还支持<em>基于集合</em>的标签选择器。</strong></p>
-<h2 id="2-标签：解决同类型的资源对象，为了更好的管理，按照标签分组。">2. 标签：解决同类型的资源对象，为了更好的管理，按照标签分组。</h2>
-<h3 id="常用的标签分类：">常用的标签分类：</h3>
-<ul>
-<li>​		<strong>release（版本）：stable（稳定版）、canary（金丝雀版本）、beta（测试版本）</strong></li>
-<li>​		<strong>environment（环境变量）：dev（开发）、qa（测试）、production（生产）</strong></li>
-<li>​		<strong>application（应用）：ui、as（application software应用软件）、pc、sc</strong></li>
-<li>​		<strong>tier（架构层级）：frontend（前端）、backend（后端）、cache（缓存）</strong></li>
-<li>​		<strong>partition（分区）：customerA（客户A）、customerB（客户B）</strong></li>
-<li>​		<strong>track（品控级别）：daily（每天）、weekly（每周）</strong></li>
-</ul>
-<p><strong>标签要做到：见名知意。</strong></p>
-<h2 id="3-测试">3.测试</h2>
-<h3 id="（1）编写一个pod的yaml文件">（1）编写一个pod的yaml文件</h3>
-<pre><code>[root@master ~]# vim label.yaml 
-
-kind: Pod
-apiVersion: v1
-metadata:
-  name: labels
-  labels:
-    env: qa
-    tier: frontend
-spec:
-  containers:
-  - name: myapp
-    image: httpd
-</code></pre>
-<h4 id="1-执行一下">&lt;1&gt;执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f label.yaml  --record 
-</code></pre>
-<h4 id="2-查看一下">&lt;2&gt;查看一下</h4>
-<pre><code>[root@master ~]# kubectl get pod  --show-labels 
-//通过--show-labels显示资源对象的
-</code></pre>
-<p>![image-20200114095943595](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114095943595.png)</p>
-<pre><code>[root@master ~]# kubectl get po -L env,tier
-//显示某个键对应的值
-</code></pre>
-<p>![image-20200114100043922](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
-<pre><code>[root@master ~]# kubectl get po -l env,tier
-//通过-l 查看仅包含某个标签的资源。
-</code></pre>
-<p>![image-20200114100200895](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100200895.png)</p>
-<h3 id="（2）添加标签">（2）添加标签</h3>
-<pre><code>[root@master ~]# kubectl label pod  labels app=pc
-//给pod资源添加标签
-</code></pre>
-<h3 id="（3）修改标签">（3）修改标签</h3>
-<pre><code>[root@master ~]# kubectl label pod labels env=dev --overwrite
-//修改标签
-</code></pre>
-<pre><code>[root@master ~]# kubectl get pod -l tier --show-labels 
-//查看标签
-</code></pre>
-<p>![image-20200114100607585](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100607585.png)</p>
-<h3 id="（4）编写一个service的yaml文件">（4）编写一个service的yaml文件</h3>
-<pre><code>[root@master ~]# vim service.yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: service
-spec:
-  type: NodePort
-  selector:
-    env: qa
-  ports:
-  - protocol: TCP
-    port: 90
-    targetPort: 80
-    nodePort: 30123
-</code></pre>
-<h4 id="1-执行一下-2">&lt;1&gt;执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f service.yaml 
-</code></pre>
-<h4 id="2-查看一下-2">&lt;2&gt;查看一下</h4>
-<pre><code>[root@master ~]# kubectl describe svc
-</code></pre>
-<p>![image-20200114101837151](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101837151.png)</p>
-<h4 id="3-访问一下">&lt;3&gt;访问一下</h4>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
-<p>![image-20200114101915248](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
-<p><strong>如果标签有多个，标签选择器选择其中一个，也可以关联成功。相反，如果选择器有多个，那么标签必须完全满足条件，才可以关联成功。</strong></p>
-<h2 id="4-标签选择器：标签的查询过滤条件。">4. 标签选择器：标签的查询过滤条件。</h2>
-<p><strong><a href>基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
-<p><strong><a href>基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
-<h4 id="使用标签选择器的逻辑：">使用标签选择器的逻辑：</h4>
-<ul>
-<li><strong>同时指定的多个选择器之间的逻辑关系为“与”操作。</strong></li>
-<li><strong>使用空值的标签选择器意味着每个资源对象都将把选中。</strong></li>
-<li><strong>空的标签选择器无法选中任何资源。</strong></li>
-</ul>
-<h3 id="（1）例子">（1）例子</h3>
-<p>![image-20200114110334223](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114110334223.png)</p>
-<h4 id="编写一个selector的yaml’文件">编写一个selector的yaml’文件</h4>
-<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">[root@master ~]# vim selector.yaml
-selector:
-  matchLabels:
-    app: nginx
-  mathExpressions:
-    - {key: name,operator: In,values: [zhangsan,lisi]}
-    - {key: age,operator: Exists,values:}
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<ul>
-<li><strong>selector：当前控制器匹配Pod对此项副本的标签选择器</strong></li>
-<li><strong>matchLabels: 指定键值对表示的标签选择器。</strong></li>
-<li><strong>mathExpressions:：基于表达式来指定的标签选择器。</strong></li>
-</ul>
-<h1>DaemonSet</h1>
-<p><em><strong>它也是一种pod控制器。</strong></em></p>
-<p><em><strong>RC，RS , deployment , daemonset.都是pod控制器。statfukSet，RBAC</strong></em></p>
-<h3 id="1-使用场景：">1. 使用场景：</h3>
-<p><strong>如果必须将pod运行在固定的某个或某几个节点，且要优先于其他的pod的启动。通常情况下，默认会将每一个节点都运行，并且只能运行一个pod。这种情况推荐使用DeamonSet资源对象。</strong></p>
-<ul>
-<li><strong>监控程序；</strong></li>
-<li><strong>日志收集程序；</strong></li>
-<li><strong>集群存储程序；</strong></li>
-</ul>
-<pre><code>[root@master ~]# kubectl get ds -n kube-system 
-//查看一下DaemonSet
-</code></pre>
-<h3 id="2-DaemonSet-与-Deployment-的区别">2. DaemonSet 与 Deployment 的区别</h3>
-<ul>
-<li><strong>Deployment 部署的副本 Pod 会分布在各个 Node 上，每个 Node 都可能运行好几个副本。</strong></li>
-<li><strong>DaemonSet 的不同之处在于：每个 Node 上最多只能运行一个副本。</strong></li>
-</ul>
-<h3 id="3-运行一个web服务，在每一个节点运行一个pod。">3. 运行一个web服务，在每一个节点运行一个pod。</h3>
-<pre><code>[root@master ~]# vim daemonset.yaml
-
-kind: DaemonSet
-apiVersion: extensions/v1beta1
-metadata:
-  name: test-ds
-spec:
-  template:
-    metadata:
-      labels:
-        name: test-ds
-    spec:
-      containers:
-      - name: test-ds
-        image: httpd
-</code></pre>
-<h4 id="1-执行一下-3">&lt;1&gt;执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f daemonset.yaml 
-</code></pre>
-<h4 id="2-查看一下-3">&lt;2&gt;查看一下</h4>
-<pre><code>[root@master ~]# kubectl get ds
-</code></pre>
-<p>![image-20200114112936161](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114112936161.png)</p>
-<h1>总结</h1>
-<h2 id="1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。"><strong>1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。</strong></h2>
-<h3 id="1-Replication-Controller（RC）">&lt;1&gt;Replication Controller（RC）</h3>
-<h4 id="介绍及使用场景">介绍及使用场景</h4>
-<p><strong><code>Replication Controller</code>简称<code>RC</code>，<code>RC</code>是<code>Kubernetes</code>系统中的核心概念之一，简单来说，<code>RC</code>可以保证在任意时间运行<code>Pod</code>的副本数量，能够保证<code>Pod</code>总是可用的。如果实际<code>Pod</code>数量比指定的多那就结束掉多余的，如果实际数量比指定的少就新启动一些<code>Pod</code>，当<code>Pod</code>失败、被删除或者挂掉后，<code>RC</code>都会去自动创建新的<code>Pod</code>来保证副本数量，所以即使只有一个<code>Pod</code>，我们也应该使用<code>RC</code>来管理我们的<code>Pod</code>。</strong></p>
-<h4 id="主要功能">主要功能</h4>
-<ul>
-<li><strong>确保pod数量：RC用来管理正常运行Pod数量，一个RC可以由一个或多个Pod组成，在RC被创建后，系统会根据定义好的副本数来创建Pod数量。在运行过程中，如果Pod数量小于定义的，就会重启停止的或重新分配Pod，反之则杀死多余的。</strong></li>
-<li><strong>确保pod健康：当pod不健康，运行出错或者无法提供服务时，RC也会杀死不健康的pod，重新创建新的。</strong></li>
-<li><strong>弹性伸缩 ：在业务高峰或者低峰期的时候，可以通过RC动态的调整pod的数量来提高资源的利用率。同时，配置相应的监控功能（Hroizontal Pod Autoscaler），会定时自动从监控平台获取RC关联pod的整体资源使用情况，做到自动伸缩。</strong></li>
-<li><strong>滚动升级：滚动升级为一种平滑的升级方式，通过逐步替换的策略，保证整体系统的稳定，在初始化升级的时候就可以及时发现和解决问题，避免问题不断扩大。</strong></li>
-</ul>
-<h3 id="2-Replication-Set（RS）">&lt;2&gt;Replication Set（RS）</h3>
-<p><strong>被认为 是“升级版”的RC。RS也是用于保证与label selector匹配的pod数量维持在期望状态。</strong></p>
-<blockquote>
-<p><strong>实际上<code>RS</code>和<code>RC</code>的功能基本一致，目前唯一的一个区别就是<code>RC</code>只支持基于等式的<code>selector</code>（env=dev或app=nginx），但<code>RS</code>还支持基于集合的<code>selector</code>（version in (v1, v2)），这对复杂的运维管理就非常方便了。</strong></p>
-<p><strong><code>kubectl</code>命令行工具中关于<code>RC</code>的大部分命令同样适用于我们的<code>RS</code>资源对象。不过我们也很少会去单独使用<code>RS</code>，它主要被<code>Deployment</code>这个更加高层的资源对象使用，除非用户需要自定义升级功能或根本不需要升级<code>Pod</code>，在一般情况下，我们推荐使用<code>Deployment</code>而不直接使用<code>Replica Set</code>。</strong></p>
-</blockquote>
-<h4 id="区别在于">区别在于</h4>
-<p><strong>1、RC只支持基于等式的selector（env=dev或environment!=qa），但RS还支持新的，基于集合的selector（version in (v1.0, v2.0)或env notin (dev, qa)），这对复杂的运维管理很方便。</strong></p>
-<p><strong>2、升级方式</strong></p>
-<ul>
-<li><strong>RS不能使用kubectlrolling-update进行升级</strong></li>
-<li><strong>kubectl rolling-update专用于rc</strong></li>
-<li><strong>RS升级使用deployment或者kubectl replace命令</strong></li>
-<li><strong>社区引入这一API的初衷是用于取代vl中的RC，也就是说当v1版本被废弃时，RC就完成了它的历史使命，而由RS来接管其工作</strong></li>
-</ul>
-<h3 id="3-DaemonSet">&lt;3&gt;DaemonSet</h3>
-<h4 id="1-特点：">1. 特点：</h4>
-<p><strong>如果必须将pod运行在固定的某个或某几个节点，且要优先于其他的pod的启动。通常情况下，默认会将每一个节点都运行，并且只能运行一个pod。这种情况推荐使用DeamonSet资源对象。</strong></p>
-<p><strong>一个DaemonSet对象能确保其创建的Pod在集群中的每一台（或指定）Node上都运行一个副本。如果集群中动态加入了新的Node，DaemonSet中的Pod也会被添加在新加入Node上运行。删除一个DaemonSet也会级联删除所有其创建的Pod。</strong></p>
-<h4 id="2-使用环境"><strong>2. 使用环境</strong></h4>
-<ul>
-<li><strong>监控程序；</strong></li>
-<li><strong>日志收集程序；</strong></li>
-<li><strong>集群存储程序；</strong></li>
-</ul>
-<h3 id="4-Deployment">&lt;4&gt;Deployment</h3>
-<h4 id="1-什么是Deployment">1. 什么是Deployment</h4>
-<p><strong>Kubernetes Deployment提供了官方的用于更新Pod和Replica Set（下一代的Replication Controller）的方法，您可以在Deployment对象中只描述您所期望的理想状态（预期的运行状态），Deployment控制器为您将现在的实际状态转换成您期望的状态，例如，您想将所有的webapp:v1.0.9升级成webapp:v1.1.0，您只需创建一个Deployment，Kubernetes会按照Deployment自动进行升级。现在，您可以通过Deployment来创建新的资源（pod，rs，rc），替换已经存在的资源等。</strong></p>
-<p><strong>你只需要在Deployment中描述你想要的目标状态是什么，Deployment controller就会帮你将Pod和Replica Set的实际状态改变到你的目标状态。你可以定义一个全新的Deployment，也可以创建一个新的替换旧的Deployment。</strong></p>
-<h4 id="2-典型的用例">2. 典型的用例</h4>
-<ul>
-<li><strong>使用Deployment来创建ReplicaSet。ReplicaSet在后台创建pod。检查启动状态，看它是成功还是失败。</strong></li>
-<li><strong>然后，通过更新Deployment的PodTemplateSpec字段来声明Pod的新状态。这会创建一个新的ReplicaSet，Deployment会按照控制的速率将pod从旧的ReplicaSet移动到新的ReplicaSet中。</strong></li>
-<li><strong>如果当前状态不稳定，回滚到之前的Deployment revision。每次回滚都会更新Deployment的revision。</strong></li>
-<li><strong>扩容Deployment以满足更高的负载。</strong></li>
-<li><strong>暂停Deployment来应用PodTemplateSpec的多个修复，然后恢复上线。</strong></li>
-<li><strong>根据Deployment 的状态判断上线是否hang住了。</strong></li>
-<li><strong>清除旧的不必要的ReplicaSet。</strong></li>
-</ul>
-<h4 id="3-使用环境">3. 使用环境</h4>
-<p><strong>Deployment集成了上线部署、滚动升级、创建副本、暂停上线任务，恢复上线任务，回滚到以前某一版本（成功/稳定）的Deployment等功能，在某种程度上，Deployment可以帮我们实现无人值守的上线，大大降低我们的上线过程的复杂沟通、操作风险。</strong></p>
-<ul>
-<li><strong>定义Deployment来创建Pod和ReplicaSet</strong></li>
-<li><strong>滚动升级和回滚应用</strong></li>
-<li><strong>扩容和缩容</strong></li>
-<li><strong>暂停和继续Deployment</strong></li>
-</ul>
-<h4 id="3-DaemonSet-与-Deployment-的区别">3. DaemonSet 与 Deployment 的区别</h4>
-<ul>
-<li><strong>Deployment 部署的副本 Pod 会分布在各个 Node 上，每个 Node 都可能运行好几个副本。</strong></li>
-<li><strong>DaemonSet 的不同之处在于：每个 Node 上最多只能运行一个副本。</strong></li>
-</ul>
-<h2 id="2）使用DaemonSet控制器运行httpd服务，要求名称以自己的名称命名。标签为：tier-backend-env-dev"><strong>2）使用DaemonSet控制器运行httpd服务，要求名称以自己的名称命名。标签为：tier=backend,env=dev.</strong></h2>
-<pre><code>[root@master ~]# vim daemonset.yaml 
-kind: DaemonSet
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-ds
-spec:
-  template:
-    metadata:
-      labels:
-        tier: backend
-        env: dev
-    spec:
-      containers:
-      - name: xgp-ds
-        image: httpd
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get pod  --show-labels 
-</code></pre>
-<p>![image-20200114100043922](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -L env,tier
-</code></pre>
-<p>![image-20200114095943595](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114095943595.png)</p>
-<h2 id="3-创建service资源对象与上述资源进行关联，要有验证。"><strong>3) 创建service资源对象与上述资源进行关联，要有验证。</strong></h2>
-<pre><code>[root@master ~]# vim service.yaml 
-kind: Service
-apiVersion: v1
-metadata:
-  name: service
-spec: 
-  type: NodePort
-  selector: 
-    env: dev
-  ports:    
-  - protocol: TCP
-    port: 90 
-    targetPort: 80
-    nodePort: 30123 
-</code></pre>
-<h3 id="执行一下">执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f service.yaml 
-</code></pre>
-<h3 id="查看一下-2">查看一下</h3>
-<pre><code>[root@master ~]# kubectl describe svc
-</code></pre>
-<p>![image-20200114120345596](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114120345596.png)</p>
-<h3 id="访问一下">访问一下</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
-<p>![image-20200114120444524](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114120444524.png)</p>
-<h2 id="4）整理关于标签和标签选择器都有什么作用？"><strong>4）整理关于标签和标签选择器都有什么作用？</strong></h2>
-<p><strong>&lt;1&gt;标签：解决同类型的资源对象，为了更好的管理，按照标签分组。</strong></p>
-<p><strong>&lt;2&gt;标签选择器：标签的查询过滤条件。</strong></p>
-]]></content>
-  </entry>
-  <entry>
     <title>09 Job资源对象</title>
     <url>/posts/e9be.html</url>
     <content><![CDATA[<h1>Job资源对象</h1>
@@ -2551,6 +2262,295 @@ spec:
 ​					Readiness: 探测失败将pod设置为不可用<br>
 kubelet：控制pod</p>
 <p>DaemonSet :会在每一个节点都会运行，并且只运行一个Pod</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>08 ReplicaSet、DaemonSet</title>
+    <url>/posts/7772.html</url>
+    <content><![CDATA[<h1>ReplicaSet简单介绍</h1>
+<h2 id="1-RC：ReplicationController（老一代的pod控制器）">1. RC：ReplicationController（老一代的pod控制器）</h2>
+<p><strong>用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</strong></p>
+<h3 id="特点：">特点：</h3>
+<ul>
+<li>​		<strong>确保Pod资源对象的数量精准。</strong></li>
+<li>​		<strong>确保pod健康运行。</strong></li>
+<li>​		<strong>弹性伸缩</strong></li>
+</ul>
+<p><strong>同样，它也可以通过yaml或json格式的资源清单来创建。其中spec字段一般嵌套以下字段：</strong></p>
+<ul>
+<li>​		<strong>replicas：期望的Pod对象副本数量。</strong></li>
+<li>​		<strong>selector：当前控制器匹配Pod对此项副本的标签选择器</strong></li>
+<li>​		<strong>template：pod副本的模板</strong></li>
+</ul>
+<p><strong>与RC相比而言，RS不仅支持<em>基于等值</em>的标签选择器，而且还支持<em>基于集合</em>的标签选择器。</strong></p>
+<h2 id="2-标签：解决同类型的资源对象，为了更好的管理，按照标签分组。">2. 标签：解决同类型的资源对象，为了更好的管理，按照标签分组。</h2>
+<h3 id="常用的标签分类：">常用的标签分类：</h3>
+<ul>
+<li>​		<strong>release（版本）：stable（稳定版）、canary（金丝雀版本）、beta（测试版本）</strong></li>
+<li>​		<strong>environment（环境变量）：dev（开发）、qa（测试）、production（生产）</strong></li>
+<li>​		<strong>application（应用）：ui、as（application software应用软件）、pc、sc</strong></li>
+<li>​		<strong>tier（架构层级）：frontend（前端）、backend（后端）、cache（缓存）</strong></li>
+<li>​		<strong>partition（分区）：customerA（客户A）、customerB（客户B）</strong></li>
+<li>​		<strong>track（品控级别）：daily（每天）、weekly（每周）</strong></li>
+</ul>
+<p><strong>标签要做到：见名知意。</strong></p>
+<h2 id="3-测试">3.测试</h2>
+<h3 id="（1）编写一个pod的yaml文件">（1）编写一个pod的yaml文件</h3>
+<pre><code>[root@master ~]# vim label.yaml 
+
+kind: Pod
+apiVersion: v1
+metadata:
+  name: labels
+  labels:
+    env: qa
+    tier: frontend
+spec:
+  containers:
+  - name: myapp
+    image: httpd
+</code></pre>
+<h4 id="1-执行一下">&lt;1&gt;执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f label.yaml  --record 
+</code></pre>
+<h4 id="2-查看一下">&lt;2&gt;查看一下</h4>
+<pre><code>[root@master ~]# kubectl get pod  --show-labels 
+//通过--show-labels显示资源对象的
+</code></pre>
+<p>![image-20200114095943595](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114095943595.png)</p>
+<pre><code>[root@master ~]# kubectl get po -L env,tier
+//显示某个键对应的值
+</code></pre>
+<p>![image-20200114100043922](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
+<pre><code>[root@master ~]# kubectl get po -l env,tier
+//通过-l 查看仅包含某个标签的资源。
+</code></pre>
+<p>![image-20200114100200895](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100200895.png)</p>
+<h3 id="（2）添加标签">（2）添加标签</h3>
+<pre><code>[root@master ~]# kubectl label pod  labels app=pc
+//给pod资源添加标签
+</code></pre>
+<h3 id="（3）修改标签">（3）修改标签</h3>
+<pre><code>[root@master ~]# kubectl label pod labels env=dev --overwrite
+//修改标签
+</code></pre>
+<pre><code>[root@master ~]# kubectl get pod -l tier --show-labels 
+//查看标签
+</code></pre>
+<p>![image-20200114100607585](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100607585.png)</p>
+<h3 id="（4）编写一个service的yaml文件">（4）编写一个service的yaml文件</h3>
+<pre><code>[root@master ~]# vim service.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: service
+spec:
+  type: NodePort
+  selector:
+    env: qa
+  ports:
+  - protocol: TCP
+    port: 90
+    targetPort: 80
+    nodePort: 30123
+</code></pre>
+<h4 id="1-执行一下-2">&lt;1&gt;执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f service.yaml 
+</code></pre>
+<h4 id="2-查看一下-2">&lt;2&gt;查看一下</h4>
+<pre><code>[root@master ~]# kubectl describe svc
+</code></pre>
+<p>![image-20200114101837151](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101837151.png)</p>
+<h4 id="3-访问一下">&lt;3&gt;访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30123
+</code></pre>
+<p>![image-20200114101915248](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114101915248.png)</p>
+<p><strong>如果标签有多个，标签选择器选择其中一个，也可以关联成功。相反，如果选择器有多个，那么标签必须完全满足条件，才可以关联成功。</strong></p>
+<h2 id="4-标签选择器：标签的查询过滤条件。">4. 标签选择器：标签的查询过滤条件。</h2>
+<p><strong><a href>基于等值关系的（equality-based）</a>：“=”，“==”，“！ =”前面两个都是相等，最后一个是不等于。</strong></p>
+<p><strong><a href>基于集合关系（set-based）</a>:in、notin、exists三种。选择器列表间为“逻辑与”关系，使用ln或者NotIn操作时，其valuas不强制要求为非空的字符串列表，而使用Exists或DostNotExist时，其values必须为空</strong></p>
+<h4 id="使用标签选择器的逻辑：">使用标签选择器的逻辑：</h4>
+<ul>
+<li><strong>同时指定的多个选择器之间的逻辑关系为“与”操作。</strong></li>
+<li><strong>使用空值的标签选择器意味着每个资源对象都将把选中。</strong></li>
+<li><strong>空的标签选择器无法选中任何资源。</strong></li>
+</ul>
+<h3 id="（1）例子">（1）例子</h3>
+<p>![image-20200114110334223](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114110334223.png)</p>
+<h4 id="编写一个selector的yaml’文件">编写一个selector的yaml’文件</h4>
+<pre class="line-numbers language-language-yaml"><code class="language-language-yaml">[root@master ~]# vim selector.yaml
+selector:
+  matchLabels:
+    app: nginx
+  mathExpressions:
+    - {key: name,operator: In,values: [zhangsan,lisi]}
+    - {key: age,operator: Exists,values:}
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<ul>
+<li><strong>selector：当前控制器匹配Pod对此项副本的标签选择器</strong></li>
+<li><strong>matchLabels: 指定键值对表示的标签选择器。</strong></li>
+<li><strong>mathExpressions:：基于表达式来指定的标签选择器。</strong></li>
+</ul>
+<h1>DaemonSet</h1>
+<p><em><strong>它也是一种pod控制器。</strong></em></p>
+<p><em><strong>RC，RS , deployment , daemonset.都是pod控制器。statfukSet，RBAC</strong></em></p>
+<h3 id="1-使用场景：">1. 使用场景：</h3>
+<p><strong>如果必须将pod运行在固定的某个或某几个节点，且要优先于其他的pod的启动。通常情况下，默认会将每一个节点都运行，并且只能运行一个pod。这种情况推荐使用DeamonSet资源对象。</strong></p>
+<ul>
+<li><strong>监控程序；</strong></li>
+<li><strong>日志收集程序；</strong></li>
+<li><strong>集群存储程序；</strong></li>
+</ul>
+<pre><code>[root@master ~]# kubectl get ds -n kube-system 
+//查看一下DaemonSet
+</code></pre>
+<h3 id="2-DaemonSet-与-Deployment-的区别">2. DaemonSet 与 Deployment 的区别</h3>
+<ul>
+<li><strong>Deployment 部署的副本 Pod 会分布在各个 Node 上，每个 Node 都可能运行好几个副本。</strong></li>
+<li><strong>DaemonSet 的不同之处在于：每个 Node 上最多只能运行一个副本。</strong></li>
+</ul>
+<h3 id="3-运行一个web服务，在每一个节点运行一个pod。">3. 运行一个web服务，在每一个节点运行一个pod。</h3>
+<pre><code>[root@master ~]# vim daemonset.yaml
+
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: test-ds
+spec:
+  template:
+    metadata:
+      labels:
+        name: test-ds
+    spec:
+      containers:
+      - name: test-ds
+        image: httpd
+</code></pre>
+<h4 id="1-执行一下-3">&lt;1&gt;执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f daemonset.yaml 
+</code></pre>
+<h4 id="2-查看一下-3">&lt;2&gt;查看一下</h4>
+<pre><code>[root@master ~]# kubectl get ds
+</code></pre>
+<p>![image-20200114112936161](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114112936161.png)</p>
+<h1>总结</h1>
+<h2 id="1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。"><strong>1）总结RC、RS、Deplyment、DaemonSet控制器的特点及使用场景。</strong></h2>
+<h3 id="1-Replication-Controller（RC）">&lt;1&gt;Replication Controller（RC）</h3>
+<h4 id="介绍及使用场景">介绍及使用场景</h4>
+<p><strong><code>Replication Controller</code>简称<code>RC</code>，<code>RC</code>是<code>Kubernetes</code>系统中的核心概念之一，简单来说，<code>RC</code>可以保证在任意时间运行<code>Pod</code>的副本数量，能够保证<code>Pod</code>总是可用的。如果实际<code>Pod</code>数量比指定的多那就结束掉多余的，如果实际数量比指定的少就新启动一些<code>Pod</code>，当<code>Pod</code>失败、被删除或者挂掉后，<code>RC</code>都会去自动创建新的<code>Pod</code>来保证副本数量，所以即使只有一个<code>Pod</code>，我们也应该使用<code>RC</code>来管理我们的<code>Pod</code>。</strong></p>
+<h4 id="主要功能">主要功能</h4>
+<ul>
+<li><strong>确保pod数量：RC用来管理正常运行Pod数量，一个RC可以由一个或多个Pod组成，在RC被创建后，系统会根据定义好的副本数来创建Pod数量。在运行过程中，如果Pod数量小于定义的，就会重启停止的或重新分配Pod，反之则杀死多余的。</strong></li>
+<li><strong>确保pod健康：当pod不健康，运行出错或者无法提供服务时，RC也会杀死不健康的pod，重新创建新的。</strong></li>
+<li><strong>弹性伸缩 ：在业务高峰或者低峰期的时候，可以通过RC动态的调整pod的数量来提高资源的利用率。同时，配置相应的监控功能（Hroizontal Pod Autoscaler），会定时自动从监控平台获取RC关联pod的整体资源使用情况，做到自动伸缩。</strong></li>
+<li><strong>滚动升级：滚动升级为一种平滑的升级方式，通过逐步替换的策略，保证整体系统的稳定，在初始化升级的时候就可以及时发现和解决问题，避免问题不断扩大。</strong></li>
+</ul>
+<h3 id="2-Replication-Set（RS）">&lt;2&gt;Replication Set（RS）</h3>
+<p><strong>被认为 是“升级版”的RC。RS也是用于保证与label selector匹配的pod数量维持在期望状态。</strong></p>
+<blockquote>
+<p><strong>实际上<code>RS</code>和<code>RC</code>的功能基本一致，目前唯一的一个区别就是<code>RC</code>只支持基于等式的<code>selector</code>（env=dev或app=nginx），但<code>RS</code>还支持基于集合的<code>selector</code>（version in (v1, v2)），这对复杂的运维管理就非常方便了。</strong></p>
+<p><strong><code>kubectl</code>命令行工具中关于<code>RC</code>的大部分命令同样适用于我们的<code>RS</code>资源对象。不过我们也很少会去单独使用<code>RS</code>，它主要被<code>Deployment</code>这个更加高层的资源对象使用，除非用户需要自定义升级功能或根本不需要升级<code>Pod</code>，在一般情况下，我们推荐使用<code>Deployment</code>而不直接使用<code>Replica Set</code>。</strong></p>
+</blockquote>
+<h4 id="区别在于">区别在于</h4>
+<p><strong>1、RC只支持基于等式的selector（env=dev或environment!=qa），但RS还支持新的，基于集合的selector（version in (v1.0, v2.0)或env notin (dev, qa)），这对复杂的运维管理很方便。</strong></p>
+<p><strong>2、升级方式</strong></p>
+<ul>
+<li><strong>RS不能使用kubectlrolling-update进行升级</strong></li>
+<li><strong>kubectl rolling-update专用于rc</strong></li>
+<li><strong>RS升级使用deployment或者kubectl replace命令</strong></li>
+<li><strong>社区引入这一API的初衷是用于取代vl中的RC，也就是说当v1版本被废弃时，RC就完成了它的历史使命，而由RS来接管其工作</strong></li>
+</ul>
+<h3 id="3-DaemonSet">&lt;3&gt;DaemonSet</h3>
+<h4 id="1-特点：">1. 特点：</h4>
+<p><strong>如果必须将pod运行在固定的某个或某几个节点，且要优先于其他的pod的启动。通常情况下，默认会将每一个节点都运行，并且只能运行一个pod。这种情况推荐使用DeamonSet资源对象。</strong></p>
+<p><strong>一个DaemonSet对象能确保其创建的Pod在集群中的每一台（或指定）Node上都运行一个副本。如果集群中动态加入了新的Node，DaemonSet中的Pod也会被添加在新加入Node上运行。删除一个DaemonSet也会级联删除所有其创建的Pod。</strong></p>
+<h4 id="2-使用环境"><strong>2. 使用环境</strong></h4>
+<ul>
+<li><strong>监控程序；</strong></li>
+<li><strong>日志收集程序；</strong></li>
+<li><strong>集群存储程序；</strong></li>
+</ul>
+<h3 id="4-Deployment">&lt;4&gt;Deployment</h3>
+<h4 id="1-什么是Deployment">1. 什么是Deployment</h4>
+<p><strong>Kubernetes Deployment提供了官方的用于更新Pod和Replica Set（下一代的Replication Controller）的方法，您可以在Deployment对象中只描述您所期望的理想状态（预期的运行状态），Deployment控制器为您将现在的实际状态转换成您期望的状态，例如，您想将所有的webapp:v1.0.9升级成webapp:v1.1.0，您只需创建一个Deployment，Kubernetes会按照Deployment自动进行升级。现在，您可以通过Deployment来创建新的资源（pod，rs，rc），替换已经存在的资源等。</strong></p>
+<p><strong>你只需要在Deployment中描述你想要的目标状态是什么，Deployment controller就会帮你将Pod和Replica Set的实际状态改变到你的目标状态。你可以定义一个全新的Deployment，也可以创建一个新的替换旧的Deployment。</strong></p>
+<h4 id="2-典型的用例">2. 典型的用例</h4>
+<ul>
+<li><strong>使用Deployment来创建ReplicaSet。ReplicaSet在后台创建pod。检查启动状态，看它是成功还是失败。</strong></li>
+<li><strong>然后，通过更新Deployment的PodTemplateSpec字段来声明Pod的新状态。这会创建一个新的ReplicaSet，Deployment会按照控制的速率将pod从旧的ReplicaSet移动到新的ReplicaSet中。</strong></li>
+<li><strong>如果当前状态不稳定，回滚到之前的Deployment revision。每次回滚都会更新Deployment的revision。</strong></li>
+<li><strong>扩容Deployment以满足更高的负载。</strong></li>
+<li><strong>暂停Deployment来应用PodTemplateSpec的多个修复，然后恢复上线。</strong></li>
+<li><strong>根据Deployment 的状态判断上线是否hang住了。</strong></li>
+<li><strong>清除旧的不必要的ReplicaSet。</strong></li>
+</ul>
+<h4 id="3-使用环境">3. 使用环境</h4>
+<p><strong>Deployment集成了上线部署、滚动升级、创建副本、暂停上线任务，恢复上线任务，回滚到以前某一版本（成功/稳定）的Deployment等功能，在某种程度上，Deployment可以帮我们实现无人值守的上线，大大降低我们的上线过程的复杂沟通、操作风险。</strong></p>
+<ul>
+<li><strong>定义Deployment来创建Pod和ReplicaSet</strong></li>
+<li><strong>滚动升级和回滚应用</strong></li>
+<li><strong>扩容和缩容</strong></li>
+<li><strong>暂停和继续Deployment</strong></li>
+</ul>
+<h4 id="3-DaemonSet-与-Deployment-的区别">3. DaemonSet 与 Deployment 的区别</h4>
+<ul>
+<li><strong>Deployment 部署的副本 Pod 会分布在各个 Node 上，每个 Node 都可能运行好几个副本。</strong></li>
+<li><strong>DaemonSet 的不同之处在于：每个 Node 上最多只能运行一个副本。</strong></li>
+</ul>
+<h2 id="2）使用DaemonSet控制器运行httpd服务，要求名称以自己的名称命名。标签为：tier-backend-env-dev"><strong>2）使用DaemonSet控制器运行httpd服务，要求名称以自己的名称命名。标签为：tier=backend,env=dev.</strong></h2>
+<pre><code>[root@master ~]# vim daemonset.yaml 
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-ds
+spec:
+  template:
+    metadata:
+      labels:
+        tier: backend
+        env: dev
+    spec:
+      containers:
+      - name: xgp-ds
+        image: httpd
+</code></pre>
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get pod  --show-labels 
+</code></pre>
+<p>![image-20200114100043922](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaS儿童、DaemonSet.assets\image-20200114100043922.png)</p>
+<pre><code>[root@master ~]# kubectl get pod -L env,tier
+</code></pre>
+<p>![image-20200114095943595](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114095943595.png)</p>
+<h2 id="3-创建service资源对象与上述资源进行关联，要有验证。"><strong>3) 创建service资源对象与上述资源进行关联，要有验证。</strong></h2>
+<pre><code>[root@master ~]# vim service.yaml 
+kind: Service
+apiVersion: v1
+metadata:
+  name: service
+spec: 
+  type: NodePort
+  selector: 
+    env: dev
+  ports:    
+  - protocol: TCP
+    port: 90 
+    targetPort: 80
+    nodePort: 30123 
+</code></pre>
+<h3 id="执行一下">执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f service.yaml 
+</code></pre>
+<h3 id="查看一下-2">查看一下</h3>
+<pre><code>[root@master ~]# kubectl describe svc
+</code></pre>
+<p>![image-20200114120345596](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114120345596.png)</p>
+<h3 id="访问一下">访问一下</h3>
+<pre><code>[root@master ~]# curl 127.0.0.1:30123
+</code></pre>
+<p>![image-20200114120444524](G:\四期\虚拟化\kubernetes\k8s文档\08 ReplicaSet、DaemonSet.assets\image-20200114120444524.png)</p>
+<h2 id="4）整理关于标签和标签选择器都有什么作用？"><strong>4）整理关于标签和标签选择器都有什么作用？</strong></h2>
+<p><strong>&lt;1&gt;标签：解决同类型的资源对象，为了更好的管理，按照标签分组。</strong></p>
+<p><strong>&lt;2&gt;标签选择器：标签的查询过滤条件。</strong></p>
 ]]></content>
   </entry>
   <entry>
