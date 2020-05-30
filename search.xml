@@ -250,14 +250,14 @@ set tabstop=2
 ]]></content>
   </entry>
   <entry>
-    <title>02 k8s架构，基本概念</title>
-    <url>/posts/cd85.html</url>
+    <title>03 创建资源的两种方式</title>
+    <url>/posts/6989.html</url>
     <content><![CDATA[<table>
 <thead>
 <tr>
-<th>主机名</th>
+<th>主机</th>
 <th>IP地址</th>
-<th>服务</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
@@ -278,102 +278,296 @@ set tabstop=2
 </tr>
 </tbody>
 </table>
-<h1>kubernetes架构</h1>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/qqq.png" alt="image-20200104100759831" loading="lazy"></p>
-<p><strong>kubectl</strong>：k8s是命令行端，用来发送客户的操作指令。</p>
-<h2 id="master节点">master节点</h2>
-<p><strong>1. API server[资源操作入口]</strong>：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。</p>
-<blockquote>
-<ul>
-<li><strong>提供了资源对象的唯一操作入口，其他所有组件都必须通过它提供的API来操作资源数据，只有API Server与存储通信，其他模块通过API Server访问集群状态。</strong></li>
-</ul>
-<p><strong>第一，是为了保证集群状态访问的安全。</strong></p>
-<p><strong>第二，是为了隔离集群状态访问的方式和后端存储实现的方式：API Server是状态访问的方式，不会因为后端存储技术etcd的改变而改变。</strong></p>
-<ul>
-<li><strong>作为kubernetes系统的入口，封装了核心对象的增删改查操作，以<a href="https://www.centos.bz/tag/restful/" target="_blank" rel="noopener">RESTFul</a>接口方式提供给外部客户和内部组件调用。对相关的资源数据“全量查询”+“变化监听”，实时完成相关的业务功能。</strong></li>
-</ul>
-</blockquote>
-<p><strong>2. Scheduler[集群分发调度器]</strong>：负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
-<blockquote>
-<p><strong>1.Scheduler收集和分析当前Kubernetes集群中所有Minion节点的资源(内存、CPU)负载情况，然后依此分发新建的Pod到Kubernetes集群中可用的节点。</strong></p>
-<p><strong>2.实时监测Kubernetes集群中未分发和已分发的所有运行的Pod。</strong></p>
-<p><strong>3.Scheduler也监测Minion节点信息，由于会频繁查找Minion节点，Scheduler会缓存一份最新的信息在本地。</strong></p>
-<p><strong>4.最后，Scheduler在分发Pod到指定的Minion节点后，会把Pod相关的信息Binding写回API Server。</strong></p>
-</blockquote>
-<p><strong>4. Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
-<blockquote>
-<p><strong>实现集群故障检测和恢复的自动化工作，负责执行各种控制器，主要有：</strong></p>
-<p><strong>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</strong></p>
-<p><strong>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</strong></p>
-</blockquote>
-<p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
-<p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
-<p><strong>7. Flanner</strong>：是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
-<pre><code>[root@master ~]# kubectl get pod --all-namespaces
-//查看pod信息
+<h1>两种创建资源的方法</h1>
+<h2 id="基于命令的方式：">基于命令的方式：</h2>
+<ol>
+<li><strong>简单直观快捷，上手快。</strong></li>
+<li><strong>适合临时测试或实验。</strong></li>
+</ol>
+<h2 id="基于配置文件的方式：">基于配置文件的方式：</h2>
+<ol>
+<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
+<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
+<li><strong>可以像管理代码一样管理部署。</strong></li>
+<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
+<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
+</ol>
+<h1>一，用命令行的方式创建资源</h1>
+<h3 id="仅接受json格式"><em>仅接受json格式</em></h3>
+<h2 id="配置清单（yml、yaml）">配置清单（yml、yaml）</h2>
+<pre><code>[root@master ~]# cd /etc/kubernetes/manifests/
+//k8s的yml、yaml文件
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104100759831.png" alt="image-20200104100759831" loading="lazy"></p>
+<h2 id="1-node01和node02下载nginx镜像">1.node01和node02下载nginx镜像</h2>
+<pre><code>docker pull nginx
+//下载nginx镜像
+</code></pre>
+<h2 id="2-master创建Pod控制器（test-web），deployment">2.master创建Pod控制器（test-web），deployment</h2>
+<pre><code>[root@master ~]# kubectl run test-web --image=nginx --replicas=5
+//创建Pod控制器，deployment
+</code></pre>
+<h2 id="3-查看控制器情况">3.查看控制器情况</h2>
+<h3 id="（1）">（1）</h3>
+<pre><code>[root@master ~]# kubectl get deployments.
+//查看控制器情况
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093615852.png" alt="image-20200106093615852" loading="lazy"></p>
 <pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
 //显示pod的节点信息
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104101023909.png" alt="image-20200104101023909" loading="lazy"></p>
-<h2 id="Node节点">Node节点</h2>
-<p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
-<blockquote>
-<ul>
-<li><strong>负责Node节点上pod的创建、修改、监控、删除等全生命周期的管理</strong></li>
-<li><strong>定时上报本Node的状态信息给API Server。</strong></li>
-<li><strong>kubelet是Master API Server和Minion之间的桥梁，接收Master API Server分配给它的commands和work，与持久性键值存储etcd、file、server和http进行交互，读取配置信息。</strong></li>
-<li><strong>具体的工作如下：</strong></li>
-</ul>
-<p><strong>设置容器的环境变量、给容器绑定<a href="https://www.centos.bz/tag/volume/" target="_blank" rel="noopener">Volume</a>、给容器绑定Port、根据指定的Pod运行一个单一容器、给指定的Pod创建network 容器。</strong></p>
-<p><strong>同步Pod的状态、同步Pod的状态、从<a href="https://www.centos.bz/tag/cadvisor/" target="_blank" rel="noopener">cAdvisor</a>获取<a href="https://www.centos.bz/tag/container/" target="_blank" rel="noopener">Container</a> info、 pod info、 root info、 <a href="https://www.centos.bz/tag/machine/" target="_blank" rel="noopener">machine</a> info。</strong></p>
-<p><strong>在容器中运行命令、杀死容器、删除Pod的所有容器。</strong></p>
-</blockquote>
-<p>**kube-proxy[负载均衡、路由转发]:**负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
-<blockquote>
-<ul>
-<li><strong>Proxy是为了解决外部网络能够访问跨机器集群中容器提供的应用服务而设计的，运行在每个Node上。Proxy提供TCP/UDP sockets的proxy，每创建一种Service，Proxy主要从etcd获取Services和Endpoints的配置信息（也可以从file获取），然后根据配置信息在Minion上启动一个Proxy的进程并监听相应的服务端口，当外部请求发生时，Proxy会根据Load Balancer将请求分发到后端正确的容器处理。</strong></li>
-<li><strong>Proxy不但解决了同一主宿机相同服务端口冲突的问题，还提供了Service转发服务端口对外提供服务的能力，Proxy后端使用了随机、轮循负载均衡算法。</strong></li>
-</ul>
-</blockquote>
-<h2 id="范例">范例</h2>
-<blockquote>
-<h3 id="分析各个组件的作用以及架构工作流程">分析各个组件的作用以及架构工作流程:</h3>
-<p><strong>1) kubectl发送部署 请求到API server</strong><br>
-<strong>2) APIserver通知Controller Manager创建一个Deployment资源。</strong><br>
-<strong>3) Scheduler执行调度任务,将两个副本Pod分发到node01和node02. 上。</strong><br>
-<strong>4) node01和node02, 上的kubelet在各自节点上创建并运行Pod。</strong></p>
-<h3 id="补充">补充</h3>
-<p><strong>1.应用的配置和当前的状态信息保存在etcd中，执行kubectl get pod时API server会从etcd中读取这些数据。</strong></p>
-<p><strong>2.flannel会为每个Pod分配一个IP。 但此时没有创建Service资源，目前kube-proxy还没有参与进来。</strong></p>
-</blockquote>
-<h3 id="运行一个例子（创建一个deployment资源对象-pod控制器-）">运行一个例子（创建一个deployment资源对象&lt;pod控制器&gt;）</h3>
-<pre><code>[root@master ~]# kubectl run test-web --image=httpd --replicas=2
-//创建一个deployment资源对象。
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093922849.png" alt="image-20200106093922849" loading="lazy"></p>
+<h3 id="（2）">（2）</h3>
+<pre><code>[root@master ~]# kubectl get namespaces 
+//查看k8s名称空间
 </code></pre>
-<p><em><strong>运行完成之后，如果有镜像可直接开启，没有的话需要等待一会儿，node节点要在docker hup上下载</strong></em></p>
-<h4 id="查看一下">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093850247.png" alt="image-20200106093850247" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl describe deployments. test-web
+//查看资源详细信息
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110812772.png" alt="image-20200104110812772" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl get pod
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093723330.png" alt="image-20200106093723330" loading="lazy"></p>
+<p><em><strong>查看某种资源对象，没有指定名称空间，默认是在default名称空间。可以加上-n选项，查看指定名称空间的资源。</strong></em></p>
+<pre><code>[root@master ~]# kubectl get pod -n kube-system 
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110954406.png" alt="image-20200104110954406" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl get pod  -o wide
-//显示pod的节点信息
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106094343401.png" alt="image-20200106094343401" loading="lazy"></p>
+<h2 id="3-删除test-web控制器">3.删除test-web控制器</h2>
+<pre><code>[root@master ~]# kubectl delete deployments. test-web 
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png" alt="image-20200104111128779" loading="lazy"></p>
-<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
-<h3 id="如果删除一个pod">如果删除一个pod</h3>
-<pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
+<h2 id="4-master创建Pod控制器（web），deployment">4.master创建Pod控制器（web），deployment</h2>
+<pre><code>[root@master ~]# kubectl run web --image=nginx --replicas=5
 </code></pre>
-<h4 id="查看一下-2">查看一下</h4>
+<h3 id="查看一下pod信息">查看一下pod信息</h3>
 <pre><code>[root@master ~]# kubectl get pod -o wide
+//查看一下pod的节点信息
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png" alt="image-20200104112418012" loading="lazy"></p>
-<p><em><strong>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</strong></em></p>
-<p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106095722353.png" alt="image-20200106095722353" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl describe deployments. web 
+//查看资源详细信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100606861.png" alt="image-20200106100606861" loading="lazy"></p>
+<p><em><strong>注意：直接运行创建的deployment资源对象，是经常使用的一个控制器资源类型，除了deployment，还有rc、rs等等pod控制器，deployment是一个高级的pod控制器。</strong></em></p>
+<h3 id="本机测试访问nginx">本机测试访问nginx</h3>
+<pre><code>[root@master ~]# curl 10.244.1.7
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100827131.png" alt="image-20200106100827131" loading="lazy"></p>
+<h2 id="5-创建service资源类型">5.创建service资源类型</h2>
+<pre><code>[root@master ~]# kubectl expose deployment web --name=web-xgp --port=80 --type=NodePort
+//创建service资源类型，这里我们设置了映射端口
+</code></pre>
+<p><em><strong>如果想要外网能够访问服务，可以暴露deployment资源，得到service资源，但svc资源的类型必须为NodePort。</strong></em></p>
+<p><strong>映射端口范围：30000-32767</strong></p>
+<h3 id="查看service信息">查看service信息</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101443348.png" alt="image-20200106101443348" loading="lazy"></p>
+<h3 id="浏览器测试访问http-192-168-1-21-30493">浏览器测试访问http://192.168.1.21:30493/</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101624954.png" alt="image-20200106101624954" loading="lazy"></p>
+<h1>二、服务的扩容与缩容</h1>
+<h2 id="1-查看控制器信息">1. 查看控制器信息</h2>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104638757.png" alt="image-20200106104638757" loading="lazy"></p>
+<h2 id="2-扩容">2.扩容</h2>
+<pre><code>[root@master ~]# kubectl scale deployment web --replicas=8
+</code></pre>
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104757123.png" alt="image-20200106104757123" loading="lazy"></p>
+<h2 id="3-缩容">3.缩容</h2>
+<pre><code>[root@master ~]# kubectl scale deployment web --replicas=4
+</code></pre>
+<h3 id="查看一下-2">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105536316.png" alt="image-20200106105536316" loading="lazy"></p>
+<h2 id="3-通过修改web的yaml文件进行扩容缩容">3.通过修改web的yaml文件进行扩容缩容</h2>
+<h3 id="备份web的yaml文件">备份web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; web.yaml
+</code></pre>
+<h3 id="使用edit修改web的yaml文件">使用edit修改web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl edit deployments. web 
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531" loading="lazy"></p>
+<h3 id="查看一下-3">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105816339.png" alt="image-20200106105816339" loading="lazy"></p>
+<h1>三、服务的升级与回滚</h1>
+<h2 id="node01和node02下载1-15版本的nginx">node01和node02下载1.15版本的nginx</h2>
+<pre><code>[root@master ~]# docker pull nginx:1.15
+</code></pre>
+<h2 id="1-master设置服务升级">1.master设置服务升级</h2>
+<pre><code>[root@master ~]#  kubectl set image deployment web web=nginx:1.15
+</code></pre>
+<h3 id="查看一下-4">查看一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111227960.png" alt="image-20200106111227960" loading="lazy"></p>
+<h2 id="2-master设置服务回滚">2.master设置服务回滚</h2>
+<h3 id="（1）修改配置文件回滚">（1）修改配置文件回滚</h3>
+<h3 id="使用edit修改web的yaml文件-2">使用edit修改web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl edit deployments. web 
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111523148.png" alt="image-20200106111523148" loading="lazy"></p>
+<h3 id="查看一下-5">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111319699.png" alt="image-20200106111319699" loading="lazy"></p>
+<h3 id="（2）命令回滚">（2）命令回滚</h3>
+<pre><code>[root@master ~]# kubectl rollout undo deployment web 
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111733617.png" alt="image-20200106111733617" loading="lazy"></p>
+<p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
+<h1>四、实验环境</h1>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td>registry+Deployment</td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td></td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-master-基于httpd制作自己的镜像，需要3个版本，v1-v2-v3-并且对应的版本镜像，访问的主目录内容不一样">1.master 基于httpd制作自己的镜像，需要3个版本，v1,v2,v3.并且对应的版本镜像，访问的主目录内容不一样</h2>
+<h3 id="（1）master下载httpd镜像">（1）master下载httpd镜像</h3>
+<pre><code>[root@master ~]# docker pull httpd
+</code></pre>
+<h3 id="（2）编写Dockerfile">（2）编写Dockerfile</h3>
+<pre><code>[root@master xgp]# vim Dockerfile
+FROM httpd
+COPY index.html /usr/local/apache2/htdocs/index.html
+</code></pre>
+<h3 id="（3）创建测试网页v1">（3）创建测试网页v1</h3>
+<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
+</code></pre>
+<h3 id="（4）基于Dockerfile创建镜像-web1">（4）基于Dockerfile创建镜像 web1</h3>
+<pre><code>[root@master xgp]# docker build -t web1 .
+</code></pre>
+<h3 id="（5）创建测试网页v2">（5）创建测试网页v2</h3>
+<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
+</code></pre>
+<h3 id="（6）基于Dockerfile创建镜像-web2">（6）基于Dockerfile创建镜像 web2</h3>
+<pre><code>[root@master xgp]# docker build -t web2 .
+</code></pre>
+<h3 id="（7）创建测试网页v3">（7）创建测试网页v3</h3>
+<pre><code>[root@master xgp]# echo &quot;&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;&quot; &gt; index.html
+</code></pre>
+<h3 id="（8）基于Dockerfile创建镜像-web3">（8）基于Dockerfile创建镜像 web3</h3>
+<pre><code>[root@master xgp]# docker build -t web3 .
+</code></pre>
+<h2 id="2-master部署私有仓库">2.master部署私有仓库</h2>
+<h3 id="（1）master下载registry镜像">（1）master下载registry镜像</h3>
+<pre><code>[root@master ~]# docker pull registry
+</code></pre>
+<h3 id="（2）启动registry">（2）启动registry</h3>
+<pre><code>[root@master xgp]# docker run -itd --name registry -p 5000:5000 --restart=always registry:latest 
+</code></pre>
+<h3 id="（3）修改docker配置文件，加入私有仓库（三台）">（3）修改docker配置文件，加入私有仓库（三台）</h3>
+<pre><code>[root@master xgp]# vim /usr/lib/systemd/system/docker.service
+ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106120848869.png" alt="image-20200106120848869" loading="lazy"></p>
+<h3 id="（4）重启docker（三台）">（4）重启docker（三台）</h3>
+<pre><code>[root@master xgp]# systemctl daemon-reload 
+[root@master xgp]# systemctl restart docker
+</code></pre>
+<h2 id="3-上传之前创建的三个web镜像到私有仓库">3.上传之前创建的三个web镜像到私有仓库</h2>
+<h3 id="（1）修改镜像标签">（1）修改镜像标签</h3>
+<pre><code>[root@master xgp]# docker tag web1:latest 192.168.1.21:5000/web1:latest
+[root@master xgp]# docker tag web2:latest 192.168.1.21:5000/web2:latest
+[root@master xgp]# docker tag web3:latest 192.168.1.21:5000/web3:latest
+</code></pre>
+<h3 id="（2）将三个web镜像上传到私有仓库">（2）将三个web镜像上传到私有仓库</h3>
+<pre><code>[root@master xgp]# docker push  192.168.1.21:5000/web1:latest 
+[root@master xgp]# docker push  192.168.1.21:5000/web2:latest
+[root@master xgp]# docker push  192.168.1.21:5000/web3:latest 
+</code></pre>
+<h2 id="4-部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。">4.部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。</h2>
+<pre><code>[root@master xgp]# kubectl run www1 --image=192.168.1.21:5000/web1:latest --replicas=6
+</code></pre>
+<h3 id="查看一下-6">查看一下</h3>
+<pre><code>[root@master xgp]# kubectl get pod
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122026271.png" alt="image-20200106122026271" loading="lazy"></p>
+<h3 id="本地访问一下">本地访问一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122426308.png" alt="image-20200106122426308" loading="lazy"></p>
+<h3 id="5-将上述Deployment暴露一个service资源对象，使外网能否访问服务。">5.将上述Deployment暴露一个service资源对象，使外网能否访问服务。</h3>
+<pre><code>[root@master xgp]#  kubectl expose deployment www1 --name=web-xgp --port=80 --type=NodePort
+</code></pre>
+<h3 id="查看一下-7">查看一下</h3>
+<pre><code>[root@master xgp]# kubectl get svc
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122313996.png" alt="image-20200106122313996" loading="lazy"></p>
+<h3 id="浏览器访问一下">浏览器访问一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122340747.png" alt="image-20200106122340747" loading="lazy"></p>
+<h2 id="6-将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。">6.将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。</h2>
+<h2 id="（1）扩容">（1）扩容</h2>
+<pre><code>[root@master xgp]# kubectl scale deployment www1 --replicas=8
+</code></pre>
+<h3 id="查看一下-8">查看一下</h3>
+<pre><code>[root@master xgp]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122722977.png" alt="image-20200106122722977" loading="lazy"></p>
+<h2 id="（2）缩容">（2）缩容</h2>
+<h3 id="修改k8s配置文件">修改k8s配置文件</h3>
+<h3 id="备份web的yaml文件-2">备份web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; www1.yaml
+</code></pre>
+<h3 id="使用edit修改web的yaml文件-3">使用edit修改web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl edit deployments. www1
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531" loading="lazy"></p>
+<h3 id="查看一下-9">查看一下</h3>
+<pre><code>[root@master xgp]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122953397.png" alt="image-20200106122953397" loading="lazy"></p>
+<h2 id="7-将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。">7.将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。</h2>
+<h2 id="（1）升级版本为web2">（1）升级版本为web2</h2>
+<pre><code>[root@master ~]# kubectl set image deployment www1 www1=192.168.1.21:5000/web2
+</code></pre>
+<h3 id="本机测试访问">本机测试访问</h3>
+<pre><code>[root@master ~]# curl 127.0.0.1:30996
+&lt;h1&gt;xgp | test-web | httpd:v2&lt;h1&gt;
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125722931.png" alt="image-20200106125722931" loading="lazy"></p>
+<h3 id="浏览器测试访问">浏览器测试访问</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125750021.png" alt="image-20200106125750021" loading="lazy"></p>
+<h2 id="（2）回滚版本到web1">（2）回滚版本到web1</h2>
+<h3 id="1-修改配置文件回滚">&lt;1&gt;修改配置文件回滚</h3>
+<h3 id="使用edit修改web的yaml文件-4">使用edit修改web的yaml文件</h3>
+<pre><code>[root@master ~]# kubectl edit deployments. www1
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130010344.png" alt="image-20200106130010344" loading="lazy"></p>
+<h3 id="查看一下-10">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130304423.png" alt="image-20200106130304423" loading="lazy"></p>
+<h3 id="访问一下">访问一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130435212.png" alt="image-20200106130435212" loading="lazy"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130447693.png" alt="image-20200106130447693" loading="lazy"></p>
+<h3 id="2-命令回滚">&lt;2&gt;命令回滚</h3>
+<pre><code>[root@master ~]# kubectl rollout undo deployment www1
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130317956.png" alt="image-20200106130317956" loading="lazy"></p>
+<p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
+<h3 id="访问一下-2">访问一下</h3>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130357339.png" alt="image-20200106130357339" loading="lazy"></p>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130414060.png" alt="image-20200106130414060" loading="lazy"></p>
 ]]></content>
   </entry>
   <entry>
@@ -888,327 +1082,6 @@ spec:
 ]]></content>
   </entry>
   <entry>
-    <title>03 创建资源的两种方式</title>
-    <url>/posts/6989.html</url>
-    <content><![CDATA[<table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP地址</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>192.168.1.21</td>
-<td></td>
-</tr>
-<tr>
-<td>node01</td>
-<td>192.168.1.22</td>
-<td></td>
-</tr>
-<tr>
-<td>node02</td>
-<td>192.168.1.23</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h1>两种创建资源的方法</h1>
-<h2 id="基于命令的方式：">基于命令的方式：</h2>
-<ol>
-<li><strong>简单直观快捷，上手快。</strong></li>
-<li><strong>适合临时测试或实验。</strong></li>
-</ol>
-<h2 id="基于配置文件的方式：">基于配置文件的方式：</h2>
-<ol>
-<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
-<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
-<li><strong>可以像管理代码一样管理部署。</strong></li>
-<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
-<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
-</ol>
-<h1>一，用命令行的方式创建资源</h1>
-<h3 id="仅接受json格式"><em>仅接受json格式</em></h3>
-<h2 id="配置清单（yml、yaml）">配置清单（yml、yaml）</h2>
-<pre><code>[root@master ~]# cd /etc/kubernetes/manifests/
-//k8s的yml、yaml文件
-</code></pre>
-<h2 id="1-node01和node02下载nginx镜像">1.node01和node02下载nginx镜像</h2>
-<pre><code>docker pull nginx
-//下载nginx镜像
-</code></pre>
-<h2 id="2-master创建Pod控制器（test-web），deployment">2.master创建Pod控制器（test-web），deployment</h2>
-<pre><code>[root@master ~]# kubectl run test-web --image=nginx --replicas=5
-//创建Pod控制器，deployment
-</code></pre>
-<h2 id="3-查看控制器情况">3.查看控制器情况</h2>
-<h3 id="（1）">（1）</h3>
-<pre><code>[root@master ~]# kubectl get deployments.
-//查看控制器情况
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093615852.png" alt="image-20200106093615852" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
-//显示pod的节点信息
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093922849.png" alt="image-20200106093922849" loading="lazy"></p>
-<h3 id="（2）">（2）</h3>
-<pre><code>[root@master ~]# kubectl get namespaces 
-//查看k8s名称空间
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093850247.png" alt="image-20200106093850247" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl describe deployments. test-web
-//查看资源详细信息
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093723330.png" alt="image-20200106093723330" loading="lazy"></p>
-<p><em><strong>查看某种资源对象，没有指定名称空间，默认是在default名称空间。可以加上-n选项，查看指定名称空间的资源。</strong></em></p>
-<pre><code>[root@master ~]# kubectl get pod -n kube-system 
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106094343401.png" alt="image-20200106094343401" loading="lazy"></p>
-<h2 id="3-删除test-web控制器">3.删除test-web控制器</h2>
-<pre><code>[root@master ~]# kubectl delete deployments. test-web 
-</code></pre>
-<h2 id="4-master创建Pod控制器（web），deployment">4.master创建Pod控制器（web），deployment</h2>
-<pre><code>[root@master ~]# kubectl run web --image=nginx --replicas=5
-</code></pre>
-<h3 id="查看一下pod信息">查看一下pod信息</h3>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-//查看一下pod的节点信息
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106095722353.png" alt="image-20200106095722353" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl describe deployments. web 
-//查看资源详细信息
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100606861.png" alt="image-20200106100606861" loading="lazy"></p>
-<p><em><strong>注意：直接运行创建的deployment资源对象，是经常使用的一个控制器资源类型，除了deployment，还有rc、rs等等pod控制器，deployment是一个高级的pod控制器。</strong></em></p>
-<h3 id="本机测试访问nginx">本机测试访问nginx</h3>
-<pre><code>[root@master ~]# curl 10.244.1.7
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100827131.png" alt="image-20200106100827131" loading="lazy"></p>
-<h2 id="5-创建service资源类型">5.创建service资源类型</h2>
-<pre><code>[root@master ~]# kubectl expose deployment web --name=web-xgp --port=80 --type=NodePort
-//创建service资源类型，这里我们设置了映射端口
-</code></pre>
-<p><em><strong>如果想要外网能够访问服务，可以暴露deployment资源，得到service资源，但svc资源的类型必须为NodePort。</strong></em></p>
-<p><strong>映射端口范围：30000-32767</strong></p>
-<h3 id="查看service信息">查看service信息</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101443348.png" alt="image-20200106101443348" loading="lazy"></p>
-<h3 id="浏览器测试访问http-192-168-1-21-30493">浏览器测试访问http://192.168.1.21:30493/</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101624954.png" alt="image-20200106101624954" loading="lazy"></p>
-<h1>二、服务的扩容与缩容</h1>
-<h2 id="1-查看控制器信息">1. 查看控制器信息</h2>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104638757.png" alt="image-20200106104638757" loading="lazy"></p>
-<h2 id="2-扩容">2.扩容</h2>
-<pre><code>[root@master ~]# kubectl scale deployment web --replicas=8
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104757123.png" alt="image-20200106104757123" loading="lazy"></p>
-<h2 id="3-缩容">3.缩容</h2>
-<pre><code>[root@master ~]# kubectl scale deployment web --replicas=4
-</code></pre>
-<h3 id="查看一下-2">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105536316.png" alt="image-20200106105536316" loading="lazy"></p>
-<h2 id="3-通过修改web的yaml文件进行扩容缩容">3.通过修改web的yaml文件进行扩容缩容</h2>
-<h3 id="备份web的yaml文件">备份web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; web.yaml
-</code></pre>
-<h3 id="使用edit修改web的yaml文件">使用edit修改web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl edit deployments. web 
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531" loading="lazy"></p>
-<h3 id="查看一下-3">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105816339.png" alt="image-20200106105816339" loading="lazy"></p>
-<h1>三、服务的升级与回滚</h1>
-<h2 id="node01和node02下载1-15版本的nginx">node01和node02下载1.15版本的nginx</h2>
-<pre><code>[root@master ~]# docker pull nginx:1.15
-</code></pre>
-<h2 id="1-master设置服务升级">1.master设置服务升级</h2>
-<pre><code>[root@master ~]#  kubectl set image deployment web web=nginx:1.15
-</code></pre>
-<h3 id="查看一下-4">查看一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111227960.png" alt="image-20200106111227960" loading="lazy"></p>
-<h2 id="2-master设置服务回滚">2.master设置服务回滚</h2>
-<h3 id="（1）修改配置文件回滚">（1）修改配置文件回滚</h3>
-<h3 id="使用edit修改web的yaml文件-2">使用edit修改web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl edit deployments. web 
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111523148.png" alt="image-20200106111523148" loading="lazy"></p>
-<h3 id="查看一下-5">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111319699.png" alt="image-20200106111319699" loading="lazy"></p>
-<h3 id="（2）命令回滚">（2）命令回滚</h3>
-<pre><code>[root@master ~]# kubectl rollout undo deployment web 
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111733617.png" alt="image-20200106111733617" loading="lazy"></p>
-<p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
-<h1>四、实验环境</h1>
-<table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP地址</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>192.168.1.21</td>
-<td>registry+Deployment</td>
-</tr>
-<tr>
-<td>node01</td>
-<td>192.168.1.22</td>
-<td></td>
-</tr>
-<tr>
-<td>node02</td>
-<td>192.168.1.23</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<h2 id="1-master-基于httpd制作自己的镜像，需要3个版本，v1-v2-v3-并且对应的版本镜像，访问的主目录内容不一样">1.master 基于httpd制作自己的镜像，需要3个版本，v1,v2,v3.并且对应的版本镜像，访问的主目录内容不一样</h2>
-<h3 id="（1）master下载httpd镜像">（1）master下载httpd镜像</h3>
-<pre><code>[root@master ~]# docker pull httpd
-</code></pre>
-<h3 id="（2）编写Dockerfile">（2）编写Dockerfile</h3>
-<pre><code>[root@master xgp]# vim Dockerfile
-FROM httpd
-COPY index.html /usr/local/apache2/htdocs/index.html
-</code></pre>
-<h3 id="（3）创建测试网页v1">（3）创建测试网页v1</h3>
-<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
-</code></pre>
-<h3 id="（4）基于Dockerfile创建镜像-web1">（4）基于Dockerfile创建镜像 web1</h3>
-<pre><code>[root@master xgp]# docker build -t web1 .
-</code></pre>
-<h3 id="（5）创建测试网页v2">（5）创建测试网页v2</h3>
-<pre><code>[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html
-</code></pre>
-<h3 id="（6）基于Dockerfile创建镜像-web2">（6）基于Dockerfile创建镜像 web2</h3>
-<pre><code>[root@master xgp]# docker build -t web2 .
-</code></pre>
-<h3 id="（7）创建测试网页v3">（7）创建测试网页v3</h3>
-<pre><code>[root@master xgp]# echo &quot;&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;&quot; &gt; index.html
-</code></pre>
-<h3 id="（8）基于Dockerfile创建镜像-web3">（8）基于Dockerfile创建镜像 web3</h3>
-<pre><code>[root@master xgp]# docker build -t web3 .
-</code></pre>
-<h2 id="2-master部署私有仓库">2.master部署私有仓库</h2>
-<h3 id="（1）master下载registry镜像">（1）master下载registry镜像</h3>
-<pre><code>[root@master ~]# docker pull registry
-</code></pre>
-<h3 id="（2）启动registry">（2）启动registry</h3>
-<pre><code>[root@master xgp]# docker run -itd --name registry -p 5000:5000 --restart=always registry:latest 
-</code></pre>
-<h3 id="（3）修改docker配置文件，加入私有仓库（三台）">（3）修改docker配置文件，加入私有仓库（三台）</h3>
-<pre><code>[root@master xgp]# vim /usr/lib/systemd/system/docker.service
-ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106120848869.png" alt="image-20200106120848869" loading="lazy"></p>
-<h3 id="（4）重启docker（三台）">（4）重启docker（三台）</h3>
-<pre><code>[root@master xgp]# systemctl daemon-reload 
-[root@master xgp]# systemctl restart docker
-</code></pre>
-<h2 id="3-上传之前创建的三个web镜像到私有仓库">3.上传之前创建的三个web镜像到私有仓库</h2>
-<h3 id="（1）修改镜像标签">（1）修改镜像标签</h3>
-<pre><code>[root@master xgp]# docker tag web1:latest 192.168.1.21:5000/web1:latest
-[root@master xgp]# docker tag web2:latest 192.168.1.21:5000/web2:latest
-[root@master xgp]# docker tag web3:latest 192.168.1.21:5000/web3:latest
-</code></pre>
-<h3 id="（2）将三个web镜像上传到私有仓库">（2）将三个web镜像上传到私有仓库</h3>
-<pre><code>[root@master xgp]# docker push  192.168.1.21:5000/web1:latest 
-[root@master xgp]# docker push  192.168.1.21:5000/web2:latest
-[root@master xgp]# docker push  192.168.1.21:5000/web3:latest 
-</code></pre>
-<h2 id="4-部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。">4.部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。</h2>
-<pre><code>[root@master xgp]# kubectl run www1 --image=192.168.1.21:5000/web1:latest --replicas=6
-</code></pre>
-<h3 id="查看一下-6">查看一下</h3>
-<pre><code>[root@master xgp]# kubectl get pod
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122026271.png" alt="image-20200106122026271" loading="lazy"></p>
-<h3 id="本地访问一下">本地访问一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122426308.png" alt="image-20200106122426308" loading="lazy"></p>
-<h3 id="5-将上述Deployment暴露一个service资源对象，使外网能否访问服务。">5.将上述Deployment暴露一个service资源对象，使外网能否访问服务。</h3>
-<pre><code>[root@master xgp]#  kubectl expose deployment www1 --name=web-xgp --port=80 --type=NodePort
-</code></pre>
-<h3 id="查看一下-7">查看一下</h3>
-<pre><code>[root@master xgp]# kubectl get svc
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122313996.png" alt="image-20200106122313996" loading="lazy"></p>
-<h3 id="浏览器访问一下">浏览器访问一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122340747.png" alt="image-20200106122340747" loading="lazy"></p>
-<h2 id="6-将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。">6.将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。</h2>
-<h2 id="（1）扩容">（1）扩容</h2>
-<pre><code>[root@master xgp]# kubectl scale deployment www1 --replicas=8
-</code></pre>
-<h3 id="查看一下-8">查看一下</h3>
-<pre><code>[root@master xgp]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122722977.png" alt="image-20200106122722977" loading="lazy"></p>
-<h2 id="（2）缩容">（2）缩容</h2>
-<h3 id="修改k8s配置文件">修改k8s配置文件</h3>
-<h3 id="备份web的yaml文件-2">备份web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o yaml &gt; www1.yaml
-</code></pre>
-<h3 id="使用edit修改web的yaml文件-3">使用edit修改web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl edit deployments. www1
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531" loading="lazy"></p>
-<h3 id="查看一下-9">查看一下</h3>
-<pre><code>[root@master xgp]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122953397.png" alt="image-20200106122953397" loading="lazy"></p>
-<h2 id="7-将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。">7.将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。</h2>
-<h2 id="（1）升级版本为web2">（1）升级版本为web2</h2>
-<pre><code>[root@master ~]# kubectl set image deployment www1 www1=192.168.1.21:5000/web2
-</code></pre>
-<h3 id="本机测试访问">本机测试访问</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30996
-&lt;h1&gt;xgp | test-web | httpd:v2&lt;h1&gt;
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125722931.png" alt="image-20200106125722931" loading="lazy"></p>
-<h3 id="浏览器测试访问">浏览器测试访问</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125750021.png" alt="image-20200106125750021" loading="lazy"></p>
-<h2 id="（2）回滚版本到web1">（2）回滚版本到web1</h2>
-<h3 id="1-修改配置文件回滚">&lt;1&gt;修改配置文件回滚</h3>
-<h3 id="使用edit修改web的yaml文件-4">使用edit修改web的yaml文件</h3>
-<pre><code>[root@master ~]# kubectl edit deployments. www1
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130010344.png" alt="image-20200106130010344" loading="lazy"></p>
-<h3 id="查看一下-10">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130304423.png" alt="image-20200106130304423" loading="lazy"></p>
-<h3 id="访问一下">访问一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130435212.png" alt="image-20200106130435212" loading="lazy"></p>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130447693.png" alt="image-20200106130447693" loading="lazy"></p>
-<h3 id="2-命令回滚">&lt;2&gt;命令回滚</h3>
-<pre><code>[root@master ~]# kubectl rollout undo deployment www1
-</code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130317956.png" alt="image-20200106130317956" loading="lazy"></p>
-<p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
-<h3 id="访问一下-2">访问一下</h3>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130357339.png" alt="image-20200106130357339" loading="lazy"></p>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130414060.png" alt="image-20200106130414060" loading="lazy"></p>
-]]></content>
-  </entry>
-  <entry>
     <title>06 pod资源对象</title>
     <url>/posts/cf38.html</url>
     <content><![CDATA[<h1>一，k8s的资源对象</h1>
@@ -1604,27 +1477,12 @@ spec:
 ]]></content>
   </entry>
   <entry>
-    <title>04 配置清单</title>
-    <url>/posts/748b.html</url>
-    <content><![CDATA[<h1>一，两种创建资源的方法</h1>
-<h2 id="1-基于命令的方式：">1. 基于命令的方式：</h2>
-<ol>
-<li><strong>简单直观快捷，上手快。</strong></li>
-<li><strong>适合临时测试或实验。</strong></li>
-</ol>
-<h2 id="2-基于配置清单的方式：">2. 基于配置清单的方式：</h2>
-<ol>
-<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
-<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
-<li><strong>可以像管理代码一样管理部署。</strong></li>
-<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
-<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
-</ol>
-<h2 id="环境介绍">环境介绍</h2>
-<table>
+    <title>02 k8s架构，基本概念</title>
+    <url>/posts/cd85.html</url>
+    <content><![CDATA[<table>
 <thead>
 <tr>
-<th>主机</th>
+<th>主机名</th>
 <th>IP地址</th>
 <th>服务</th>
 </tr>
@@ -1633,231 +1491,116 @@ spec:
 <tr>
 <td>master</td>
 <td>192.168.1.21</td>
-<td>k8s</td>
+<td></td>
 </tr>
 <tr>
 <td>node01</td>
 <td>192.168.1.22</td>
-<td>k8s</td>
+<td></td>
 </tr>
 <tr>
 <td>node02</td>
 <td>192.168.1.23</td>
-<td>k8s</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<h1>二. 配置清单（yam，yaml）</h1>
-<p><strong>在k8s中，一般使用yaml格式的文件来创建符合我们预期期望的pod，这样的yaml文件我们一般称为资源清单</strong></p>
+<h1>kubernetes架构</h1>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/qqq.png" alt="image-20200104100759831" loading="lazy"></p>
+<p><strong>kubectl</strong>：k8s是命令行端，用来发送客户的操作指令。</p>
+<h2 id="master节点">master节点</h2>
+<p><strong>1. API server[资源操作入口]</strong>：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。</p>
 <blockquote>
-<p><strong>/etc/kubernetes/manifests/</strong>    k8s存放（yam、yaml）文件的地方</p>
-<p>**kubectl explain deployment（通过explain参数加上资源类别就能看到该资源应该怎么定义）</p>
-<p><strong>kubectl explain deployment.metadata</strong> 通过资源类别加上带有Object标记的字段，我们就可以看到一级字段下二级字段的内容有那些怎么去定义等</p>
-<p><strong>kubectl explain deployment.metadata.ownerReferences</strong> 通过加上不同级别的字段名称来看下字段下的内容，而且前面的[]号代表对象列表</p>
-</blockquote>
-<h2 id="1-常见yaml文件写法，以及字段的作用">1.常见yaml文件写法，以及字段的作用</h2>
-<p><strong>(1) apiVersion：api版本信息</strong></p>
-<p><em><strong>（用来定义当前属于哪个组和那个版本，这个直接关系到最终提供使用的是那个版本）</strong></em></p>
-<pre><code>[root@master manifests]# kubectl api-versions
-//查看到当前所有api的版本
-</code></pre>
-<p><strong>(2) kind: 资源对象的类别</strong></p>
-<p><em><strong>(用来定义创建的对象是属于什么类别，是pod，service，还是deployment等对象，可以按照其固定的语法格式来自定义。)</strong></em><br>
-<strong>(3) metadata: 元数据 名称字段（必写）</strong></p>
-<blockquote>
-<p><strong>提供以下几个字段</strong>：<br>
-　　<strong>creationTimestamp: &quot;2019-06-24T12:18:48Z&quot;</strong><br>
-　　<strong>generateName: myweb-5b59c8b9d-</strong><br>
-　　<strong>labels: （对象标签）</strong><br>
-　　　　<strong>pod-template-hash: 5b59c8b9d</strong><br>
-　　　　<strong>run: myweb</strong><br>
-　　<strong>name: myweb-5b59c8b9d-gwzz5 （pods对象的名称，同一个类别当中的pod对象名称是唯一的，不能重复）</strong><br>
-　　<strong>namespace: default （对象所属的名称空间，同一名称空间内可以重复，这个名称空间也是k8s级别的名称空间，不和容器的名称空间混淆）</strong><br>
-　　<strong>ownerReferences:</strong></p>
-<p>- <strong>apiVersion: apps/v1</strong><br>
-　　　　<strong>blockOwnerDeletion: true</strong><br>
-　　　　<strong>controller: true</strong><br>
-　　　　<strong>kind: ReplicaSet</strong><br>
-　　　　<strong>name: myweb-5b59c8b9d</strong><br>
-　　　　<strong>uid: 37f38f64-967a-11e9-8b4b-000c291028e5</strong><br>
-　　<strong>resourceVersion: &quot;943&quot;</strong><br>
-　　<strong>selfLink: /api/v1/namespaces/default/pods/myweb-5b59c8b9d-gwzz5</strong><br>
-　　<strong>uid: 37f653a6-967a-11e9-8b4b-000c291028e5</strong><br>
-　　<strong>annotations（资源注解，这个需要提前定义，默认是没有的）</strong><br>
-<strong>通过这些标识定义了每个资源引用的path：即/api/group/version/namespaces/名称空间/资源类别/对象名称</strong></p>
-</blockquote>
-<p><strong>(4) spec： 用户期望的状态</strong></p>
-<p><em><strong>（这个字段最重要，因为spec是用来定义目标状态的‘disired state’，而且资源不通导致spec所嵌套的字段也各不相同，也就因为spec重要且字段不相同，k8s在内部自建了一个spec的说明用于查询）</strong></em></p>
-<p><strong>(5) status：资源现在处于什么样的状态</strong></p>
-<p><em><strong>（当前状态，’current state‘，这个字段有k8s集群来生成和维护，不能自定义，属于一个只读字段）</strong></em></p>
-<h2 id="2-编写一个yaml文件">2.编写一个yaml文件</h2>
-<pre><code>[root@master ~]# vim web.yaml
-kind: Deployment  #资源对象是控制器
-apiVersion: extensions/v1beta1   #api的版本
-metadata:      #描述kind（资源类型）
-  name: web   #定义控制器名称
-spec:
-  replicas: 2   #副本数量
-  template:     #模板
-    metadata:    
-      labels:   #标签
-        app: web_server
-    spec:
-      containers:   #指定容器
-      - name: nginx  #容器名称
-        image: nginx   #使用的镜像
-</code></pre>
-<h3 id="执行一下">执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f web.yaml 
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments.  -o wide
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209" loading="lazy"></p>
-<h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
-<pre><code>[root@master ~]# vim web-svc.yaml
-kind: Service  #资源对象是副本
-apiVersion: v1   #api的版本
-metadata:
-  name: web-svc
-spec:
-  selector:     #标签选择器
-    app: web-server  #须和web.yaml的标签一致
-  ports:              #端口
-  - protocol: TCP
-    port: 80            #宿主机的端口
-    targetPort: 80      #容器的端口
-</code></pre>
-<blockquote>
-<p><strong>使用相同标签和标签选择器内容，使两个资源对象相互关联。</strong></p>
-<p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
-</blockquote>
-<h3 id="（1）执行一下">（1）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
-</code></pre>
-<h3 id="（2）查看一下">（2）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972" loading="lazy"></p>
-<h3 id="（3）访问一下">（3）访问一下</h3>
-<pre><code>[root@master ~]# curl 10.111.193.168
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353" loading="lazy"></p>
-<h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
-<h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
-<pre><code>kind: Service  #资源对象是副本
-apiVersion: v1   #api的版本
-metadata:
-  name: web-svc
-spec:
-  type: NodePort    #添加 更改网络类型
-  selector:     #标签选择器
-    app: web_server  #须和web.yaml的标签一致
-  ports:              #端口
-  - protocol: TCP
-    port: 80            #宿主机的端口
-    targetPort: 80      #容器的端口
-    nodePort: 30086     #指定群集映射端口，范围是30000-32767
-</code></pre>
-<h3 id="（2）刷新一下">（2）刷新一下</h3>
-<pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml 
-</code></pre>
-<h3 id="（3）查看一下">（3）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940" loading="lazy"></p>
-<h3 id="（4）浏览器测试">（4）浏览器测试</h3>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952" loading="lazy"></p>
-<h1>三、小实验</h1>
-<blockquote>
-<p><strong>基于上一篇博客实验继续进行</strong></p>
-</blockquote>
-<h3 id="1-使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。">1.使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。</h3>
-<h3 id="编写yaml文件">编写yaml文件</h3>
-<pre><code>[root@master ~]# vim www.yaml
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: www_server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1   
-</code></pre>
-<h4 id="（1）执行一下-2">（1）执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
-</code></pre>
-<h4 id="（2）查看一下-2">（2）查看一下</h4>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208" loading="lazy"></p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152" loading="lazy"></p>
-<h4 id="（3）访问一下-2">（3）访问一下</h4>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669" loading="lazy"></p>
-<h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
-<h4 id="编写service文件">编写service文件</h4>
-<pre><code>[root@master ~]# vim www-svc.yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: www-svc
-spec:
-  type: NodePort
-  selector:
-    app: www_server
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-    nodePort: 30123
-</code></pre>
-<h4 id="执行一下-2">执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f www-svc.yaml 
-</code></pre>
-<h4 id="查看一下-2">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525" loading="lazy"></p>
-<h4 id="访问一下">访问一下</h4>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559" loading="lazy"></p>
-<h1>四. 总结</h1>
-<h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
-<blockquote>
-<p>在k8s中pod是最小的管理单位，在一个pod中通常会包含一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。<br>
-在每一个Pod中都有一个特殊的Pause容器和一个或多个业务容器，Pause来源于pause-amd64镜像,Pause容器在Pod中具有非常重要的作用：</p>
 <ul>
-<li>Pause容器作为Pod容器的根容器，其本地于业务容器无关，它的状态代表了整个pod的状态。</li>
-<li>Pod里的多个业务容器共享Pause容器的IP，每个Pod被分配一个独立的IP地址，Pod中的每个容器共享网络命名空间，包括IP地址和网络端口。Pod内的容器可以使用localhost相互通信。k8s支持底层网络集群内任意两个Pod之间进行通信。</li>
-<li>Pod中的所有容器都可以访问共享volumes，允许这些容器共享数据。volumes还用于Pod中的数据持久化，以防其中一个容器需要重新启动而丢失数据。</li>
+<li><strong>提供了资源对象的唯一操作入口，其他所有组件都必须通过它提供的API来操作资源数据，只有API Server与存储通信，其他模块通过API Server访问集群状态。</strong></li>
+</ul>
+<p><strong>第一，是为了保证集群状态访问的安全。</strong></p>
+<p><strong>第二，是为了隔离集群状态访问的方式和后端存储实现的方式：API Server是状态访问的方式，不会因为后端存储技术etcd的改变而改变。</strong></p>
+<ul>
+<li><strong>作为kubernetes系统的入口，封装了核心对象的增删改查操作，以<a href="https://www.centos.bz/tag/restful/" target="_blank" rel="noopener">RESTFul</a>接口方式提供给外部客户和内部组件调用。对相关的资源数据“全量查询”+“变化监听”，实时完成相关的业务功能。</strong></li>
 </ul>
 </blockquote>
-<h2 id="2-Service的作用"><strong>2. Service的作用</strong></h2>
-<p><strong>Service 是后端真实服务的抽象，一个 Service 可以代表多个相同的后端服务</strong></p>
-<p><strong>Service 为 POD 控制器控制的 POD 集群提供一个固定的访问端点，Service 的工作还依赖于 K8s 中的一个附件，就是 CoreDNS ，它将 Service 地址提供一个域名解析。</strong></p>
-<h3 id="NodePort-类型的-service">NodePort 类型的 service</h3>
+<p><strong>2. Scheduler[集群分发调度器]</strong>：负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
 <blockquote>
-<p><strong>clusterIP</strong>：指定 Service 处于 service 网络的哪个 IP，默认为动态分配</p>
-<p><strong>NodePort 是在 ClusterIP 类型上增加了一个暴露在了 node 的网络命名空间上的一个 nodePort，所以用户可以从集群外部访问到集群了，因而用户的请求流程是：Client -&gt; NodeIP:NodePort -&gt; ClusterIP:ServicePort -&gt; PodIP:ContainerPort。</strong></p>
-<p><strong>可以理解为 NodePort 增强了 ClusterIP 的功能，让客户端可以在每个集群外部访问任意一个 nodeip 从而访问到 clusterIP，再由 clusterIP 进行负载均衡至 POD。</strong></p>
+<p><strong>1.Scheduler收集和分析当前Kubernetes集群中所有Minion节点的资源(内存、CPU)负载情况，然后依此分发新建的Pod到Kubernetes集群中可用的节点。</strong></p>
+<p><strong>2.实时监测Kubernetes集群中未分发和已分发的所有运行的Pod。</strong></p>
+<p><strong>3.Scheduler也监测Minion节点信息，由于会频繁查找Minion节点，Scheduler会缓存一份最新的信息在本地。</strong></p>
+<p><strong>4.最后，Scheduler在分发Pod到指定的Minion节点后，会把Pod相关的信息Binding写回API Server。</strong></p>
 </blockquote>
-<h2 id="3-流量走向">3.流量走向</h2>
-<p><strong>我们在创建完成一个服务之后，用户首先应该访问的是nginx反向代理的ip，然后通过nginx访问到后端的k8s服务器（master节点）的“NodePort暴露IP 及 映射的端口“，master的apiserver接受到客户端发送来的访问指令，将访问指令通知Controller Manager控制器，Scheduler执行调度任务，将访问指令分发到各节点之上，通过”master节点“的“ip+映射端口”访问到后端k8s节点的信息，节点的Kubelet（pod代理）当Scheduler确定让那个节点返回访问信息之后，kube-proxy将访问信息负载均衡到该节点的容器上，各容器返回信息，并向Master报告运行状态</strong></p>
+<p><strong>4. Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
+<blockquote>
+<p><strong>实现集群故障检测和恢复的自动化工作，负责执行各种控制器，主要有：</strong></p>
+<p><strong>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</strong></p>
+<p><strong>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</strong></p>
+</blockquote>
+<p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
+<p><strong>7. Flanner</strong>：是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces
+//查看pod信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104100759831.png" alt="image-20200104100759831" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
+//显示pod的节点信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104101023909.png" alt="image-20200104101023909" loading="lazy"></p>
+<h2 id="Node节点">Node节点</h2>
+<p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
+<blockquote>
+<ul>
+<li><strong>负责Node节点上pod的创建、修改、监控、删除等全生命周期的管理</strong></li>
+<li><strong>定时上报本Node的状态信息给API Server。</strong></li>
+<li><strong>kubelet是Master API Server和Minion之间的桥梁，接收Master API Server分配给它的commands和work，与持久性键值存储etcd、file、server和http进行交互，读取配置信息。</strong></li>
+<li><strong>具体的工作如下：</strong></li>
+</ul>
+<p><strong>设置容器的环境变量、给容器绑定<a href="https://www.centos.bz/tag/volume/" target="_blank" rel="noopener">Volume</a>、给容器绑定Port、根据指定的Pod运行一个单一容器、给指定的Pod创建network 容器。</strong></p>
+<p><strong>同步Pod的状态、同步Pod的状态、从<a href="https://www.centos.bz/tag/cadvisor/" target="_blank" rel="noopener">cAdvisor</a>获取<a href="https://www.centos.bz/tag/container/" target="_blank" rel="noopener">Container</a> info、 pod info、 root info、 <a href="https://www.centos.bz/tag/machine/" target="_blank" rel="noopener">machine</a> info。</strong></p>
+<p><strong>在容器中运行命令、杀死容器、删除Pod的所有容器。</strong></p>
+</blockquote>
+<p>**kube-proxy[负载均衡、路由转发]:**负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
+<blockquote>
+<ul>
+<li><strong>Proxy是为了解决外部网络能够访问跨机器集群中容器提供的应用服务而设计的，运行在每个Node上。Proxy提供TCP/UDP sockets的proxy，每创建一种Service，Proxy主要从etcd获取Services和Endpoints的配置信息（也可以从file获取），然后根据配置信息在Minion上启动一个Proxy的进程并监听相应的服务端口，当外部请求发生时，Proxy会根据Load Balancer将请求分发到后端正确的容器处理。</strong></li>
+<li><strong>Proxy不但解决了同一主宿机相同服务端口冲突的问题，还提供了Service转发服务端口对外提供服务的能力，Proxy后端使用了随机、轮循负载均衡算法。</strong></li>
+</ul>
+</blockquote>
+<h2 id="范例">范例</h2>
+<blockquote>
+<h3 id="分析各个组件的作用以及架构工作流程">分析各个组件的作用以及架构工作流程:</h3>
+<p><strong>1) kubectl发送部署 请求到API server</strong><br>
+<strong>2) APIserver通知Controller Manager创建一个Deployment资源。</strong><br>
+<strong>3) Scheduler执行调度任务,将两个副本Pod分发到node01和node02. 上。</strong><br>
+<strong>4) node01和node02, 上的kubelet在各自节点上创建并运行Pod。</strong></p>
+<h3 id="补充">补充</h3>
+<p><strong>1.应用的配置和当前的状态信息保存在etcd中，执行kubectl get pod时API server会从etcd中读取这些数据。</strong></p>
+<p><strong>2.flannel会为每个Pod分配一个IP。 但此时没有创建Service资源，目前kube-proxy还没有参与进来。</strong></p>
+</blockquote>
+<h3 id="运行一个例子（创建一个deployment资源对象-pod控制器-）">运行一个例子（创建一个deployment资源对象&lt;pod控制器&gt;）</h3>
+<pre><code>[root@master ~]# kubectl run test-web --image=httpd --replicas=2
+//创建一个deployment资源对象。
+</code></pre>
+<p><em><strong>运行完成之后，如果有镜像可直接开启，没有的话需要等待一会儿，node节点要在docker hup上下载</strong></em></p>
+<h4 id="查看一下">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110812772.png" alt="image-20200104110812772" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl get pod
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110954406.png" alt="image-20200104110954406" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl get pod  -o wide
+//显示pod的节点信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png" alt="image-20200104111128779" loading="lazy"></p>
+<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
+<h3 id="如果删除一个pod">如果删除一个pod</h3>
+<pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
+</code></pre>
+<h4 id="查看一下-2">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png" alt="image-20200104112418012" loading="lazy"></p>
+<p><em><strong>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</strong></em></p>
+<p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
 ]]></content>
   </entry>
   <entry>
@@ -2150,6 +1893,263 @@ spec:
 ]]></content>
   </entry>
   <entry>
+    <title>04 配置清单</title>
+    <url>/posts/748b.html</url>
+    <content><![CDATA[<h1>一，两种创建资源的方法</h1>
+<h2 id="1-基于命令的方式：">1. 基于命令的方式：</h2>
+<ol>
+<li><strong>简单直观快捷，上手快。</strong></li>
+<li><strong>适合临时测试或实验。</strong></li>
+</ol>
+<h2 id="2-基于配置清单的方式：">2. 基于配置清单的方式：</h2>
+<ol>
+<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
+<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
+<li><strong>可以像管理代码一样管理部署。</strong></li>
+<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
+<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
+</ol>
+<h2 id="环境介绍">环境介绍</h2>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td>k8s</td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td>k8s</td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td>k8s</td>
+</tr>
+</tbody>
+</table>
+<h1>二. 配置清单（yam，yaml）</h1>
+<p><strong>在k8s中，一般使用yaml格式的文件来创建符合我们预期期望的pod，这样的yaml文件我们一般称为资源清单</strong></p>
+<blockquote>
+<p><strong>/etc/kubernetes/manifests/</strong>    k8s存放（yam、yaml）文件的地方</p>
+<p>**kubectl explain deployment（通过explain参数加上资源类别就能看到该资源应该怎么定义）</p>
+<p><strong>kubectl explain deployment.metadata</strong> 通过资源类别加上带有Object标记的字段，我们就可以看到一级字段下二级字段的内容有那些怎么去定义等</p>
+<p><strong>kubectl explain deployment.metadata.ownerReferences</strong> 通过加上不同级别的字段名称来看下字段下的内容，而且前面的[]号代表对象列表</p>
+</blockquote>
+<h2 id="1-常见yaml文件写法，以及字段的作用">1.常见yaml文件写法，以及字段的作用</h2>
+<p><strong>(1) apiVersion：api版本信息</strong></p>
+<p><em><strong>（用来定义当前属于哪个组和那个版本，这个直接关系到最终提供使用的是那个版本）</strong></em></p>
+<pre><code>[root@master manifests]# kubectl api-versions
+//查看到当前所有api的版本
+</code></pre>
+<p><strong>(2) kind: 资源对象的类别</strong></p>
+<p><em><strong>(用来定义创建的对象是属于什么类别，是pod，service，还是deployment等对象，可以按照其固定的语法格式来自定义。)</strong></em><br>
+<strong>(3) metadata: 元数据 名称字段（必写）</strong></p>
+<blockquote>
+<p><strong>提供以下几个字段</strong>：<br>
+　　<strong>creationTimestamp: &quot;2019-06-24T12:18:48Z&quot;</strong><br>
+　　<strong>generateName: myweb-5b59c8b9d-</strong><br>
+　　<strong>labels: （对象标签）</strong><br>
+　　　　<strong>pod-template-hash: 5b59c8b9d</strong><br>
+　　　　<strong>run: myweb</strong><br>
+　　<strong>name: myweb-5b59c8b9d-gwzz5 （pods对象的名称，同一个类别当中的pod对象名称是唯一的，不能重复）</strong><br>
+　　<strong>namespace: default （对象所属的名称空间，同一名称空间内可以重复，这个名称空间也是k8s级别的名称空间，不和容器的名称空间混淆）</strong><br>
+　　<strong>ownerReferences:</strong></p>
+<p>- <strong>apiVersion: apps/v1</strong><br>
+　　　　<strong>blockOwnerDeletion: true</strong><br>
+　　　　<strong>controller: true</strong><br>
+　　　　<strong>kind: ReplicaSet</strong><br>
+　　　　<strong>name: myweb-5b59c8b9d</strong><br>
+　　　　<strong>uid: 37f38f64-967a-11e9-8b4b-000c291028e5</strong><br>
+　　<strong>resourceVersion: &quot;943&quot;</strong><br>
+　　<strong>selfLink: /api/v1/namespaces/default/pods/myweb-5b59c8b9d-gwzz5</strong><br>
+　　<strong>uid: 37f653a6-967a-11e9-8b4b-000c291028e5</strong><br>
+　　<strong>annotations（资源注解，这个需要提前定义，默认是没有的）</strong><br>
+<strong>通过这些标识定义了每个资源引用的path：即/api/group/version/namespaces/名称空间/资源类别/对象名称</strong></p>
+</blockquote>
+<p><strong>(4) spec： 用户期望的状态</strong></p>
+<p><em><strong>（这个字段最重要，因为spec是用来定义目标状态的‘disired state’，而且资源不通导致spec所嵌套的字段也各不相同，也就因为spec重要且字段不相同，k8s在内部自建了一个spec的说明用于查询）</strong></em></p>
+<p><strong>(5) status：资源现在处于什么样的状态</strong></p>
+<p><em><strong>（当前状态，’current state‘，这个字段有k8s集群来生成和维护，不能自定义，属于一个只读字段）</strong></em></p>
+<h2 id="2-编写一个yaml文件">2.编写一个yaml文件</h2>
+<pre><code>[root@master ~]# vim web.yaml
+kind: Deployment  #资源对象是控制器
+apiVersion: extensions/v1beta1   #api的版本
+metadata:      #描述kind（资源类型）
+  name: web   #定义控制器名称
+spec:
+  replicas: 2   #副本数量
+  template:     #模板
+    metadata:    
+      labels:   #标签
+        app: web_server
+    spec:
+      containers:   #指定容器
+      - name: nginx  #容器名称
+        image: nginx   #使用的镜像
+</code></pre>
+<h3 id="执行一下">执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f web.yaml 
+</code></pre>
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments.  -o wide
+//查看控制器信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看pod节点信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209" loading="lazy"></p>
+<h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
+<pre><code>[root@master ~]# vim web-svc.yaml
+kind: Service  #资源对象是副本
+apiVersion: v1   #api的版本
+metadata:
+  name: web-svc
+spec:
+  selector:     #标签选择器
+    app: web-server  #须和web.yaml的标签一致
+  ports:              #端口
+  - protocol: TCP
+    port: 80            #宿主机的端口
+    targetPort: 80      #容器的端口
+</code></pre>
+<blockquote>
+<p><strong>使用相同标签和标签选择器内容，使两个资源对象相互关联。</strong></p>
+<p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
+</blockquote>
+<h3 id="（1）执行一下">（1）执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
+</code></pre>
+<h3 id="（2）查看一下">（2）查看一下</h3>
+<pre><code>[root@master ~]# kubectl get svc
+//查看控制器信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972" loading="lazy"></p>
+<h3 id="（3）访问一下">（3）访问一下</h3>
+<pre><code>[root@master ~]# curl 10.111.193.168
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353" loading="lazy"></p>
+<h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
+<h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
+<pre><code>kind: Service  #资源对象是副本
+apiVersion: v1   #api的版本
+metadata:
+  name: web-svc
+spec:
+  type: NodePort    #添加 更改网络类型
+  selector:     #标签选择器
+    app: web_server  #须和web.yaml的标签一致
+  ports:              #端口
+  - protocol: TCP
+    port: 80            #宿主机的端口
+    targetPort: 80      #容器的端口
+    nodePort: 30086     #指定群集映射端口，范围是30000-32767
+</code></pre>
+<h3 id="（2）刷新一下">（2）刷新一下</h3>
+<pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml 
+</code></pre>
+<h3 id="（3）查看一下">（3）查看一下</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940" loading="lazy"></p>
+<h3 id="（4）浏览器测试">（4）浏览器测试</h3>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952" loading="lazy"></p>
+<h1>三、小实验</h1>
+<blockquote>
+<p><strong>基于上一篇博客实验继续进行</strong></p>
+</blockquote>
+<h3 id="1-使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。">1.使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。</h3>
+<h3 id="编写yaml文件">编写yaml文件</h3>
+<pre><code>[root@master ~]# vim www.yaml
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: www_server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1   
+</code></pre>
+<h4 id="（1）执行一下-2">（1）执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
+</code></pre>
+<h4 id="（2）查看一下-2">（2）查看一下</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+//查看控制器信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208" loading="lazy"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看pod节点信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152" loading="lazy"></p>
+<h4 id="（3）访问一下-2">（3）访问一下</h4>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669" loading="lazy"></p>
+<h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
+<h4 id="编写service文件">编写service文件</h4>
+<pre><code>[root@master ~]# vim www-svc.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: www-svc
+spec:
+  type: NodePort
+  selector:
+    app: www_server
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30123
+</code></pre>
+<h4 id="执行一下-2">执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f www-svc.yaml 
+</code></pre>
+<h4 id="查看一下-2">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525" loading="lazy"></p>
+<h4 id="访问一下">访问一下</h4>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559" loading="lazy"></p>
+<h1>四. 总结</h1>
+<h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
+<blockquote>
+<p>在k8s中pod是最小的管理单位，在一个pod中通常会包含一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。<br>
+在每一个Pod中都有一个特殊的Pause容器和一个或多个业务容器，Pause来源于pause-amd64镜像,Pause容器在Pod中具有非常重要的作用：</p>
+<ul>
+<li>Pause容器作为Pod容器的根容器，其本地于业务容器无关，它的状态代表了整个pod的状态。</li>
+<li>Pod里的多个业务容器共享Pause容器的IP，每个Pod被分配一个独立的IP地址，Pod中的每个容器共享网络命名空间，包括IP地址和网络端口。Pod内的容器可以使用localhost相互通信。k8s支持底层网络集群内任意两个Pod之间进行通信。</li>
+<li>Pod中的所有容器都可以访问共享volumes，允许这些容器共享数据。volumes还用于Pod中的数据持久化，以防其中一个容器需要重新启动而丢失数据。</li>
+</ul>
+</blockquote>
+<h2 id="2-Service的作用"><strong>2. Service的作用</strong></h2>
+<p><strong>Service 是后端真实服务的抽象，一个 Service 可以代表多个相同的后端服务</strong></p>
+<p><strong>Service 为 POD 控制器控制的 POD 集群提供一个固定的访问端点，Service 的工作还依赖于 K8s 中的一个附件，就是 CoreDNS ，它将 Service 地址提供一个域名解析。</strong></p>
+<h3 id="NodePort-类型的-service">NodePort 类型的 service</h3>
+<blockquote>
+<p><strong>clusterIP</strong>：指定 Service 处于 service 网络的哪个 IP，默认为动态分配</p>
+<p><strong>NodePort 是在 ClusterIP 类型上增加了一个暴露在了 node 的网络命名空间上的一个 nodePort，所以用户可以从集群外部访问到集群了，因而用户的请求流程是：Client -&gt; NodeIP:NodePort -&gt; ClusterIP:ServicePort -&gt; PodIP:ContainerPort。</strong></p>
+<p><strong>可以理解为 NodePort 增强了 ClusterIP 的功能，让客户端可以在每个集群外部访问任意一个 nodeip 从而访问到 clusterIP，再由 clusterIP 进行负载均衡至 POD。</strong></p>
+</blockquote>
+<h2 id="3-流量走向">3.流量走向</h2>
+<p><strong>我们在创建完成一个服务之后，用户首先应该访问的是nginx反向代理的ip，然后通过nginx访问到后端的k8s服务器（master节点）的“NodePort暴露IP 及 映射的端口“，master的apiserver接受到客户端发送来的访问指令，将访问指令通知Controller Manager控制器，Scheduler执行调度任务，将访问指令分发到各节点之上，通过”master节点“的“ip+映射端口”访问到后端k8s节点的信息，节点的Kubelet（pod代理）当Scheduler确定让那个节点返回访问信息之后，kube-proxy将访问信息负载均衡到该节点的容器上，各容器返回信息，并向Master报告运行状态</strong></p>
+]]></content>
+  </entry>
+  <entry>
     <title>09 Job资源对象</title>
     <url>/posts/e9be.html</url>
     <content><![CDATA[<h1>Job资源对象</h1>
@@ -2437,120 +2437,6 @@ spec:
 <p><strong>Job 作为 Kubernetes 中用于处理任务的资源，与其他的资源没有太多的区别，它也使用 Kubernetes 中常见的控制器模式，监听 Informer 中的事件并运行 <code>syncHandler</code> 同步任务</strong></p>
 <p><strong>而 CronJob 由于其功能的特殊性，每隔 10s 会从 apiserver 中取出资源并进行检查是否应该触发调度创建新的资源，需要注意的是 CronJob 并不能保证在准确的目标时间执行，执行会有一定程度的滞后。</strong></p>
 <p><strong>两个控制器的实现都比较清晰，只是边界条件比较多，分析其实现原理时一定要多注意。</strong></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>10 复习 </title>
-    <url>/posts/1b18.html</url>
-    <content><![CDATA[<h1>虚拟化</h1>
-<p><strong>云计算的分类</strong>：</p>
-<blockquote>
-<p><strong>基础及服务：laas</strong><br>
-<strong>平台及服务：paas</strong><br>
-<strong>软件及服务：saas</strong></p>
-</blockquote>
-<p><strong>docker虚拟化的底层原理:</strong> Namespace + Cgroup</p>
-<p><strong>Namespace六项隔离:</strong></p>
-<blockquote>
-<p><strong>IPC: 共享内存,消息列队</strong><br>
-<strong>MNT: 挂载点 文件系统</strong><br>
-<strong>NET: 网络栈</strong><br>
-<strong>PID: 进程编号</strong><br>
-<strong>USER: 用户 组</strong><br>
-<strong>UTS: 主机名 域名</strong><br>
-<strong>namespace 六项隔离 实现了容器与宿主机 容器与容器之间的隔离</strong></p>
-</blockquote>
-<p><strong>Cgroup 四项作用：</strong></p>
-<blockquote>
-<p>**1） 资源的限制：**cgroup可以对进程组使用的资源总额进行限制<br>
-**2） 优先级分配：**通过分配的cpu时间片数量以及硬盘IO带宽的大小，实际上相当于控制了进程运行的优先级别<br>
-<strong>3） 资源统计：</strong> group可以统计系统资源使用量，比如gpu使用时间，内存使用量等，用于按量计费。同时还支持挂起动能，也就是说通过cgroup把所有 资源限制起来,对资源都不能使用，注意着并不是说我们的程序不能使用了,知识不能使用资源，处于等待状态。<br>
-**4） 进程控制：**可以对进程组执行挂起、恢复等操作。</p>
-</blockquote>
-<p><strong>镜像是容器运行的核心，容器是镜像运行的后的实例。</strong></p>
-<p><strong>DockerHub| registry  ----&gt;  pull</strong><br>
-<strong>image :     save &gt;   |  load &lt;</strong><br>
-<strong>run    ----&gt;  Container    ----&gt;   commit</strong>*<br>
-<strong>Dockerfile</strong></p>
-<p><strong>Docker 三剑客。</strong></p>
-<blockquote>
-<p><strong>docker  machine :自动化部署多台dockerHost 。</strong></p>
-<p>​        <strong>Docker-compose: 它可以同时控制多个容器。</strong></p>
-<p>​        <strong>yaml。</strong></p>
-<p><strong>Docker Swarm：</strong></p>
-<p>​        <strong>从单个的服务向集群的形势发展。</strong></p>
-<p>​         <strong>高可用、高性能、高并发 ：为了防止单点故障。</strong></p>
-<p>​         <strong>Service：服务  ----&gt; 包括运行什么服务，需要多个                          rep1icas（副本）, 外网如何访问。</strong></p>
-</blockquote>
-<h3 id="k8s"><strong>k8s</strong></h3>
-<p>关闭防火墙、禁用selinux、修改主机名并加入域名解析、关闭swap 、时间同步、免密登录、打开iptables桥接</p>
-<blockquote>
-<p><strong>对硬件的基本要求： CPU：2核   MEM：2G</strong></p>
-<p><strong>主机名：master node01 node02</strong></p>
-<p><strong>时间必须同步</strong></p>
-</blockquote>
-<p><strong>kubctl：k8s客户端      kubeadm：工具  kubelet：客户端代理</strong></p>
-<p><strong>组件：</strong></p>
-<p>​		<strong>三层网络： DockerHost  &gt;   Pod  &gt; Service</strong></p>
-<p>​        <strong>Deployment:        Service:</strong></p>
-<h3 id="master组件">**master组件: **</h3>
-<p><strong>kube- api( application interface) k8s的前端接口</strong></p>
-<p>**Scheduler[集群分发调度器]**负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
-<p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
-<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
-<p>**Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
-<h3 id="Node组件：">Node组件：</h3>
-<p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
-<p>**kube-proxy[负载均衡、路由转发]:**负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
-<h3 id="yaml文件的一级字段">yaml文件的一级字段:</h3>
-<p>​		<strong>VERSION:</strong><br>
-​		<strong>KIND:</strong><br>
-​		<strong>METADATA:</strong><br>
-​		<strong>SPEC :</strong></p>
-<pre><code>[root@master ~]# vim web.yaml
-kind: Deployment  #资源对象是控制器
-apiVersion: extensions/v1beta1   #api的版本
-metadata:      #描述kind（资源类型）
-  name: web   #定义控制器名称
-  namespace：  #名称空间
-spec:
-  replicas: 2   #副本数量
-  template:     #模板
-    metadata:    
-      labels:   #标签
-        app: web_server
-    spec:
-      containers:   #指定容器
-      - name: nginx  #容器名称
-        image: nginx   #使用的镜像
-</code></pre>
-<p>​		<strong>Deployment（控制器)：</strong></p>
-<p>​				**ReplicationController：**用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</p>
-<p>​				**RS（RpelicaSet）:**RS也是用于保证与label selector匹配的pod数量维持在期望状态</p>
-<p>​		<strong>Service：</strong></p>
-<p>​				<strong>type：默认Cluster IP</strong></p>
-<p>​							<strong>NodePort：  30000-32767</strong></p>
-<p>​		<strong>Deployment和Service关联：标签和标签选择器</strong></p>
-<p>​		<strong>Namespace：</strong></p>
-<p>​		<strong>Pod：最小单位</strong></p>
-<p>​					<strong>镜像的下载策略：</strong></p>
-<blockquote>
-<p>​						**Always：**镜像标签为“laster”或镜像不存在时，总是从指定的仓库中获取镜像。</p>
-<p>​						**IfNotPresent：**仅当本地镜像不存在时才从目标仓库下载。</p>
-<p>​						**Never：**禁止从仓库中下载镜像，即只使用本地镜像。</p>
-</blockquote>
-<p>​					<strong>默认的标签 为latest：always</strong></p>
-<p>​					<strong>Pod的重启策略：</strong></p>
-<blockquote>
-<p>​					<strong>Always：</strong>（默认情况下使用）但凡Pod对象终止就将其重启；<br>
-​					**OnFailure：**仅在Pod对象出现错误时才将其重启；<br>
-​					**Never：**从不重启；</p>
-</blockquote>
-<p>​				<strong>Pod的健康检查:</strong><br>
-​					Liveness:   探测失败重启pod<br>
-​					Readiness: 探测失败将pod设置为不可用<br>
-kubelet：控制pod</p>
-<p>DaemonSet :会在每一个节点都会运行，并且只运行一个Pod</p>
 ]]></content>
   </entry>
   <entry>
@@ -2955,6 +2841,120 @@ spec:
 kubectl logs<br>
 /var/ log/messages<br>
 查看该节点的kubelet的日志。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>10 复习 </title>
+    <url>/posts/1b18.html</url>
+    <content><![CDATA[<h1>虚拟化</h1>
+<p><strong>云计算的分类</strong>：</p>
+<blockquote>
+<p><strong>基础及服务：laas</strong><br>
+<strong>平台及服务：paas</strong><br>
+<strong>软件及服务：saas</strong></p>
+</blockquote>
+<p><strong>docker虚拟化的底层原理:</strong> Namespace + Cgroup</p>
+<p><strong>Namespace六项隔离:</strong></p>
+<blockquote>
+<p><strong>IPC: 共享内存,消息列队</strong><br>
+<strong>MNT: 挂载点 文件系统</strong><br>
+<strong>NET: 网络栈</strong><br>
+<strong>PID: 进程编号</strong><br>
+<strong>USER: 用户 组</strong><br>
+<strong>UTS: 主机名 域名</strong><br>
+<strong>namespace 六项隔离 实现了容器与宿主机 容器与容器之间的隔离</strong></p>
+</blockquote>
+<p><strong>Cgroup 四项作用：</strong></p>
+<blockquote>
+<p>**1） 资源的限制：**cgroup可以对进程组使用的资源总额进行限制<br>
+**2） 优先级分配：**通过分配的cpu时间片数量以及硬盘IO带宽的大小，实际上相当于控制了进程运行的优先级别<br>
+<strong>3） 资源统计：</strong> group可以统计系统资源使用量，比如gpu使用时间，内存使用量等，用于按量计费。同时还支持挂起动能，也就是说通过cgroup把所有 资源限制起来,对资源都不能使用，注意着并不是说我们的程序不能使用了,知识不能使用资源，处于等待状态。<br>
+**4） 进程控制：**可以对进程组执行挂起、恢复等操作。</p>
+</blockquote>
+<p><strong>镜像是容器运行的核心，容器是镜像运行的后的实例。</strong></p>
+<p><strong>DockerHub| registry  ----&gt;  pull</strong><br>
+<strong>image :     save &gt;   |  load &lt;</strong><br>
+<strong>run    ----&gt;  Container    ----&gt;   commit</strong>*<br>
+<strong>Dockerfile</strong></p>
+<p><strong>Docker 三剑客。</strong></p>
+<blockquote>
+<p><strong>docker  machine :自动化部署多台dockerHost 。</strong></p>
+<p>​        <strong>Docker-compose: 它可以同时控制多个容器。</strong></p>
+<p>​        <strong>yaml。</strong></p>
+<p><strong>Docker Swarm：</strong></p>
+<p>​        <strong>从单个的服务向集群的形势发展。</strong></p>
+<p>​         <strong>高可用、高性能、高并发 ：为了防止单点故障。</strong></p>
+<p>​         <strong>Service：服务  ----&gt; 包括运行什么服务，需要多个                          rep1icas（副本）, 外网如何访问。</strong></p>
+</blockquote>
+<h3 id="k8s"><strong>k8s</strong></h3>
+<p>关闭防火墙、禁用selinux、修改主机名并加入域名解析、关闭swap 、时间同步、免密登录、打开iptables桥接</p>
+<blockquote>
+<p><strong>对硬件的基本要求： CPU：2核   MEM：2G</strong></p>
+<p><strong>主机名：master node01 node02</strong></p>
+<p><strong>时间必须同步</strong></p>
+</blockquote>
+<p><strong>kubctl：k8s客户端      kubeadm：工具  kubelet：客户端代理</strong></p>
+<p><strong>组件：</strong></p>
+<p>​		<strong>三层网络： DockerHost  &gt;   Pod  &gt; Service</strong></p>
+<p>​        <strong>Deployment:        Service:</strong></p>
+<h3 id="master组件">**master组件: **</h3>
+<p><strong>kube- api( application interface) k8s的前端接口</strong></p>
+<p>**Scheduler[集群分发调度器]**负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
+<p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
+<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p>**Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
+<h3 id="Node组件：">Node组件：</h3>
+<p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
+<p>**kube-proxy[负载均衡、路由转发]:**负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
+<h3 id="yaml文件的一级字段">yaml文件的一级字段:</h3>
+<p>​		<strong>VERSION:</strong><br>
+​		<strong>KIND:</strong><br>
+​		<strong>METADATA:</strong><br>
+​		<strong>SPEC :</strong></p>
+<pre><code>[root@master ~]# vim web.yaml
+kind: Deployment  #资源对象是控制器
+apiVersion: extensions/v1beta1   #api的版本
+metadata:      #描述kind（资源类型）
+  name: web   #定义控制器名称
+  namespace：  #名称空间
+spec:
+  replicas: 2   #副本数量
+  template:     #模板
+    metadata:    
+      labels:   #标签
+        app: web_server
+    spec:
+      containers:   #指定容器
+      - name: nginx  #容器名称
+        image: nginx   #使用的镜像
+</code></pre>
+<p>​		<strong>Deployment（控制器)：</strong></p>
+<p>​				**ReplicationController：**用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</p>
+<p>​				**RS（RpelicaSet）:**RS也是用于保证与label selector匹配的pod数量维持在期望状态</p>
+<p>​		<strong>Service：</strong></p>
+<p>​				<strong>type：默认Cluster IP</strong></p>
+<p>​							<strong>NodePort：  30000-32767</strong></p>
+<p>​		<strong>Deployment和Service关联：标签和标签选择器</strong></p>
+<p>​		<strong>Namespace：</strong></p>
+<p>​		<strong>Pod：最小单位</strong></p>
+<p>​					<strong>镜像的下载策略：</strong></p>
+<blockquote>
+<p>​						**Always：**镜像标签为“laster”或镜像不存在时，总是从指定的仓库中获取镜像。</p>
+<p>​						**IfNotPresent：**仅当本地镜像不存在时才从目标仓库下载。</p>
+<p>​						**Never：**禁止从仓库中下载镜像，即只使用本地镜像。</p>
+</blockquote>
+<p>​					<strong>默认的标签 为latest：always</strong></p>
+<p>​					<strong>Pod的重启策略：</strong></p>
+<blockquote>
+<p>​					<strong>Always：</strong>（默认情况下使用）但凡Pod对象终止就将其重启；<br>
+​					**OnFailure：**仅在Pod对象出现错误时才将其重启；<br>
+​					**Never：**从不重启；</p>
+</blockquote>
+<p>​				<strong>Pod的健康检查:</strong><br>
+​					Liveness:   探测失败重启pod<br>
+​					Readiness: 探测失败将pod设置为不可用<br>
+kubelet：控制pod</p>
+<p>DaemonSet :会在每一个节点都会运行，并且只运行一个Pod</p>
 ]]></content>
   </entry>
   <entry>
@@ -3485,6 +3485,332 @@ adam
 ]]></content>
   </entry>
   <entry>
+    <title>20 k8s的helm模板</title>
+    <url>/posts/c224.html</url>
+    <content><![CDATA[<h1>自定义helm模板</h1>
+<p><a href="https://hub.helm.sh/" target="_blank" rel="noopener">https://hub.helm.sh/</a></p>
+<h2 id="1、开发自己的chare包">1、开发自己的chare包</h2>
+<pre><code>[root@master ~]# helm create mychare
+//创建一个名为mychare的chare包
+[root@master ~]# tree -C mychare/
+//以树状图查看一下chare包
+mychare/
+├── charts
+├── Chart.yaml
+├── templates
+│   ├── deployment.yaml
+│   ├── _helpers.tpl
+│   ├── ingress.yaml
+│   ├── NOTES.txt
+│   ├── service.yaml
+│   └── tests
+│       └── test-connection.yaml
+└── values.yaml
+</code></pre>
+<h2 id="2、调试chart">2、调试chart</h2>
+<pre><code>[root@master mychare]# cd
+[root@master ~]# helm install --dry-run --debug mychare
+//检查这个mychare是否有问题
+</code></pre>
+<h2 id="3、安装chart">3、安装chart</h2>
+<pre><code>[root@node02 ~]# docker pull nginx:stable
+</code></pre>
+<h3 id="（1）通过仓库安装">（1）通过仓库安装</h3>
+<pre><code>[root@master mychare]# helm search redis
+//搜索chare包
+</code></pre>
+<pre><code>[root@master mychare]# helm repo list
+//查看是否有能访问仓库
+</code></pre>
+<pre><code>[root@master mychare]# helm install stable/redis
+//安装
+</code></pre>
+<h3 id="（2）通过tar包安装">（2）通过tar包安装</h3>
+<pre><code>[root@master ~]# helm fetch stable/redis
+//直接下载chare包
+[root@master ~]# tar -zxf redis-1.1.15.tgz
+//解压下载的chare包
+[root@master ~]# tree -C redis
+redis
+├── Chart.yaml
+├── README.md
+├── templates
+│   ├── deployment.yaml
+│   ├── _helpers.tpl
+│   ├── networkpolicy.yaml
+│   ├── NOTES.txt
+│   ├── pvc.yaml
+│   ├── secrets.yaml
+│   └── svc.yaml
+└── values.yaml
+</code></pre>
+<h3 id="（3）通过chare本地目录安装">（3）通过chare本地目录安装</h3>
+<pre><code>[root@master ~]# helm fetch stable/redis
+//直接下载chare包
+[root@master ~]# tar -zxf redis-1.1.15.tgz
+//解压下载的chare包
+[root@master ~]# helm install redis
+</code></pre>
+<h3 id="（4）通过URL安装">（4）通过URL安装</h3>
+<pre><code>[root@master ~]# helm install https://example.com/charts/foo-1.2.3.tgz
+</code></pre>
+<p>使用本地目录安装：</p>
+<pre><code>[root@master ~]# cd mychare/
+[root@master mychare]# vim values.yaml 
+</code></pre>
+<p>![image-20200304094840738](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304094840738.png)</p>
+<pre><code>[root@master mychare]# cd templates/
+[root@master templates]# vim service.yaml 
+</code></pre>
+<p>![image-20200304095647172](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304095647172.png)</p>
+<pre><code>[root@master templates]# cd ..
+[root@master mychare]# helm install -n test ../mychare/
+[root@master ~]# helm upgrade test mychare/ -f  mychare/values.yaml 
+</code></pre>
+<h2 id="4、例子">4、例子</h2>
+<p><strong>使用mychart部署一个实例: xgp。使用镜像为私有镜像v1 版本。</strong></p>
+<p><strong>完成之后，镜像版本。</strong></p>
+<p><strong>全部成功之后，将实例做一个升级，将镜像改为v2版本。</strong></p>
+<h3 id="更改镜像为私有镜像">更改镜像为私有镜像</h3>
+<pre><code>[root@master ~]# vim mychare/values.yaml
+</code></pre>
+<p>![image-20200304104416415](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304104416415.png)</p>
+<pre><code>[root@master ~]#  helm install -n xgp mychare/ -f mychare/values.yaml
+[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304104645260](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304104645260.png)</p>
+<pre><code>[root@master ~]# vim mychare/values.yaml
+</code></pre>
+<p>![image-20200304105120894](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105120894.png)</p>
+<pre><code>[root@master ~]# helm upgrade  xgp mychare/  -f mychare/values.yaml 
+[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304105211506](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105211506.png)</p>
+<pre><code>[root@master ~]# kubectl edit deployments. xgp-mychare
+</code></pre>
+<p>![image-20200304105334541](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105334541.png)</p>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304105359184](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105359184.png)</p>
+<h1>创建自己的Repo仓库</h1>
+<h2 id="1、node01启动一个httpd的容器">1、node01启动一个httpd的容器</h2>
+<pre><code>[root@node01 ~]# mkdir /var/xgp
+//创建一个目录
+[root@node01 ~]# docker pull httpd
+//下载httpd镜像
+[root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
+//启动一个httpd的容器
+</code></pre>
+<h2 id="2、master节点上，将mychart目录打包。">2、master节点上，将mychart目录打包。</h2>
+<pre><code>[root@master ~]# helm package mychare/
+Successfully packaged chart and saved it to: /root/mychare-0.1.0.tgz
+</code></pre>
+<h2 id="3、生成仓库的index文件。">3、生成仓库的index文件。</h2>
+<pre><code>[root@master ~]# mkdir myrepo
+//创建一个目录存放打包的chare
+[root@master ~]# mv mychare-0.1.0.tgz myrepo/
+//移动打包好的文件
+[root@master ~]# helm repo index myrepo/ --url http://192.168.1.22:8080/charts
+//生成仓库的index文件
+[root@master ~]# ls myrepo/
+index.yaml  mychare-0.1.0.tgz
+</code></pre>
+<h2 id="4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下">4、将生成的tar包和index.yaml上传到node01的/var/www/charts目录下.</h2>
+<h3 id="node01创建目录">node01创建目录</h3>
+<pre><code>[root@node01 ~]# mkdir /var/xgp/charts
+</code></pre>
+<h3 id="master移动动到">master移动动到</h3>
+<pre><code>[root@master ~]# scp myrepo/* node01:/var/xgp/charts/
+</code></pre>
+<h3 id="node01查看一下">node01查看一下</h3>
+<pre><code>[root@node01 ~]# ls /var/xgp/charts/
+index.yaml  mychare-0.1.0.tgz
+</code></pre>
+<h2 id="5、添加新的repo仓库。">5、添加新的repo仓库。</h2>
+<pre><code>[root@master ~]# helm repo add newrepo http://192.168.1.22:8080/charts
+</code></pre>
+<pre><code>[root@master ~]# helm repo list
+</code></pre>
+<p>![image-20200304112410286](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112410286.png)</p>
+<pre><code>[root@master ~]# helm search mychare
+</code></pre>
+<p>![image-20200304112443931](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112443931.png)</p>
+<h2 id="6、我们就可以直接使用新的repo仓库部署实例了。">6、我们就可以直接使用新的repo仓库部署实例了。</h2>
+<pre><code>[root@master ~]# helm install newrepo/mychare -n wsd
+</code></pre>
+<pre><code>[root@master ~]# helm list 
+</code></pre>
+<p>![image-20200304112515084](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112515084.png)</p>
+<h2 id="7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。">7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。</h2>
+<p>练习：<br>
+新创建一个bdqn.的chart包。然后将chart包上传到上述repo源中。</p>
+<pre><code>[root@master ~]# helm create bdqn
+[root@master ~]# helm package bdqn/
+[root@master ~]# mv bdqn-0.1.0.tgz myrepo/
+[root@master ~]#  helm repo index myrepo/ --url http://192.168.1.22:8080/charts
+[root@master myrepo]# scp bdqn-0.1.0.tgz index.yaml  node01:/var/xgp/charts
+[root@master myrepo]# helm repo update
+[root@master myrepo]# helm search bdqn
+[root@master myrepo]# helm install http://192.168.1.22:8080/charts/bdqn-0.1.0.tgz
+
+</code></pre>
+<h2 id="1）创建helm的私有仓库，以自己的名字命名。">1）创建helm的私有仓库，以自己的名字命名。</h2>
+<h3 id="1、node01启动一个httpd的容器-2">1、node01启动一个httpd的容器</h3>
+<pre><code>[root@node01 ~]# mkdir /var/xgp
+//创建一个目录
+[root@node01 ~]# docker pull httpd
+//下载httpd镜像
+[root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
+//启动一个httpd的容器
+</code></pre>
+<h3 id="3、生成仓库的index文件。-2">3、生成仓库的index文件。</h3>
+<pre><code>[root@master ~]# mkdir xgprepo
+//创建一个目录存放打包的chare
+[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
+//生成仓库的index文件
+</code></pre>
+<h3 id="4、将生成的index-yaml上传到node01的-var-www-charts目录下">4、将生成的index.yaml上传到node01的/var/www/charts目录下.</h3>
+<h4 id="node01创建目录-2">node01创建目录</h4>
+<pre><code>[root@node01 ~]# mkdir /var/xgp/charts
+</code></pre>
+<h4 id="master移动动到-2">master移动动到</h4>
+<pre><code>[root@master ~]# scp xgprepo/* node01:/var/xgp/charts/
+</code></pre>
+<h4 id="node01查看一下-2">node01查看一下</h4>
+<pre><code>[root@node01 ~]# ls /var/xgp/charts/
+index.yaml  
+</code></pre>
+<h3 id="5、添加新的repo仓库">5、添加新的repo仓库</h3>
+<pre><code>[root@master ~]# helm repo add xgp http://192.168.1.22:8080/charts
+[root@master ~]# helm repo list 
+</code></pre>
+<p>![image-20200304132528938](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304132528938.png)</p>
+<h2 id="2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000">2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</h2>
+<h4 id="自定义一个chart包">自定义一个chart包</h4>
+<pre><code>[root@master ~]# helm create wsd
+//创建一个名为wsd的chares包
+</code></pre>
+<h4 id="按照要求修改配置文件">按照要求修改配置文件</h4>
+<pre><code>[root@master ~]# cd wsd/
+//进入这个chart包
+[root@master wsd]# vim values.yaml
+//修改wsd的配置文件
+replicaCount: 3                         #三个副本
+
+image:
+  repository: 192.168.1.21:5000/web      #更改镜像为私有镜像
+  tag: v1                                #镜像标签v1
+  pullPolicy: IfNotPresent              
+
+imagePullSecrets: []
+nameOverride: &quot;&quot;
+fullnameOverride: &quot;&quot;
+
+service:
+  type: NodePort              #修改模式为映射端口
+  port: 80
+  nodePort: 30000             #添加端口
+
+[root@master wsd]# vim templates/service.yaml 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "wsd.fullname" . }}
+  labels:
+{{ include "wsd.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+      nodePort: {{ .Values.service.nodePort }}    #“添加”能让服务识别到nodePort的端口
+  selector:
+    app.kubernetes.io/name: {{ include "wsd.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+</code></pre>
+<h4 id="测试一下">测试一下</h4>
+<pre><code>[root@master ~]# helm install -n wsd  wsd/ -f wsd/values.yaml 
+</code></pre>
+<p>![image-20200304134959273](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304134959273.png)</p>
+<h4 id="查看一下镜像版本">查看一下镜像版本</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304135106081](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304135106081.png)</p>
+<h4 id="访问一下">访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30000
+</code></pre>
+<p>![image-20200304150609552](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150609552.png)</p>
+<h2 id="3-将实例进行更新，要求镜像生产v2版本。">3)  将实例进行更新，要求镜像生产v2版本。</h2>
+<p><strong>私有镜像和官方镜像升级有所不同，官方的只需通过 （helm upgrade --set imageTag=“标签” 服务名称 charts包名 ）进行更改标签即可，而私有镜像需通过更改values.yaml中的标签才行比较麻烦一点。</strong></p>
+<h3 id="1、修改values-yaml">1、修改values.yaml</h3>
+<pre><code>[root@master ~]# vim wsd/values.yaml 
+
+# Default values for wsd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 3
+
+image:
+  repository: 192.168.1.21:5000/web
+  tag: v2                            #修改标签为v2
+  pullPolicy: IfNotPresent
+[root@master ~]# helm upgrade wsd wsd/ -f wsd/values.yaml
+//基于配置文件刷新一下wsd服务
+</code></pre>
+<h4 id="查看一下">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304140054269](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140054269.png)</p>
+<h4 id="访问一下-2">访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30000
+</code></pre>
+<p>![image-20200304150742815](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150742815.png)</p>
+<h3 id="2、使用edit进行版本更新">2、使用edit进行版本更新</h3>
+<p><em><strong>确定wsd这个服务开启</strong></em></p>
+<pre><code>[root@master ~]# kubectl edit deployments. wsd
+</code></pre>
+<p>![](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140425336.png)</p>
+<h4 id="查看一下-2">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+</code></pre>
+<p>![image-20200304140520342](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140520342.png)</p>
+<h4 id="访问一下-3">访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30000
+</code></pre>
+<p>![image-20200304150839440](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150839440.png)</p>
+<h2 id="4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。">4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。</h2>
+<pre><code>[root@master ~]# helm repo list 
+</code></pre>
+<p>![image-20200304142059023](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304142059023.png)</p>
+<pre><code>[root@master ~]# helm create xgp-wsd
+//创建一个名为xgp-wsd的charts包
+
+[root@master ~]# helm package xgp-wsd/
+//将xgp-wsd打包在当前目录
+
+[root@master ~]# mv xgp-wsd-0.1.0.tgz xgprepo/
+//把打包文件放到仓库目录
+
+[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
+//把仓库目录新加入的charts包信息记录在index.yaml中，使得其他加入的主机可以识别到，仓库的charts包
+
+[root@master ~]# scp xgprepo/* node01:/var/xgp/charts
+//将仓库目录的文件移动到httpd服务上，使各个主机可以访问，下载仓库的charts包
+
+[root@master ~]# helm repo update 
+//更新一下chart存储库
+</code></pre>
+<h3 id="查看一下-3">查看一下</h3>
+<pre><code>[root@master ~]# helm search xgp-wsd
+</code></pre>
+<p>![image-20200304142009776](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304142009776.png)</p>
+]]></content>
+  </entry>
+  <entry>
     <title>21 k8s的持续集成</title>
     <url>/posts/c0fd.html</url>
     <content><![CDATA[<h2 id="实验环境">实验环境</h2>
@@ -3911,332 +4237,6 @@ GitLab 作为 Server 端，控制 Runner 端执行一系列的 CI 任务；代�
 不同的 CI 任务实际上就是在使用不同镜像的容器中执行 <a href="https://www.centos.bz/tag/shell/" target="_blank" rel="noopener">SHELL</a> 命令，自动化 CI 就是执行预先写好的一些小脚本</p>
 <p><strong>敏感信息走环境变量</strong><br>
 一切重要的敏感信息，如账户密码等，不要写到 CI 配置中，直接放到 GitLab 的环境变量中；GitLab 会保证将其推送到远端 Runner 的 SHELL 变量中</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>20 k8s的helm模板</title>
-    <url>/posts/c224.html</url>
-    <content><![CDATA[<h1>自定义helm模板</h1>
-<p><a href="https://hub.helm.sh/" target="_blank" rel="noopener">https://hub.helm.sh/</a></p>
-<h2 id="1、开发自己的chare包">1、开发自己的chare包</h2>
-<pre><code>[root@master ~]# helm create mychare
-//创建一个名为mychare的chare包
-[root@master ~]# tree -C mychare/
-//以树状图查看一下chare包
-mychare/
-├── charts
-├── Chart.yaml
-├── templates
-│   ├── deployment.yaml
-│   ├── _helpers.tpl
-│   ├── ingress.yaml
-│   ├── NOTES.txt
-│   ├── service.yaml
-│   └── tests
-│       └── test-connection.yaml
-└── values.yaml
-</code></pre>
-<h2 id="2、调试chart">2、调试chart</h2>
-<pre><code>[root@master mychare]# cd
-[root@master ~]# helm install --dry-run --debug mychare
-//检查这个mychare是否有问题
-</code></pre>
-<h2 id="3、安装chart">3、安装chart</h2>
-<pre><code>[root@node02 ~]# docker pull nginx:stable
-</code></pre>
-<h3 id="（1）通过仓库安装">（1）通过仓库安装</h3>
-<pre><code>[root@master mychare]# helm search redis
-//搜索chare包
-</code></pre>
-<pre><code>[root@master mychare]# helm repo list
-//查看是否有能访问仓库
-</code></pre>
-<pre><code>[root@master mychare]# helm install stable/redis
-//安装
-</code></pre>
-<h3 id="（2）通过tar包安装">（2）通过tar包安装</h3>
-<pre><code>[root@master ~]# helm fetch stable/redis
-//直接下载chare包
-[root@master ~]# tar -zxf redis-1.1.15.tgz
-//解压下载的chare包
-[root@master ~]# tree -C redis
-redis
-├── Chart.yaml
-├── README.md
-├── templates
-│   ├── deployment.yaml
-│   ├── _helpers.tpl
-│   ├── networkpolicy.yaml
-│   ├── NOTES.txt
-│   ├── pvc.yaml
-│   ├── secrets.yaml
-│   └── svc.yaml
-└── values.yaml
-</code></pre>
-<h3 id="（3）通过chare本地目录安装">（3）通过chare本地目录安装</h3>
-<pre><code>[root@master ~]# helm fetch stable/redis
-//直接下载chare包
-[root@master ~]# tar -zxf redis-1.1.15.tgz
-//解压下载的chare包
-[root@master ~]# helm install redis
-</code></pre>
-<h3 id="（4）通过URL安装">（4）通过URL安装</h3>
-<pre><code>[root@master ~]# helm install https://example.com/charts/foo-1.2.3.tgz
-</code></pre>
-<p>使用本地目录安装：</p>
-<pre><code>[root@master ~]# cd mychare/
-[root@master mychare]# vim values.yaml 
-</code></pre>
-<p>![image-20200304094840738](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304094840738.png)</p>
-<pre><code>[root@master mychare]# cd templates/
-[root@master templates]# vim service.yaml 
-</code></pre>
-<p>![image-20200304095647172](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304095647172.png)</p>
-<pre><code>[root@master templates]# cd ..
-[root@master mychare]# helm install -n test ../mychare/
-[root@master ~]# helm upgrade test mychare/ -f  mychare/values.yaml 
-</code></pre>
-<h2 id="4、例子">4、例子</h2>
-<p><strong>使用mychart部署一个实例: xgp。使用镜像为私有镜像v1 版本。</strong></p>
-<p><strong>完成之后，镜像版本。</strong></p>
-<p><strong>全部成功之后，将实例做一个升级，将镜像改为v2版本。</strong></p>
-<h3 id="更改镜像为私有镜像">更改镜像为私有镜像</h3>
-<pre><code>[root@master ~]# vim mychare/values.yaml
-</code></pre>
-<p>![image-20200304104416415](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304104416415.png)</p>
-<pre><code>[root@master ~]#  helm install -n xgp mychare/ -f mychare/values.yaml
-[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p>![image-20200304104645260](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304104645260.png)</p>
-<pre><code>[root@master ~]# vim mychare/values.yaml
-</code></pre>
-<p>![image-20200304105120894](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105120894.png)</p>
-<pre><code>[root@master ~]# helm upgrade  xgp mychare/  -f mychare/values.yaml 
-[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p>![image-20200304105211506](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105211506.png)</p>
-<pre><code>[root@master ~]# kubectl edit deployments. xgp-mychare
-</code></pre>
-<p>![image-20200304105334541](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105334541.png)</p>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p>![image-20200304105359184](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304105359184.png)</p>
-<h1>创建自己的Repo仓库</h1>
-<h2 id="1、node01启动一个httpd的容器">1、node01启动一个httpd的容器</h2>
-<pre><code>[root@node01 ~]# mkdir /var/xgp
-//创建一个目录
-[root@node01 ~]# docker pull httpd
-//下载httpd镜像
-[root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
-//启动一个httpd的容器
-</code></pre>
-<h2 id="2、master节点上，将mychart目录打包。">2、master节点上，将mychart目录打包。</h2>
-<pre><code>[root@master ~]# helm package mychare/
-Successfully packaged chart and saved it to: /root/mychare-0.1.0.tgz
-</code></pre>
-<h2 id="3、生成仓库的index文件。">3、生成仓库的index文件。</h2>
-<pre><code>[root@master ~]# mkdir myrepo
-//创建一个目录存放打包的chare
-[root@master ~]# mv mychare-0.1.0.tgz myrepo/
-//移动打包好的文件
-[root@master ~]# helm repo index myrepo/ --url http://192.168.1.22:8080/charts
-//生成仓库的index文件
-[root@master ~]# ls myrepo/
-index.yaml  mychare-0.1.0.tgz
-</code></pre>
-<h2 id="4、将生成的tar包和index-yaml上传到node01的-var-www-charts目录下">4、将生成的tar包和index.yaml上传到node01的/var/www/charts目录下.</h2>
-<h3 id="node01创建目录">node01创建目录</h3>
-<pre><code>[root@node01 ~]# mkdir /var/xgp/charts
-</code></pre>
-<h3 id="master移动动到">master移动动到</h3>
-<pre><code>[root@master ~]# scp myrepo/* node01:/var/xgp/charts/
-</code></pre>
-<h3 id="node01查看一下">node01查看一下</h3>
-<pre><code>[root@node01 ~]# ls /var/xgp/charts/
-index.yaml  mychare-0.1.0.tgz
-</code></pre>
-<h2 id="5、添加新的repo仓库。">5、添加新的repo仓库。</h2>
-<pre><code>[root@master ~]# helm repo add newrepo http://192.168.1.22:8080/charts
-</code></pre>
-<pre><code>[root@master ~]# helm repo list
-</code></pre>
-<p>![image-20200304112410286](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112410286.png)</p>
-<pre><code>[root@master ~]# helm search mychare
-</code></pre>
-<p>![image-20200304112443931](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112443931.png)</p>
-<h2 id="6、我们就可以直接使用新的repo仓库部署实例了。">6、我们就可以直接使用新的repo仓库部署实例了。</h2>
-<pre><code>[root@master ~]# helm install newrepo/mychare -n wsd
-</code></pre>
-<pre><code>[root@master ~]# helm list 
-</code></pre>
-<p>![image-20200304112515084](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304112515084.png)</p>
-<h2 id="7-如果以后仓库中新添加了chart包-需要用helm-repo-update命玲更新本地的index文件。">7.如果以后仓库中新添加了chart包,需要用helm repo update命玲更新本地的index文件。</h2>
-<p>练习：<br>
-新创建一个bdqn.的chart包。然后将chart包上传到上述repo源中。</p>
-<pre><code>[root@master ~]# helm create bdqn
-[root@master ~]# helm package bdqn/
-[root@master ~]# mv bdqn-0.1.0.tgz myrepo/
-[root@master ~]#  helm repo index myrepo/ --url http://192.168.1.22:8080/charts
-[root@master myrepo]# scp bdqn-0.1.0.tgz index.yaml  node01:/var/xgp/charts
-[root@master myrepo]# helm repo update
-[root@master myrepo]# helm search bdqn
-[root@master myrepo]# helm install http://192.168.1.22:8080/charts/bdqn-0.1.0.tgz
-
-</code></pre>
-<h2 id="1）创建helm的私有仓库，以自己的名字命名。">1）创建helm的私有仓库，以自己的名字命名。</h2>
-<h3 id="1、node01启动一个httpd的容器-2">1、node01启动一个httpd的容器</h3>
-<pre><code>[root@node01 ~]# mkdir /var/xgp
-//创建一个目录
-[root@node01 ~]# docker pull httpd
-//下载httpd镜像
-[root@node02 ~]# docker run -d -p 8080:80 -v /var/xgp:/usr/local/apache2/htdocs httpd
-//启动一个httpd的容器
-</code></pre>
-<h3 id="3、生成仓库的index文件。-2">3、生成仓库的index文件。</h3>
-<pre><code>[root@master ~]# mkdir xgprepo
-//创建一个目录存放打包的chare
-[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
-//生成仓库的index文件
-</code></pre>
-<h3 id="4、将生成的index-yaml上传到node01的-var-www-charts目录下">4、将生成的index.yaml上传到node01的/var/www/charts目录下.</h3>
-<h4 id="node01创建目录-2">node01创建目录</h4>
-<pre><code>[root@node01 ~]# mkdir /var/xgp/charts
-</code></pre>
-<h4 id="master移动动到-2">master移动动到</h4>
-<pre><code>[root@master ~]# scp xgprepo/* node01:/var/xgp/charts/
-</code></pre>
-<h4 id="node01查看一下-2">node01查看一下</h4>
-<pre><code>[root@node01 ~]# ls /var/xgp/charts/
-index.yaml  
-</code></pre>
-<h3 id="5、添加新的repo仓库">5、添加新的repo仓库</h3>
-<pre><code>[root@master ~]# helm repo add xgp http://192.168.1.22:8080/charts
-[root@master ~]# helm repo list 
-</code></pre>
-<p>![image-20200304132528938](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304132528938.png)</p>
-<h2 id="2）-自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为-30000">2） 自定义一个chart包，要求这个包运行一个httpd的服务，使用私有镜像v1版本。3个副本Pod，service类型更改为NodePort，端口指定为:30000</h2>
-<h4 id="自定义一个chart包">自定义一个chart包</h4>
-<pre><code>[root@master ~]# helm create wsd
-//创建一个名为wsd的chares包
-</code></pre>
-<h4 id="按照要求修改配置文件">按照要求修改配置文件</h4>
-<pre><code>[root@master ~]# cd wsd/
-//进入这个chart包
-[root@master wsd]# vim values.yaml
-//修改wsd的配置文件
-replicaCount: 3                         #三个副本
-
-image:
-  repository: 192.168.1.21:5000/web      #更改镜像为私有镜像
-  tag: v1                                #镜像标签v1
-  pullPolicy: IfNotPresent              
-
-imagePullSecrets: []
-nameOverride: &quot;&quot;
-fullnameOverride: &quot;&quot;
-
-service:
-  type: NodePort              #修改模式为映射端口
-  port: 80
-  nodePort: 30000             #添加端口
-
-[root@master wsd]# vim templates/service.yaml 
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: {{ include "wsd.fullname" . }}
-  labels:
-{{ include "wsd.labels" . | indent 4 }}
-spec:
-  type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
-      protocol: TCP
-      name: http
-      nodePort: {{ .Values.service.nodePort }}    #“添加”能让服务识别到nodePort的端口
-  selector:
-    app.kubernetes.io/name: {{ include "wsd.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-</code></pre>
-<h4 id="测试一下">测试一下</h4>
-<pre><code>[root@master ~]# helm install -n wsd  wsd/ -f wsd/values.yaml 
-</code></pre>
-<p>![image-20200304134959273](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304134959273.png)</p>
-<h4 id="查看一下镜像版本">查看一下镜像版本</h4>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p>![image-20200304135106081](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304135106081.png)</p>
-<h4 id="访问一下">访问一下</h4>
-<pre><code>[root@master ~]# curl 127.0.0.1:30000
-</code></pre>
-<p>![image-20200304150609552](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150609552.png)</p>
-<h2 id="3-将实例进行更新，要求镜像生产v2版本。">3)  将实例进行更新，要求镜像生产v2版本。</h2>
-<p><strong>私有镜像和官方镜像升级有所不同，官方的只需通过 （helm upgrade --set imageTag=“标签” 服务名称 charts包名 ）进行更改标签即可，而私有镜像需通过更改values.yaml中的标签才行比较麻烦一点。</strong></p>
-<h3 id="1、修改values-yaml">1、修改values.yaml</h3>
-<pre><code>[root@master ~]# vim wsd/values.yaml 
-
-# Default values for wsd.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
-replicaCount: 3
-
-image:
-  repository: 192.168.1.21:5000/web
-  tag: v2                            #修改标签为v2
-  pullPolicy: IfNotPresent
-[root@master ~]# helm upgrade wsd wsd/ -f wsd/values.yaml
-//基于配置文件刷新一下wsd服务
-</code></pre>
-<h4 id="查看一下">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p>![image-20200304140054269](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140054269.png)</p>
-<h4 id="访问一下-2">访问一下</h4>
-<pre><code>[root@master ~]# curl 127.0.0.1:30000
-</code></pre>
-<p>![image-20200304150742815](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150742815.png)</p>
-<h3 id="2、使用edit进行版本更新">2、使用edit进行版本更新</h3>
-<p><em><strong>确定wsd这个服务开启</strong></em></p>
-<pre><code>[root@master ~]# kubectl edit deployments. wsd
-</code></pre>
-<p>![](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140425336.png)</p>
-<h4 id="查看一下-2">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-</code></pre>
-<p>![image-20200304140520342](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304140520342.png)</p>
-<h4 id="访问一下-3">访问一下</h4>
-<pre><code>[root@master ~]# curl 127.0.0.1:30000
-</code></pre>
-<p>![image-20200304150839440](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304150839440.png)</p>
-<h2 id="4）重新定义一个chart包，名称为-new-test-将这个包上传到上述私有仓库中。">4）重新定义一个chart包，名称为: new-test,将这个包上传到上述私有仓库中。</h2>
-<pre><code>[root@master ~]# helm repo list 
-</code></pre>
-<p>![image-20200304142059023](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304142059023.png)</p>
-<pre><code>[root@master ~]# helm create xgp-wsd
-//创建一个名为xgp-wsd的charts包
-
-[root@master ~]# helm package xgp-wsd/
-//将xgp-wsd打包在当前目录
-
-[root@master ~]# mv xgp-wsd-0.1.0.tgz xgprepo/
-//把打包文件放到仓库目录
-
-[root@master ~]# helm repo index xgprepo/ --url http://192.168.1.22:8080/charts
-//把仓库目录新加入的charts包信息记录在index.yaml中，使得其他加入的主机可以识别到，仓库的charts包
-
-[root@master ~]# scp xgprepo/* node01:/var/xgp/charts
-//将仓库目录的文件移动到httpd服务上，使各个主机可以访问，下载仓库的charts包
-
-[root@master ~]# helm repo update 
-//更新一下chart存储库
-</code></pre>
-<h3 id="查看一下-3">查看一下</h3>
-<pre><code>[root@master ~]# helm search xgp-wsd
-</code></pre>
-<p>![image-20200304142009776](G:\四期\虚拟化\kubernetes\k8s文档\20 k8s的helm模板.assets\image-20200304142009776.png)</p>
 ]]></content>
   </entry>
   <entry>
