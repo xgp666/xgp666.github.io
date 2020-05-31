@@ -1,132 +1,90 @@
-// '<div id="no-result"><svg class="icon"><use xlink:href="#icon-search-line"></use></svg></div>';
-// } else if (resultItems.length === 0) {
-// resultContent.innerHTML =
-// '<div id="no-result"><svg class="icon"><use xlink:href="#icon-emotion-unhappy-line"></use></svg></div>';
-//- local-search
+var  searchFunc  =  函数 （路径， search_id ， content_id ） { 
+    控制台。日志（“测试” ）；
+    //'使用严格'; 
+    $ 。ajax （{ 
+        url ： path ， 
+        dataType ： “ json” ， 
+        success ： function  （ datas ） { 
+            //从搜索数据中获取内容
+            // var datas = $（“ entry”，xmlResponse）.map（function（）{ 
+            //返回{
+            //标题：$（“ title”，此）.text（），
+            //内容：$（“ content”，此）.text（），
+            //网址：$（“ url”，此）.text（）
+            //}; 
+            //}）。get（）; 
+            // console.log（xmlResponse）; 
+            控制台。日志（“测试！” ）；
+            
+            控制台。日志（数据）; 
+            var $ input = document 。getElementById （ search_id ）; 
+            var $ resultContent = document 。getElementById （ content_id ）; 
+            $ input 。addEventListener （'input' ， function  （） { 
+                var str =  '<ul class = \“ search-result-list \”>' ; 
+                var关键字=  this。价值。修剪（）。toLowerCase （）。分割（/ [\ s \-] + / ）; 
+                $ resultContent 。innerHTML =  “” ; 
+                如果 （此。值。修剪（）。长度<=  0 ） { 
+                    返回; 
+                } 
+                //执行本地搜索 
+                数据。forEach （函数 （数据） {
+                    var isMatch =  true ; 
+                    var content_index =  [ ] ; 
+                    var data_title = data 。标题。修剪（）。toLowerCase （）; 
+                    var data_content = data 。内容。修剪（）。替换（/ <[^>] +> / g ， “” ）。toLowerCase （）; 
+                    var data_url =数据。网址; 
+                    VAR index_title =  - 1 ; 
+                    VAR index_content =  - 1 ; 
+                    VAR first_occur =  - 1 ; 
+                    //仅
+                    当 （ data_title ！=  ''  && data_content ！=  '' ） { 
+                        关键字时，才匹配标题和内容不为空的物品。forEach （函数 （关键字， i ） { 
+                            index_title= data_title 。indexOf （关键字）; 
+                            index_content = data_content 。indexOf （关键字）; 
+                            如果 （ index_title <  0  && index_content <  0 ） { 
+                                isMatch =  false ; 
+                            }  else  { 
+                                if  （ index_content <  0 ） { 
+                                    index_content =  0; 
+                                } 
+                                if  （ i ==  0 ） { 
+                                    first_occur = index_content ; 
+                                } 
+                            } 
+                        } ）; 
+                    } 
+                    //显示搜索结果，
+                    如果 （ isMatch ） { 
+                        str + =  “ <li> <a href='"  + data_url +  "'class='search-result-title'>”  + data_title +  “ </a>” ; 
+                        var content =数据。内容。）。替换（/ <[^>] +> / g ， “” ）; 
+                        if  （ first_occur > =  0 ） { 
+                            //切出100个字符
+                            var start = first_occur -  20 ; 
+                            var end = first_occur +  80 ; 
+                            如果 （开始<  0 ） { 
+                                开始=  0 ; 
+                            } 
+                            if  （ start ==  0 ） {
+                                端=  100 ; 
+                            } 
+                            如果 （端>内容。长度） { 
+                                端=内容。长度; 
+                            } 
+                            var match_content = content 。substr （开始，结束）; 
+                            //突出显示所有关键字 
+                            keyword 。forEach （函数 （关键字） { 
+                                var regS=  新 正则表达式（关键字， “GI” ）; 
+                                match_content = match_content 。替换（ regS ， “ <em class = \” search-keyword \“>”  +关键字+  “ </ em>” ）；
+                            } ）;
 
-let searchFunc = function(path, search_id, content_id) {
-  "use strict";
-  const req = new Request(path);
-  let xhr = new XMLHttpRequest();
-  xhr.open("GET", path);
-  xhr.responseType = "document";
-  xhr.overrideMimeType("text/xml");
-  xhr.onload = function() {
-    if (xhr.readyState === xhr.DONE && xhr.status === 200) {
-      let xml = xhr.responseXML;
-      let datas = [];
-      xml.querySelectorAll("entry").forEach(entry => {
-        datas.push({
-          title: entry.querySelector("title").innerHTML,
-          content: entry.querySelector("content").innerHTML,
-          url: entry.querySelector("url").innerHTML
-        });
-      });
-      let $input = document.getElementById(search_id);
-      if (!$input) return;
-      let $resultContent = document.getElementById(content_id);
-      if (document.querySelectorAll("#local-search-input").length > 0) {
-        $input.addEventListener("input", function() {
-          let str = '<ul class="search-result-list">';
-          let keywords = this.value;
-          keywords = keywords
-            .trim()
-            .toLowerCase()
-            .split(/[\s\-]+/);
-          $resultContent.innerHTML = "";
-          if (this.value.trim().length <= 0) {
-            return;
-          }
-          // perform local searching
-          datas.forEach(function(data) {
-            let isMatch = true;
-            let content_index = [];
-            if (!data.title || data.title.trim() === "") {
-              data.title = "Untitled";
-            }
-            let data_title = data.title.trim().toLowerCase();
-            let data_content = data.content
-              .trim()
-              .replace(/<[^>]+>/g, "")
-              .toLowerCase();
-            let data_url = data.url;
-            let index_title = -1;
-            let index_content = -1;
-            let first_occur = -1;
-            // only match artiles with not empty contents
-            if (data_content !== "") {
-              keywords.forEach(function(keyword, i) {
-                index_title = data_title.indexOf(keyword);
-                index_content = data_content.indexOf(keyword);
-
-                if (index_title < 0 && index_content < 0) {
-                  isMatch = false;
-                } else {
-                  if (index_content < 0) {
-                    index_content = 0;
-                  }
-                  if (i == 0) {
-                    first_occur = index_content;
-                  }
-                  // content_index.push({index_content:index_content, keyword_len:keyword_len});
-                }
-              });
-            } else {
-              isMatch = false;
-            }
-            // show search results
-            if (isMatch) {
-              str +=
-                "<li><a href='" +
-                data_url +
-                "' class='search-result-title'>" +
-                data_title +
-                "</a>";
-              let content = data.content.trim().replace(/<[^>]+>/g, "");
-              if (first_occur >= 0) {
-                // cut out 100 characters
-                let start = first_occur - 20;
-                let end = first_occur + 80;
-
-                if (start < 0) {
-                  start = 0;
-                }
-
-                if (start == 0) {
-                  end = 100;
-                }
-
-                if (end > content.length) {
-                  end = content.length;
-                }
-
-                let match_content = content.substring(start, end);
-
-                // highlight all keywords
-                keywords.forEach(function(keyword) {
-                  let regS = new RegExp(keyword, "gi");
-                  match_content = match_content.replace(
-                    regS,
-                    '<em class="search-keyword">' + keyword + "</em>"
-                  );
-                });
-
-                str += '<p class="search-result">' + match_content + "...</p>";
-              }
-              str += "</li>";
-            }
-          });
-          str += "</ul>";
-          $resultContent.innerHTML = str;
-        });
-      }
-    }
-  };
-  xhr.send();
-};
-
-searchFunc(
-  CONFIG.local_search.path,
-  "local-search-input",
-  "local-search-result"
-);
+                            str + =  “ <p class = \”搜索结果\“>”  + match_content +  “ ... </ p>” 
+                        } 
+                        str + =  “ </ li>” ; 
+                    } 
+                } ）; 
+                str + =  “ </ ul>” ; 
+                $ resultContent 。innerHTML = str ; 
+            } ）; 
+        } 
+    } ）; 
+}
