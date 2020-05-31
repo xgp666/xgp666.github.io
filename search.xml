@@ -468,517 +468,6 @@ ExecStart=/usr/bin/dockerd --insecure-registry 192.168.1.21:5000
 ]]></content>
   </entry>
   <entry>
-    <title>05 Delpoyment、service</title>
-    <url>/posts/936d.html</url>
-    <content><![CDATA[<h1>Deployment介绍</h1>
-<p><strong>Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。Deployment可以理解为RC的升级版（RC+Reolicat Set）。特点在于可以随时知道Pod的部署进度，即对Pod的创建、调度、绑定节点、启动容器完整过程的进度展示。</strong></p>
-<h2 id="使用场景">使用场景</h2>
-<blockquote>
-<p>创建一个Deployment对象来生成对应的Replica Set并完成Pod副本的创建过程。<br>
-检查Deployment的状态来确认部署动作是否完成（Pod副本的数量是否达到预期值）。<br>
-更新Deployment以创建新的Pod(例如镜像升级的场景)。<br>
-如果当前Deployment不稳定，回退到上一个Deployment版本。<br>
-挂起或恢复一个Deployment。</p>
-</blockquote>
-<h1>Service介绍</h1>
-<p><img src="https://img-blog.csdn.net/20170809212910268?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHV3aF8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img" loading="lazy"></p>
-<p><strong>Service定义了一个服务的访问入口地址，前端应用通过这个入口地址访问其背后的一组由Pod副本组成的集群实例，Service与其后端的Pod副本集群之间是通过Label Selector来实现“无缝对接”。RC保证Service的Pod副本实例数目保持预期水平。</strong></p>
-<h2 id="外部系统访问Service的问题">外部系统访问Service的问题</h2>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">IP类型</th>
-<th style="text-align:left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Node IP</td>
-<td style="text-align:left">Node节点的IP地址</td>
-</tr>
-<tr>
-<td style="text-align:left">Pod IP</td>
-<td style="text-align:left">Pod的IP地址</td>
-</tr>
-<tr>
-<td style="text-align:left">Cluster IP</td>
-<td style="text-align:left">Service的IP地址</td>
-</tr>
-</tbody>
-</table>
-<h1>环境介绍</h1>
-<table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP地址</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>master</strong></td>
-<td><strong>192.168.1.21</strong></td>
-<td><strong>k8s</strong></td>
-</tr>
-<tr>
-<td><strong>node01</strong></td>
-<td><strong>192.168.1.22</strong></td>
-<td><strong>k8s</strong></td>
-</tr>
-<tr>
-<td><strong>node02</strong></td>
-<td><strong>192.168.1.23</strong></td>
-<td><strong>k8s</strong></td>
-</tr>
-</tbody>
-</table>
-<h1>一，Delpoyment和service的简单使用</h1>
-<h2 id="1-练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。">1.练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。</h2>
-<pre><code>[root@master ~]# vim xgp.yaml
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1
-</code></pre>
-<h3 id="（1）执行一下">（1）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml  --recore
-</code></pre>
-<h3 id="（2）查看一下">（2）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get pod
-</code></pre>
-<p>![image-20200108090638488](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090638488.png)</p>
-<h3 id="（3）访问一下">（3）访问一下</h3>
-<pre><code>[root@master ~]# curl 10.244.2.16
-</code></pre>
-<p>![image-20200108090817058](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090817058.png)</p>
-<h3 id="（4）更新一下yaml文件，副本加一">（4）更新一下yaml文件，副本加一</h3>
-<pre><code>[root@master ~]# vim xgp.yaml
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 4
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1
-</code></pre>
-<h4 id="1-执行一下">&lt;1&gt;执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
-</code></pre>
-<h4 id="2-查看一下">&lt;2&gt;查看一下</h4>
-<pre><code>[root@master ~]# kubectl get pod
-</code></pre>
-<p>![image-20200108091104534](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091104534.png)</p>
-<p><em><strong>副本数量加一，如果yaml文件的副本为0，则副本数量还是之前的状态，并不会更新。</strong></em></p>
-<h2 id="2-练习写一个service文件">2.练习写一个service文件</h2>
-<pre><code>[root@master ~]# vim xgp-svc.yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: xgp-svc
-spec:
-  selector:
-    app: xgp-server
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-</code></pre>
-<h3 id="（1）执行一下-2">（1）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml 
-</code></pre>
-<h3 id="（2）查看一下-2">（2）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p>![image-20200108091909396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091909396.png)</p>
-<h3 id="（3）访问一下-2">（3）访问一下</h3>
-<pre><code>[root@master ~]# curl 10.107.119.49
-</code></pre>
-<p>![image-20200108092011164](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108092011164.png)</p>
-<h2 id="3-修改yaml文件">3.修改yaml文件</h2>
-<pre><code>[root@master ~]# vim xgp.yaml 
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1
-        ports:
-          - containerPort: 80  #提示端口
-</code></pre>
-<p><em><strong>注意：在Delpoyment资源对象中，可以添加Port字段，但此字段仅供用户查看，并不实际生效</strong></em></p>
-<h3 id="执行一下">执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
-</code></pre>
-<h2 id="4-service文件映射端口">4.service文件映射端口</h2>
-<pre><code>[root@master ~]# vim xgp-svc.yaml 
-kind: Service
-apiVersion: v1
-metadata:
-  name: xgp-svc
-spec:
-  type: NodePort
-  selector:
-    app: xgp-server
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30123
-</code></pre>
-<h3 id="执行一下-2">执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml 
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p>![image-20200108094404773](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094404773.png)</p>
-<h3 id="访问一下">访问一下</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
-<p>![image-20200108094439682](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094439682.png)</p>
-<p>![image-20200108094501253](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094501253.png)</p>
-<h2 id="5-修改三个pod页面内容">5.修改三个pod页面内容</h2>
-<h3 id="（1）查看一下pod信息">（1）查看一下pod信息</h3>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
-<p>![image-20200108094953119](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094953119.png)</p>
-<h3 id="（2）修改POD页面内容（三台不一样）">（2）修改POD页面内容（三台不一样）</h3>
-<pre><code>[root@master ~]# kubectl exec -it xgp-web-8d5f9656f-8z7d9 /bin/bash
-//根据pod名称进入pod之中
-</code></pre>
-<h3 id="进入容器后修改页面内容">进入容器后修改页面内容</h3>
-<pre><code>root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# echo xgp-v1 &gt; htdocs/index.html 
-root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# exit
-</code></pre>
-<h3 id="访问一下-2">访问一下</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
-<p>![image-20200108095626532](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108095626532.png)</p>
-<h1>二.分析一下k8s负载均衡原理</h1>
-<h3 id="（1）查看service的暴露IP">（1）查看service的暴露IP</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p>![image-20200108101539835](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101539835.png)</p>
-<h3 id="（2）查看一下iptabes规则">（2）查看一下iptabes规则</h3>
-<pre><code>[root@master ~]# iptables-save 
-//查看已配置的规则
-</code></pre>
-<blockquote>
-<p>SNAT：Source NAT（源地址转换）</p>
-<p>DNAT：Destination NAT（目标地址转换）</p>
-<p>MASQ：动态的源地址转换</p>
-</blockquote>
-<h3 id="（3）根据service的暴露IP，查看对应的iptabes规则">（3）根据service的暴露IP，查看对应的iptabes规则</h3>
-<pre><code>[root@master ~]# iptables-save | grep 10.107.119.49
-</code></pre>
-<p>![image-20200108101726315](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101726315.png)</p>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S
-</code></pre>
-<p>![image-20200108102003596](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102003596.png)</p>
-<h3 id="（4）对应一下IP是否一致">（4）对应一下IP是否一致</h3>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-ZHDQ73ZKUBMELLJB
-</code></pre>
-<p>![image-20200108102137062](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102137062.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
-<p>![image-20200108102203144](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102203144.png)</p>
-<p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
-<h1>三.回滚到指定版本</h1>
-<h3 id="（1）删除之前创建的delpoy和service">（1）删除之前创建的delpoy和service</h3>
-<pre><code>[root@master ~]# kubectl  delete -f xgp.yaml 
-[root@master ~]# kubectl  delete -f xgp-svc.yaml 
-</code></pre>
-<h3 id="（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像">（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像</h3>
-<pre><code>[root@master ~]# vim xgp1.yaml  （三个文件名不相同）
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-web
-spec:
-  revisionHistoryLimit: 10
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1  （三台版本不同）
-        ports:
-          - containerPort: 80
-</code></pre>
-<p>此处3个yaml文件 指定不同版本的镜像</p>
-<h3 id="（3）运行三个服务，并记录三个版本信息">（3）运行三个服务，并记录三个版本信息</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml --record 
-[root@master ~]# kubectl apply -f xgp-2.yaml --record 
-[root@master ~]# kubectl apply -f xgp-3.yaml --record 
-</code></pre>
-<h3 id="（4）查看有哪些版本信息">（4）查看有哪些版本信息</h3>
-<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web 
-</code></pre>
-<p>![image-20200108105842447](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108105842447.png)</p>
-<h3 id="（5）运行之前的service文件">（5）运行之前的service文件</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml
-</code></pre>
-<h3 id="（6）查看service暴露端口">（6）查看service暴露端口</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p>![image-20200108110014614](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110014614.png)</p>
-<h3 id="（7）测试访问">（7）测试访问</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
-<p>![image-20200108110049396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110049396.png)</p>
-<h3 id="（8）回滚到指定版本">（8）回滚到指定版本</h3>
-<pre><code>[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision=1
-//这里指定的是版本信息的编号
-</code></pre>
-<h4 id="1-访问一下">&lt;1&gt;访问一下</h4>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
-<p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
-<h4 id="2-查看有哪些版本信息">&lt;2&gt;查看有哪些版本信息</h4>
-<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web 
-</code></pre>
-<p>![image-20200108110443558](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110443558.png)</p>
-<p><em><strong>编号1已经被编号2替代，从而生的是一个新的编号4</strong></em></p>
-<h1>四.用label控制pod的位置</h1>
-<blockquote>
-<p>默认情况下，scheduler会将pod调度到所有可用的Node，不过有些情况我们希望将 Pod 部署到指定的 Node，比如将有大量磁盘 I/O 的 Pod 部署到配置了 SSD 的 Node；或者 Pod 需要 GPU，需要运行在配置了 GPU 的节点上。</p>
-<p>kubernetes通过label来实现这个功能</p>
-<p>label 是 key-value 对，各种资源都可以设置 label，灵活添加各种<strong>自定义属性</strong>。比如执行如下命令标注 k8s-node1 是配置了 SSD 的节点</p>
-</blockquote>
-<h4 id="首先我们给node1节点打上一个ssd的标签">首先我们给node1节点打上一个ssd的标签</h4>
-<pre><code>[root@master ~]# kubectl label nodes node02 disk=ssd
-</code></pre>
-<h3 id="（1）查看标签">（1）查看标签</h3>
-<pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02
-</code></pre>
-<p>![image-20200108111354832](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108111354832.png)</p>
-<h3 id="（2）删除副本一">（2）删除副本一</h3>
-<pre><code>[root@master ~]# kubectl delete -f xgp-1.yaml 
-deployment.extensions &quot;xgp-web&quot; deleted
-[root@master ~]# kubectl delete svc xgp-svc 
-</code></pre>
-<h3 id="（3）修改副本一的yaml文件">（3）修改副本一的yaml文件</h3>
-<pre><code>[root@master ~]# vim xgp-1.yaml 
-
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-web
-spec:
-  revisionHistoryLimit: 10
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1
-        ports:
-          - containerPort: 80
-      nodeSelector:    #添加节点选择器
-        disk: ssd      #和标签内容一致
-</code></pre>
-<h3 id="（4）执行一下">（4）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml 
-</code></pre>
-<h4 id="查看一下-2">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
-<p>![image-20200108112059395](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112059395.png)</p>
-<p><em><strong>现在pod都在node02上运行</strong></em></p>
-<h3 id="（5）删除标签">（5）删除标签</h3>
-<pre><code>[root@master ~]# kubectl  label nodes node02 disk-
-</code></pre>
-<h4 id="查看一下-3">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02
-</code></pre>
-<p>![image-20200108112245347](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112245347.png)</p>
-<p><em><strong>没有disk标签了</strong></em></p>
-<h1>五，小实验</h1>
-<h3 id="1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。"><strong>1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。</strong></h3>
-<h4 id="（1）用label控制pod的位置">（1）用label控制pod的位置</h4>
-<pre><code>[root@master ~]# kubectl label nodes node01 disk=ssd
-</code></pre>
-<h4 id="（2）编写源yaml文件">（2）编写源yaml文件</h4>
-<pre><code>[root@master ~]# vim xgp.yaml
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1
-        ports:
-          - containerPort: 80
-      nodeSelector:    
-        disk: ssd  
-</code></pre>
-<h4 id="（3）编写源service文件">（3）编写源service文件</h4>
-<pre><code>[root@master ~]# vim xgp-svc.yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: xgp-svc
-spec:
-  type: NodePort
-  selector:
-    app: xgp-server
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30123
-</code></pre>
-<h4 id="（4）执行yaml文件，创建控制器。执行service文件创建映射端口">（4）执行yaml文件，创建控制器。执行service文件创建映射端口</h4>
-<pre><code>[root@master ~]# kubectl apply -f  xgp.yaml 
-[root@master ~]# kubectl apply -f xgp-svc.yaml 
-</code></pre>
-<h4 id="（5）查看一下pod节点">（5）查看一下pod节点</h4>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
-<p>![image-20200108122424654](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122424654.png)</p>
-<h4 id="（6）记录一个版本">（6）记录一个版本</h4>
-<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt
-</code></pre>
-<p>![image-20200108142016701](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142016701.png)</p>
-<h4 id="（7）访问一下">（7）访问一下</h4>
-<p>![image-20200108122518278](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122518278.png)</p>
-<p>![image-20200108122534683](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122534683.png)</p>
-<h3 id="2）根据上述Deployment，升级为v2版本，记录一个版本。"><strong>2）根据上述Deployment，升级为v2版本，记录一个版本。</strong></h3>
-<h4 id="（1）修改yaml文件镜像版本">（1）修改yaml文件镜像版本</h4>
-<pre><code>[root@master ~]# vim xgp.yaml 
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v2    #修改版本为二
-        ports:
-          - containerPort: 80
-      nodeSelector:
-        disk: ssd
-</code></pre>
-<h4 id="（2）刷新一下yaml文件">（2）刷新一下yaml文件</h4>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
-</code></pre>
-<h4 id="（3）访问一下-3">（3）访问一下</h4>
-<p>![image-20200108141825924](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108141825924.png)</p>
-<h4 id="（4）记录一个版本">（4）记录一个版本</h4>
-<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt
-</code></pre>
-<p>![image-20200108142030157](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142030157.png)</p>
-<h3 id="3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。"><strong>3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。</strong></h3>
-<h4 id="1）修改yaml文件镜像版本">1）修改yaml文件镜像版本</h4>
-<pre><code>[root@master ~]# vim xgp.yaml 
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v3   #修改版本为二
-        ports:
-          - containerPort: 80
-      nodeSelector:
-        disk: ssd
-</code></pre>
-<h4 id="（2）刷新一下yaml文件-2">（2）刷新一下yaml文件</h4>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
-</code></pre>
-<h4 id="（3）访问一下-4">（3）访问一下</h4>
-<p>![image-20200108142329749](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142329749.png)</p>
-<h4 id="（5）分析访问流量的负载均衡详细情况">（5）分析访问流量的负载均衡详细情况</h4>
-<h5 id="1-查看一下service映射端口">&lt;1&gt;查看一下service映射端口</h5>
-<p>![image-20200108142504637](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142504637.png)</p>
-<h5 id="2-以ip为起点，分析访问流量的负载均衡详细情况">&lt;2&gt;以ip为起点，分析访问流量的负载均衡详细情况</h5>
-<p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
-<pre><code>[root@master ~]# iptables-save | grep 10.107.27.229
-//根据service的暴露IP，查看对应的iptabes规则
-</code></pre>
-<p>![image-20200108143052433](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143052433.png)</p>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S
-</code></pre>
-<p>![image-20200108143359463](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143359463.png)</p>
-<p><em><strong>这里显示了各节点的负载比例</strong></em></p>
-<h5 id="3-对应一下IP是否一致">&lt;3&gt;对应一下IP是否一致</h5>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-VDKW5WQIWOLZMJ6G
-</code></pre>
-<p>![image-20200108143547946](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143547946.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
-<p>![image-20200108143608942](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143608942.png)</p>
-<h3 id="4）回滚到指定版本v1，并作验证。"><strong>4）回滚到指定版本v1，并作验证。</strong></h3>
-<h4 id="1-回滚到指定版本">&lt;1&gt;回滚到指定版本</h4>
-<pre><code>[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision=1
-//这里指定的是版本信息的编号
-</code></pre>
-<h4 id="2-访问一下">&lt;2&gt;访问一下</h4>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
-<p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
-<blockquote>
-<p><strong>排错思路</strong></p>
-<pre><code>[root@master ~]# less /var/log/messages  | grep kubelet
-[root@master ~]# kubectl  logs -n  kube-system kube-scheduler-master 
-[root@master ~]# kubectl describe pod xgp-web-7d478f5bb7-bd4bj 
-</code></pre>
-</blockquote>
-]]></content>
-  </entry>
-  <entry>
     <title>04 配置清单</title>
     <url>/posts/748b.html</url>
     <content><![CDATA[<h1>一，两种创建资源的方法</h1>
@@ -2210,6 +1699,517 @@ spec:
 ]]></content>
   </entry>
   <entry>
+    <title>05 Delpoyment、service</title>
+    <url>/posts/936d.html</url>
+    <content><![CDATA[<h1>Deployment介绍</h1>
+<p><strong>Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。Deployment可以理解为RC的升级版（RC+Reolicat Set）。特点在于可以随时知道Pod的部署进度，即对Pod的创建、调度、绑定节点、启动容器完整过程的进度展示。</strong></p>
+<h2 id="使用场景">使用场景</h2>
+<blockquote>
+<p>创建一个Deployment对象来生成对应的Replica Set并完成Pod副本的创建过程。<br>
+检查Deployment的状态来确认部署动作是否完成（Pod副本的数量是否达到预期值）。<br>
+更新Deployment以创建新的Pod(例如镜像升级的场景)。<br>
+如果当前Deployment不稳定，回退到上一个Deployment版本。<br>
+挂起或恢复一个Deployment。</p>
+</blockquote>
+<h1>Service介绍</h1>
+<p><img src="https://img-blog.csdn.net/20170809212910268?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvaHV3aF8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="img" loading="lazy"></p>
+<p><strong>Service定义了一个服务的访问入口地址，前端应用通过这个入口地址访问其背后的一组由Pod副本组成的集群实例，Service与其后端的Pod副本集群之间是通过Label Selector来实现“无缝对接”。RC保证Service的Pod副本实例数目保持预期水平。</strong></p>
+<h2 id="外部系统访问Service的问题">外部系统访问Service的问题</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">IP类型</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Node IP</td>
+<td style="text-align:left">Node节点的IP地址</td>
+</tr>
+<tr>
+<td style="text-align:left">Pod IP</td>
+<td style="text-align:left">Pod的IP地址</td>
+</tr>
+<tr>
+<td style="text-align:left">Cluster IP</td>
+<td style="text-align:left">Service的IP地址</td>
+</tr>
+</tbody>
+</table>
+<h1>环境介绍</h1>
+<table>
+<thead>
+<tr>
+<th>主机</th>
+<th>IP地址</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>master</strong></td>
+<td><strong>192.168.1.21</strong></td>
+<td><strong>k8s</strong></td>
+</tr>
+<tr>
+<td><strong>node01</strong></td>
+<td><strong>192.168.1.22</strong></td>
+<td><strong>k8s</strong></td>
+</tr>
+<tr>
+<td><strong>node02</strong></td>
+<td><strong>192.168.1.23</strong></td>
+<td><strong>k8s</strong></td>
+</tr>
+</tbody>
+</table>
+<h1>一，Delpoyment和service的简单使用</h1>
+<h2 id="1-练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。">1.练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。</h2>
+<pre><code>[root@master ~]# vim xgp.yaml
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-web
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: xgp-server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1
+</code></pre>
+<h3 id="（1）执行一下">（1）执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f xgp.yaml  --recore
+</code></pre>
+<h3 id="（2）查看一下">（2）查看一下</h3>
+<pre><code>[root@master ~]# kubectl get pod
+</code></pre>
+<p>![image-20200108090638488](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090638488.png)</p>
+<h3 id="（3）访问一下">（3）访问一下</h3>
+<pre><code>[root@master ~]# curl 10.244.2.16
+</code></pre>
+<p>![image-20200108090817058](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090817058.png)</p>
+<h3 id="（4）更新一下yaml文件，副本加一">（4）更新一下yaml文件，副本加一</h3>
+<pre><code>[root@master ~]# vim xgp.yaml
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-web
+spec:
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: xgp-server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1
+</code></pre>
+<h4 id="1-执行一下">&lt;1&gt;执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
+</code></pre>
+<h4 id="2-查看一下">&lt;2&gt;查看一下</h4>
+<pre><code>[root@master ~]# kubectl get pod
+</code></pre>
+<p>![image-20200108091104534](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091104534.png)</p>
+<p><em><strong>副本数量加一，如果yaml文件的副本为0，则副本数量还是之前的状态，并不会更新。</strong></em></p>
+<h2 id="2-练习写一个service文件">2.练习写一个service文件</h2>
+<pre><code>[root@master ~]# vim xgp-svc.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: xgp-svc
+spec:
+  selector:
+    app: xgp-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+</code></pre>
+<h3 id="（1）执行一下-2">（1）执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml 
+</code></pre>
+<h3 id="（2）查看一下-2">（2）查看一下</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p>![image-20200108091909396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091909396.png)</p>
+<h3 id="（3）访问一下-2">（3）访问一下</h3>
+<pre><code>[root@master ~]# curl 10.107.119.49
+</code></pre>
+<p>![image-20200108092011164](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108092011164.png)</p>
+<h2 id="3-修改yaml文件">3.修改yaml文件</h2>
+<pre><code>[root@master ~]# vim xgp.yaml 
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-web
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: xgp-server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1
+        ports:
+          - containerPort: 80  #提示端口
+</code></pre>
+<p><em><strong>注意：在Delpoyment资源对象中，可以添加Port字段，但此字段仅供用户查看，并不实际生效</strong></em></p>
+<h3 id="执行一下">执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
+</code></pre>
+<h2 id="4-service文件映射端口">4.service文件映射端口</h2>
+<pre><code>[root@master ~]# vim xgp-svc.yaml 
+kind: Service
+apiVersion: v1
+metadata:
+  name: xgp-svc
+spec:
+  type: NodePort
+  selector:
+    app: xgp-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30123
+</code></pre>
+<h3 id="执行一下-2">执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml 
+</code></pre>
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p>![image-20200108094404773](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094404773.png)</p>
+<h3 id="访问一下">访问一下</h3>
+<pre><code>[root@master ~]# curl 127.0.0.1:30123
+</code></pre>
+<p>![image-20200108094439682](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094439682.png)</p>
+<p>![image-20200108094501253](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094501253.png)</p>
+<h2 id="5-修改三个pod页面内容">5.修改三个pod页面内容</h2>
+<h3 id="（1）查看一下pod信息">（1）查看一下pod信息</h3>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+</code></pre>
+<p>![image-20200108094953119](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094953119.png)</p>
+<h3 id="（2）修改POD页面内容（三台不一样）">（2）修改POD页面内容（三台不一样）</h3>
+<pre><code>[root@master ~]# kubectl exec -it xgp-web-8d5f9656f-8z7d9 /bin/bash
+//根据pod名称进入pod之中
+</code></pre>
+<h3 id="进入容器后修改页面内容">进入容器后修改页面内容</h3>
+<pre><code>root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# echo xgp-v1 &gt; htdocs/index.html 
+root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# exit
+</code></pre>
+<h3 id="访问一下-2">访问一下</h3>
+<pre><code>[root@master ~]# curl 127.0.0.1:30123
+</code></pre>
+<p>![image-20200108095626532](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108095626532.png)</p>
+<h1>二.分析一下k8s负载均衡原理</h1>
+<h3 id="（1）查看service的暴露IP">（1）查看service的暴露IP</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p>![image-20200108101539835](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101539835.png)</p>
+<h3 id="（2）查看一下iptabes规则">（2）查看一下iptabes规则</h3>
+<pre><code>[root@master ~]# iptables-save 
+//查看已配置的规则
+</code></pre>
+<blockquote>
+<p>SNAT：Source NAT（源地址转换）</p>
+<p>DNAT：Destination NAT（目标地址转换）</p>
+<p>MASQ：动态的源地址转换</p>
+</blockquote>
+<h3 id="（3）根据service的暴露IP，查看对应的iptabes规则">（3）根据service的暴露IP，查看对应的iptabes规则</h3>
+<pre><code>[root@master ~]# iptables-save | grep 10.107.119.49
+</code></pre>
+<p>![image-20200108101726315](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101726315.png)</p>
+<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S
+</code></pre>
+<p>![image-20200108102003596](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102003596.png)</p>
+<h3 id="（4）对应一下IP是否一致">（4）对应一下IP是否一致</h3>
+<pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-ZHDQ73ZKUBMELLJB
+</code></pre>
+<p>![image-20200108102137062](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102137062.png)</p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+</code></pre>
+<p>![image-20200108102203144](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102203144.png)</p>
+<p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
+<h1>三.回滚到指定版本</h1>
+<h3 id="（1）删除之前创建的delpoy和service">（1）删除之前创建的delpoy和service</h3>
+<pre><code>[root@master ~]# kubectl  delete -f xgp.yaml 
+[root@master ~]# kubectl  delete -f xgp-svc.yaml 
+</code></pre>
+<h3 id="（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像">（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像</h3>
+<pre><code>[root@master ~]# vim xgp1.yaml  （三个文件名不相同）
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-web
+spec:
+  revisionHistoryLimit: 10
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: xgp-server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1  （三台版本不同）
+        ports:
+          - containerPort: 80
+</code></pre>
+<p>此处3个yaml文件 指定不同版本的镜像</p>
+<h3 id="（3）运行三个服务，并记录三个版本信息">（3）运行三个服务，并记录三个版本信息</h3>
+<pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml --record 
+[root@master ~]# kubectl apply -f xgp-2.yaml --record 
+[root@master ~]# kubectl apply -f xgp-3.yaml --record 
+</code></pre>
+<h3 id="（4）查看有哪些版本信息">（4）查看有哪些版本信息</h3>
+<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web 
+</code></pre>
+<p>![image-20200108105842447](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108105842447.png)</p>
+<h3 id="（5）运行之前的service文件">（5）运行之前的service文件</h3>
+<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml
+</code></pre>
+<h3 id="（6）查看service暴露端口">（6）查看service暴露端口</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p>![image-20200108110014614](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110014614.png)</p>
+<h3 id="（7）测试访问">（7）测试访问</h3>
+<pre><code>[root@master ~]# curl 127.0.0.1:30123
+</code></pre>
+<p>![image-20200108110049396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110049396.png)</p>
+<h3 id="（8）回滚到指定版本">（8）回滚到指定版本</h3>
+<pre><code>[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision=1
+//这里指定的是版本信息的编号
+</code></pre>
+<h4 id="1-访问一下">&lt;1&gt;访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30123
+</code></pre>
+<p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
+<h4 id="2-查看有哪些版本信息">&lt;2&gt;查看有哪些版本信息</h4>
+<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web 
+</code></pre>
+<p>![image-20200108110443558](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110443558.png)</p>
+<p><em><strong>编号1已经被编号2替代，从而生的是一个新的编号4</strong></em></p>
+<h1>四.用label控制pod的位置</h1>
+<blockquote>
+<p>默认情况下，scheduler会将pod调度到所有可用的Node，不过有些情况我们希望将 Pod 部署到指定的 Node，比如将有大量磁盘 I/O 的 Pod 部署到配置了 SSD 的 Node；或者 Pod 需要 GPU，需要运行在配置了 GPU 的节点上。</p>
+<p>kubernetes通过label来实现这个功能</p>
+<p>label 是 key-value 对，各种资源都可以设置 label，灵活添加各种<strong>自定义属性</strong>。比如执行如下命令标注 k8s-node1 是配置了 SSD 的节点</p>
+</blockquote>
+<h4 id="首先我们给node1节点打上一个ssd的标签">首先我们给node1节点打上一个ssd的标签</h4>
+<pre><code>[root@master ~]# kubectl label nodes node02 disk=ssd
+</code></pre>
+<h3 id="（1）查看标签">（1）查看标签</h3>
+<pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02
+</code></pre>
+<p>![image-20200108111354832](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108111354832.png)</p>
+<h3 id="（2）删除副本一">（2）删除副本一</h3>
+<pre><code>[root@master ~]# kubectl delete -f xgp-1.yaml 
+deployment.extensions &quot;xgp-web&quot; deleted
+[root@master ~]# kubectl delete svc xgp-svc 
+</code></pre>
+<h3 id="（3）修改副本一的yaml文件">（3）修改副本一的yaml文件</h3>
+<pre><code>[root@master ~]# vim xgp-1.yaml 
+
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-web
+spec:
+  revisionHistoryLimit: 10
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: xgp-server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1
+        ports:
+          - containerPort: 80
+      nodeSelector:    #添加节点选择器
+        disk: ssd      #和标签内容一致
+</code></pre>
+<h3 id="（4）执行一下">（4）执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml 
+</code></pre>
+<h4 id="查看一下-2">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+</code></pre>
+<p>![image-20200108112059395](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112059395.png)</p>
+<p><em><strong>现在pod都在node02上运行</strong></em></p>
+<h3 id="（5）删除标签">（5）删除标签</h3>
+<pre><code>[root@master ~]# kubectl  label nodes node02 disk-
+</code></pre>
+<h4 id="查看一下-3">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02
+</code></pre>
+<p>![image-20200108112245347](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112245347.png)</p>
+<p><em><strong>没有disk标签了</strong></em></p>
+<h1>五，小实验</h1>
+<h3 id="1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。"><strong>1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。</strong></h3>
+<h4 id="（1）用label控制pod的位置">（1）用label控制pod的位置</h4>
+<pre><code>[root@master ~]# kubectl label nodes node01 disk=ssd
+</code></pre>
+<h4 id="（2）编写源yaml文件">（2）编写源yaml文件</h4>
+<pre><code>[root@master ~]# vim xgp.yaml
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-web
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: xgp-server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1
+        ports:
+          - containerPort: 80
+      nodeSelector:    
+        disk: ssd  
+</code></pre>
+<h4 id="（3）编写源service文件">（3）编写源service文件</h4>
+<pre><code>[root@master ~]# vim xgp-svc.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: xgp-svc
+spec:
+  type: NodePort
+  selector:
+    app: xgp-server
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30123
+</code></pre>
+<h4 id="（4）执行yaml文件，创建控制器。执行service文件创建映射端口">（4）执行yaml文件，创建控制器。执行service文件创建映射端口</h4>
+<pre><code>[root@master ~]# kubectl apply -f  xgp.yaml 
+[root@master ~]# kubectl apply -f xgp-svc.yaml 
+</code></pre>
+<h4 id="（5）查看一下pod节点">（5）查看一下pod节点</h4>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+</code></pre>
+<p>![image-20200108122424654](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122424654.png)</p>
+<h4 id="（6）记录一个版本">（6）记录一个版本</h4>
+<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt
+</code></pre>
+<p>![image-20200108142016701](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142016701.png)</p>
+<h4 id="（7）访问一下">（7）访问一下</h4>
+<p>![image-20200108122518278](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122518278.png)</p>
+<p>![image-20200108122534683](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122534683.png)</p>
+<h3 id="2）根据上述Deployment，升级为v2版本，记录一个版本。"><strong>2）根据上述Deployment，升级为v2版本，记录一个版本。</strong></h3>
+<h4 id="（1）修改yaml文件镜像版本">（1）修改yaml文件镜像版本</h4>
+<pre><code>[root@master ~]# vim xgp.yaml 
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-web
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: xgp-server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v2    #修改版本为二
+        ports:
+          - containerPort: 80
+      nodeSelector:
+        disk: ssd
+</code></pre>
+<h4 id="（2）刷新一下yaml文件">（2）刷新一下yaml文件</h4>
+<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
+</code></pre>
+<h4 id="（3）访问一下-3">（3）访问一下</h4>
+<p>![image-20200108141825924](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108141825924.png)</p>
+<h4 id="（4）记录一个版本">（4）记录一个版本</h4>
+<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt
+</code></pre>
+<p>![image-20200108142030157](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142030157.png)</p>
+<h3 id="3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。"><strong>3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。</strong></h3>
+<h4 id="1）修改yaml文件镜像版本">1）修改yaml文件镜像版本</h4>
+<pre><code>[root@master ~]# vim xgp.yaml 
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp-web
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: xgp-server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v3   #修改版本为二
+        ports:
+          - containerPort: 80
+      nodeSelector:
+        disk: ssd
+</code></pre>
+<h4 id="（2）刷新一下yaml文件-2">（2）刷新一下yaml文件</h4>
+<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
+</code></pre>
+<h4 id="（3）访问一下-4">（3）访问一下</h4>
+<p>![image-20200108142329749](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142329749.png)</p>
+<h4 id="（5）分析访问流量的负载均衡详细情况">（5）分析访问流量的负载均衡详细情况</h4>
+<h5 id="1-查看一下service映射端口">&lt;1&gt;查看一下service映射端口</h5>
+<p>![image-20200108142504637](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142504637.png)</p>
+<h5 id="2-以ip为起点，分析访问流量的负载均衡详细情况">&lt;2&gt;以ip为起点，分析访问流量的负载均衡详细情况</h5>
+<p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
+<pre><code>[root@master ~]# iptables-save | grep 10.107.27.229
+//根据service的暴露IP，查看对应的iptabes规则
+</code></pre>
+<p>![image-20200108143052433](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143052433.png)</p>
+<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S
+</code></pre>
+<p>![image-20200108143359463](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143359463.png)</p>
+<p><em><strong>这里显示了各节点的负载比例</strong></em></p>
+<h5 id="3-对应一下IP是否一致">&lt;3&gt;对应一下IP是否一致</h5>
+<pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-VDKW5WQIWOLZMJ6G
+</code></pre>
+<p>![image-20200108143547946](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143547946.png)</p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+</code></pre>
+<p>![image-20200108143608942](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143608942.png)</p>
+<h3 id="4）回滚到指定版本v1，并作验证。"><strong>4）回滚到指定版本v1，并作验证。</strong></h3>
+<h4 id="1-回滚到指定版本">&lt;1&gt;回滚到指定版本</h4>
+<pre><code>[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision=1
+//这里指定的是版本信息的编号
+</code></pre>
+<h4 id="2-访问一下">&lt;2&gt;访问一下</h4>
+<pre><code>[root@master ~]# curl 127.0.0.1:30123
+</code></pre>
+<p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
+<blockquote>
+<p><strong>排错思路</strong></p>
+<pre><code>[root@master ~]# less /var/log/messages  | grep kubelet
+[root@master ~]# kubectl  logs -n  kube-system kube-scheduler-master 
+[root@master ~]# kubectl describe pod xgp-web-7d478f5bb7-bd4bj 
+</code></pre>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
     <title>10 复习 </title>
     <url>/posts/1b18.html</url>
     <content><![CDATA[<h1>虚拟化</h1>
@@ -2728,6 +2728,81 @@ kubectl logs<br>
 ]]></content>
   </entry>
   <entry>
+    <title>18 k8s的HPA自动扩容与缩容</title>
+    <url>/posts/2643.html</url>
+    <content><![CDATA[<h1>HPA</h1>
+<p><strong>可以根据当前Pod资源的使用率，比如说CPU、磁盘、内存等进行副本Pod的动态的扩容与缩容。</strong></p>
+<p><strong>前提条件:系统应该能否获取到当前Pod的资源使用情况 (意思是可以执行kubectl top pod命令,并且能够得到反馈信息)。</strong></p>
+<p><strong>heapster：这个组件之前是集成在k8s集群的,不过在1.12版本之后被移除了。如果还想使用此功能，应该部署metricServer, 这个k8s集群资源使用情况的聚合器。</strong></p>
+<p><strong>这里，我们使用一个测试镜像， 这个镜像基于php-apache制作的docker镜像，包含了一些可以运行cpu密集计算任务的代码。</strong></p>
+<h2 id="1、创建一个deployment控制器">1、创建一个deployment控制器</h2>
+<pre><code>[root@master ~]#docker pull mirrorgooglecontainers/hpa-example:latest
+//下载hpa-example镜像
+
+[root@master ~]# kubectl run php-apache --image=mirrorgooglecontainers/hpa-example --requests=cpu=200m --expose  --port=80
+//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口
+</code></pre>
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments.
+</code></pre>
+<p>![image-20200228102643352](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228102643352.png)</p>
+<h2 id="2、创建HPA控制器">2、创建HPA控制器</h2>
+<pre><code>[root@master ~]# kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个
+</code></pre>
+<h3 id="查看一下-2">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get hpa
+</code></pre>
+<p>![image-20200228101908398](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228101908398.png)</p>
+<h2 id="3、测试（master开启三个端口）">3、测试（master开启三个端口）</h2>
+<p><strong>新开启多个终端，对pod进行死循环请求php-apache的pod</strong></p>
+<h3 id="端口一">端口一</h3>
+<h4 id="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。">（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。</h4>
+<pre><code>[root@master ~]# kubectl run -i --tty load-generator --image=busybox /bin/sh
+</code></pre>
+<h4 id="（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。">（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。</h4>
+<pre><code>[root@master ~]# while true; do wget -q -O- http://php-apache.default.svc.cluster.local ; done
+//不停地向php-apache的svc资源，发送ok
+</code></pre>
+<h3 id="端口二">端口二</h3>
+<pre><code>[root@master ~]# kubectl get hpa -w
+//实时查看pod的cpu状态
+</code></pre>
+<p>![image-20200228133816724](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228133816724.png)</p>
+<p><strong>可以看到php-apache的cpu使用情况已经超过了50%</strong></p>
+<h3 id="端口三">端口三</h3>
+<pre><code>[root@master images]# kubectl get pod -w
+//实时查看pod的状态
+</code></pre>
+<p>![image-20200228134105507](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228134105507.png)</p>
+<p><strong>可以看到当php-apache的cpu使用情况超过50%后，就会不断生成新的php-apache来进行负载均衡（目前设置的上线时10个），当然，如果cpu使用情况下降到50%，master就会陆续地删除php-apache，这样的使用可以减少不必要的资源浪费、资源分配不均等情况。</strong></p>
+<h1>二、资源限制</h1>
+<h2 id="1、基于Pod">1、基于Pod</h2>
+<p><strong>Kubernetes对资源的限制实际上是通过cgroup来控制的，cgroup 是容器的一组用来控制内核如何运行进程的相关属性集合。针对内存、CPU 和各种设备都有对应的cgroup</strong></p>
+<p><strong>默认情况下，Pod运行没有CPU和内存的限额。这意味着系统中的任何 Pod将能够像执行该Pod所在的节点一样，消耗足够多的CPU和内存。一般会针对某些应用的pod资源进行资源限制，这个资源限制是通过</strong></p>
+<p><strong>resources的requests和limits来实现</strong></p>
+<pre><code>[root@master ~]# vim cgroup-pod.yaml
+</code></pre>
+<p>![image-20200228153809932](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153809932.png)</p>
+<p><strong>requests: 要分配的资源，limits为最高请求的资源值。可以简单的理解为初始值和最大值。</strong></p>
+<h2 id="2、基于名称空间"><strong>2、基于名称空间</strong></h2>
+<h3 id="1）-计算资源配额">1） 计算资源配额</h3>
+<pre><code>[root@master ~]# vim compute-resources.yaml
+</code></pre>
+<p>![image-20200228153818288](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153818288.png)</p>
+<h3 id="2）配置对象数量配额限制">2）配置对象数量配额限制</h3>
+<pre><code>[root@master ~]# vim object-counts.yaml
+</code></pre>
+<p>![image-20200228153828002](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153828002.png)</p>
+<h3 id="3）-配置CPU和内存的LimitRange">3） 配置CPU和内存的LimitRange</h3>
+<pre><code>[root@master ~]# vim limitRange.yaml
+</code></pre>
+<p>![image-20200228153834705](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
+<p><strong>default 即 limit的值。</strong></p>
+<p><strong>defaultRequest 即 request的值。</strong></p>
+]]></content>
+  </entry>
+  <entry>
     <title>14 k8s的Secret（密文）和configmap（明文）的使用教程</title>
     <url>/posts/a50d.html</url>
     <content><![CDATA[<h1>一、Secret</h1>
@@ -3177,81 +3252,6 @@ adam
 <h2 id="总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。">总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。</h2>
 <p><strong>volumes挂载(可根据更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己所填路径和secret或configmap创建的文件，进行查看。</strong></p>
 <p><strong>环境变量(不因更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己环境变量，进行查看。</strong></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>18 k8s的HPA自动扩容与缩容</title>
-    <url>/posts/2643.html</url>
-    <content><![CDATA[<h1>HPA</h1>
-<p><strong>可以根据当前Pod资源的使用率，比如说CPU、磁盘、内存等进行副本Pod的动态的扩容与缩容。</strong></p>
-<p><strong>前提条件:系统应该能否获取到当前Pod的资源使用情况 (意思是可以执行kubectl top pod命令,并且能够得到反馈信息)。</strong></p>
-<p><strong>heapster：这个组件之前是集成在k8s集群的,不过在1.12版本之后被移除了。如果还想使用此功能，应该部署metricServer, 这个k8s集群资源使用情况的聚合器。</strong></p>
-<p><strong>这里，我们使用一个测试镜像， 这个镜像基于php-apache制作的docker镜像，包含了一些可以运行cpu密集计算任务的代码。</strong></p>
-<h2 id="1、创建一个deployment控制器">1、创建一个deployment控制器</h2>
-<pre><code>[root@master ~]#docker pull mirrorgooglecontainers/hpa-example:latest
-//下载hpa-example镜像
-
-[root@master ~]# kubectl run php-apache --image=mirrorgooglecontainers/hpa-example --requests=cpu=200m --expose  --port=80
-//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments.
-</code></pre>
-<p>![image-20200228102643352](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228102643352.png)</p>
-<h2 id="2、创建HPA控制器">2、创建HPA控制器</h2>
-<pre><code>[root@master ~]# kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
-//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个
-</code></pre>
-<h3 id="查看一下-2">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get hpa
-</code></pre>
-<p>![image-20200228101908398](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228101908398.png)</p>
-<h2 id="3、测试（master开启三个端口）">3、测试（master开启三个端口）</h2>
-<p><strong>新开启多个终端，对pod进行死循环请求php-apache的pod</strong></p>
-<h3 id="端口一">端口一</h3>
-<h4 id="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。">（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。</h4>
-<pre><code>[root@master ~]# kubectl run -i --tty load-generator --image=busybox /bin/sh
-</code></pre>
-<h4 id="（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。">（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。</h4>
-<pre><code>[root@master ~]# while true; do wget -q -O- http://php-apache.default.svc.cluster.local ; done
-//不停地向php-apache的svc资源，发送ok
-</code></pre>
-<h3 id="端口二">端口二</h3>
-<pre><code>[root@master ~]# kubectl get hpa -w
-//实时查看pod的cpu状态
-</code></pre>
-<p>![image-20200228133816724](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228133816724.png)</p>
-<p><strong>可以看到php-apache的cpu使用情况已经超过了50%</strong></p>
-<h3 id="端口三">端口三</h3>
-<pre><code>[root@master images]# kubectl get pod -w
-//实时查看pod的状态
-</code></pre>
-<p>![image-20200228134105507](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228134105507.png)</p>
-<p><strong>可以看到当php-apache的cpu使用情况超过50%后，就会不断生成新的php-apache来进行负载均衡（目前设置的上线时10个），当然，如果cpu使用情况下降到50%，master就会陆续地删除php-apache，这样的使用可以减少不必要的资源浪费、资源分配不均等情况。</strong></p>
-<h1>二、资源限制</h1>
-<h2 id="1、基于Pod">1、基于Pod</h2>
-<p><strong>Kubernetes对资源的限制实际上是通过cgroup来控制的，cgroup 是容器的一组用来控制内核如何运行进程的相关属性集合。针对内存、CPU 和各种设备都有对应的cgroup</strong></p>
-<p><strong>默认情况下，Pod运行没有CPU和内存的限额。这意味着系统中的任何 Pod将能够像执行该Pod所在的节点一样，消耗足够多的CPU和内存。一般会针对某些应用的pod资源进行资源限制，这个资源限制是通过</strong></p>
-<p><strong>resources的requests和limits来实现</strong></p>
-<pre><code>[root@master ~]# vim cgroup-pod.yaml
-</code></pre>
-<p>![image-20200228153809932](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153809932.png)</p>
-<p><strong>requests: 要分配的资源，limits为最高请求的资源值。可以简单的理解为初始值和最大值。</strong></p>
-<h2 id="2、基于名称空间"><strong>2、基于名称空间</strong></h2>
-<h3 id="1）-计算资源配额">1） 计算资源配额</h3>
-<pre><code>[root@master ~]# vim compute-resources.yaml
-</code></pre>
-<p>![image-20200228153818288](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153818288.png)</p>
-<h3 id="2）配置对象数量配额限制">2）配置对象数量配额限制</h3>
-<pre><code>[root@master ~]# vim object-counts.yaml
-</code></pre>
-<p>![image-20200228153828002](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153828002.png)</p>
-<h3 id="3）-配置CPU和内存的LimitRange">3） 配置CPU和内存的LimitRange</h3>
-<pre><code>[root@master ~]# vim limitRange.yaml
-</code></pre>
-<p>![image-20200228153834705](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
-<p><strong>default 即 limit的值。</strong></p>
-<p><strong>defaultRequest 即 request的值。</strong></p>
 ]]></content>
   </entry>
   <entry>
