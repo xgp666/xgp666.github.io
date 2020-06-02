@@ -119,20 +119,52 @@ body {
   -webkit-overflow-scrolling: touch;
   background-color: var(--hty-bg-color, #f5f5f5);
 }
-body {
-  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/pointer.cur"), auto;
+body::before {
+  content: '';
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  opacity: 0.8;
+  background-image: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/bg/stars-timing-0-blur-30px.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation-name: bgFadeIn;
+  animation-duration: 2s;
+  opacity: 0.8;
 }
-a {
-  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), auto;
+@-moz-keyframes bgFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
 }
-a:hover {
-  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), auto;
+@-webkit-keyframes bgFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
 }
-.hty-icon-button {
-  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), pointer;
+@-o-keyframes bgFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
 }
-input {
-  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/text.cur"), auto;
+@keyframes bgFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.8;
+  }
 }
 #banner {
   position: relative;
@@ -144,7 +176,7 @@ input {
 .vertical-line-top,
 .vertical-line-bottom {
   display: flex;
-  background-color: #000;
+  background-color: #fff;
   width: 1px;
   height: 0;
   animation-duration: 0.4s;
@@ -159,24 +191,24 @@ input {
   font-family: 'Songti SC', 'Noto Serif SC', STZhongsong, STKaiti, KaiTi, Roboto, serif;
   font-size: var(--banner-char-size);
   font-weight: 900;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(0,0,0,0.5);
   line-height: 1;
   transition-property: all;
   transition-duration: 0.2s;
   transition-delay: 0s;
 }
 .char:hover {
-  color: #fff;
-  background-color: rgba(0,0,0,0.9);
+  color: #000;
+  background-color: rgba(255,255,255,0.9);
 }
 .char-left,
 .char-right {
   display: flex;
-  color: #000;
+  color: #fff;
   opacity: 0;
 }
 .char-left {
-  border-left: 1px solid #000;
+  border-left: 1px solid #fff;
   border-right: 0px solid rgba(0,120,231,0.1);
   border-right-width: 0px;
   animation-duration: 0.4s;
@@ -186,7 +218,7 @@ input {
 }
 .char-right {
   border-left: 0px solid rgba(0,120,231,0.1);
-  border-right: 1px solid #000;
+  border-right: 1px solid #fff;
   border-left-width: 0px;
   animation-duration: 0.4s;
   animation-delay: 0.4s;
@@ -667,7 +699,7 @@ input {
 }
 .wordcloud #wordcloud-canvas,
 .wordcloud #wordcloud-sidebar-canvas {
-  cursor: url("https://cdn.jsdelivr.net/gh/YunYouJun/cdn/css/md-cursors/link.cur"), pointer;
+  cursor: url("$cursor-pointer"), pointer;
 }
 .wordcloud #wordbox {
   pointer-events: none;
@@ -950,52 +982,6 @@ input {
   top: 0;
   z-index: 11;
   pointer-events: none;
-}
-#trianglify {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: -1;
-  opacity: 0.5;
-  animation: triFadeIn 2s;
-}
-@-moz-keyframes triFadeIn {
-  from {
-    opacity: 0;
-    filter: grayscale(1);
-  }
-  to {
-    opacity: 0.5;
-  }
-}
-@-webkit-keyframes triFadeIn {
-  from {
-    opacity: 0;
-    filter: grayscale(1);
-  }
-  to {
-    opacity: 0.5;
-  }
-}
-@-o-keyframes triFadeIn {
-  from {
-    opacity: 0;
-    filter: grayscale(1);
-  }
-  to {
-    opacity: 0.5;
-  }
-}
-@keyframes triFadeIn {
-  from {
-    opacity: 0;
-    filter: grayscale(1);
-  }
-  to {
-    opacity: 0.5;
-  }
 }
 .post-card {
   position: relative;
