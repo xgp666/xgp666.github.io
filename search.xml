@@ -1,6 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>02 k8s架构，基本概念</title>
+    <url>/posts/cd85.html</url>
+    <content><![CDATA[<table>
+<thead>
+<tr>
+<th>主机名</th>
+<th>IP地址</th>
+<th>服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td>192.168.1.21</td>
+<td></td>
+</tr>
+<tr>
+<td>node01</td>
+<td>192.168.1.22</td>
+<td></td>
+</tr>
+<tr>
+<td>node02</td>
+<td>192.168.1.23</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h1>kubernetes架构</h1>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/qqq.png" alt="image-20200104100759831"></p>
+<p><strong>kubectl</strong>：k8s是命令行端，用来发送客户的操作指令。</p>
+<h2 id="master节点">master节点</h2>
+<p><strong>1. API server[资源操作入口]</strong>：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。</p>
+<blockquote>
+<ul>
+<li><strong>提供了资源对象的唯一操作入口，其他所有组件都必须通过它提供的API来操作资源数据，只有API Server与存储通信，其他模块通过API Server访问集群状态。</strong></li>
+</ul>
+<p><strong>第一，是为了保证集群状态访问的安全。</strong></p>
+<p><strong>第二，是为了隔离集群状态访问的方式和后端存储实现的方式：API Server是状态访问的方式，不会因为后端存储技术etcd的改变而改变。</strong></p>
+<ul>
+<li><strong>作为kubernetes系统的入口，封装了核心对象的增删改查操作，以<a href="https://www.centos.bz/tag/restful/" target="_blank" rel="noopener">RESTFul</a>接口方式提供给外部客户和内部组件调用。对相关的资源数据“全量查询”+“变化监听”，实时完成相关的业务功能。</strong></li>
+</ul>
+</blockquote>
+<p><strong>2. Scheduler[集群分发调度器]</strong>：负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
+<blockquote>
+<p><strong>1.Scheduler收集和分析当前Kubernetes集群中所有Minion节点的资源(内存、CPU)负载情况，然后依此分发新建的Pod到Kubernetes集群中可用的节点。</strong></p>
+<p><strong>2.实时监测Kubernetes集群中未分发和已分发的所有运行的Pod。</strong></p>
+<p><strong>3.Scheduler也监测Minion节点信息，由于会频繁查找Minion节点，Scheduler会缓存一份最新的信息在本地。</strong></p>
+<p><strong>4.最后，Scheduler在分发Pod到指定的Minion节点后，会把Pod相关的信息Binding写回API Server。</strong></p>
+</blockquote>
+<p><strong>4. Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
+<blockquote>
+<p><strong>实现集群故障检测和恢复的自动化工作，负责执行各种控制器，主要有：</strong></p>
+<p><strong>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</strong></p>
+<p><strong>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</strong></p>
+</blockquote>
+<p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
+<p><strong>7. Flanner</strong>：是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces
+//查看pod信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104100759831.png" alt="image-20200104100759831"></p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
+//显示pod的节点信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104101023909.png" alt="image-20200104101023909"></p>
+<h2 id="Node节点">Node节点</h2>
+<p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
+<blockquote>
+<ul>
+<li><strong>负责Node节点上pod的创建、修改、监控、删除等全生命周期的管理</strong></li>
+<li><strong>定时上报本Node的状态信息给API Server。</strong></li>
+<li><strong>kubelet是Master API Server和Minion之间的桥梁，接收Master API Server分配给它的commands和work，与持久性键值存储etcd、file、server和http进行交互，读取配置信息。</strong></li>
+<li><strong>具体的工作如下：</strong></li>
+</ul>
+<p><strong>设置容器的环境变量、给容器绑定<a href="https://www.centos.bz/tag/volume/" target="_blank" rel="noopener">Volume</a>、给容器绑定Port、根据指定的Pod运行一个单一容器、给指定的Pod创建network 容器。</strong></p>
+<p><strong>同步Pod的状态、同步Pod的状态、从<a href="https://www.centos.bz/tag/cadvisor/" target="_blank" rel="noopener">cAdvisor</a>获取<a href="https://www.centos.bz/tag/container/" target="_blank" rel="noopener">Container</a> info、 pod info、 root info、 <a href="https://www.centos.bz/tag/machine/" target="_blank" rel="noopener">machine</a> info。</strong></p>
+<p><strong>在容器中运行命令、杀死容器、删除Pod的所有容器。</strong></p>
+</blockquote>
+<p>**kube-proxy[负载均衡、路由转发]:**负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
+<blockquote>
+<ul>
+<li><strong>Proxy是为了解决外部网络能够访问跨机器集群中容器提供的应用服务而设计的，运行在每个Node上。Proxy提供TCP/UDP sockets的proxy，每创建一种Service，Proxy主要从etcd获取Services和Endpoints的配置信息（也可以从file获取），然后根据配置信息在Minion上启动一个Proxy的进程并监听相应的服务端口，当外部请求发生时，Proxy会根据Load Balancer将请求分发到后端正确的容器处理。</strong></li>
+<li><strong>Proxy不但解决了同一主宿机相同服务端口冲突的问题，还提供了Service转发服务端口对外提供服务的能力，Proxy后端使用了随机、轮循负载均衡算法。</strong></li>
+</ul>
+</blockquote>
+<h2 id="范例">范例</h2>
+<blockquote>
+<h3 id="分析各个组件的作用以及架构工作流程">分析各个组件的作用以及架构工作流程:</h3>
+<p><strong>1) kubectl发送部署 请求到API server</strong><br>
+<strong>2) APIserver通知Controller Manager创建一个Deployment资源。</strong><br>
+<strong>3) Scheduler执行调度任务,将两个副本Pod分发到node01和node02. 上。</strong><br>
+<strong>4) node01和node02, 上的kubelet在各自节点上创建并运行Pod。</strong></p>
+<h3 id="补充">补充</h3>
+<p><strong>1.应用的配置和当前的状态信息保存在etcd中，执行kubectl get pod时API server会从etcd中读取这些数据。</strong></p>
+<p><strong>2.flannel会为每个Pod分配一个IP。 但此时没有创建Service资源，目前kube-proxy还没有参与进来。</strong></p>
+</blockquote>
+<h3 id="运行一个例子（创建一个deployment资源对象-pod控制器-）">运行一个例子（创建一个deployment资源对象&lt;pod控制器&gt;）</h3>
+<pre><code>[root@master ~]# kubectl run test-web --image=httpd --replicas=2
+//创建一个deployment资源对象。
+</code></pre>
+<p><em><strong>运行完成之后，如果有镜像可直接开启，没有的话需要等待一会儿，node节点要在docker hup上下载</strong></em></p>
+<h4 id="查看一下">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110812772.png" alt="image-20200104110812772"></p>
+<pre><code>[root@master ~]# kubectl get pod
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110954406.png" alt="image-20200104110954406"></p>
+<pre><code>[root@master ~]# kubectl get pod  -o wide
+//显示pod的节点信息
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png" alt="image-20200104111128779"></p>
+<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
+<h3 id="如果删除一个pod">如果删除一个pod</h3>
+<pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
+</code></pre>
+<h4 id="查看一下-2">查看一下</h4>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+</code></pre>
+<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png" alt="image-20200104112418012"></p>
+<p><em><strong>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</strong></em></p>
+<p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>01 部署k8s集群</title>
     <url>/posts/xgp.html</url>
     <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -1247,12 +1374,27 @@ spec:
 ]]></content>
   </entry>
   <entry>
-    <title>02 k8s架构，基本概念</title>
-    <url>/posts/cd85.html</url>
-    <content><![CDATA[<table>
+    <title>04 配置清单</title>
+    <url>/posts/748b.html</url>
+    <content><![CDATA[<h1>一，两种创建资源的方法</h1>
+<h2 id="1-基于命令的方式：">1. 基于命令的方式：</h2>
+<ol>
+<li><strong>简单直观快捷，上手快。</strong></li>
+<li><strong>适合临时测试或实验。</strong></li>
+</ol>
+<h2 id="2-基于配置清单的方式：">2. 基于配置清单的方式：</h2>
+<ol>
+<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
+<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
+<li><strong>可以像管理代码一样管理部署。</strong></li>
+<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
+<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
+</ol>
+<h2 id="环境介绍">环境介绍</h2>
+<table>
 <thead>
 <tr>
-<th>主机名</th>
+<th>主机</th>
 <th>IP地址</th>
 <th>服务</th>
 </tr>
@@ -1261,116 +1403,231 @@ spec:
 <tr>
 <td>master</td>
 <td>192.168.1.21</td>
-<td></td>
+<td>k8s</td>
 </tr>
 <tr>
 <td>node01</td>
 <td>192.168.1.22</td>
-<td></td>
+<td>k8s</td>
 </tr>
 <tr>
 <td>node02</td>
 <td>192.168.1.23</td>
-<td></td>
+<td>k8s</td>
 </tr>
 </tbody>
 </table>
-<h1>kubernetes架构</h1>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/qqq.png" alt="image-20200104100759831"></p>
-<p><strong>kubectl</strong>：k8s是命令行端，用来发送客户的操作指令。</p>
-<h2 id="master节点">master节点</h2>
-<p><strong>1. API server[资源操作入口]</strong>：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。</p>
+<h1>二. 配置清单（yam，yaml）</h1>
+<p><strong>在k8s中，一般使用yaml格式的文件来创建符合我们预期期望的pod，这样的yaml文件我们一般称为资源清单</strong></p>
 <blockquote>
-<ul>
-<li><strong>提供了资源对象的唯一操作入口，其他所有组件都必须通过它提供的API来操作资源数据，只有API Server与存储通信，其他模块通过API Server访问集群状态。</strong></li>
-</ul>
-<p><strong>第一，是为了保证集群状态访问的安全。</strong></p>
-<p><strong>第二，是为了隔离集群状态访问的方式和后端存储实现的方式：API Server是状态访问的方式，不会因为后端存储技术etcd的改变而改变。</strong></p>
-<ul>
-<li><strong>作为kubernetes系统的入口，封装了核心对象的增删改查操作，以<a href="https://www.centos.bz/tag/restful/" target="_blank" rel="noopener">RESTFul</a>接口方式提供给外部客户和内部组件调用。对相关的资源数据“全量查询”+“变化监听”，实时完成相关的业务功能。</strong></li>
-</ul>
+<p><strong>/etc/kubernetes/manifests/</strong>    k8s存放（yam、yaml）文件的地方</p>
+<p>**kubectl explain deployment（通过explain参数加上资源类别就能看到该资源应该怎么定义）</p>
+<p><strong>kubectl explain deployment.metadata</strong> 通过资源类别加上带有Object标记的字段，我们就可以看到一级字段下二级字段的内容有那些怎么去定义等</p>
+<p><strong>kubectl explain deployment.metadata.ownerReferences</strong> 通过加上不同级别的字段名称来看下字段下的内容，而且前面的[]号代表对象列表</p>
 </blockquote>
-<p><strong>2. Scheduler[集群分发调度器]</strong>：负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
+<h2 id="1-常见yaml文件写法，以及字段的作用">1.常见yaml文件写法，以及字段的作用</h2>
+<p><strong>(1) apiVersion：api版本信息</strong></p>
+<p><em><strong>（用来定义当前属于哪个组和那个版本，这个直接关系到最终提供使用的是那个版本）</strong></em></p>
+<pre><code>[root@master manifests]# kubectl api-versions
+//查看到当前所有api的版本
+</code></pre>
+<p><strong>(2) kind: 资源对象的类别</strong></p>
+<p><em><strong>(用来定义创建的对象是属于什么类别，是pod，service，还是deployment等对象，可以按照其固定的语法格式来自定义。)</strong></em><br>
+<strong>(3) metadata: 元数据 名称字段（必写）</strong></p>
 <blockquote>
-<p><strong>1.Scheduler收集和分析当前Kubernetes集群中所有Minion节点的资源(内存、CPU)负载情况，然后依此分发新建的Pod到Kubernetes集群中可用的节点。</strong></p>
-<p><strong>2.实时监测Kubernetes集群中未分发和已分发的所有运行的Pod。</strong></p>
-<p><strong>3.Scheduler也监测Minion节点信息，由于会频繁查找Minion节点，Scheduler会缓存一份最新的信息在本地。</strong></p>
-<p><strong>4.最后，Scheduler在分发Pod到指定的Minion节点后，会把Pod相关的信息Binding写回API Server。</strong></p>
+<p><strong>提供以下几个字段</strong>：<br>
+　　<strong>creationTimestamp: &quot;2019-06-24T12:18:48Z&quot;</strong><br>
+　　<strong>generateName: myweb-5b59c8b9d-</strong><br>
+　　<strong>labels: （对象标签）</strong><br>
+　　　　<strong>pod-template-hash: 5b59c8b9d</strong><br>
+　　　　<strong>run: myweb</strong><br>
+　　<strong>name: myweb-5b59c8b9d-gwzz5 （pods对象的名称，同一个类别当中的pod对象名称是唯一的，不能重复）</strong><br>
+　　<strong>namespace: default （对象所属的名称空间，同一名称空间内可以重复，这个名称空间也是k8s级别的名称空间，不和容器的名称空间混淆）</strong><br>
+　　<strong>ownerReferences:</strong></p>
+<p>- <strong>apiVersion: apps/v1</strong><br>
+　　　　<strong>blockOwnerDeletion: true</strong><br>
+　　　　<strong>controller: true</strong><br>
+　　　　<strong>kind: ReplicaSet</strong><br>
+　　　　<strong>name: myweb-5b59c8b9d</strong><br>
+　　　　<strong>uid: 37f38f64-967a-11e9-8b4b-000c291028e5</strong><br>
+　　<strong>resourceVersion: &quot;943&quot;</strong><br>
+　　<strong>selfLink: /api/v1/namespaces/default/pods/myweb-5b59c8b9d-gwzz5</strong><br>
+　　<strong>uid: 37f653a6-967a-11e9-8b4b-000c291028e5</strong><br>
+　　<strong>annotations（资源注解，这个需要提前定义，默认是没有的）</strong><br>
+<strong>通过这些标识定义了每个资源引用的path：即/api/group/version/namespaces/名称空间/资源类别/对象名称</strong></p>
 </blockquote>
-<p><strong>4. Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
+<p><strong>(4) spec： 用户期望的状态</strong></p>
+<p><em><strong>（这个字段最重要，因为spec是用来定义目标状态的‘disired state’，而且资源不通导致spec所嵌套的字段也各不相同，也就因为spec重要且字段不相同，k8s在内部自建了一个spec的说明用于查询）</strong></em></p>
+<p><strong>(5) status：资源现在处于什么样的状态</strong></p>
+<p><em><strong>（当前状态，’current state‘，这个字段有k8s集群来生成和维护，不能自定义，属于一个只读字段）</strong></em></p>
+<h2 id="2-编写一个yaml文件">2.编写一个yaml文件</h2>
+<pre><code>[root@master ~]# vim web.yaml
+kind: Deployment  #资源对象是控制器
+apiVersion: extensions/v1beta1   #api的版本
+metadata:      #描述kind（资源类型）
+  name: web   #定义控制器名称
+spec:
+  replicas: 2   #副本数量
+  template:     #模板
+    metadata:    
+      labels:   #标签
+        app: web_server
+    spec:
+      containers:   #指定容器
+      - name: nginx  #容器名称
+        image: nginx   #使用的镜像
+</code></pre>
+<h3 id="执行一下">执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f web.yaml 
+</code></pre>
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments.  -o wide
+//查看控制器信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看pod节点信息
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209"></p>
+<h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
+<pre><code>[root@master ~]# vim web-svc.yaml
+kind: Service  #资源对象是副本
+apiVersion: v1   #api的版本
+metadata:
+  name: web-svc
+spec:
+  selector:     #标签选择器
+    app: web-server  #须和web.yaml的标签一致
+  ports:              #端口
+  - protocol: TCP
+    port: 80            #宿主机的端口
+    targetPort: 80      #容器的端口
+</code></pre>
 <blockquote>
-<p><strong>实现集群故障检测和恢复的自动化工作，负责执行各种控制器，主要有：</strong></p>
-<p><strong>1.endpoint-controller：定期关联<a href="https://www.centos.bz/tag/service/" target="_blank" rel="noopener">service</a>和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。</strong></p>
-<p><strong>2.replication-controller：定期关联replicationController和pod，保证replicationController定义的复制数量与实际运行pod的数量总是一致的。</strong></p>
+<p><strong>使用相同标签和标签选择器内容，使两个资源对象相互关联。</strong></p>
+<p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
 </blockquote>
-<p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
-<p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
-<p><strong>7. Flanner</strong>：是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
-<pre><code>[root@master ~]# kubectl get pod --all-namespaces
-//查看pod信息
+<h3 id="（1）执行一下">（1）执行一下</h3>
+<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104100759831.png" alt="image-20200104100759831"></p>
-<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
-//显示pod的节点信息
+<h3 id="（2）查看一下">（2）查看一下</h3>
+<pre><code>[root@master ~]# kubectl get svc
+//查看控制器信息
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104101023909.png" alt="image-20200104101023909"></p>
-<h2 id="Node节点">Node节点</h2>
-<p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972"></p>
+<h3 id="（3）访问一下">（3）访问一下</h3>
+<pre><code>[root@master ~]# curl 10.111.193.168
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353"></p>
+<h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
+<h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
+<pre><code>kind: Service  #资源对象是副本
+apiVersion: v1   #api的版本
+metadata:
+  name: web-svc
+spec:
+  type: NodePort    #添加 更改网络类型
+  selector:     #标签选择器
+    app: web_server  #须和web.yaml的标签一致
+  ports:              #端口
+  - protocol: TCP
+    port: 80            #宿主机的端口
+    targetPort: 80      #容器的端口
+    nodePort: 30086     #指定群集映射端口，范围是30000-32767
+</code></pre>
+<h3 id="（2）刷新一下">（2）刷新一下</h3>
+<pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml 
+</code></pre>
+<h3 id="（3）查看一下">（3）查看一下</h3>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940"></p>
+<h3 id="（4）浏览器测试">（4）浏览器测试</h3>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952"></p>
+<h1>三、小实验</h1>
 <blockquote>
-<ul>
-<li><strong>负责Node节点上pod的创建、修改、监控、删除等全生命周期的管理</strong></li>
-<li><strong>定时上报本Node的状态信息给API Server。</strong></li>
-<li><strong>kubelet是Master API Server和Minion之间的桥梁，接收Master API Server分配给它的commands和work，与持久性键值存储etcd、file、server和http进行交互，读取配置信息。</strong></li>
-<li><strong>具体的工作如下：</strong></li>
-</ul>
-<p><strong>设置容器的环境变量、给容器绑定<a href="https://www.centos.bz/tag/volume/" target="_blank" rel="noopener">Volume</a>、给容器绑定Port、根据指定的Pod运行一个单一容器、给指定的Pod创建network 容器。</strong></p>
-<p><strong>同步Pod的状态、同步Pod的状态、从<a href="https://www.centos.bz/tag/cadvisor/" target="_blank" rel="noopener">cAdvisor</a>获取<a href="https://www.centos.bz/tag/container/" target="_blank" rel="noopener">Container</a> info、 pod info、 root info、 <a href="https://www.centos.bz/tag/machine/" target="_blank" rel="noopener">machine</a> info。</strong></p>
-<p><strong>在容器中运行命令、杀死容器、删除Pod的所有容器。</strong></p>
+<p><strong>基于上一篇博客实验继续进行</strong></p>
 </blockquote>
-<p>**kube-proxy[负载均衡、路由转发]:**负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
-<blockquote>
-<ul>
-<li><strong>Proxy是为了解决外部网络能够访问跨机器集群中容器提供的应用服务而设计的，运行在每个Node上。Proxy提供TCP/UDP sockets的proxy，每创建一种Service，Proxy主要从etcd获取Services和Endpoints的配置信息（也可以从file获取），然后根据配置信息在Minion上启动一个Proxy的进程并监听相应的服务端口，当外部请求发生时，Proxy会根据Load Balancer将请求分发到后端正确的容器处理。</strong></li>
-<li><strong>Proxy不但解决了同一主宿机相同服务端口冲突的问题，还提供了Service转发服务端口对外提供服务的能力，Proxy后端使用了随机、轮循负载均衡算法。</strong></li>
-</ul>
-</blockquote>
-<h2 id="范例">范例</h2>
-<blockquote>
-<h3 id="分析各个组件的作用以及架构工作流程">分析各个组件的作用以及架构工作流程:</h3>
-<p><strong>1) kubectl发送部署 请求到API server</strong><br>
-<strong>2) APIserver通知Controller Manager创建一个Deployment资源。</strong><br>
-<strong>3) Scheduler执行调度任务,将两个副本Pod分发到node01和node02. 上。</strong><br>
-<strong>4) node01和node02, 上的kubelet在各自节点上创建并运行Pod。</strong></p>
-<h3 id="补充">补充</h3>
-<p><strong>1.应用的配置和当前的状态信息保存在etcd中，执行kubectl get pod时API server会从etcd中读取这些数据。</strong></p>
-<p><strong>2.flannel会为每个Pod分配一个IP。 但此时没有创建Service资源，目前kube-proxy还没有参与进来。</strong></p>
-</blockquote>
-<h3 id="运行一个例子（创建一个deployment资源对象-pod控制器-）">运行一个例子（创建一个deployment资源对象&lt;pod控制器&gt;）</h3>
-<pre><code>[root@master ~]# kubectl run test-web --image=httpd --replicas=2
-//创建一个deployment资源对象。
+<h3 id="1-使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。">1.使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。</h3>
+<h3 id="编写yaml文件">编写yaml文件</h3>
+<pre><code>[root@master ~]# vim www.yaml
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: www_server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1   
 </code></pre>
-<p><em><strong>运行完成之后，如果有镜像可直接开启，没有的话需要等待一会儿，node节点要在docker hup上下载</strong></em></p>
-<h4 id="查看一下">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy
+<h4 id="（1）执行一下-2">（1）执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110812772.png" alt="image-20200104110812772"></p>
-<pre><code>[root@master ~]# kubectl get pod
+<h4 id="（2）查看一下-2">（2）查看一下</h4>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+//查看控制器信息
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110954406.png" alt="image-20200104110954406"></p>
-<pre><code>[root@master ~]# kubectl get pod  -o wide
-//显示pod的节点信息
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看pod节点信息
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png" alt="image-20200104111128779"></p>
-<p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
-<h3 id="如果删除一个pod">如果删除一个pod</h3>
-<pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152"></p>
+<h4 id="（3）访问一下-2">（3）访问一下</h4>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669"></p>
+<h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
+<h4 id="编写service文件">编写service文件</h4>
+<pre><code>[root@master ~]# vim www-svc.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: www-svc
+spec:
+  type: NodePort
+  selector:
+    app: www_server
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30123
+</code></pre>
+<h4 id="执行一下-2">执行一下</h4>
+<pre><code>[root@master ~]# kubectl apply -f www-svc.yaml 
 </code></pre>
 <h4 id="查看一下-2">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get pod -o wide
+<pre><code>[root@master ~]# kubectl get svc
 </code></pre>
-<p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png" alt="image-20200104112418012"></p>
-<p><em><strong>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</strong></em></p>
-<p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525"></p>
+<h4 id="访问一下">访问一下</h4>
+<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559"></p>
+<h1>四. 总结</h1>
+<h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
+<blockquote>
+<p>在k8s中pod是最小的管理单位，在一个pod中通常会包含一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。<br>
+在每一个Pod中都有一个特殊的Pause容器和一个或多个业务容器，Pause来源于pause-amd64镜像,Pause容器在Pod中具有非常重要的作用：</p>
+<ul>
+<li>Pause容器作为Pod容器的根容器，其本地于业务容器无关，它的状态代表了整个pod的状态。</li>
+<li>Pod里的多个业务容器共享Pause容器的IP，每个Pod被分配一个独立的IP地址，Pod中的每个容器共享网络命名空间，包括IP地址和网络端口。Pod内的容器可以使用localhost相互通信。k8s支持底层网络集群内任意两个Pod之间进行通信。</li>
+<li>Pod中的所有容器都可以访问共享volumes，允许这些容器共享数据。volumes还用于Pod中的数据持久化，以防其中一个容器需要重新启动而丢失数据。</li>
+</ul>
+</blockquote>
+<h2 id="2-Service的作用"><strong>2. Service的作用</strong></h2>
+<p><strong>Service 是后端真实服务的抽象，一个 Service 可以代表多个相同的后端服务</strong></p>
+<p><strong>Service 为 POD 控制器控制的 POD 集群提供一个固定的访问端点，Service 的工作还依赖于 K8s 中的一个附件，就是 CoreDNS ，它将 Service 地址提供一个域名解析。</strong></p>
+<h3 id="NodePort-类型的-service">NodePort 类型的 service</h3>
+<blockquote>
+<p><strong>clusterIP</strong>：指定 Service 处于 service 网络的哪个 IP，默认为动态分配</p>
+<p><strong>NodePort 是在 ClusterIP 类型上增加了一个暴露在了 node 的网络命名空间上的一个 nodePort，所以用户可以从集群外部访问到集群了，因而用户的请求流程是：Client -&gt; NodeIP:NodePort -&gt; ClusterIP:ServicePort -&gt; PodIP:ContainerPort。</strong></p>
+<p><strong>可以理解为 NodePort 增强了 ClusterIP 的功能，让客户端可以在每个集群外部访问任意一个 nodeip 从而访问到 clusterIP，再由 clusterIP 进行负载均衡至 POD。</strong></p>
+</blockquote>
+<h2 id="3-流量走向">3.流量走向</h2>
+<p><strong>我们在创建完成一个服务之后，用户首先应该访问的是nginx反向代理的ip，然后通过nginx访问到后端的k8s服务器（master节点）的“NodePort暴露IP 及 映射的端口“，master的apiserver接受到客户端发送来的访问指令，将访问指令通知Controller Manager控制器，Scheduler执行调度任务，将访问指令分发到各节点之上，通过”master节点“的“ip+映射端口”访问到后端k8s节点的信息，节点的Kubelet（pod代理）当Scheduler确定让那个节点返回访问信息之后，kube-proxy将访问信息负载均衡到该节点的容器上，各容器返回信息，并向Master报告运行状态</strong></p>
 ]]></content>
   </entry>
   <entry>
@@ -1663,374 +1920,293 @@ spec:
 ]]></content>
   </entry>
   <entry>
-    <title>04 配置清单</title>
-    <url>/posts/748b.html</url>
-    <content><![CDATA[<h1>一，两种创建资源的方法</h1>
-<h2 id="1-基于命令的方式：">1. 基于命令的方式：</h2>
-<ol>
-<li><strong>简单直观快捷，上手快。</strong></li>
-<li><strong>适合临时测试或实验。</strong></li>
-</ol>
-<h2 id="2-基于配置清单的方式：">2. 基于配置清单的方式：</h2>
-<ol>
-<li><strong>配置文件描述了 <code>What</code>，即应用最终要达到的状态。</strong></li>
-<li><strong>配置文件提供了创建资源的模板，能够重复部署。</strong></li>
-<li><strong>可以像管理代码一样管理部署。</strong></li>
-<li><strong>适合正式的、跨环境的、规模化部署。</strong></li>
-<li><strong>这种方式要求熟悉配置文件的语法，有一定难度。</strong></li>
-</ol>
-<h2 id="环境介绍">环境介绍</h2>
-<table>
-<thead>
-<tr>
-<th>主机</th>
-<th>IP地址</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>192.168.1.21</td>
-<td>k8s</td>
-</tr>
-<tr>
-<td>node01</td>
-<td>192.168.1.22</td>
-<td>k8s</td>
-</tr>
-<tr>
-<td>node02</td>
-<td>192.168.1.23</td>
-<td>k8s</td>
-</tr>
-</tbody>
-</table>
-<h1>二. 配置清单（yam，yaml）</h1>
-<p><strong>在k8s中，一般使用yaml格式的文件来创建符合我们预期期望的pod，这样的yaml文件我们一般称为资源清单</strong></p>
+    <title>09 Job资源对象</title>
+    <url>/posts/e9be.html</url>
+    <content><![CDATA[<h1>Job资源对象</h1>
 <blockquote>
-<p><strong>/etc/kubernetes/manifests/</strong>    k8s存放（yam、yaml）文件的地方</p>
-<p>**kubectl explain deployment（通过explain参数加上资源类别就能看到该资源应该怎么定义）</p>
-<p><strong>kubectl explain deployment.metadata</strong> 通过资源类别加上带有Object标记的字段，我们就可以看到一级字段下二级字段的内容有那些怎么去定义等</p>
-<p><strong>kubectl explain deployment.metadata.ownerReferences</strong> 通过加上不同级别的字段名称来看下字段下的内容，而且前面的[]号代表对象列表</p>
+<p>**服务类的Pod容器：**RC、RS、DS、Deployment</p>
+<p>**工作类的Pod容器：**Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。</p>
 </blockquote>
-<h2 id="1-常见yaml文件写法，以及字段的作用">1.常见yaml文件写法，以及字段的作用</h2>
-<p><strong>(1) apiVersion：api版本信息</strong></p>
-<p><em><strong>（用来定义当前属于哪个组和那个版本，这个直接关系到最终提供使用的是那个版本）</strong></em></p>
-<pre><code>[root@master manifests]# kubectl api-versions
-//查看到当前所有api的版本
-</code></pre>
-<p><strong>(2) kind: 资源对象的类别</strong></p>
-<p><em><strong>(用来定义创建的对象是属于什么类别，是pod，service，还是deployment等对象，可以按照其固定的语法格式来自定义。)</strong></em><br>
-<strong>(3) metadata: 元数据 名称字段（必写）</strong></p>
+<p><strong>注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里</strong><br>
+<strong>的容器重启策略只能是: Never和 OnFailure。</strong></p>
+<h1>概念</h1>
+<p><strong>在有些场景下，是想要运行一些容器执行某种特定的任务，任务一旦执行完成，容器也就没有存在的必要了。在这种场景下，创建pod就显得不那么合适。于是就是了Job，Job指的就是那些一次性任务。通过Job运行一个容器，当其任务执行完以后，就自动退出，集群也不再重新将其唤醒。</strong></p>
+<p><strong>从程序的运行形态上来区分，可以将Pod分为两类：长时运行服务（jboss、mysql等）和一次性任务（数据计算、测试）。RC创建的Pod都是长时运行的服务，Job多用于执行一次性任务、批处理工作等，执行完成后便会停止（status.phase变为Succeeded）。</strong></p>
+<h1>一、kubernetes支持以下几种job</h1>
 <blockquote>
-<p><strong>提供以下几个字段</strong>：<br>
-　　<strong>creationTimestamp: &quot;2019-06-24T12:18:48Z&quot;</strong><br>
-　　<strong>generateName: myweb-5b59c8b9d-</strong><br>
-　　<strong>labels: （对象标签）</strong><br>
-　　　　<strong>pod-template-hash: 5b59c8b9d</strong><br>
-　　　　<strong>run: myweb</strong><br>
-　　<strong>name: myweb-5b59c8b9d-gwzz5 （pods对象的名称，同一个类别当中的pod对象名称是唯一的，不能重复）</strong><br>
-　　<strong>namespace: default （对象所属的名称空间，同一名称空间内可以重复，这个名称空间也是k8s级别的名称空间，不和容器的名称空间混淆）</strong><br>
-　　<strong>ownerReferences:</strong></p>
-<p>- <strong>apiVersion: apps/v1</strong><br>
-　　　　<strong>blockOwnerDeletion: true</strong><br>
-　　　　<strong>controller: true</strong><br>
-　　　　<strong>kind: ReplicaSet</strong><br>
-　　　　<strong>name: myweb-5b59c8b9d</strong><br>
-　　　　<strong>uid: 37f38f64-967a-11e9-8b4b-000c291028e5</strong><br>
-　　<strong>resourceVersion: &quot;943&quot;</strong><br>
-　　<strong>selfLink: /api/v1/namespaces/default/pods/myweb-5b59c8b9d-gwzz5</strong><br>
-　　<strong>uid: 37f653a6-967a-11e9-8b4b-000c291028e5</strong><br>
-　　<strong>annotations（资源注解，这个需要提前定义，默认是没有的）</strong><br>
-<strong>通过这些标识定义了每个资源引用的path：即/api/group/version/namespaces/名称空间/资源类别/对象名称</strong></p>
-</blockquote>
-<p><strong>(4) spec： 用户期望的状态</strong></p>
-<p><em><strong>（这个字段最重要，因为spec是用来定义目标状态的‘disired state’，而且资源不通导致spec所嵌套的字段也各不相同，也就因为spec重要且字段不相同，k8s在内部自建了一个spec的说明用于查询）</strong></em></p>
-<p><strong>(5) status：资源现在处于什么样的状态</strong></p>
-<p><em><strong>（当前状态，’current state‘，这个字段有k8s集群来生成和维护，不能自定义，属于一个只读字段）</strong></em></p>
-<h2 id="2-编写一个yaml文件">2.编写一个yaml文件</h2>
-<pre><code>[root@master ~]# vim web.yaml
-kind: Deployment  #资源对象是控制器
-apiVersion: extensions/v1beta1   #api的版本
-metadata:      #描述kind（资源类型）
-  name: web   #定义控制器名称
-spec:
-  replicas: 2   #副本数量
-  template:     #模板
-    metadata:    
-      labels:   #标签
-        app: web_server
-    spec:
-      containers:   #指定容器
-      - name: nginx  #容器名称
-        image: nginx   #使用的镜像
-</code></pre>
-<h3 id="执行一下">执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f web.yaml 
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments.  -o wide
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262"></p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209"></p>
-<h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
-<pre><code>[root@master ~]# vim web-svc.yaml
-kind: Service  #资源对象是副本
-apiVersion: v1   #api的版本
-metadata:
-  name: web-svc
-spec:
-  selector:     #标签选择器
-    app: web-server  #须和web.yaml的标签一致
-  ports:              #端口
-  - protocol: TCP
-    port: 80            #宿主机的端口
-    targetPort: 80      #容器的端口
-</code></pre>
-<blockquote>
-<p><strong>使用相同标签和标签选择器内容，使两个资源对象相互关联。</strong></p>
-<p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
-</blockquote>
-<h3 id="（1）执行一下">（1）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
-</code></pre>
-<h3 id="（2）查看一下">（2）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972"></p>
-<h3 id="（3）访问一下">（3）访问一下</h3>
-<pre><code>[root@master ~]# curl 10.111.193.168
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353"></p>
-<h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
-<h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
-<pre><code>kind: Service  #资源对象是副本
-apiVersion: v1   #api的版本
-metadata:
-  name: web-svc
-spec:
-  type: NodePort    #添加 更改网络类型
-  selector:     #标签选择器
-    app: web_server  #须和web.yaml的标签一致
-  ports:              #端口
-  - protocol: TCP
-    port: 80            #宿主机的端口
-    targetPort: 80      #容器的端口
-    nodePort: 30086     #指定群集映射端口，范围是30000-32767
-</code></pre>
-<h3 id="（2）刷新一下">（2）刷新一下</h3>
-<pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml 
-</code></pre>
-<h3 id="（3）查看一下">（3）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940"></p>
-<h3 id="（4）浏览器测试">（4）浏览器测试</h3>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952"></p>
-<h1>三、小实验</h1>
-<blockquote>
-<p><strong>基于上一篇博客实验继续进行</strong></p>
-</blockquote>
-<h3 id="1-使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。">1.使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。</h3>
-<h3 id="编写yaml文件">编写yaml文件</h3>
-<pre><code>[root@master ~]# vim www.yaml
-kind: Deployment
-apiVersion: extensions/v1beta1
-metadata:
-  name: xgp
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: www_server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000/web:v1   
-</code></pre>
-<h4 id="（1）执行一下-2">（1）执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
-</code></pre>
-<h4 id="（2）查看一下-2">（2）查看一下</h4>
-<pre><code>[root@master ~]# kubectl get deployments. -o wide
-//查看控制器信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208"></p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-//查看pod节点信息
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152"></p>
-<h4 id="（3）访问一下-2">（3）访问一下</h4>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669"></p>
-<h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
-<h4 id="编写service文件">编写service文件</h4>
-<pre><code>[root@master ~]# vim www-svc.yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: www-svc
-spec:
-  type: NodePort
-  selector:
-    app: www_server
-  ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-    nodePort: 30123
-</code></pre>
-<h4 id="执行一下-2">执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f www-svc.yaml 
-</code></pre>
-<h4 id="查看一下-2">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525"></p>
-<h4 id="访问一下">访问一下</h4>
-<p><img src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559"></p>
-<h1>四. 总结</h1>
-<h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
-<blockquote>
-<p>在k8s中pod是最小的管理单位，在一个pod中通常会包含一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。<br>
-在每一个Pod中都有一个特殊的Pause容器和一个或多个业务容器，Pause来源于pause-amd64镜像,Pause容器在Pod中具有非常重要的作用：</p>
 <ul>
-<li>Pause容器作为Pod容器的根容器，其本地于业务容器无关，它的状态代表了整个pod的状态。</li>
-<li>Pod里的多个业务容器共享Pause容器的IP，每个Pod被分配一个独立的IP地址，Pod中的每个容器共享网络命名空间，包括IP地址和网络端口。Pod内的容器可以使用localhost相互通信。k8s支持底层网络集群内任意两个Pod之间进行通信。</li>
-<li>Pod中的所有容器都可以访问共享volumes，允许这些容器共享数据。volumes还用于Pod中的数据持久化，以防其中一个容器需要重新启动而丢失数据。</li>
+<li><strong>非并行job：通常创建一个pod直至其成功结束。</strong></li>
+<li><strong>固定结束次数的job：设置spec.completions,创建多个pod，直到.spec.completions个pod成功结束。</strong></li>
+<li><strong>带有工作队列的并行job：设置.spec.Parallelism但不设置.spec.completions,当所有pod结束并且至少一个成功时，job就认为是成功。</strong></li>
 </ul>
 </blockquote>
-<h2 id="2-Service的作用"><strong>2. Service的作用</strong></h2>
-<p><strong>Service 是后端真实服务的抽象，一个 Service 可以代表多个相同的后端服务</strong></p>
-<p><strong>Service 为 POD 控制器控制的 POD 集群提供一个固定的访问端点，Service 的工作还依赖于 K8s 中的一个附件，就是 CoreDNS ，它将 Service 地址提供一个域名解析。</strong></p>
-<h3 id="NodePort-类型的-service">NodePort 类型的 service</h3>
-<blockquote>
-<p><strong>clusterIP</strong>：指定 Service 处于 service 网络的哪个 IP，默认为动态分配</p>
-<p><strong>NodePort 是在 ClusterIP 类型上增加了一个暴露在了 node 的网络命名空间上的一个 nodePort，所以用户可以从集群外部访问到集群了，因而用户的请求流程是：Client -&gt; NodeIP:NodePort -&gt; ClusterIP:ServicePort -&gt; PodIP:ContainerPort。</strong></p>
-<p><strong>可以理解为 NodePort 增强了 ClusterIP 的功能，让客户端可以在每个集群外部访问任意一个 nodeip 从而访问到 clusterIP，再由 clusterIP 进行负载均衡至 POD。</strong></p>
-</blockquote>
-<h2 id="3-流量走向">3.流量走向</h2>
-<p><strong>我们在创建完成一个服务之后，用户首先应该访问的是nginx反向代理的ip，然后通过nginx访问到后端的k8s服务器（master节点）的“NodePort暴露IP 及 映射的端口“，master的apiserver接受到客户端发送来的访问指令，将访问指令通知Controller Manager控制器，Scheduler执行调度任务，将访问指令分发到各节点之上，通过”master节点“的“ip+映射端口”访问到后端k8s节点的信息，节点的Kubelet（pod代理）当Scheduler确定让那个节点返回访问信息之后，kube-proxy将访问信息负载均衡到该节点的容器上，各容器返回信息，并向Master报告运行状态</strong></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>10 复习 </title>
-    <url>/posts/1b18.html</url>
-    <content><![CDATA[<h1>虚拟化</h1>
-<p><strong>云计算的分类</strong>：</p>
-<blockquote>
-<p><strong>基础及服务：laas</strong><br>
-<strong>平台及服务：paas</strong><br>
-<strong>软件及服务：saas</strong></p>
-</blockquote>
-<p><strong>docker虚拟化的底层原理:</strong> Namespace + Cgroup</p>
-<p><strong>Namespace六项隔离:</strong></p>
-<blockquote>
-<p><strong>IPC: 共享内存,消息列队</strong><br>
-<strong>MNT: 挂载点 文件系统</strong><br>
-<strong>NET: 网络栈</strong><br>
-<strong>PID: 进程编号</strong><br>
-<strong>USER: 用户 组</strong><br>
-<strong>UTS: 主机名 域名</strong><br>
-<strong>namespace 六项隔离 实现了容器与宿主机 容器与容器之间的隔离</strong></p>
-</blockquote>
-<p><strong>Cgroup 四项作用：</strong></p>
-<blockquote>
-<p>**1） 资源的限制：**cgroup可以对进程组使用的资源总额进行限制<br>
-**2） 优先级分配：**通过分配的cpu时间片数量以及硬盘IO带宽的大小，实际上相当于控制了进程运行的优先级别<br>
-<strong>3） 资源统计：</strong> group可以统计系统资源使用量，比如gpu使用时间，内存使用量等，用于按量计费。同时还支持挂起动能，也就是说通过cgroup把所有 资源限制起来,对资源都不能使用，注意着并不是说我们的程序不能使用了,知识不能使用资源，处于等待状态。<br>
-**4） 进程控制：**可以对进程组执行挂起、恢复等操作。</p>
-</blockquote>
-<p><strong>镜像是容器运行的核心，容器是镜像运行的后的实例。</strong></p>
-<p><strong>DockerHub| registry  ----&gt;  pull</strong><br>
-<strong>image :     save &gt;   |  load &lt;</strong><br>
-<strong>run    ----&gt;  Container    ----&gt;   commit</strong>*<br>
-<strong>Dockerfile</strong></p>
-<p><strong>Docker 三剑客。</strong></p>
-<blockquote>
-<p><strong>docker  machine :自动化部署多台dockerHost 。</strong></p>
-<p>​        <strong>Docker-compose: 它可以同时控制多个容器。</strong></p>
-<p>​        <strong>yaml。</strong></p>
-<p><strong>Docker Swarm：</strong></p>
-<p>​        <strong>从单个的服务向集群的形势发展。</strong></p>
-<p>​         <strong>高可用、高性能、高并发 ：为了防止单点故障。</strong></p>
-<p>​         <strong>Service：服务  ----&gt; 包括运行什么服务，需要多个                          rep1icas（副本）, 外网如何访问。</strong></p>
-</blockquote>
-<h3 id="k8s"><strong>k8s</strong></h3>
-<p>关闭防火墙、禁用selinux、修改主机名并加入域名解析、关闭swap 、时间同步、免密登录、打开iptables桥接</p>
-<blockquote>
-<p><strong>对硬件的基本要求： CPU：2核   MEM：2G</strong></p>
-<p><strong>主机名：master node01 node02</strong></p>
-<p><strong>时间必须同步</strong></p>
-</blockquote>
-<p><strong>kubctl：k8s客户端      kubeadm：工具  kubelet：客户端代理</strong></p>
-<p><strong>组件：</strong></p>
-<p>​		<strong>三层网络： DockerHost  &gt;   Pod  &gt; Service</strong></p>
-<p>​        <strong>Deployment:        Service:</strong></p>
-<h3 id="master组件">**master组件: **</h3>
-<p><strong>kube- api( application interface) k8s的前端接口</strong></p>
-<p>**Scheduler[集群分发调度器]**负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
-<p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
-<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
-<p>**Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
-<h3 id="Node组件：">Node组件：</h3>
-<p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
-<p>**kube-proxy[负载均衡、路由转发]:**负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
-<h3 id="yaml文件的一级字段">yaml文件的一级字段:</h3>
-<p>​		<strong>VERSION:</strong><br>
-​		<strong>KIND:</strong><br>
-​		<strong>METADATA:</strong><br>
-​		<strong>SPEC :</strong></p>
-<pre><code>[root@master ~]# vim web.yaml
-kind: Deployment  #资源对象是控制器
-apiVersion: extensions/v1beta1   #api的版本
-metadata:      #描述kind（资源类型）
-  name: web   #定义控制器名称
-  namespace：  #名称空间
+<h2 id="Job-Controller">Job Controller</h2>
+<p><strong>Job Controller负责根据Job Spec创建pod，并持续监控pod的状态，直至其成功结束，如果失败，则根据restartPolicy（只支持OnFailure和Never，不支持Always）决定是否创建新的pod再次重试任务。</strong></p>
+<h2 id="例子"><strong>例子</strong></h2>
+<h3 id="（1）编写一个job的yaml文件">（1）编写一个job的yaml文件</h3>
+<pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
 spec:
-  replicas: 2   #副本数量
-  template:     #模板
-    metadata:    
-      labels:   #标签
-        app: web_server
+  template:
+    metadata:
+      name: test-job
     spec:
-      containers:   #指定容器
-      - name: nginx  #容器名称
-        image: nginx   #使用的镜像
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+      restartPolicy: Never
 </code></pre>
-<p>​		<strong>Deployment（控制器)：</strong></p>
-<p>​				**ReplicationController：**用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</p>
-<p>​				**RS（RpelicaSet）:**RS也是用于保证与label selector匹配的pod数量维持在期望状态</p>
-<p>​		<strong>Service：</strong></p>
-<p>​				<strong>type：默认Cluster IP</strong></p>
-<p>​							<strong>NodePort：  30000-32767</strong></p>
-<p>​		<strong>Deployment和Service关联：标签和标签选择器</strong></p>
-<p>​		<strong>Namespace：</strong></p>
-<p>​		<strong>Pod：最小单位</strong></p>
-<p>​					<strong>镜像的下载策略：</strong></p>
+<h3 id="（2）执行一下">（2）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（3）查看一下">（3）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115090831524](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115090831524.png)</p>
+<h4 id="查看日志">查看日志</h4>
+<pre><code>[root@master yaml]# kubectl logs test-job-gs45w 
+</code></pre>
+<p>![image-20200115091213349](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091213349.png)</p>
+<p><strong>我们可以看到job与其他资源对象不同，仅执行一次性任务，默认pod借宿运行后job即结束，状态为Completed。</strong></p>
+<h3 id="（4）修改一下jop的yaml文件，把echo命令换成乱码">（4）修改一下jop的yaml文件，把echo命令换成乱码</h3>
+<pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;] #修改
+      restartPolicy: Never
+</code></pre>
+<h3 id="（5）先删除之前的pod">（5）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job  
+</code></pre>
+<h3 id="（6）执行一下">（6）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（7）查看一下">（7）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod -w
+</code></pre>
+<p>![image-20200115091647925](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091647925.png)</p>
+<p><em><strong>它会一直创建pod直到完成命令。</strong></em></p>
+<h3 id="（8）修改一下jop的yaml文件，修改重启策略">（8）修改一下jop的yaml文件，修改重启策略</h3>
+<pre><code>[root@master yaml]# vim jop.yaml 
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;]
+      restartPolicy: OnFailure
+</code></pre>
+<h3 id="（9）先删除之前的pod">（9）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
+</code></pre>
+<h3 id="（10）执行一下">（10）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（11）查看一下">（11）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod -w
+</code></pre>
+<p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
+<p><em><strong>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</strong></em></p>
+<h1>二、提高Job的执行效率</h1>
+<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
+<hr>
+<h3 id="（1）编写一个job的yaml文件-2">（1）编写一个job的yaml文件</h3>
+<pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  parallelism: 2    #同时启用几个pod
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+      restartPolicy: OnFailure
+</code></pre>
+<h3 id="（3）执行一下">（3）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115093854913](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115093854913.png)</p>
+<h4 id="查看日志-2">查看日志</h4>
+<p>![image-20200115094002236](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094002236.png)</p>
+<h2 id="2-我们可以在Job-spec字段下加上complations选项。表示总共需要完成Pod的数量">2. 我们可以在Job.spec字段下加上complations选项。表示总共需要完成Pod的数量</h2>
+<h3 id="（1）编写一个job的yaml文件-3">（1）编写一个job的yaml文件</h3>
+<pre><code>[root@master yaml]# vim jop.yaml
+kind: Job
+apiVersion: batch/v1
+metadata:
+  name: test-job
+spec:
+  complations: 8            #运行pod的总数量8个
+  parallelism: 2            #同时运行2个pod
+  template:
+    metadata:
+      name: test-job
+    spec:
+      containers:
+      - name: hello
+        image: busybox
+        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
+      restartPolicy: OnFailure
+</code></pre>
+<p><strong>job 字段解释：</strong></p>
 <blockquote>
-<p>​						**Always：**镜像标签为“laster”或镜像不存在时，总是从指定的仓库中获取镜像。</p>
-<p>​						**IfNotPresent：**仅当本地镜像不存在时才从目标仓库下载。</p>
-<p>​						**Never：**禁止从仓库中下载镜像，即只使用本地镜像。</p>
+<p><strong>标志Job结束需要成功运行的Pod个数，默认为1</strong><br>
+<strong>parallelism：标志并行运行的Pod的个数，默认为1</strong><br>
+<strong>activeDeadlineSeconds：标志失败Pod的重试最大时间，超过这个时间不会继续重试.</strong></p>
 </blockquote>
-<p>​					<strong>默认的标签 为latest：always</strong></p>
-<p>​					<strong>Pod的重启策略：</strong></p>
-<blockquote>
-<p>​					<strong>Always：</strong>（默认情况下使用）但凡Pod对象终止就将其重启；<br>
-​					**OnFailure：**仅在Pod对象出现错误时才将其重启；<br>
-​					**Never：**从不重启；</p>
-</blockquote>
-<p>​				<strong>Pod的健康检查:</strong><br>
-​					Liveness:   探测失败重启pod<br>
-​					Readiness: 探测失败将pod设置为不可用<br>
-kubelet：控制pod</p>
-<p>DaemonSet :会在每一个节点都会运行，并且只运行一个Pod</p>
+<h3 id="（2）先删除之前的pod">（2）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
+</code></pre>
+<h3 id="（3）执行一下-2">（3）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下-2">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115094519494](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094519494.png)</p>
+<p><strong>可以看到pod是两个两个的启动的。</strong></p>
+<h2 id="3-如何定时执行Job">3. 如何定时执行Job</h2>
+<h3 id="（1）编写一个cronjob的yaml文件">（1）编写一个cronjob的yaml文件</h3>
+<pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: &quot;*/1 * * * *&quot; #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+          restartPolicy: OnFailure
+</code></pre>
+<h3 id="（2）先删除之前的pod-2">（2）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
+</code></pre>
+<h3 id="（3）执行一下-3">（3）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下-3">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115095857428](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095857428.png)</p>
+<pre><code>[root@master yaml]# kubectl get cronjobs.batch 
+</code></pre>
+<p>![image-20200115095920740](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095920740.png)</p>
+<p><strong>此时查看Pod的状态，会发现，每分钟都会运行一个新的Pod来执行命令规定的任</strong><br>
+<strong>务。</strong></p>
+<h2 id="练习：规定2020-1-15-10-5分运行上面的crontab任务。">练习：规定2020.1.15.10.5分运行上面的crontab任务。</h2>
+<h3 id="（1）编写一个cronjob的yaml文件-2">（1）编写一个cronjob的yaml文件</h3>
+<pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: &quot;5 10 15 1 *&quot; #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+          restartPolicy: OnFailure
+</code></pre>
+<h3 id="（2）先删除之前的pod-3">（2）先删除之前的pod</h3>
+<pre><code>[root@master yaml]# kubectl delete cronjobs.batch hello 
+</code></pre>
+<h3 id="（3）执行一下-4">（3）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下-4">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
+<p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
+<p><strong>这时会发现，如果规定具体时间，可能并不会执行任务。</strong></p>
+<h3 id="（5）添加apiVersion库">（5）添加apiVersion库</h3>
+<pre><code>[root@master yaml]# vim /etc/kubernetes/manifests/kube-apiserver.yaml 
+spec:
+  containers:
+  - command:
+    - kube-apiserver
+    - --runtime-config=batch/v2alpha1=true    #添加
+</code></pre>
+<p>![image-20200115104218361](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104218361.png)</p>
+<h3 id="（6）重启kubelet">（6）重启kubelet</h3>
+<pre><code>[root@master yaml]# systemctl restart kubelet.service 
+</code></pre>
+<h3 id="（7）查看api版本">（7）查看api版本</h3>
+<pre><code>[root@master yaml]# kubectl api-versions 
+</code></pre>
+<p>![image-20200115104521662](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104521662.png)</p>
+<h3 id="（8）编写一个cronjob的yaml文件">（8）编写一个cronjob的yaml文件</h3>
+<pre><code>[root@master yaml]# vim cronjop.yaml
+kind: CronJob
+apiVersion: batch/v1beta1
+metadata:
+  name: hello
+spec:
+  schedule: &quot;47 10 15 1 *&quot; #限定时间
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: hello
+            image: busybox
+            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
+          restartPolicy: OnFailure
+</code></pre>
+<h3 id="（9）执行一下">（9）执行一下</h3>
+<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+</code></pre>
+<h3 id="（4）查看一下-5">（4）查看一下</h3>
+<pre><code>[root@master yaml]# kubectl get pod -w
+</code></pre>
+<p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
+<p><strong>注意：此时仍然不能正常运行指定时间的Job，这是因为K8s官方在cronjob这个资源对象的支持中还没有完善此功能，还待开发。</strong></p>
+<p><strong>跟Job资源一样在cronjob.spec.jobTemplate.spec 下同样支持并发Job参数:</strong><br>
+<strong>parallelism，也支持完成Pod的总数参数: completionsr</strong></p>
+<h1>总结</h1>
+<p><strong>Job 作为 Kubernetes 中用于处理任务的资源，与其他的资源没有太多的区别，它也使用 Kubernetes 中常见的控制器模式，监听 Informer 中的事件并运行 <code>syncHandler</code> 同步任务</strong></p>
+<p><strong>而 CronJob 由于其功能的特殊性，每隔 10s 会从 apiserver 中取出资源并进行检查是否应该触发调度创建新的资源，需要注意的是 CronJob 并不能保证在准确的目标时间执行，执行会有一定程度的滞后。</strong></p>
+<p><strong>两个控制器的实现都比较清晰，只是边界条件比较多，分析其实现原理时一定要多注意。</strong></p>
 ]]></content>
   </entry>
   <entry>
@@ -2438,293 +2614,192 @@ kubectl logs<br>
 ]]></content>
   </entry>
   <entry>
-    <title>09 Job资源对象</title>
-    <url>/posts/e9be.html</url>
-    <content><![CDATA[<h1>Job资源对象</h1>
+    <title>10 复习 </title>
+    <url>/posts/1b18.html</url>
+    <content><![CDATA[<h1>虚拟化</h1>
+<p><strong>云计算的分类</strong>：</p>
 <blockquote>
-<p>**服务类的Pod容器：**RC、RS、DS、Deployment</p>
-<p>**工作类的Pod容器：**Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。</p>
+<p><strong>基础及服务：laas</strong><br>
+<strong>平台及服务：paas</strong><br>
+<strong>软件及服务：saas</strong></p>
 </blockquote>
-<p><strong>注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里</strong><br>
-<strong>的容器重启策略只能是: Never和 OnFailure。</strong></p>
-<h1>概念</h1>
-<p><strong>在有些场景下，是想要运行一些容器执行某种特定的任务，任务一旦执行完成，容器也就没有存在的必要了。在这种场景下，创建pod就显得不那么合适。于是就是了Job，Job指的就是那些一次性任务。通过Job运行一个容器，当其任务执行完以后，就自动退出，集群也不再重新将其唤醒。</strong></p>
-<p><strong>从程序的运行形态上来区分，可以将Pod分为两类：长时运行服务（jboss、mysql等）和一次性任务（数据计算、测试）。RC创建的Pod都是长时运行的服务，Job多用于执行一次性任务、批处理工作等，执行完成后便会停止（status.phase变为Succeeded）。</strong></p>
-<h1>一、kubernetes支持以下几种job</h1>
+<p><strong>docker虚拟化的底层原理:</strong> Namespace + Cgroup</p>
+<p><strong>Namespace六项隔离:</strong></p>
 <blockquote>
-<ul>
-<li><strong>非并行job：通常创建一个pod直至其成功结束。</strong></li>
-<li><strong>固定结束次数的job：设置spec.completions,创建多个pod，直到.spec.completions个pod成功结束。</strong></li>
-<li><strong>带有工作队列的并行job：设置.spec.Parallelism但不设置.spec.completions,当所有pod结束并且至少一个成功时，job就认为是成功。</strong></li>
-</ul>
+<p><strong>IPC: 共享内存,消息列队</strong><br>
+<strong>MNT: 挂载点 文件系统</strong><br>
+<strong>NET: 网络栈</strong><br>
+<strong>PID: 进程编号</strong><br>
+<strong>USER: 用户 组</strong><br>
+<strong>UTS: 主机名 域名</strong><br>
+<strong>namespace 六项隔离 实现了容器与宿主机 容器与容器之间的隔离</strong></p>
 </blockquote>
-<h2 id="Job-Controller">Job Controller</h2>
-<p><strong>Job Controller负责根据Job Spec创建pod，并持续监控pod的状态，直至其成功结束，如果失败，则根据restartPolicy（只支持OnFailure和Never，不支持Always）决定是否创建新的pod再次重试任务。</strong></p>
-<h2 id="例子"><strong>例子</strong></h2>
-<h3 id="（1）编写一个job的yaml文件">（1）编写一个job的yaml文件</h3>
-<pre><code>[root@master yaml]# vim jop.yaml
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
-      restartPolicy: Never
-</code></pre>
-<h3 id="（2）执行一下">（2）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（3）查看一下">（3）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
-<p>![image-20200115090831524](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115090831524.png)</p>
-<h4 id="查看日志">查看日志</h4>
-<pre><code>[root@master yaml]# kubectl logs test-job-gs45w 
-</code></pre>
-<p>![image-20200115091213349](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091213349.png)</p>
-<p><strong>我们可以看到job与其他资源对象不同，仅执行一次性任务，默认pod借宿运行后job即结束，状态为Completed。</strong></p>
-<h3 id="（4）修改一下jop的yaml文件，把echo命令换成乱码">（4）修改一下jop的yaml文件，把echo命令换成乱码</h3>
-<pre><code>[root@master yaml]# vim jop.yaml
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;] #修改
-      restartPolicy: Never
-</code></pre>
-<h3 id="（5）先删除之前的pod">（5）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job  
-</code></pre>
-<h3 id="（6）执行一下">（6）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（7）查看一下">（7）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod -w
-</code></pre>
-<p>![image-20200115091647925](G:\四期\虚拟化\kubernetes\k8s文档\09 Jop资源对象.assets\image-20200115091647925.png)</p>
-<p><em><strong>它会一直创建pod直到完成命令。</strong></em></p>
-<h3 id="（8）修改一下jop的yaml文件，修改重启策略">（8）修改一下jop的yaml文件，修改重启策略</h3>
-<pre><code>[root@master yaml]# vim jop.yaml 
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;asdasxsddwefew&quot;,&quot;hello k8s job!&quot;]
-      restartPolicy: OnFailure
-</code></pre>
-<h3 id="（9）先删除之前的pod">（9）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
-</code></pre>
-<h3 id="（10）执行一下">（10）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（11）查看一下">（11）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod -w
-</code></pre>
-<p>![image-20200115092801882](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115092801882.png)</p>
-<p><em><strong>它会一直重启pod完成命令，直到重启到一定次数就会删除job。</strong></em></p>
-<h1>二、提高Job的执行效率</h1>
-<h2 id="1-我们可以在Job-spec字段下加上parallelism选项。表示同时运行多少个Pod执行任务。">1. 我们可以在Job.spec字段下加上<a href>parallelism</a>选项。表示同时运行多少个Pod执行任务。</h2>
-<hr>
-<h3 id="（1）编写一个job的yaml文件-2">（1）编写一个job的yaml文件</h3>
-<pre><code>[root@master yaml]# vim jop.yaml
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  parallelism: 2    #同时启用几个pod
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
-      restartPolicy: OnFailure
-</code></pre>
-<h3 id="（3）执行一下">（3）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（4）查看一下">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
-<p>![image-20200115093854913](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115093854913.png)</p>
-<h4 id="查看日志-2">查看日志</h4>
-<p>![image-20200115094002236](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094002236.png)</p>
-<h2 id="2-我们可以在Job-spec字段下加上complations选项。表示总共需要完成Pod的数量">2. 我们可以在Job.spec字段下加上complations选项。表示总共需要完成Pod的数量</h2>
-<h3 id="（1）编写一个job的yaml文件-3">（1）编写一个job的yaml文件</h3>
-<pre><code>[root@master yaml]# vim jop.yaml
-kind: Job
-apiVersion: batch/v1
-metadata:
-  name: test-job
-spec:
-  complations: 8            #运行pod的总数量8个
-  parallelism: 2            #同时运行2个pod
-  template:
-    metadata:
-      name: test-job
-    spec:
-      containers:
-      - name: hello
-        image: busybox
-        command: [&quot;echo&quot;,&quot;hello k8s job!&quot;]
-      restartPolicy: OnFailure
-</code></pre>
-<p><strong>job 字段解释：</strong></p>
+<p><strong>Cgroup 四项作用：</strong></p>
 <blockquote>
-<p><strong>标志Job结束需要成功运行的Pod个数，默认为1</strong><br>
-<strong>parallelism：标志并行运行的Pod的个数，默认为1</strong><br>
-<strong>activeDeadlineSeconds：标志失败Pod的重试最大时间，超过这个时间不会继续重试.</strong></p>
+<p>**1） 资源的限制：**cgroup可以对进程组使用的资源总额进行限制<br>
+**2） 优先级分配：**通过分配的cpu时间片数量以及硬盘IO带宽的大小，实际上相当于控制了进程运行的优先级别<br>
+<strong>3） 资源统计：</strong> group可以统计系统资源使用量，比如gpu使用时间，内存使用量等，用于按量计费。同时还支持挂起动能，也就是说通过cgroup把所有 资源限制起来,对资源都不能使用，注意着并不是说我们的程序不能使用了,知识不能使用资源，处于等待状态。<br>
+**4） 进程控制：**可以对进程组执行挂起、恢复等操作。</p>
 </blockquote>
-<h3 id="（2）先删除之前的pod">（2）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
-</code></pre>
-<h3 id="（3）执行一下-2">（3）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（4）查看一下-2">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
-<p>![image-20200115094519494](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115094519494.png)</p>
-<p><strong>可以看到pod是两个两个的启动的。</strong></p>
-<h2 id="3-如何定时执行Job">3. 如何定时执行Job</h2>
-<h3 id="（1）编写一个cronjob的yaml文件">（1）编写一个cronjob的yaml文件</h3>
-<pre><code>[root@master yaml]# vim cronjop.yaml
-kind: CronJob
-apiVersion: batch/v1beta1
-metadata:
-  name: hello
+<p><strong>镜像是容器运行的核心，容器是镜像运行的后的实例。</strong></p>
+<p><strong>DockerHub| registry  ----&gt;  pull</strong><br>
+<strong>image :     save &gt;   |  load &lt;</strong><br>
+<strong>run    ----&gt;  Container    ----&gt;   commit</strong>*<br>
+<strong>Dockerfile</strong></p>
+<p><strong>Docker 三剑客。</strong></p>
+<blockquote>
+<p><strong>docker  machine :自动化部署多台dockerHost 。</strong></p>
+<p>​        <strong>Docker-compose: 它可以同时控制多个容器。</strong></p>
+<p>​        <strong>yaml。</strong></p>
+<p><strong>Docker Swarm：</strong></p>
+<p>​        <strong>从单个的服务向集群的形势发展。</strong></p>
+<p>​         <strong>高可用、高性能、高并发 ：为了防止单点故障。</strong></p>
+<p>​         <strong>Service：服务  ----&gt; 包括运行什么服务，需要多个                          rep1icas（副本）, 外网如何访问。</strong></p>
+</blockquote>
+<h3 id="k8s"><strong>k8s</strong></h3>
+<p>关闭防火墙、禁用selinux、修改主机名并加入域名解析、关闭swap 、时间同步、免密登录、打开iptables桥接</p>
+<blockquote>
+<p><strong>对硬件的基本要求： CPU：2核   MEM：2G</strong></p>
+<p><strong>主机名：master node01 node02</strong></p>
+<p><strong>时间必须同步</strong></p>
+</blockquote>
+<p><strong>kubctl：k8s客户端      kubeadm：工具  kubelet：客户端代理</strong></p>
+<p><strong>组件：</strong></p>
+<p>​		<strong>三层网络： DockerHost  &gt;   Pod  &gt; Service</strong></p>
+<p>​        <strong>Deployment:        Service:</strong></p>
+<h3 id="master组件">**master组件: **</h3>
+<p><strong>kube- api( application interface) k8s的前端接口</strong></p>
+<p>**Scheduler[集群分发调度器]**负责决定将Pod放在哪个Node上运行。在调度时，会充分考虑集群的拓扑结构，当前各个节点的负载情况，以及应对高可用、性能、数据亲和性和需求。</p>
+<p><strong>Controller Manager[内部管理控制中心]</strong>：负责管理集群的各种资源，保证资源处于预期的状态。它由多种Controller组成，包括Replication Controller、Endpoints Controller、Namespace Controller、Serviceaccounts Controller等。</p>
+<p>**Etcd：**负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
+<p>**Flanner：**是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
+<h3 id="Node组件：">Node组件：</h3>
+<p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
+<p>**kube-proxy[负载均衡、路由转发]:**负责将访问service的TCP/UDP数据流转发到后端的容器。如果有多个副本，kube-proxy会实现负载均衡。</p>
+<h3 id="yaml文件的一级字段">yaml文件的一级字段:</h3>
+<p>​		<strong>VERSION:</strong><br>
+​		<strong>KIND:</strong><br>
+​		<strong>METADATA:</strong><br>
+​		<strong>SPEC :</strong></p>
+<pre><code>[root@master ~]# vim web.yaml
+kind: Deployment  #资源对象是控制器
+apiVersion: extensions/v1beta1   #api的版本
+metadata:      #描述kind（资源类型）
+  name: web   #定义控制器名称
+  namespace：  #名称空间
 spec:
-  schedule: &quot;*/1 * * * *&quot; #限定时间
-  jobTemplate:
+  replicas: 2   #副本数量
+  template:     #模板
+    metadata:    
+      labels:   #标签
+        app: web_server
     spec:
-      template:
-        spec:
-          containers:
-          - name: hello
-            image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
-          restartPolicy: OnFailure
+      containers:   #指定容器
+      - name: nginx  #容器名称
+        image: nginx   #使用的镜像
 </code></pre>
-<h3 id="（2）先删除之前的pod-2">（2）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete jobs.batch test-job 
+<p>​		<strong>Deployment（控制器)：</strong></p>
+<p>​				**ReplicationController：**用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</p>
+<p>​				**RS（RpelicaSet）:**RS也是用于保证与label selector匹配的pod数量维持在期望状态</p>
+<p>​		<strong>Service：</strong></p>
+<p>​				<strong>type：默认Cluster IP</strong></p>
+<p>​							<strong>NodePort：  30000-32767</strong></p>
+<p>​		<strong>Deployment和Service关联：标签和标签选择器</strong></p>
+<p>​		<strong>Namespace：</strong></p>
+<p>​		<strong>Pod：最小单位</strong></p>
+<p>​					<strong>镜像的下载策略：</strong></p>
+<blockquote>
+<p>​						**Always：**镜像标签为“laster”或镜像不存在时，总是从指定的仓库中获取镜像。</p>
+<p>​						**IfNotPresent：**仅当本地镜像不存在时才从目标仓库下载。</p>
+<p>​						**Never：**禁止从仓库中下载镜像，即只使用本地镜像。</p>
+</blockquote>
+<p>​					<strong>默认的标签 为latest：always</strong></p>
+<p>​					<strong>Pod的重启策略：</strong></p>
+<blockquote>
+<p>​					<strong>Always：</strong>（默认情况下使用）但凡Pod对象终止就将其重启；<br>
+​					**OnFailure：**仅在Pod对象出现错误时才将其重启；<br>
+​					**Never：**从不重启；</p>
+</blockquote>
+<p>​				<strong>Pod的健康检查:</strong><br>
+​					Liveness:   探测失败重启pod<br>
+​					Readiness: 探测失败将pod设置为不可用<br>
+kubelet：控制pod</p>
+<p>DaemonSet :会在每一个节点都会运行，并且只运行一个Pod</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>18 k8s的HPA自动扩容与缩容</title>
+    <url>/posts/2643.html</url>
+    <content><![CDATA[<h1>HPA</h1>
+<p><strong>可以根据当前Pod资源的使用率，比如说CPU、磁盘、内存等进行副本Pod的动态的扩容与缩容。</strong></p>
+<p><strong>前提条件:系统应该能否获取到当前Pod的资源使用情况 (意思是可以执行kubectl top pod命令,并且能够得到反馈信息)。</strong></p>
+<p><strong>heapster：这个组件之前是集成在k8s集群的,不过在1.12版本之后被移除了。如果还想使用此功能，应该部署metricServer, 这个k8s集群资源使用情况的聚合器。</strong></p>
+<p><strong>这里，我们使用一个测试镜像， 这个镜像基于php-apache制作的docker镜像，包含了一些可以运行cpu密集计算任务的代码。</strong></p>
+<h2 id="1、创建一个deployment控制器">1、创建一个deployment控制器</h2>
+<pre><code>[root@master ~]#docker pull mirrorgooglecontainers/hpa-example:latest
+//下载hpa-example镜像
+
+[root@master ~]# kubectl run php-apache --image=mirrorgooglecontainers/hpa-example --requests=cpu=200m --expose  --port=80
+//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口
 </code></pre>
-<h3 id="（3）执行一下-3">（3）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+<h3 id="查看一下">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get deployments.
 </code></pre>
-<h3 id="（4）查看一下-3">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
+<p>![image-20200228102643352](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228102643352.png)</p>
+<h2 id="2、创建HPA控制器">2、创建HPA控制器</h2>
+<pre><code>[root@master ~]# kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个
 </code></pre>
-<p>![image-20200115095857428](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095857428.png)</p>
-<pre><code>[root@master yaml]# kubectl get cronjobs.batch 
+<h3 id="查看一下-2">查看一下</h3>
+<pre><code>[root@master ~]# kubectl get hpa
 </code></pre>
-<p>![image-20200115095920740](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115095920740.png)</p>
-<p><strong>此时查看Pod的状态，会发现，每分钟都会运行一个新的Pod来执行命令规定的任</strong><br>
-<strong>务。</strong></p>
-<h2 id="练习：规定2020-1-15-10-5分运行上面的crontab任务。">练习：规定2020.1.15.10.5分运行上面的crontab任务。</h2>
-<h3 id="（1）编写一个cronjob的yaml文件-2">（1）编写一个cronjob的yaml文件</h3>
-<pre><code>[root@master yaml]# vim cronjop.yaml
-kind: CronJob
-apiVersion: batch/v1beta1
-metadata:
-  name: hello
-spec:
-  schedule: &quot;5 10 15 1 *&quot; #限定时间
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: hello
-            image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
-          restartPolicy: OnFailure
+<p>![image-20200228101908398](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228101908398.png)</p>
+<h2 id="3、测试（master开启三个端口）">3、测试（master开启三个端口）</h2>
+<p><strong>新开启多个终端，对pod进行死循环请求php-apache的pod</strong></p>
+<h3 id="端口一">端口一</h3>
+<h4 id="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。">（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。</h4>
+<pre><code>[root@master ~]# kubectl run -i --tty load-generator --image=busybox /bin/sh
 </code></pre>
-<h3 id="（2）先删除之前的pod-3">（2）先删除之前的pod</h3>
-<pre><code>[root@master yaml]# kubectl delete cronjobs.batch hello 
+<h4 id="（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。">（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。</h4>
+<pre><code>[root@master ~]# while true; do wget -q -O- http://php-apache.default.svc.cluster.local ; done
+//不停地向php-apache的svc资源，发送ok
 </code></pre>
-<h3 id="（3）执行一下-4">（3）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
+<h3 id="端口二">端口二</h3>
+<pre><code>[root@master ~]# kubectl get hpa -w
+//实时查看pod的cpu状态
 </code></pre>
-<h3 id="（4）查看一下-4">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod
+<p>![image-20200228133816724](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228133816724.png)</p>
+<p><strong>可以看到php-apache的cpu使用情况已经超过了50%</strong></p>
+<h3 id="端口三">端口三</h3>
+<pre><code>[root@master images]# kubectl get pod -w
+//实时查看pod的状态
 </code></pre>
-<p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
-<p><strong>这时会发现，如果规定具体时间，可能并不会执行任务。</strong></p>
-<h3 id="（5）添加apiVersion库">（5）添加apiVersion库</h3>
-<pre><code>[root@master yaml]# vim /etc/kubernetes/manifests/kube-apiserver.yaml 
-spec:
-  containers:
-  - command:
-    - kube-apiserver
-    - --runtime-config=batch/v2alpha1=true    #添加
+<p>![image-20200228134105507](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228134105507.png)</p>
+<p><strong>可以看到当php-apache的cpu使用情况超过50%后，就会不断生成新的php-apache来进行负载均衡（目前设置的上线时10个），当然，如果cpu使用情况下降到50%，master就会陆续地删除php-apache，这样的使用可以减少不必要的资源浪费、资源分配不均等情况。</strong></p>
+<h1>二、资源限制</h1>
+<h2 id="1、基于Pod">1、基于Pod</h2>
+<p><strong>Kubernetes对资源的限制实际上是通过cgroup来控制的，cgroup 是容器的一组用来控制内核如何运行进程的相关属性集合。针对内存、CPU 和各种设备都有对应的cgroup</strong></p>
+<p><strong>默认情况下，Pod运行没有CPU和内存的限额。这意味着系统中的任何 Pod将能够像执行该Pod所在的节点一样，消耗足够多的CPU和内存。一般会针对某些应用的pod资源进行资源限制，这个资源限制是通过</strong></p>
+<p><strong>resources的requests和limits来实现</strong></p>
+<pre><code>[root@master ~]# vim cgroup-pod.yaml
 </code></pre>
-<p>![image-20200115104218361](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104218361.png)</p>
-<h3 id="（6）重启kubelet">（6）重启kubelet</h3>
-<pre><code>[root@master yaml]# systemctl restart kubelet.service 
+<p>![image-20200228153809932](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153809932.png)</p>
+<p><strong>requests: 要分配的资源，limits为最高请求的资源值。可以简单的理解为初始值和最大值。</strong></p>
+<h2 id="2、基于名称空间"><strong>2、基于名称空间</strong></h2>
+<h3 id="1）-计算资源配额">1） 计算资源配额</h3>
+<pre><code>[root@master ~]# vim compute-resources.yaml
 </code></pre>
-<h3 id="（7）查看api版本">（7）查看api版本</h3>
-<pre><code>[root@master yaml]# kubectl api-versions 
+<p>![image-20200228153818288](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153818288.png)</p>
+<h3 id="2）配置对象数量配额限制">2）配置对象数量配额限制</h3>
+<pre><code>[root@master ~]# vim object-counts.yaml
 </code></pre>
-<p>![image-20200115104521662](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115104521662.png)</p>
-<h3 id="（8）编写一个cronjob的yaml文件">（8）编写一个cronjob的yaml文件</h3>
-<pre><code>[root@master yaml]# vim cronjop.yaml
-kind: CronJob
-apiVersion: batch/v1beta1
-metadata:
-  name: hello
-spec:
-  schedule: &quot;47 10 15 1 *&quot; #限定时间
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: hello
-            image: busybox
-            command: [&quot;echo&quot;,&quot;hello&quot;,&quot;cronjob&quot;]
-          restartPolicy: OnFailure
+<p>![image-20200228153828002](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153828002.png)</p>
+<h3 id="3）-配置CPU和内存的LimitRange">3） 配置CPU和内存的LimitRange</h3>
+<pre><code>[root@master ~]# vim limitRange.yaml
 </code></pre>
-<h3 id="（9）执行一下">（9）执行一下</h3>
-<pre><code>[root@master yaml]# kubectl apply -f jop.yaml 
-</code></pre>
-<h3 id="（4）查看一下-5">（4）查看一下</h3>
-<pre><code>[root@master yaml]# kubectl get pod -w
-</code></pre>
-<p>![image-20200115100855819](G:\四期\虚拟化\kubernetes\k8s文档\09 Job资源对象.assets\image-20200115100855819.png)</p>
-<p><strong>注意：此时仍然不能正常运行指定时间的Job，这是因为K8s官方在cronjob这个资源对象的支持中还没有完善此功能，还待开发。</strong></p>
-<p><strong>跟Job资源一样在cronjob.spec.jobTemplate.spec 下同样支持并发Job参数:</strong><br>
-<strong>parallelism，也支持完成Pod的总数参数: completionsr</strong></p>
-<h1>总结</h1>
-<p><strong>Job 作为 Kubernetes 中用于处理任务的资源，与其他的资源没有太多的区别，它也使用 Kubernetes 中常见的控制器模式，监听 Informer 中的事件并运行 <code>syncHandler</code> 同步任务</strong></p>
-<p><strong>而 CronJob 由于其功能的特殊性，每隔 10s 会从 apiserver 中取出资源并进行检查是否应该触发调度创建新的资源，需要注意的是 CronJob 并不能保证在准确的目标时间执行，执行会有一定程度的滞后。</strong></p>
-<p><strong>两个控制器的实现都比较清晰，只是边界条件比较多，分析其实现原理时一定要多注意。</strong></p>
+<p>![image-20200228153834705](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
+<p><strong>default 即 limit的值。</strong></p>
+<p><strong>defaultRequest 即 request的值。</strong></p>
 ]]></content>
   </entry>
   <entry>
@@ -3177,81 +3252,6 @@ adam
 <h2 id="总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。">总结以volumes挂载、和环境变量方式引用资源的相同和不同之处。</h2>
 <p><strong>volumes挂载(可根据更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己所填路径和secret或configmap创建的文件，进行查看。</strong></p>
 <p><strong>环境变量(不因更改数据更新)：引用自己创建的secret（密文）或configmap（明文），挂载到容器中指定的目录下。查看保存的文件时，根据自己环境变量，进行查看。</strong></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>18 k8s的HPA自动扩容与缩容</title>
-    <url>/posts/2643.html</url>
-    <content><![CDATA[<h1>HPA</h1>
-<p><strong>可以根据当前Pod资源的使用率，比如说CPU、磁盘、内存等进行副本Pod的动态的扩容与缩容。</strong></p>
-<p><strong>前提条件:系统应该能否获取到当前Pod的资源使用情况 (意思是可以执行kubectl top pod命令,并且能够得到反馈信息)。</strong></p>
-<p><strong>heapster：这个组件之前是集成在k8s集群的,不过在1.12版本之后被移除了。如果还想使用此功能，应该部署metricServer, 这个k8s集群资源使用情况的聚合器。</strong></p>
-<p><strong>这里，我们使用一个测试镜像， 这个镜像基于php-apache制作的docker镜像，包含了一些可以运行cpu密集计算任务的代码。</strong></p>
-<h2 id="1、创建一个deployment控制器">1、创建一个deployment控制器</h2>
-<pre><code>[root@master ~]#docker pull mirrorgooglecontainers/hpa-example:latest
-//下载hpa-example镜像
-
-[root@master ~]# kubectl run php-apache --image=mirrorgooglecontainers/hpa-example --requests=cpu=200m --expose  --port=80
-//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口
-</code></pre>
-<h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get deployments.
-</code></pre>
-<p>![image-20200228102643352](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228102643352.png)</p>
-<h2 id="2、创建HPA控制器">2、创建HPA控制器</h2>
-<pre><code>[root@master ~]# kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
-//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个
-</code></pre>
-<h3 id="查看一下-2">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get hpa
-</code></pre>
-<p>![image-20200228101908398](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228101908398.png)</p>
-<h2 id="3、测试（master开启三个端口）">3、测试（master开启三个端口）</h2>
-<p><strong>新开启多个终端，对pod进行死循环请求php-apache的pod</strong></p>
-<h3 id="端口一">端口一</h3>
-<h4 id="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。">（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。</h4>
-<pre><code>[root@master ~]# kubectl run -i --tty load-generator --image=busybox /bin/sh
-</code></pre>
-<h4 id="（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。">（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。</h4>
-<pre><code>[root@master ~]# while true; do wget -q -O- http://php-apache.default.svc.cluster.local ; done
-//不停地向php-apache的svc资源，发送ok
-</code></pre>
-<h3 id="端口二">端口二</h3>
-<pre><code>[root@master ~]# kubectl get hpa -w
-//实时查看pod的cpu状态
-</code></pre>
-<p>![image-20200228133816724](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228133816724.png)</p>
-<p><strong>可以看到php-apache的cpu使用情况已经超过了50%</strong></p>
-<h3 id="端口三">端口三</h3>
-<pre><code>[root@master images]# kubectl get pod -w
-//实时查看pod的状态
-</code></pre>
-<p>![image-20200228134105507](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228134105507.png)</p>
-<p><strong>可以看到当php-apache的cpu使用情况超过50%后，就会不断生成新的php-apache来进行负载均衡（目前设置的上线时10个），当然，如果cpu使用情况下降到50%，master就会陆续地删除php-apache，这样的使用可以减少不必要的资源浪费、资源分配不均等情况。</strong></p>
-<h1>二、资源限制</h1>
-<h2 id="1、基于Pod">1、基于Pod</h2>
-<p><strong>Kubernetes对资源的限制实际上是通过cgroup来控制的，cgroup 是容器的一组用来控制内核如何运行进程的相关属性集合。针对内存、CPU 和各种设备都有对应的cgroup</strong></p>
-<p><strong>默认情况下，Pod运行没有CPU和内存的限额。这意味着系统中的任何 Pod将能够像执行该Pod所在的节点一样，消耗足够多的CPU和内存。一般会针对某些应用的pod资源进行资源限制，这个资源限制是通过</strong></p>
-<p><strong>resources的requests和limits来实现</strong></p>
-<pre><code>[root@master ~]# vim cgroup-pod.yaml
-</code></pre>
-<p>![image-20200228153809932](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153809932.png)</p>
-<p><strong>requests: 要分配的资源，limits为最高请求的资源值。可以简单的理解为初始值和最大值。</strong></p>
-<h2 id="2、基于名称空间"><strong>2、基于名称空间</strong></h2>
-<h3 id="1）-计算资源配额">1） 计算资源配额</h3>
-<pre><code>[root@master ~]# vim compute-resources.yaml
-</code></pre>
-<p>![image-20200228153818288](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153818288.png)</p>
-<h3 id="2）配置对象数量配额限制">2）配置对象数量配额限制</h3>
-<pre><code>[root@master ~]# vim object-counts.yaml
-</code></pre>
-<p>![image-20200228153828002](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153828002.png)</p>
-<h3 id="3）-配置CPU和内存的LimitRange">3） 配置CPU和内存的LimitRange</h3>
-<pre><code>[root@master ~]# vim limitRange.yaml
-</code></pre>
-<p>![image-20200228153834705](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
-<p><strong>default 即 limit的值。</strong></p>
-<p><strong>defaultRequest 即 request的值。</strong></p>
 ]]></content>
   </entry>
   <entry>
@@ -4036,8 +4036,8 @@ GitLab 作为 Server 端，控制 Runner 端执行一系列的 CI 任务；代�
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>contact</title>
-    <url>/contact/index.html</url>
+    <title>tags</title>
+    <url>/tags/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
@@ -4046,14 +4046,34 @@ GitLab 作为 Server 端，控制 Runner 端执行一系列的 CI 任务；代�
     <content><![CDATA[]]></content>
   </entry>
   <entry>
+    <title>contact</title>
+    <url>/contact/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>categories</title>
     <url>/categories/index.html</url>
     <content><![CDATA[]]></content>
   </entry>
   <entry>
-    <title>tags</title>
-    <url>/tags/index.html</url>
-    <content><![CDATA[]]></content>
+    <title></title>
+    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
+    <content><![CDATA[!function(){
+	var userAgentInfo = navigator.userAgent;
+    var Agents = ["iPad", "iPhone", "Android", 
+          "SymbianOS", "Windows Phone",
+           "iPod", "webOS", "BlackBerry", "IEMobile"];
+    for (var v = 0; v < Agents.length; v++) {
+      if (userAgentInfo.indexOf(Agents[v]) > 0) {
+        return;
+      }
+    }
+	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y></0?-1:1,i.ya*=i.y>]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/lib/canvas-nest/canvas-nest.min.js</url>
+    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y></0?-1:1,i.ya*=i.y>]]></content>
   </entry>
   <entry>
     <title></title>
@@ -4091,25 +4111,5 @@ custom_file_path:
   #style: source/_data/styles.styl
 </code></pre>
 ]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/lib/canvas-nest/canvas-nest-nomobile.min.js</url>
-    <content><![CDATA[!function(){
-	var userAgentInfo = navigator.userAgent;
-    var Agents = ["iPad", "iPhone", "Android", 
-          "SymbianOS", "Windows Phone",
-           "iPod", "webOS", "BlackBerry", "IEMobile"];
-    for (var v = 0; v < Agents.length; v++) {
-      if (userAgentInfo.indexOf(Agents[v]) > 0) {
-        return;
-      }
-    }
-	function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y></0?-1:1,i.ya*=i.y>]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/lib/canvas-nest/canvas-nest.min.js</url>
-    <content><![CDATA[!function(){function o(w,v,i){return w.getAttribute(v)||i}function j(i){return document.getElementsByTagName(i)}function l(){var i=j("script"),w=i.length,v=i[w-1];return{l:w,z:o(v,"zIndex",-1),o:o(v,"opacity",0.5),c:o(v,"color","0,0,0"),n:o(v,"count",99)}}function k(){r=u.width=window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth,n=u.height=window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight}function b(){e.clearRect(0,0,r,n);var w=[f].concat(t);var x,v,A,B,z,y;t.forEach(function(i){i.x+=i.xa,i.y+=i.ya,i.xa*=i.x>r||i.x<0?-1:1,i.ya*=i.y>n||i.y<0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y>=x.max/2&&(i.x-=0.03*B,i.y-=0.03*z),A=(x.max-y)/x.max,e.beginPath(),e.lineWidth=A/2,e.strokeStyle="rgba("+s.c+","+(A+0.2)+")",e.moveTo(i.x,i.y),e.lineTo(x.x,x.y),e.stroke())}}w.splice(w.indexOf(i),1)}),m(b)}var u=document.createElement("canvas"),s=l(),c="c_n"+s.l,e=u.getContext("2d"),r,n,m=window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame||function(i){window.setTimeout(i,1000/45)},a=Math.random,f={x:null,y:null,max:20000};u.id=c;u.style.cssText="position:fixed;top:0;left:0;z-index:"+s.z+";opacity:"+s.o;j("body")[0].appendChild(u);k(),window.onresize=k;window.onmousemove=function(i){i=i||window.event,f.x=i.clientX,f.y=i.clientY},window.onmouseout=function(){f.x=null,f.y=null};for(var t=[],p=0;s.n>p;p++){var h=a()*r,g=a()*n,q=2*a()-1,d=2*a()-1;t.push({x:h,y:g,xa:q,ya:d,max:6000})}setTimeout(function(){b()},100)}();</0?-1:1,e.fillRect(i.x-0.5,i.y-0.5,1,1);for(v=0;v<w.length;v++){x=w[v];if(i!==x&&null!==x.x&&null!==x.y){B=i.x-x.x,z=i.y-x.y,y=B*B+z*z;y<x.max&&(x===f&&y></0?-1:1,i.ya*=i.y>]]></content>
   </entry>
 </search>
