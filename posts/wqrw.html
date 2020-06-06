@@ -91,7 +91,7 @@ function activateLightMode(){
   opacity: 1
 }
 </style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
-</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/666.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">22</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">1</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">一、Helm介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Helm用途"><span class="toc-number">1.1.</span> <span class="toc-text">1、Helm用途</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Helm具有如下功能："><span class="toc-number">1.1.0.1.</span> <span class="toc-text">Helm具有如下功能：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用Helm可以完成以下事情："><span class="toc-number">1.1.0.2.</span> <span class="toc-text">使用Helm可以完成以下事情：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Helm组件及相关术语"><span class="toc-number">1.2.</span> <span class="toc-text">2、Helm组件及相关术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#包管理工具"><span class="toc-number">1.2.1.</span> <span class="toc-text">包管理工具:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令介绍"><span class="toc-number">1.2.2.</span> <span class="toc-text">命令介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、组件架构"><span class="toc-number">1.3.</span> <span class="toc-text">3、组件架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#helm客户端"><span class="toc-number">1.3.1.</span> <span class="toc-text">helm客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tiller服务端"><span class="toc-number">1.3.2.</span> <span class="toc-text">tiller服务端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、工作原理"><span class="toc-number">1.4.</span> <span class="toc-text">4、工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Chart-Install-过程："><span class="toc-number">1.4.0.1.</span> <span class="toc-text">Chart Install 过程：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chart-Update过程："><span class="toc-number">1.4.0.2.</span> <span class="toc-text">Chart Update过程：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chart-Rollback"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">Chart Rollback</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chart处理依赖"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">Chart处理依赖</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">二、安装部署helm工具（客户端）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#前提要求"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">前提要求</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）下载helm的包"><span class="toc-number">2.0.1.</span> <span class="toc-text">（1）下载helm的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）把helm包的命令，复制到本地"><span class="toc-number">2.0.2.</span> <span class="toc-text">（2）把helm包的命令，复制到本地</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）设置命令自动补全"><span class="toc-number">2.0.3.</span> <span class="toc-text">（3）设置命令自动补全</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、安装Tiller-server（服务端，需要创建授权用户）"><span class="toc-number">2.1.</span> <span class="toc-text">2、安装Tiller server（服务端，需要创建授权用户）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">执行一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）Tiller-server的环境初始化"><span class="toc-number">2.1.1.</span> <span class="toc-text">（1）Tiller server的环境初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）设置镜像源改为阿里云的"><span class="toc-number">2.1.2.</span> <span class="toc-text">（2）设置镜像源改为阿里云的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-2"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、部署一个实例helm-install-charts-n-Release名称。"><span class="toc-number">2.2.</span> <span class="toc-text">3、部署一个实例helm install + charts -n   Release名称。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）Helm部署安装一个Mysql服务。"><span class="toc-number">2.2.1.</span> <span class="toc-text">（1）Helm部署安装一个Mysql服务。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看一下-3"><span class="toc-number">2.2.2.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）Charts包解压过后的目录"><span class="toc-number">2.2.3.</span> <span class="toc-text">（2）Charts包解压过后的目录:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）Helm部署安装-个Mysql服务。"><span class="toc-number">2.2.4.</span> <span class="toc-text">（3）Helm部署安装-个Mysql服务。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）设置共享目录"><span class="toc-number">2.2.5.</span> <span class="toc-text">（4）设置共享目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（5）创建pv"><span class="toc-number">2.2.6.</span> <span class="toc-text">（5）创建pv</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-2"><span class="toc-number">2.2.6.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-4"><span class="toc-number">2.2.6.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（6）创建一个mysql服务"><span class="toc-number">2.2.7.</span> <span class="toc-text">（6）创建一个mysql服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-5"><span class="toc-number">2.2.7.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（7）进入pod并查看一下"><span class="toc-number">2.2.8.</span> <span class="toc-text">（7）进入pod并查看一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、mysql服务的升级与回滚"><span class="toc-number">2.3.</span> <span class="toc-text">4、mysql服务的升级与回滚</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）mysql服务的升级"><span class="toc-number">2.3.1.</span> <span class="toc-text">（1）mysql服务的升级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-6"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）mysql服务的回滚"><span class="toc-number">2.3.2.</span> <span class="toc-text">（2）mysql服务的回滚</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#回滚到版本一"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">回滚到版本一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-7"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">3.</span> <span class="toc-text">三、小实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、基于NFS服务，创建NFS服务。"><span class="toc-number">3.1.</span> <span class="toc-text">1、基于NFS服务，创建NFS服务。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、创建StorageClass资源对象。"><span class="toc-number">3.2.</span> <span class="toc-text">2、创建StorageClass资源对象。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）创建rbac权限。"><span class="toc-number">3.2.1.</span> <span class="toc-text">（1）创建rbac权限。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-3"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">执行一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）创建Deployment资源对象，用Pod代替-真正的NFS服务。"><span class="toc-number">3.2.2.</span> <span class="toc-text">（2）创建Deployment资源对象，用Pod代替 真正的NFS服务。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-4"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-8"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）创建storageclass的yaml文件"><span class="toc-number">3.2.3.</span> <span class="toc-text">（3）创建storageclass的yaml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-5"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-9"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、创建一个mysql服务"><span class="toc-number">3.3.</span> <span class="toc-text">3、创建一个mysql服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看一下-10"><span class="toc-number">3.3.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、进入pod并查看一下"><span class="toc-number">3.4.</span> <span class="toc-text">4、进入pod并查看一下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、mysql服务的升级与回滚"><span class="toc-number">3.5.</span> <span class="toc-text">5、mysql服务的升级与回滚</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）mysql服务的升级-2"><span class="toc-number">3.5.1.</span> <span class="toc-text">（1）mysql服务的升级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-11"><span class="toc-number">3.5.1.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）服务的回滚"><span class="toc-number">3.5.2.</span> <span class="toc-text">（2）服务的回滚</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#回滚到版本一-2"><span class="toc-number">3.5.2.1.</span> <span class="toc-text">回滚到版本一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-12"><span class="toc-number">3.5.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、进入pod并查看一下"><span class="toc-number">3.6.</span> <span class="toc-text">6、进入pod并查看一下</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">4.</span> <span class="toc-text">四、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用心得"><span class="toc-number">4.1.</span> <span class="toc-text">使用心得</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不足"><span class="toc-number">4.2.</span> <span class="toc-text">不足</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">19 k8s的helm入门</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-01 21:20:01"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-01</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-06 17:05:15"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-06</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon far fa-file-word" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">4.5k</span><span class="post-meta__separator">|</span><i class="post-meta__icon far fa-clock" aria-hidden="true"></i><span>阅读时长: 18 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1>一、Helm介绍</h1>
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/666.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">22</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">1</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 我</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">一、Helm介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Helm用途"><span class="toc-number">1.1.</span> <span class="toc-text">1、Helm用途</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Helm具有如下功能："><span class="toc-number">1.1.0.1.</span> <span class="toc-text">Helm具有如下功能：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用Helm可以完成以下事情："><span class="toc-number">1.1.0.2.</span> <span class="toc-text">使用Helm可以完成以下事情：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、Helm组件及相关术语"><span class="toc-number">1.2.</span> <span class="toc-text">2、Helm组件及相关术语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#包管理工具"><span class="toc-number">1.2.1.</span> <span class="toc-text">包管理工具:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令介绍"><span class="toc-number">1.2.2.</span> <span class="toc-text">命令介绍</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、组件架构"><span class="toc-number">1.3.</span> <span class="toc-text">3、组件架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#helm客户端"><span class="toc-number">1.3.1.</span> <span class="toc-text">helm客户端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tiller服务端"><span class="toc-number">1.3.2.</span> <span class="toc-text">tiller服务端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、工作原理"><span class="toc-number">1.4.</span> <span class="toc-text">4、工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Chart-Install-过程："><span class="toc-number">1.4.0.1.</span> <span class="toc-text">Chart Install 过程：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chart-Update过程："><span class="toc-number">1.4.0.2.</span> <span class="toc-text">Chart Update过程：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chart-Rollback"><span class="toc-number">1.4.0.3.</span> <span class="toc-text">Chart Rollback</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Chart处理依赖"><span class="toc-number">1.4.0.4.</span> <span class="toc-text">Chart处理依赖</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">二、安装部署helm工具（客户端）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#前提要求"><span class="toc-number">2.0.0.1.</span> <span class="toc-text">前提要求</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）下载helm的包"><span class="toc-number">2.0.1.</span> <span class="toc-text">（1）下载helm的包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）把helm包的命令，复制到本地"><span class="toc-number">2.0.2.</span> <span class="toc-text">（2）把helm包的命令，复制到本地</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）设置命令自动补全"><span class="toc-number">2.0.3.</span> <span class="toc-text">（3）设置命令自动补全</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、安装Tiller-server（服务端，需要创建授权用户）"><span class="toc-number">2.1.</span> <span class="toc-text">2、安装Tiller server（服务端，需要创建授权用户）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下"><span class="toc-number">2.1.0.1.</span> <span class="toc-text">执行一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）Tiller-server的环境初始化"><span class="toc-number">2.1.1.</span> <span class="toc-text">（1）Tiller server的环境初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）设置镜像源改为阿里云的"><span class="toc-number">2.1.2.</span> <span class="toc-text">（2）设置镜像源改为阿里云的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-2"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、部署一个实例helm-install-charts-n-Release名称。"><span class="toc-number">2.2.</span> <span class="toc-text">3、部署一个实例helm install + charts -n   Release名称。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）Helm部署安装一个Mysql服务。"><span class="toc-number">2.2.1.</span> <span class="toc-text">（1）Helm部署安装一个Mysql服务。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看一下-3"><span class="toc-number">2.2.2.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）Charts包解压过后的目录"><span class="toc-number">2.2.3.</span> <span class="toc-text">（2）Charts包解压过后的目录:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）Helm部署安装-个Mysql服务。"><span class="toc-number">2.2.4.</span> <span class="toc-text">（3）Helm部署安装-个Mysql服务。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）设置共享目录"><span class="toc-number">2.2.5.</span> <span class="toc-text">（4）设置共享目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（5）创建pv"><span class="toc-number">2.2.6.</span> <span class="toc-text">（5）创建pv</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-2"><span class="toc-number">2.2.6.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-4"><span class="toc-number">2.2.6.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（6）创建一个mysql服务"><span class="toc-number">2.2.7.</span> <span class="toc-text">（6）创建一个mysql服务</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-5"><span class="toc-number">2.2.7.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（7）进入pod并查看一下"><span class="toc-number">2.2.8.</span> <span class="toc-text">（7）进入pod并查看一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、mysql服务的升级与回滚"><span class="toc-number">2.3.</span> <span class="toc-text">4、mysql服务的升级与回滚</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）mysql服务的升级"><span class="toc-number">2.3.1.</span> <span class="toc-text">（1）mysql服务的升级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-6"><span class="toc-number">2.3.1.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）mysql服务的回滚"><span class="toc-number">2.3.2.</span> <span class="toc-text">（2）mysql服务的回滚</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#回滚到版本一"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">回滚到版本一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-7"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">3.</span> <span class="toc-text">三、小实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、基于NFS服务，创建NFS服务。"><span class="toc-number">3.1.</span> <span class="toc-text">1、基于NFS服务，创建NFS服务。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、创建StorageClass资源对象。"><span class="toc-number">3.2.</span> <span class="toc-text">2、创建StorageClass资源对象。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）创建rbac权限。"><span class="toc-number">3.2.1.</span> <span class="toc-text">（1）创建rbac权限。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-3"><span class="toc-number">3.2.1.1.</span> <span class="toc-text">执行一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）创建Deployment资源对象，用Pod代替-真正的NFS服务。"><span class="toc-number">3.2.2.</span> <span class="toc-text">（2）创建Deployment资源对象，用Pod代替 真正的NFS服务。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-4"><span class="toc-number">3.2.2.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-8"><span class="toc-number">3.2.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）创建storageclass的yaml文件"><span class="toc-number">3.2.3.</span> <span class="toc-text">（3）创建storageclass的yaml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#执行一下-5"><span class="toc-number">3.2.3.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-9"><span class="toc-number">3.2.3.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、创建一个mysql服务"><span class="toc-number">3.3.</span> <span class="toc-text">3、创建一个mysql服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看一下-10"><span class="toc-number">3.3.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、进入pod并查看一下"><span class="toc-number">3.4.</span> <span class="toc-text">4、进入pod并查看一下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、mysql服务的升级与回滚"><span class="toc-number">3.5.</span> <span class="toc-text">5、mysql服务的升级与回滚</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）mysql服务的升级-2"><span class="toc-number">3.5.1.</span> <span class="toc-text">（1）mysql服务的升级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-11"><span class="toc-number">3.5.1.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）服务的回滚"><span class="toc-number">3.5.2.</span> <span class="toc-text">（2）服务的回滚</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#回滚到版本一-2"><span class="toc-number">3.5.2.1.</span> <span class="toc-text">回滚到版本一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-12"><span class="toc-number">3.5.2.2.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、进入pod并查看一下"><span class="toc-number">3.6.</span> <span class="toc-text">6、进入pod并查看一下</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">4.</span> <span class="toc-text">四、总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用心得"><span class="toc-number">4.1.</span> <span class="toc-text">使用心得</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不足"><span class="toc-number">4.2.</span> <span class="toc-text">不足</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 我</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">19 k8s的helm入门</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-01 21:20:01"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-01</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-06 17:05:15"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-06</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon far fa-file-word" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">4.4k</span><span class="post-meta__separator">|</span><i class="post-meta__icon far fa-clock" aria-hidden="true"></i><span>阅读时长: 18 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1>一、Helm介绍</h1>
 <p><strong><code>helm</code>是基于<code>kubernetes</code> 的包管理器。它之于 <code>kubernetes</code> 就如 <code>yum</code> 之于 <code>centos</code>，<code>pip</code> 之于 <code>python，npm</code> 之于 <code>javascript</code></strong></p>
 <p><strong>那 <code>helm</code> 的引入对于管理集群有哪些帮助呢？</strong></p>
 <ul>
@@ -148,25 +148,7 @@ function activateLightMode(){
 </li>
 </ul>
 <h3 id="命令介绍">命令介绍</h3>
-<pre><code>[root@master ~]# helm search
-//查看可用的Charts包
-[root@master ~]# helm inspect  stable/redis
-//查看stable/redis包的详细信息
-[root@master mysql]# helm fetch stable/mysql
-//直接下载stable/mysql的chart包
-[root@master ~]# helm install stable/redis -n redis --dry-run 
-//基于stable/redis包运行一个名为redis的服务（把--dry-run去掉之后相当于安装了一个服务）
-[root@master ~]# helm list
-//查看安装的服务
-[root@master ~]# helm delete redis
-//删除这个服务
-[root@master mysql]# helm upgrade --set imageTag=5.7.15 xgp-mysql stable/mysql -f values.yaml 
-//mysql服务的升级
-[root@master mysql]#  helm history xgp-mysql
-//查看历史版本
-[root@master mysql]# helm rollback xgp-mysql 1  
-//回滚到版本一
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> search<br>//查看可用的Charts包<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> inspect  stable/redis<br>//查看stable/redis包的详细信息<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># helm fetch stable/mysql</span><br>//直接下载stable/mysql的chart包<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> install stable/redis -n redis --dry-run <br>//基于stable/redis包运行一个名为redis的服务（把--dry-run去掉之后相当于安装了一个服务）<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> list<br>//查看安装的服务<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> delete redis<br>//删除这个服务<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># helm upgrade --set imageTag=5.7.15 xgp-mysql stable/mysql -f values.yaml </span><br>//mysql服务的升级<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment">#  helm history xgp-mysql</span><br>//查看历史版本<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># helm rollback xgp-mysql 1  </span><br>//回滚到版本一<br></code></pre></td></tr></table></figure>
 <h2 id="3、组件架构">3、组件架构</h2>
 <p>![](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302214010170.png)</p>
 <p><strong><code>Helm Client</code> 是用户命令行工具，其主要负责如下：</strong></p>
@@ -224,61 +206,25 @@ function activateLightMode(){
 <li><strong>执行helm命令的主机可以访问到kubernetes集群</strong></li>
 </ul>
 <h3 id="（1）下载helm的包">（1）下载helm的包</h3>
-<pre><code>[root@master ~]#docker pull gcr.io/kubernetes-helm/tiller:v2.14.3
-[root@master ~]# wget https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]#docker</span> pull gcr.io/kubernetes-helm/tiller:v2.<span class="hljs-number">14.3</span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# wget</span> https://get.helm.sh/helm-v2.<span class="hljs-number">14.3</span>-linux-amd64.tar.gz<br></code></pre></td></tr></table></figure>
 <h3 id="（2）把helm包的命令，复制到本地">（2）把helm包的命令，复制到本地</h3>
-<pre><code>[root@master helm]# mv linux-amd64/helm /usr/local/bin/
-//移动命令目录到/usr/local/bin/
-[root@master helm]# chmod +x /usr/local/bin/helm 
-//给予执行权限
-[root@master helm]# helm help
-//验证是否安装成功
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment"># mv linux-amd64/helm /usr/local/bin/</span><br>//移动命令目录到/usr/local/bin/<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment"># chmod +x /usr/local/bin/helm </span><br>//给予执行权限<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment"># helm help</span><br>//验证是否安装成功<br></code></pre></td></tr></table></figure>
 <h3 id="（3）设置命令自动补全">（3）设置命令自动补全</h3>
-<pre><code>[root@master helm]#  echo 'source &lt;(helm completion bash)' &gt;&gt; /etc/profile
-[root@master helm]# . /etc/profile
-//刷新一下
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment">#  echo 'source &lt;(helm completion bash)' &gt;&gt; /etc/profile</span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment"># . /etc/profile</span><br>//刷新一下<br></code></pre></td></tr></table></figure>
 <h2 id="2、安装Tiller-server（服务端，需要创建授权用户）">2、安装Tiller server（服务端，需要创建授权用户）</h2>
-<pre><code>[root@master ~]# vim tiller-rbac.yaml   #创建授权用户
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: tiller
-  namespace: kube-system
----
-apiVersion: rbac.authorization.k8s.io/v1beta1
-kind: ClusterRoleBinding
-metadata:
-  name: tiller
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-  - kind: ServiceAccount
-    name: tiller
-    namespace: kube-system
-</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">tiller-rbac.yaml</span>   <span class="hljs-comment">#创建授权用户</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">tiller</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRoleBinding</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">tiller</span><br><span class="hljs-attr">roleRef:</span><br>  <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">rbac.authorization.k8s.io</span><br>  <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">cluster-admin</span><br><span class="hljs-attr">subjects:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">tiller</span><br>    <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br></code></pre></td></tr></table></figure>
 <h4 id="执行一下">执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f tiller-rbac.yaml  
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f tiller-rbac.yaml<br></code></pre></td></tr></table></figure>
 <h3 id="（1）Tiller-server的环境初始化">（1）Tiller server的环境初始化</h3>
-<pre><code>[root@master helm]# helm init  --service-account=tiller
-//helm的服务端就是Tiller（因为是访问外国的网站，可能需要多次执行）
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment"># helm init  --service-account=tiller</span><br>//helm的服务端就是Tiller（因为是访问外国的网站，可能需要多次执行）<br></code></pre></td></tr></table></figure>
 <h4 id="查看一下">查看一下</h4>
-<pre><code>[root@master helm]# kubectl get deployment. -n kube-system 
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment"># kubectl get deployment. -n kube-system</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200228120107088](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200228120107088.png)</p>
 <p><strong>现在发现没有开启，那是因为默认下载的Google的镜像，下载不下来</strong></p>
 <h3 id="（2）设置镜像源改为阿里云的">（2）设置镜像源改为阿里云的</h3>
-<pre><code>[root@master helm]# helm repo add stable https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment"># helm repo add stable https://kubernetes.oss-cn-hangzhou.aliyuncs.com/charts</span><br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-2">查看一下</h4>
-<pre><code>[root@master helm]# helm version
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">helm</span>]<span class="hljs-comment"># helm version</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200228120548734](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200228120548734.png)</p>
 <h2 id="3、部署一个实例helm-install-charts-n-Release名称。">3、部署一个实例helm install + charts -n   Release名称。</h2>
 <blockquote>
@@ -287,30 +233,16 @@ subjects:
 <p><strong>3、怎么使用这个Release。</strong></p>
 </blockquote>
 <h3 id="（1）Helm部署安装一个Mysql服务。">（1）Helm部署安装一个Mysql服务。</h3>
-<pre><code>[root@master ~]# helm search mysql
-//查看关于mysqk的Charts包
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> search mysql<br>//查看关于mysqk的Charts包<br></code></pre></td></tr></table></figure>
 <p>![image-20200302091903599](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302091903599.png)</p>
-<pre><code>[root@master ~]# helm install stable/mysql -n mysql 
-//基于stable/mysql包安装一个名为MySQL的服务
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> install stable/mysql -n mysql <br>//基于stable/mysql包安装一个名为MySQL的服务<br></code></pre></td></tr></table></figure>
 <h3 id="查看一下-3">查看一下</h3>
-<pre><code>[root@master ~]# helm list
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> list<br></code></pre></td></tr></table></figure>
 <p>![image-20200302092055970](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302092055970.png)</p>
 <h3 id="（2）Charts包解压过后的目录">（2）Charts包解压过后的目录:</h3>
-<pre><code>[root@master ~]# cd .helm/cache/archive
-//查看helm缓存
-[root@master archive]# ls
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# cd</span> .helm/cache/archive<br>//查看helm缓存<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">archive</span>]<span class="hljs-comment"># ls</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302093625736](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302093625736.png)</p>
-<pre><code>[root@master mysql]# helm fetch stable/mysql
-//直接下载stable/mysql的chart包
-[root@master archive]# tar -zxf mysql-0.3.5.tgz 
-//解压一下MySQL包
-[root@master archive]# tree -C mysql 
-//树状图查看解压出来的mysql目录，-C:显示颜色
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># helm fetch stable/mysql</span><br>//直接下载stable/mysql的chart包<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">archive</span>]<span class="hljs-comment"># tar -zxf mysql-0.3.5.tgz </span><br>//解压一下MySQL包<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">archive</span>]<span class="hljs-comment"># tree -C mysql </span><br>//树状图查看解压出来的mysql目录，-C:显示颜色<br></code></pre></td></tr></table></figure>
 <p>![image-20200302093816396](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302093816396.png)</p>
 <blockquote>
 <p><strong>Chart.yaml：这个chart包的概要信息。（name和version 这两是必填项，其他可选。）</strong></p>
@@ -325,296 +257,100 @@ subjects:
 <p><strong>values.yaml：是这个chart包的默认的值，可以被templet内的yaml文件使用。</strong></p>
 </blockquote>
 <h3 id="（3）Helm部署安装-个Mysql服务。">（3）Helm部署安装-个Mysql服务。</h3>
-<pre><code>[root@master ~]# docker pull mysql:5.7.14
-[root@master ~]# docker pull mysql:5.7.15
-[root@master ~]# docker pull busybox:1.25.0
-下载所需的mysql镜像
-[root@master ~]# helm delete mysql --purge 
-//删除之前的MySQL服务并清除缓存
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull mysql:<span class="hljs-number">5.7</span>.<span class="hljs-number">14</span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull mysql:<span class="hljs-number">5.7</span>.<span class="hljs-number">15</span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull busybox:<span class="hljs-number">1.25</span>.<span class="hljs-number">0</span><br>下载所需的mysql镜像<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# helm</span> delete mysql --purge <br>//删除之前的MySQL服务并清除缓存<br></code></pre></td></tr></table></figure>
 <h3 id="（4）设置共享目录">（4）设置共享目录</h3>
-<pre><code>[root@master ~]# yum -y install rpcbind nfs-utils
-//安装nfs
-[root@master ~]# mkdir /data
-//创建共享目录
-[root@master ~]# vim /etc/exports
-/data *(rw,sync,no_root_squash)
-//设置共享目录权限
-[root@master ~]# systemctl restart rpcbind
-[root@master ~]# systemctl restart nfs-server
-//重启nfs服务
-
-测试一下
-[root@master ~]# showmount -e
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# yum</span> -y install rpcbind nfs-utils<br>//安装nfs<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# mkdir</span> /data<br>//创建共享目录<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# vim</span> /etc/exports<br>/data *(rw,sync,no_root_squash)<br>//设置共享目录权限<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# systemctl</span> restart rpcbind<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# systemctl</span> restart nfs-server<br>//重启nfs服务<br><br>测试一下<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# showmount</span> -e<br></code></pre></td></tr></table></figure>
 <p>![image-20200302105307662](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302105307662.png)</p>
 <h3 id="（5）创建pv">（5）创建pv</h3>
-<pre><code>[root@master xgp]# vim nfs-pv1.yml 
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysqlpv
-spec:
-  capacity:
-    storage: 8Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Recycle
-  nfs:
-    path: /data/mysqlpv
-    server: 192.168.1.21
-[root@master xgp]# mkdir /data/mysqlpv
-//创建所需目录
-</code></pre>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs dts">[root@master xgp]<span class="hljs-meta"># vim nfs-pv1.yml </span><br><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> PersistentVolume<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> mysqlpv<br><span class="hljs-symbol">spec:</span><br><span class="hljs-symbol">  capacity:</span><br><span class="hljs-symbol">    storage:</span> <span class="hljs-number">8</span>Gi<br><span class="hljs-symbol">  accessModes:</span><br>    - ReadWriteOnce<br><span class="hljs-symbol">  persistentVolumeReclaimPolicy:</span> Recycle<br><span class="hljs-symbol">  nfs:</span><br><span class="hljs-symbol">    path:</span> <span class="hljs-meta-keyword">/data/</span>mysqlpv<br><span class="hljs-symbol">    server:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><br>[root@master xgp]<span class="hljs-meta"># mkdir /data/mysqlpv</span><br><span class="hljs-comment">//创建所需目录</span><br></code></pre></td></tr></table></figure>
 <h4 id="执行一下-2">执行一下</h4>
-<pre><code>[root@master xgp]# kubectl apply -f nfs-pv1.yml
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># kubectl apply -f nfs-pv1.yml</span><br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-4">查看一下</h4>
-<pre><code>[root@master xgp]# kubectl get pv
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># kubectl get pv</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302110137247](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302110137247.png)</p>
 <h3 id="（6）创建一个mysql服务">（6）创建一个mysql服务</h3>
-<pre><code>[root@master xgp]# helm install stable/mysql -n bdqn-mysql --set mysqlRootPassword=123.com
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># helm install stable/mysql -n bdqn-mysql --set mysqlRootPassword=123.com</span><br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-5">查看一下</h4>
-<pre><code>[root@master xgp]# kubectl get pod
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># kubectl get pod</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302111518710](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302111518710.png)</p>
 <h3 id="（7）进入pod并查看一下">（7）进入pod并查看一下</h3>
-<pre><code>[root@master xgp]# kubectl exec -it bdqn-mysql-mysql-7b89c7b99-8ff2r -- mysql -u root -p123.com
-mysql&gt; show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-+--------------------+
-4 rows in set (0.01 sec)
-</code></pre>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">[root@master xgp]# kubectl exec -it bdqn-mysql-mysql-7b89c7b99-8ff2r -- mysql -u root -p123.com<br>mysql&gt; show databases;<br><span class="hljs-code">+--------------------+</span><br>| Database           |<br><span class="hljs-code">+--------------------+</span><br>| information<span class="hljs-emphasis">_schema |</span><br><span class="hljs-emphasis">| mysql              |</span><br><span class="hljs-emphasis">| performance_</span>schema |<br>| sys                |<br><span class="hljs-code">+--------------------+</span><br>4 rows in set (0.01 sec)<br></code></pre></td></tr></table></figure>
 <h2 id="4、mysql服务的升级与回滚">4、mysql服务的升级与回滚</h2>
 <h3 id="（1）mysql服务的升级">（1）mysql服务的升级</h3>
-<pre><code>[root@master mysql]# helm upgrade --set imageTag=5.7.15 bdqn-mysql stable/mysql -f values.yaml 
-</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@master mysql]# helm<span class="hljs-built_in"> upgrade </span>--<span class="hljs-builtin-name">set</span> <span class="hljs-attribute">imageTag</span>=5.7.15 bdqn-mysql stable/mysql -f values.yaml<br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-6">查看一下</h4>
-<pre><code>[root@master mysql]# kubectl get deployments. -o wide
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># kubectl get deployments. -o wide</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302115511986](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302115511986.png)</p>
 <h3 id="（2）mysql服务的回滚">（2）mysql服务的回滚</h3>
-<pre><code>[root@master mysql]#  helm history bdqn-mysql
-//查看历史版本
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment">#  helm history bdqn-mysql</span><br>//查看历史版本<br></code></pre></td></tr></table></figure>
 <p>![image-20200302115645118](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302115645118.png)</p>
 <h4 id="回滚到版本一">回滚到版本一</h4>
-<pre><code>[root@master mysql]# helm rollback bdqn-mysql 1  
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># helm rollback bdqn-mysql 1</span><br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-7">查看一下</h4>
-<pre><code>[root@master mysql]# kubectl get deployments. -o wide
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># kubectl get deployments. -o wide</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302115823991](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302115823991.png)</p>
 <h1>三、小实验</h1>
 <p><strong>在部署mysql的时候，如何开启storageclass，以及如何将service资源对象的类型更改为NodePort, 如何使用?</strong></p>
 <p><strong>将上述部署的实例进行升级回滚操作。升级的时候镜像改为： mysql:5.7.15版本。回滚到最初的版本。</strong></p>
 <h2 id="1、基于NFS服务，创建NFS服务。">1、基于NFS服务，创建NFS服务。</h2>
 <p><strong>下载nfs所需安装包</strong></p>
-<pre><code>[root@node02 ~]# yum -y install nfs-utils  rpcbind
-</code></pre>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs autoit">[root<span class="hljs-symbol">@node02</span> ~]<span class="hljs-meta"># yum -y install nfs-utils  rpcbind</span><br></code></pre></td></tr></table></figure>
 <p><strong>创建共享目录</strong></p>
-<pre><code>[root@master ~]# mkdir -p /xgp/wsd
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# mkdir</span> -p /xgp/wsd<br></code></pre></td></tr></table></figure>
 <p><strong>创建共享目录的权限</strong></p>
-<pre><code>[root@master ~]# vim /etc/exports
-/xgp *(rw,sync,no_root_squash)
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# vim</span> /etc/exports<br>/xgp *(rw,sync,no_root_squash)<br></code></pre></td></tr></table></figure>
 <p><strong>开启nfs和rpcbind（三台都要）</strong></p>
-<pre><code>[root@master ~]# systemctl start nfs-server.service 
-[root@master ~]# systemctl start rpcbind
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# systemctl</span> <span class="hljs-literal">start</span> nfs-server.service <br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# systemctl</span> <span class="hljs-literal">start</span> rpcbind<br></code></pre></td></tr></table></figure>
 <p><strong>测试一下</strong></p>
-<pre><code>[root@master ~]# showmount -e
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# showmount</span> -e<br></code></pre></td></tr></table></figure>
 <p>![image-20200302143413268](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302143413268.png)</p>
 <h2 id="2、创建StorageClass资源对象。">2、创建StorageClass资源对象。</h2>
 <h3 id="（1）创建rbac权限。">（1）创建rbac权限。</h3>
-<pre><code>[root@master yaml]# vim rbac.yaml 
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: nfs-provisioner
-  namespace: default
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: nfs-provisioner-runner
-  namespace: default
-rules:
-   -  apiGroups: [&quot;&quot;]
-      resources: [&quot;persistentvolumes&quot;]
-      verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;delete&quot;]
-   -  apiGroups: [&quot;&quot;]
-      resources: [&quot;persistentvolumeclaims&quot;]
-      verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;update&quot;]
-   -  apiGroups: [&quot;storage.k8s.io&quot;]
-      resources: [&quot;storageclasses&quot;]
-      verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
-   -  apiGroups: [&quot;&quot;]
-      resources: [&quot;events&quot;]
-      verbs: [&quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;]
-   -  apiGroups: [&quot;&quot;]
-      resources: [&quot;services&quot;, &quot;endpoints&quot;]
-      verbs: [&quot;get&quot;,&quot;create&quot;,&quot;list&quot;, &quot;watch&quot;,&quot;update&quot;]
-   -  apiGroups: [&quot;extensions&quot;]
-      resources: [&quot;podsecuritypolicies&quot;]
-      resourceNames: [&quot;nfs-provisioner&quot;]
-      verbs: [&quot;use&quot;]
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: run-nfs-provisioner
-subjects:
-  - kind: ServiceAccount
-    name: nfs-provisioner
-    namespace: default        #必写字段
-roleRef:
-  kind: ClusterRole
-  name: nfs-provisioner-runner
-  apiGroup: rbac.authorization.k8s.io
-</code></pre>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs dts">[root@master yaml]<span class="hljs-meta"># vim rbac.yaml </span><br><span class="hljs-symbol">apiVersion:</span> v1<br><span class="hljs-symbol">kind:</span> ServiceAccount<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> nfs-provisioner<br><span class="hljs-symbol">  namespace:</span> default<br>---<br><span class="hljs-symbol">apiVersion:</span> rbac.authorization.k8s.io/v1<br><span class="hljs-symbol">kind:</span> ClusterRole<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> nfs-provisioner-runner<br><span class="hljs-symbol">  namespace:</span> default<br><span class="hljs-symbol">rules:</span><br>   -  apiGroups: [<span class="hljs-string">""</span>]<br><span class="hljs-symbol">      resources:</span> [<span class="hljs-string">"persistentvolumes"</span>]<br><span class="hljs-symbol">      verbs:</span> [<span class="hljs-string">"get"</span>, <span class="hljs-string">"list"</span>, <span class="hljs-string">"watch"</span>, <span class="hljs-string">"create"</span>, <span class="hljs-string">"delete"</span>]<br>   -  apiGroups: [<span class="hljs-string">""</span>]<br><span class="hljs-symbol">      resources:</span> [<span class="hljs-string">"persistentvolumeclaims"</span>]<br><span class="hljs-symbol">      verbs:</span> [<span class="hljs-string">"get"</span>, <span class="hljs-string">"list"</span>, <span class="hljs-string">"watch"</span>, <span class="hljs-string">"update"</span>]<br>   -  apiGroups: [<span class="hljs-string">"storage.k8s.io"</span>]<br><span class="hljs-symbol">      resources:</span> [<span class="hljs-string">"storageclasses"</span>]<br><span class="hljs-symbol">      verbs:</span> [<span class="hljs-string">"get"</span>, <span class="hljs-string">"list"</span>, <span class="hljs-string">"watch"</span>]<br>   -  apiGroups: [<span class="hljs-string">""</span>]<br><span class="hljs-symbol">      resources:</span> [<span class="hljs-string">"events"</span>]<br><span class="hljs-symbol">      verbs:</span> [<span class="hljs-string">"watch"</span>, <span class="hljs-string">"create"</span>, <span class="hljs-string">"update"</span>, <span class="hljs-string">"patch"</span>]<br>   -  apiGroups: [<span class="hljs-string">""</span>]<br><span class="hljs-symbol">      resources:</span> [<span class="hljs-string">"services"</span>, <span class="hljs-string">"endpoints"</span>]<br><span class="hljs-symbol">      verbs:</span> [<span class="hljs-string">"get"</span>,<span class="hljs-string">"create"</span>,<span class="hljs-string">"list"</span>, <span class="hljs-string">"watch"</span>,<span class="hljs-string">"update"</span>]<br>   -  apiGroups: [<span class="hljs-string">"extensions"</span>]<br><span class="hljs-symbol">      resources:</span> [<span class="hljs-string">"podsecuritypolicies"</span>]<br><span class="hljs-symbol">      resourceNames:</span> [<span class="hljs-string">"nfs-provisioner"</span>]<br><span class="hljs-symbol">      verbs:</span> [<span class="hljs-string">"use"</span>]<br>---<br><span class="hljs-symbol">kind:</span> ClusterRoleBinding<br><span class="hljs-symbol">apiVersion:</span> rbac.authorization.k8s.io/v1<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> run-nfs-provisioner<br><span class="hljs-symbol">subjects:</span><br>  - kind: ServiceAccount<br><span class="hljs-symbol">    name:</span> nfs-provisioner<br><span class="hljs-symbol">    namespace:</span> default        <span class="hljs-meta">#必写字段</span><br><span class="hljs-symbol">roleRef:</span><br><span class="hljs-symbol">  kind:</span> ClusterRole<br><span class="hljs-symbol">  name:</span> nfs-provisioner-runner<br><span class="hljs-symbol">  apiGroup:</span> rbac.authorization.k8s.io<br></code></pre></td></tr></table></figure>
 <h4 id="执行一下-3">执行一下</h4>
-<pre><code>[root@master yaml]# kubectl apply -f rbac.yaml 
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl apply -f rbac.yaml</span><br></code></pre></td></tr></table></figure>
 <h3 id="（2）创建Deployment资源对象，用Pod代替-真正的NFS服务。">（2）创建Deployment资源对象，用Pod代替 真正的NFS服务。</h3>
-<pre><code>[root@master yaml]# vim nfs-deployment.yaml 
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: nfs-client-provisioner
-spec:
-  replicas: 1
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: nfs-client-provisioner
-    spec:
-      serviceAccount: nfs-provisioner
-      containers:
-        - name: nfs-client-provisioner
-          image: registry.cn-hangzhou.aliyuncs.com/open-ali/nfs-client-provisioner
-          volumeMounts:
-            - name: nfs-client-root
-              mountPath:  /persistentvolumes
-          env:
-            - name: PROVISIONER_NAME
-              value: xgp
-            - name: NFS_SERVER
-              value: 192.168.1.21
-            - name: NFS_PATH
-              value: /xgp/wsd
-      volumes:
-        - name: nfs-client-root
-          nfs:
-            server: 192.168.1.21
-            path: /xgp/wsd
-</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">yaml]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">nfs-deployment.yaml</span> <br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nfs-client-provisioner</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">strategy:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">Recreate</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">nfs-client-provisioner</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">serviceAccount:</span> <span class="hljs-string">nfs-provisioner</span><br>      <span class="hljs-attr">containers:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nfs-client-provisioner</span><br>          <span class="hljs-attr">image:</span> <span class="hljs-string">registry.cn-hangzhou.aliyuncs.com/open-ali/nfs-client-provisioner</span><br>          <span class="hljs-attr">volumeMounts:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nfs-client-root</span><br>              <span class="hljs-attr">mountPath:</span>  <span class="hljs-string">/persistentvolumes</span><br>          <span class="hljs-attr">env:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">PROVISIONER_NAME</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">xgp</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">NFS_SERVER</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">NFS_PATH</span><br>              <span class="hljs-attr">value:</span> <span class="hljs-string">/xgp/wsd</span><br>      <span class="hljs-attr">volumes:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nfs-client-root</span><br>          <span class="hljs-attr">nfs:</span><br>            <span class="hljs-attr">server:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/xgp/wsd</span><br></code></pre></td></tr></table></figure>
 <h4 id="执行一下-4">执行一下</h4>
-<pre><code>[root@master yaml]# kubectl apply -f nfs-deployment.yaml 
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl apply -f nfs-deployment.yaml</span><br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-8">查看一下</h4>
-<pre><code>[root@master yaml]# kubectl get pod
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl get pod</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200212104037272](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200212104037272.png)</p>
 <h3 id="（3）创建storageclass的yaml文件">（3）创建storageclass的yaml文件</h3>
-<pre><code>[root@master yaml]# vim xgp-storageclass.yaml 
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: xgp-nfs
-provisioner: xgp  #通过provisioner字段关联到上述Deploy
-reclaimPolicy: Retain
-</code></pre>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dts">[root@master yaml]<span class="hljs-meta"># vim xgp-storageclass.yaml </span><br><span class="hljs-symbol">apiVersion:</span> storage.k8s.io/v1<br><span class="hljs-symbol">kind:</span> StorageClass<br><span class="hljs-symbol">metadata:</span><br><span class="hljs-symbol">  name:</span> xgp-nfs<br><span class="hljs-symbol">provisioner:</span> xgp  <span class="hljs-meta">#通过provisioner字段关联到上述Deploy</span><br><span class="hljs-symbol">reclaimPolicy:</span> Retain<br></code></pre></td></tr></table></figure>
 <h4 id="执行一下-5">执行一下</h4>
-<pre><code>[root@master yaml]# kubectl apply -f test-storageclass.yaml
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl apply -f test-storageclass.yaml</span><br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-9">查看一下</h4>
-<pre><code>[root@master yaml]# kubectl get sc
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl get sc</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302163422262](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302163422262.png)</p>
 <h2 id="3、创建一个mysql服务">3、创建一个mysql服务</h2>
-<pre><code>[root@master ~]# docker pull mysql:5.7.14
-[root@master ~]# docker pull mysql:5.7.15
-[root@master ~]# docker pull busybox:1.25.0
-//下载所需镜像
-[root@master yaml]# helm fetch stable/mysql
-//直接下载stable/mysql的chart包
-[root@master yaml]# tar -zxf mysql-0.3.5.tgz 
-//解压mysql包
-[root@master yaml]# cd mysql/
-[root@master mysql]# vim values.yaml 
-//修改values.yaml文件，添加storageClass存储卷和更改svc的模式为NodePort
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull mysql:<span class="hljs-number">5.7</span>.<span class="hljs-number">14</span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull mysql:<span class="hljs-number">5.7</span>.<span class="hljs-number">15</span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull busybox:<span class="hljs-number">1.25</span>.<span class="hljs-number">0</span><br>//下载所需镜像<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># helm fetch stable/mysql</span><br>//直接下载stable/mysql的chart包<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># tar -zxf mysql-0.3.5.tgz </span><br>//解压mysql包<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># cd mysql/</span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># vim values.yaml </span><br>//修改values.yaml文件，添加storageClass存储卷和更改svc的模式为NodePort<br></code></pre></td></tr></table></figure>
 <p>![image-20200302164514380](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302164514380.png)</p>
 <p>![image-20200302164620871](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302164620871.png)</p>
-<pre><code>[root@master mysql]# helm install stable/mysql -n xgp-mysql --set mysqlRootPassword=123.com -f values.yaml 
-//基于values.yaml和stable/mysql开启一个密码为123.com的mysqlpod
-</code></pre>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs vim">[root@master mysql]# helm install stable/mysql -n xgp-mysql --<span class="hljs-keyword">set</span> mysqlRootPassword=<span class="hljs-number">123</span>.<span class="hljs-keyword">com</span> -<span class="hljs-keyword">f</span> <span class="hljs-built_in">values</span>.yaml <br>//基于<span class="hljs-built_in">values</span>.yaml和stable/mysql开启一个密码为<span class="hljs-number">123</span>.<span class="hljs-keyword">com</span>的mysqlpod<br></code></pre></td></tr></table></figure>
 <h3 id="查看一下-10">查看一下</h3>
-<pre><code>[root@master mysql]# kubectl get svc
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># kubectl get svc</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302174753877](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302174753877.png)</p>
-<pre><code>[root@master mysql]# kubectl get pod -o wide
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># kubectl get pod -o wide</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302170330864](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302170330864.png)</p>
 <h2 id="4、进入pod并查看一下">4、进入pod并查看一下</h2>
-<pre><code>[root@master mysql]#  kubectl exec -it xgp-mysql-mysql-67c6fb5f9-dn7s2 -- mysql -u root -p123.com
-mysql&gt; show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-+--------------------+
-4 rows in set (0.01 sec)
-</code></pre>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">[root@master mysql]#  kubectl exec -it xgp-mysql-mysql-67c6fb5f9-dn7s2 -- mysql -u root -p123.com<br>mysql&gt; show databases;<br><span class="hljs-code">+--------------------+</span><br>| Database           |<br><span class="hljs-code">+--------------------+</span><br>| information<span class="hljs-emphasis">_schema |</span><br><span class="hljs-emphasis">| mysql              |</span><br><span class="hljs-emphasis">| performance_</span>schema |<br>| sys                |<br><span class="hljs-code">+--------------------+</span><br>4 rows in set (0.01 sec)<br></code></pre></td></tr></table></figure>
 <h2 id="5、mysql服务的升级与回滚">5、mysql服务的升级与回滚</h2>
 <h3 id="（1）mysql服务的升级-2">（1）mysql服务的升级</h3>
-<pre><code>[root@master mysql]# helm upgrade --set imageTag=5.7.15 xgp-mysql stable/mysql -f values.yaml 
-</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@master mysql]# helm<span class="hljs-built_in"> upgrade </span>--<span class="hljs-builtin-name">set</span> <span class="hljs-attribute">imageTag</span>=5.7.15 xgp-mysql stable/mysql -f values.yaml<br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-11">查看一下</h4>
-<pre><code>[root@master mysql]# kubectl get deployments. -o wide
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># kubectl get deployments. -o wide</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302115511986](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302115511986.png)</p>
 <h3 id="（2）服务的回滚">（2）服务的回滚</h3>
-<pre><code>[root@master mysql]#  helm history xgp-mysql
-//查看历史版本
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment">#  helm history xgp-mysql</span><br>//查看历史版本<br></code></pre></td></tr></table></figure>
 <p>![image-20200302175135110](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302175135110.png)</p>
 <h4 id="回滚到版本一-2">回滚到版本一</h4>
-<pre><code>[root@master mysql]# helm rollback xgp-mysql 1  
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># helm rollback xgp-mysql 1</span><br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-12">查看一下</h4>
-<pre><code>[root@master mysql]# kubectl get deployments. -o wide
-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">mysql</span>]<span class="hljs-comment"># kubectl get deployments. -o wide</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200302115823991](G:\四期\虚拟化\kubernetes\k8s文档\19 k8s的helm入门.assets\image-20200302115823991.png)</p>
 <h2 id="6、进入pod并查看一下">6、进入pod并查看一下</h2>
-<pre><code>[root@master mysql]#  kubectl exec -it xgp-mysql-mysql-67c6fb5f9-dn7s2 -- mysql -u root -p123.com
-mysql&gt; show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| performance_schema |
-| sys                |
-+--------------------+
-4 rows in set (0.01 sec)
-</code></pre>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc">[root@master mysql]#  kubectl exec -it xgp-mysql-mysql-67c6fb5f9-dn7s2 -- mysql -u root -p123.com<br>mysql&gt; show databases;<br><span class="hljs-code">+--------------------+</span><br>| Database           |<br><span class="hljs-code">+--------------------+</span><br>| information<span class="hljs-emphasis">_schema |</span><br><span class="hljs-emphasis">| mysql              |</span><br><span class="hljs-emphasis">| performance_</span>schema |<br>| sys                |<br><span class="hljs-code">+--------------------+</span><br>4 rows in set (0.01 sec)<br></code></pre></td></tr></table></figure>
 <h1>四、总结</h1>
 <p><strong>Helm作为kubernetes应用的包管理以及部署工具，提供了应用打包，发布，版本管理以及部署，升级，回退等功能。Helm以Chart软件包的形式简化Kubernetes的应用管理，提高了对用户的友好性。</strong></p>
 <h2 id="使用心得">使用心得</h2>
