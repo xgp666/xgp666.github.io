@@ -118,7 +118,7 @@ function activateLightMode(){
 </tbody>
 </table>
 <h1>kubernetes架构</h1>
-<p><img src= /img/loading.gif data-src="http://xgp-cunchu.test.upcdn.net/k8s/qqq.png" alt="image-20200104100759831"></p>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="http://xgp-cunchu.test.upcdn.net/k8s/qqq.png" alt="image-20200104100759831"></p>
 <p><strong>kubectl</strong>：k8s是命令行端，用来发送客户的操作指令。</p>
 <h2 id="master节点">master节点</h2>
 <p><strong>1. API server[资源操作入口]</strong>：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。</p>
@@ -148,10 +148,14 @@ function activateLightMode(){
 <p><strong>5. Etcd</strong>：负责保存k8s集群的配置信息和各种资源的状态信息。当数据发生变化时，etcd会快速的通知k8s相关组件。<a href>（第三方组件）它有可替换方案。Consul、zookeeper</a></p>
 <p><strong>6. Pod:</strong> k8s集群的最小组成单位。一个Pod内，可以运行一个或多个容器。大多数情况下，一个Pod内只有一个Container容器。</p>
 <p><strong>7. Flanner</strong>：是k8s集群网络，可以保证Pod的跨主机通信。也有替换方案。</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod --all-namespaces<br>//查看pod信息<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104100759831.png" alt="image-20200104100759831"></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod --all-namespaces -o wide<br>//显示pod的节点信息<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104101023909.png" alt="image-20200104101023909"></p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces
+//查看pod信息
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104100759831.png" alt="image-20200104100759831"></p>
+<pre><code>[root@master ~]# kubectl get pod --all-namespaces -o wide
+//显示pod的节点信息
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104101023909.png" alt="image-20200104101023909"></p>
 <h2 id="Node节点">Node节点</h2>
 <p><strong>Kubelet[节点上的Pod管家]</strong>：它是Node的agent(代理)，当Scheduler确定某 个Node上运行Pod之后，会将Pod的具体配置信息发送给该节点的kubelet,kubelet会根据这些信息创建和运行容器，并向Master报告运行状态。</p>
 <blockquote>
@@ -184,21 +188,29 @@ function activateLightMode(){
 <p><strong>2.flannel会为每个Pod分配一个IP。 但此时没有创建Service资源，目前kube-proxy还没有参与进来。</strong></p>
 </blockquote>
 <h3 id="运行一个例子（创建一个deployment资源对象-pod控制器-）">运行一个例子（创建一个deployment资源对象&lt;pod控制器&gt;）</h3>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# kubectl run test-web --image=httpd --replicas=<span class="hljs-number">2</span><br><span class="hljs-comment">//创建一个deployment资源对象。</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl run test-web --image=httpd --replicas=2
+//创建一个deployment资源对象。
+</code></pre>
 <p><em><strong>运行完成之后，如果有镜像可直接开启，没有的话需要等待一会儿，node节点要在docker hup上下载</strong></em></p>
 <h4 id="查看一下">查看一下</h4>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@master ~]# kubectl <span class="hljs-builtin-name">get</span>  deployments.或 kubectl <span class="hljs-builtin-name">get</span>  deploy<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110812772.png" alt="image-20200104110812772"></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110954406.png" alt="image-20200104110954406"></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod  -o wide<br>//显示pod的节点信息<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png" alt="image-20200104111128779"></p>
+<pre><code>[root@master ~]# kubectl get  deployments.或 kubectl get  deploy
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110812772.png" alt="image-20200104110812772"></p>
+<pre><code>[root@master ~]# kubectl get pod
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104110954406.png" alt="image-20200104110954406"></p>
+<pre><code>[root@master ~]# kubectl get pod  -o wide
+//显示pod的节点信息
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104111128779.png" alt="image-20200104111128779"></p>
 <p><em><strong>如果，node节点没有运行test-web服务，需要在节点上重启一下<systemctl restart kubelet></systemctl></strong></em></p>
 <h3 id="如果删除一个pod">如果删除一个pod</h3>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# kubectl delete pod test-web<span class="hljs-number">-5</span>b56bdff65<span class="hljs-number">-2</span>njqf<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl delete pod test-web-5b56bdff65-2njqf 
+</code></pre>
 <h4 id="查看一下-2">查看一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png" alt="image-20200104112418012"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200104112418012.png" alt="image-20200104112418012"></p>
 <p><em><strong>现在发现容器还存在，因为控制器会自动发现，一旦与之前执行的命令有误差，他会自动补全。</strong></em></p>
 <p><a href="https://blog.csdn.net/gongxsh00/article/details/79932136" target="_blank" rel="noopener">https://blog.csdn.net/gongxsh00/article/details/79932136</a></p>
 </div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wu Shao Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wsdlxgp.top/posts/cd85.html">https://wsdlxgp.top/posts/cd85.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wsdlxgp.top" target="_blank">Xgp & Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/3.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/1.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/2.jpg" alt="QQ支付"/><div class="post-qr-code__desc">QQ支付</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/posts/6989.html"><img class="prev_cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">03 创建资源的两种方式</div></div></a></div><div class="next-post pull_right"><a href="/posts/xgp.html"><img class="next_cover" data-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">01 部署k8s集群</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="lv-container" data-id="city" data-uid="MTAyMC80OTM0NS8yNTgzNw=="><script>(function(d, s) {

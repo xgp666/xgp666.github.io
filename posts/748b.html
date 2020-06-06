@@ -143,7 +143,9 @@ function activateLightMode(){
 <h2 id="1-常见yaml文件写法，以及字段的作用">1.常见yaml文件写法，以及字段的作用</h2>
 <p><strong>(1) apiVersion：api版本信息</strong></p>
 <p><em><strong>（用来定义当前属于哪个组和那个版本，这个直接关系到最终提供使用的是那个版本）</strong></em></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">manifests</span>]<span class="hljs-comment"># kubectl api-versions</span><br>//查看到当前所有api的版本<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master manifests]# kubectl api-versions
+//查看到当前所有api的版本
+</code></pre>
 <p><strong>(2) kind: 资源对象的类别</strong></p>
 <p><em><strong>(用来定义创建的对象是属于什么类别，是pod，service，还是deployment等对象，可以按照其固定的语法格式来自定义。)</strong></em><br>
 <strong>(3) metadata: 元数据 名称字段（必写）</strong></p>
@@ -174,64 +176,151 @@ function activateLightMode(){
 <p><strong>(5) status：资源现在处于什么样的状态</strong></p>
 <p><em><strong>（当前状态，’current state‘，这个字段有k8s集群来生成和维护，不能自定义，属于一个只读字段）</strong></em></p>
 <h2 id="2-编写一个yaml文件">2.编写一个yaml文件</h2>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">web.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>  <span class="hljs-comment">#资源对象是控制器</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span>   <span class="hljs-comment">#api的版本</span><br><span class="hljs-attr">metadata:</span>      <span class="hljs-comment">#描述kind（资源类型）</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">web</span>   <span class="hljs-comment">#定义控制器名称</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span>   <span class="hljs-comment">#副本数量</span><br>  <span class="hljs-attr">template:</span>     <span class="hljs-comment">#模板</span><br>    <span class="hljs-attr">metadata:</span>    <br>      <span class="hljs-attr">labels:</span>   <span class="hljs-comment">#标签</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">web_server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span>   <span class="hljs-comment">#指定容器</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>  <span class="hljs-comment">#容器名称</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>   <span class="hljs-comment">#使用的镜像</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim web.yaml
+kind: Deployment  #资源对象是控制器
+apiVersion: extensions/v1beta1   #api的版本
+metadata:      #描述kind（资源类型）
+  name: web   #定义控制器名称
+spec:
+  replicas: 2   #副本数量
+  template:     #模板
+    metadata:    
+      labels:   #标签
+        app: web_server
+    spec:
+      containers:   #指定容器
+      - name: nginx  #容器名称
+        image: nginx   #使用的镜像
+</code></pre>
 <h3 id="执行一下">执行一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f web.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl apply -f web.yaml 
+</code></pre>
 <h3 id="查看一下">查看一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments.  -o wide<br>//查看控制器信息<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262"></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br>//查看pod节点信息<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209"></p>
+<pre><code>[root@master ~]# kubectl get deployments.  -o wide
+//查看控制器信息
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107100450262.png" alt="image-20200107100450262"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看pod节点信息
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107101803209.png" alt="image-20200107101803209"></p>
 <h2 id="3-编写一个service-yaml文件">3.编写一个service.yaml文件</h2>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">web-svc.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>  <span class="hljs-comment">#资源对象是副本</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>   <span class="hljs-comment">#api的版本</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">web-svc</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span>     <span class="hljs-comment">#标签选择器</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">web-server</span>  <span class="hljs-comment">#须和web.yaml的标签一致</span><br>  <span class="hljs-attr">ports:</span>              <span class="hljs-comment">#端口</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">80</span>            <span class="hljs-comment">#宿主机的端口</span><br>    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span>      <span class="hljs-comment">#容器的端口</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim web-svc.yaml
+kind: Service  #资源对象是副本
+apiVersion: v1   #api的版本
+metadata:
+  name: web-svc
+spec:
+  selector:     #标签选择器
+    app: web-server  #须和web.yaml的标签一致
+  ports:              #端口
+  - protocol: TCP
+    port: 80            #宿主机的端口
+    targetPort: 80      #容器的端口
+</code></pre>
 <blockquote>
 <p><strong>使用相同标签和标签选择器内容，使两个资源对象相互关联。</strong></p>
 <p><strong>创建的service资源对象，默认的type为ClusterIP，意味着集群内任意节点都可访问。它的作用是为后端真正服务的pod提供一个统一的接口。如果想要外网能够访问服务，应该把type改为NodePort</strong></p>
 </blockquote>
 <h3 id="（1）执行一下">（1）执行一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f web-svc.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
+</code></pre>
 <h3 id="（2）查看一下">（2）查看一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get svc<br>//查看控制器信息<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972"></p>
+<pre><code>[root@master ~]# kubectl get svc
+//查看控制器信息
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110717972.png" alt="image-20200107110717972"></p>
 <h3 id="（3）访问一下">（3）访问一下</h3>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">10.111</span><span class="hljs-number">.193</span><span class="hljs-number">.168</span><br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353"></p>
+<pre><code>[root@master ~]# curl 10.111.193.168
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107110837353.png" alt="image-20200107110837353"></p>
 <h2 id="4-外网能够访问服务">4.外网能够访问服务</h2>
 <h3 id="（1）修改web-svc-yaml文件">（1）修改web-svc.yaml文件</h3>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span>  <span class="hljs-comment">#资源对象是副本</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span>   <span class="hljs-comment">#api的版本</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">web-svc</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span>    <span class="hljs-comment">#添加 更改网络类型</span><br>  <span class="hljs-attr">selector:</span>     <span class="hljs-comment">#标签选择器</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">web_server</span>  <span class="hljs-comment">#须和web.yaml的标签一致</span><br>  <span class="hljs-attr">ports:</span>              <span class="hljs-comment">#端口</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">80</span>            <span class="hljs-comment">#宿主机的端口</span><br>    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span>      <span class="hljs-comment">#容器的端口</span><br>    <span class="hljs-attr">nodePort:</span> <span class="hljs-number">30086</span>     <span class="hljs-comment">#指定群集映射端口，范围是30000-32767</span><br></code></pre></td></tr></table></figure>
+<pre><code>kind: Service  #资源对象是副本
+apiVersion: v1   #api的版本
+metadata:
+  name: web-svc
+spec:
+  type: NodePort    #添加 更改网络类型
+  selector:     #标签选择器
+    app: web_server  #须和web.yaml的标签一致
+  ports:              #端口
+  - protocol: TCP
+    port: 80            #宿主机的端口
+    targetPort: 80      #容器的端口
+    nodePort: 30086     #指定群集映射端口，范围是30000-32767
+</code></pre>
 <h3 id="（2）刷新一下">（2）刷新一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]#  kubectl</span> apply -f web-svc.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]#  kubectl apply -f web-svc.yaml 
+</code></pre>
 <h3 id="（3）查看一下">（3）查看一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get svc<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940"></p>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111338940.png" alt="image-20200107111338940"></p>
 <h3 id="（4）浏览器测试">（4）浏览器测试</h3>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952"></p>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107111451952.png" alt="image-20200107111451952"></p>
 <h1>三、小实验</h1>
 <blockquote>
 <p><strong>基于上一篇博客实验继续进行</strong></p>
 </blockquote>
 <h3 id="1-使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。">1.使用yaml文件的方式创建一个Deployment资源对象，要求镜像使用个人私有镜像v1版本。replicas为3个。</h3>
 <h3 id="编写yaml文件">编写yaml文件</h3>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">www.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">www_server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v1</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim www.yaml
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: xgp
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: www_server
+    spec:
+      containers:
+      - name: web
+        image: 192.168.1.21:5000/web:v1   
+</code></pre>
 <h4 id="（1）执行一下-2">（1）执行一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f web-svc.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl apply -f web-svc.yaml 
+</code></pre>
 <h4 id="（2）查看一下-2">（2）查看一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o wide<br>//查看控制器信息<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208"></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br>//查看pod节点信息<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152"></p>
+<pre><code>[root@master ~]# kubectl get deployments. -o wide
+//查看控制器信息
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107120901208.png" alt="image-20200107120901208"></p>
+<pre><code>[root@master ~]# kubectl get pod -o wide
+//查看pod节点信息
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121002152.png" alt="image-20200107121002152"></p>
 <h4 id="（3）访问一下-2">（3）访问一下</h4>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669"></p>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121147669.png" alt="image-20200107121147669"></p>
 <h3 id="2-使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为：-NodePort，端口为-30123"><strong>2.</strong>  使用yaml文件的方式创建一个Service资源对象，要与上述Deployment资源对象关联，type类型为： NodePort，端口为:30123.</h3>
 <h4 id="编写service文件">编写service文件</h4>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">www-svc.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">www-svc</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">www_server</span><br>  <span class="hljs-attr">ports:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>    <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>    <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br>    <span class="hljs-attr">nodePort:</span> <span class="hljs-number">30123</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim www-svc.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: www-svc
+spec:
+  type: NodePort
+  selector:
+    app: www_server
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30123
+</code></pre>
 <h4 id="执行一下-2">执行一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f www-svc.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl apply -f www-svc.yaml 
+</code></pre>
 <h4 id="查看一下-2">查看一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get svc<br></code></pre></td></tr></table></figure>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525"></p>
+<pre><code>[root@master ~]# kubectl get svc
+</code></pre>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107121929525.png" alt="image-20200107121929525"></p>
 <h4 id="访问一下">访问一下</h4>
-<p><img src= /img/loading.gif data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559"></p>
+<p><img src= data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs= data-src="/posts/G:%5C%E5%9B%9B%E6%9C%9F%5C%E8%99%9A%E6%8B%9F%E5%8C%96%5Ckubernetes%5Ck8s%E6%96%87%E6%A1%A3%5C04%E9%85%8D%E7%BD%AE%E6%B8%85%E5%8D%95.assets%5Cimage-20200107122015559.png" alt="image-20200107122015559"></p>
 <h1>四. 总结</h1>
 <h2 id="1-Pod的作用"><strong>1. Pod的作用</strong></h2>
 <blockquote>

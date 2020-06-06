@@ -156,7 +156,23 @@ function activateLightMode(){
 ​		<strong>KIND:</strong><br>
 ​		<strong>METADATA:</strong><br>
 ​		<strong>SPEC :</strong></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">web.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span>  <span class="hljs-comment">#资源对象是控制器</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span>   <span class="hljs-comment">#api的版本</span><br><span class="hljs-attr">metadata:</span>      <span class="hljs-comment">#描述kind（资源类型）</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">web</span>   <span class="hljs-comment">#定义控制器名称</span><br>  <span class="hljs-string">namespace：</span>  <span class="hljs-comment">#名称空间</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span>   <span class="hljs-comment">#副本数量</span><br>  <span class="hljs-attr">template:</span>     <span class="hljs-comment">#模板</span><br>    <span class="hljs-attr">metadata:</span>    <br>      <span class="hljs-attr">labels:</span>   <span class="hljs-comment">#标签</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">web_server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span>   <span class="hljs-comment">#指定容器</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span>  <span class="hljs-comment">#容器名称</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span>   <span class="hljs-comment">#使用的镜像</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim web.yaml
+kind: Deployment  #资源对象是控制器
+apiVersion: extensions/v1beta1   #api的版本
+metadata:      #描述kind（资源类型）
+  name: web   #定义控制器名称
+  namespace：  #名称空间
+spec:
+  replicas: 2   #副本数量
+  template:     #模板
+    metadata:    
+      labels:   #标签
+        app: web_server
+    spec:
+      containers:   #指定容器
+      - name: nginx  #容器名称
+        image: nginx   #使用的镜像
+</code></pre>
 <p>​		<strong>Deployment（控制器)：</strong></p>
 <p>​				**ReplicationController：**用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建</p>
 <p>​				**RS（RpelicaSet）:**RS也是用于保证与label selector匹配的pod数量维持在期望状态</p>

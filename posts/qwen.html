@@ -99,54 +99,180 @@ function activateLightMode(){
 <p>![image-20200219103252620](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200219103252620.png)</p>
 <p>![image-20200219103537536](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200219103537536.png)</p>
 <h3 id="4-master下载">4. master下载</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">ingress</span>]<span class="hljs-comment"># wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ingress]# wget https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.29.0/deploy/static/mandatory.yaml
+</code></pre>
 <h3 id="5-修改-mandatory-yaml-文件">5. 修改 mandatory.yaml 文件</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">ingress</span>]<span class="hljs-comment"># vim mandatory.yaml</span><br>      hostNetwork: <span class="hljs-literal">true</span>   <span class="hljs-comment">#213</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ingress]# vim mandatory.yaml
+      hostNetwork: true   #213
+</code></pre>
 <p>![image-20200219104346146](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200219104346146.png)</p>
 <h4 id="（1）执行一下">（1）执行一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">ingress</span>]<span class="hljs-comment"># kubectl apply -f mandatory.yaml</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ingress]# kubectl apply -f mandatory.yaml 
+</code></pre>
 <h4 id="（2）查看一下">（2）查看一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">ingress</span>]<span class="hljs-comment"># kubectl get pod -n ingress-nginx</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ingress]# kubectl get pod -n ingress-nginx 
+</code></pre>
 <p>![image-20200224123916253](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224123916253.png)</p>
 <h2 id="2、将ingress-nginx-controller暴露为一个Service资源对象。"><strong>2、将ingress-nginx-controller暴露为一个Service资源对象。</strong></h2>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">yaml]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">service-nodeport.yaml</span> <br><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">ingress-nginx</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">ingress-nginx</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">ingress-nginx</span><br>    <span class="hljs-attr">app.kubernetes.io/part-of:</span> <span class="hljs-string">ingress-nginx</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">http</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">https</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">443</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">443</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app.kubernetes.io/name:</span> <span class="hljs-string">ingress-nginx</span><br>    <span class="hljs-attr">app.kubernetes.io/part-of:</span> <span class="hljs-string">ingress-nginx</span><br><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# vim service-nodeport.yaml 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+  labels:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: 443
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: ingress-nginx
+    app.kubernetes.io/part-of: ingress-nginx
+
+---
+</code></pre>
 <h4 id="（1）执行一下-2"><strong>（1）执行一下</strong></h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">ingress</span>]<span class="hljs-comment"># kubectl apply -f service-nodeport.yaml</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ingress]# kubectl apply -f service-nodeport.yaml 
+</code></pre>
 <h4 id="（2）查看一下-2"><strong>（2）查看一下</strong></h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">ingress</span>]<span class="hljs-comment"># kubectl get svc -n ingress-nginx</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ingress]# kubectl get svc -n ingress-nginx 
+</code></pre>
 <p>![image-20200219111029408](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200219111029408.png)</p>
 <h2 id="3、创建一个deployment资源，和一个service资源，-并相互关联。">3、创建一个deployment资源，和一个service资源， 并相互关联。</h2>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">yaml]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">deploy1.yaml</span><br><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">deploy1</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx1</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx1</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">svc-1</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx1</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# vim deploy1.yaml
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy1
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx1
+    spec:
+      containers:
+      - name: nginx1
+        image: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-1
+spec:
+  selector:
+    app: nginx1
+  ports:
+    - port: 80
+      targetPort: 80
+</code></pre>
 <h4 id="执行一下">执行一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl apply -f deploy1.yaml</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl apply -f deploy1.yaml 
+</code></pre>
 <h4 id="查看一下">查看一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl get pod</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl get pod
+</code></pre>
 <p>![image-20200224091013907](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224091013907.png)</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl get svc</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl get svc
+</code></pre>
 <p>![image-20200224091036678](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224091036678.png)</p>
 <h3 id="然后复制deploy1-yaml资源工创建另外”一对“服务。">然后复制deploy1.yaml资源工创建另外”一对“服务。</h3>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">yaml]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">deploy2.yaml</span><br><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">deploy2</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx2</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx2</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">svc-2</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx2</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# vim deploy2.yaml
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy2
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx2
+    spec:
+      containers:
+      - name: nginx2
+        image: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-2
+spec:
+  selector:
+    app: nginx2
+  ports:
+    - port: 80
+      targetPort: 80
+</code></pre>
 <h4 id="执行一下-2">执行一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl apply -f deploy2.yaml</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl apply -f deploy2.yaml 
+</code></pre>
 <h4 id="查看一下-2">查看一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl get deployments.</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl get deployments.
+</code></pre>
 <p>![image-20200224091747509](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224091747509.png)</p>
 <h2 id="4-创建ingress的yaml文件，关联是svc1和svc2">4. 创建ingress的yaml文件，关联是svc1和svc2</h2>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">yaml]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">ingress.yaml</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">ingress-1</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">rules:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">www1.bdqn.com</span><br>      <span class="hljs-attr">http:</span><br>        <span class="hljs-attr">paths:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span><br>          <span class="hljs-attr">backend:</span><br>            <span class="hljs-attr">serviceName:</span> <span class="hljs-string">svc-1</span><br>            <span class="hljs-attr">servicePort:</span> <span class="hljs-number">80</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">ingress-2</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">rules:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">www2.bdqn.com</span><br>      <span class="hljs-attr">http:</span><br>        <span class="hljs-attr">paths:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span><br>          <span class="hljs-attr">backend:</span><br>            <span class="hljs-attr">serviceName:</span> <span class="hljs-string">svc-2</span><br>            <span class="hljs-attr">servicePort:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# vim ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-1
+spec:
+  rules:
+    - host: www1.bdqn.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: svc-1
+            servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-2
+spec:
+  rules:
+    - host: www2.bdqn.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: svc-2
+            servicePort: 80
+</code></pre>
 <h4 id="执行一下-3">执行一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl apply -f ingress.yaml</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl apply -f ingress.yaml 
+</code></pre>
 <h4 id="查看一下-3">查看一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl get ingresses.</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl get ingresses.
+</code></pre>
 <p>![image-20200224092438021](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224092438021.png)</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl describe ingresses. ingress-1</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl describe ingresses. ingress-1
+</code></pre>
 <p>![image-20200224092823654](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224092823654.png)</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl describe ingresses. ingress-2</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl describe ingresses. ingress-2
+</code></pre>
 <p>![image-20200224092846086](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224092846086.png)</p>
 <h2 id="5、由于实验环境限制，所以自己用来模拟-一个域名。">5、由于实验环境限制，所以自己用来模拟-一个域名。</h2>
 <h4 id="进入本机的-C-Windows-System32-drivers-etc-，-修改hosts文件，添加Pod（ingress-controller）运行所在的节点IP。">进入本机的 C:\Windows\System32\drivers\etc ， 修改hosts文件，添加Pod（ingress-controller）运行所在的节点IP。</h4>
 <p>![image-20200224092744445](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224092744445.png)</p>
 <h4 id="访问一下">访问一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># kubectl get svc -n ingress-nginx </span><br>//查看映射的端口<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# kubectl get svc -n ingress-nginx 
+//查看映射的端口
+</code></pre>
 <p>![image-20200224093328158](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224093328158.png)</p>
 <p><a href="http://www1.bdqn.com:30817/" target="_blank" rel="noopener">http://www1.bdqn.com:30817/</a></p>
 <p>![image-20200224094944536](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224094944536.png)</p>
@@ -160,31 +286,89 @@ function activateLightMode(){
 <p>![image-20200224143045045](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224143045045.png)</p>
 <p><strong>在上面的一系列流程中，关键的点就在于ingress规则，我们只需要在ingress的yaml文件中，为域名配置CA证书即可，只要可以通过HTTPS访问到域名，至于这个域名是怎么关联到后端提供服务的pod，这就是属于k8s群集内部的通信了，即便是使用http来通信，也无伤大雅。</strong></p>
 <h2 id="1-生成证书">1. 生成证书</h2>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># mkdir https</span><br>//创建一个放置证书的目录<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">yaml</span>]<span class="hljs-comment"># cd https/</span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">https</span>]<span class="hljs-comment"># openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=testsvc /O=testsvc"</span><br>//生成证书<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# mkdir https
+//创建一个放置证书的目录
+[root@master yaml]# cd https/
+[root@master https]# openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj &quot;/CN=testsvc /O=testsvc&quot;
+//生成证书
+</code></pre>
 <p>![image-20200224100716121](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224100716121.png)</p>
 <h2 id="2-创建secret资源，-保存证书。">2. 创建secret资源， 保存证书。</h2>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@master https]# kubectl create<span class="hljs-built_in"> secret </span>tls tls-secret <span class="hljs-attribute">--key</span>=tls.key --cert tls.crt<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master https]# kubectl create secret tls tls-secret --key=tls.key --cert tls.crt
+</code></pre>
 <h2 id="3、创建一个deploy3-yaml文件，模拟一个web服务。">3、创建一个deploy3.yaml文件，模拟一个web服务。</h2>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">yaml]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">deploy3.yaml</span><br><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">deploy3</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">nginx3</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx3</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">svc-3</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">nginx3</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master yaml]# vim deploy3.yaml
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy3
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx3
+    spec:
+      containers:
+      - name: nginx3
+        image: nginx
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-3
+spec:
+  selector:
+    app: nginx3
+  ports:
+    - port: 80
+      targetPort: 80
+</code></pre>
 <h4 id="执行一下-4">执行一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">https</span>]<span class="hljs-comment"># kubectl apply -f deploy3.yaml</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master https]# kubectl apply -f deploy3.yaml 
+</code></pre>
 <h4 id="查看一下-4">查看一下</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">https</span>]<span class="hljs-comment"># kubectl get pod</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master https]# kubectl get pod
+</code></pre>
 <p>![image-20200224104212886](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224104212886.png)</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">https</span>]<span class="hljs-comment"># kubectl get svc</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master https]# kubectl get svc
+</code></pre>
 <p>![image-20200224104240133](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224104240133.png)</p>
 <h2 id="4、创建对应的ingress规则。">4、创建对应的ingress规则。</h2>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">https]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">ingress.yaml</span><br><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Ingress</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">ingress-3</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">tls:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">www3.bdqn.com</span>           <span class="hljs-comment">#域名</span><br>      <span class="hljs-attr">secretName:</span> <span class="hljs-string">tls-secret</span>    <span class="hljs-comment">#保存的证书</span><br>  <span class="hljs-attr">rules:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">host:</span> <span class="hljs-string">www3.bdqn.com</span><br>      <span class="hljs-attr">http:</span><br>        <span class="hljs-attr">paths:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">path:</span> <span class="hljs-string">/</span><br>          <span class="hljs-attr">backend:</span><br>            <span class="hljs-attr">serviceName:</span> <span class="hljs-string">svc-3</span><br>            <span class="hljs-attr">servicePort:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master https]# vim ingress.yaml
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-3
+spec:
+  tls:
+    - hosts:
+      - www3.bdqn.com           #域名
+      secretName: tls-secret    #保存的证书
+  rules:
+    - host: www3.bdqn.com
+      http:
+        paths:
+        - path: /
+          backend:
+            serviceName: svc-3
+            servicePort: 80
+</code></pre>
 <h3 id="执行一下-5">执行一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">https</span>]<span class="hljs-comment"># kubectl apply -f ingress.yaml</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master https]# kubectl apply -f ingress.yaml 
+</code></pre>
 <h3 id="查看一下-5">查看一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">https</span>]<span class="hljs-comment"># kubectl get ingresses.</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master https]# kubectl get ingresses.
+</code></pre>
 <p>![image-20200224105525215](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224105525215.png)</p>
 <h2 id="5-查找对应service-nodePort的443端口映射的端口，直接用浏览器访问即可。">5.查找对应service nodePort的443端口映射的端口，直接用浏览器访问即可。</h2>
 <h4 id="进入本机的-C-Windows-System32-drivers-etc-，-修改hosts文件，添加Pod（ingress-controller）运行所在的节点IP。-2">进入本机的 C:\Windows\System32\drivers\etc ， 修改hosts文件，添加Pod（ingress-controller）运行所在的节点IP。</h4>
 <p>![image-20200224105118183](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224105118183.png)</p>
 <h4 id="查看映射端口">查看映射端口</h4>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">https</span>]<span class="hljs-comment"># kubectl get svc -n ingress-nginx</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master https]# kubectl get svc -n ingress-nginx 
+</code></pre>
 <p>![image-20200224105347424](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224105347424.png)</p>
 <p><a href="https://www3.bdqn.com:31372/" target="_blank" rel="noopener">https://www3.bdqn.com:31372/</a></p>
 <p>![image-20200224105409448](G:\四期\虚拟化\kubernetes\k8s文档\16 ingress资源的应用 .assets\image-20200224105409448.png)</p>

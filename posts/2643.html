@@ -97,28 +97,44 @@ function activateLightMode(){
 <p><strong>heapster：这个组件之前是集成在k8s集群的,不过在1.12版本之后被移除了。如果还想使用此功能，应该部署metricServer, 这个k8s集群资源使用情况的聚合器。</strong></p>
 <p><strong>这里，我们使用一个测试镜像， 这个镜像基于php-apache制作的docker镜像，包含了一些可以运行cpu密集计算任务的代码。</strong></p>
 <h2 id="1、创建一个deployment控制器">1、创建一个deployment控制器</h2>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]#docker pull mirrorgooglecontainers/hpa-example:latest<br><span class="hljs-comment">//下载hpa-example镜像</span><br><br>[<span class="hljs-symbol">root@</span>master ~]# kubectl run php-apache --image=mirrorgooglecontainers/hpa-example --requests=cpu=<span class="hljs-number">200</span>m --expose  --port=<span class="hljs-number">80</span><br><span class="hljs-comment">//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]#docker pull mirrorgooglecontainers/hpa-example:latest
+//下载hpa-example镜像
+
+[root@master ~]# kubectl run php-apache --image=mirrorgooglecontainers/hpa-example --requests=cpu=200m --expose  --port=80
+//基于hpa-example镜像，运行一个deployment控制器，请求CPU的资源为200m，暴露一个80端口
+</code></pre>
 <h3 id="查看一下">查看一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments.<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl get deployments.
+</code></pre>
 <p>![image-20200228102643352](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228102643352.png)</p>
 <h2 id="2、创建HPA控制器">2、创建HPA控制器</h2>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# kubectl <span class="hljs-built_in">auto</span>scale deployment php-apache --cpu-percent=<span class="hljs-number">50</span> --min=<span class="hljs-number">1</span> --max=<span class="hljs-number">10</span><br><span class="hljs-comment">//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl autoscale deployment php-apache --cpu-percent=50 --min=1 --max=10
+//当deployment资源对象的CPU使用率达到50%时，就进行扩容，最多可以扩容到10个
+</code></pre>
 <h3 id="查看一下-2">查看一下</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get hpa<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl get hpa
+</code></pre>
 <p>![image-20200228101908398](G:\四期\虚拟化\kubernetes\k8s文档\18 HPA自动容与蒲容.assets\image-20200228101908398.png)</p>
 <h2 id="3、测试（master开启三个端口）">3、测试（master开启三个端口）</h2>
 <p><strong>新开启多个终端，对pod进行死循环请求php-apache的pod</strong></p>
 <h3 id="端口一">端口一</h3>
 <h4 id="（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。">（1）创建一个应用，用来不停的访问我们刚刚创建的php-apache的svc资源。</h4>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@master ~]# kubectl <span class="hljs-builtin-name">run</span> -i --tty load-generator <span class="hljs-attribute">--image</span>=busybox /bin/sh<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl run -i --tty load-generator --image=busybox /bin/sh
+</code></pre>
 <h4 id="（2）进入Pod内，执行以下这条命令-用来模拟访问php-apache的svc资源。">（2）进入Pod内，执行以下这条命令.用来模拟访问php-apache的svc资源。</h4>
-<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs d">[root<span class="hljs-keyword">@master</span> ~]# <span class="hljs-keyword">while</span> <span class="hljs-literal">true</span>; <span class="hljs-keyword">do</span> wget -q -O- http:<span class="hljs-comment">//php-apache.default.svc.cluster.local ; done</span><br><span class="hljs-comment">//不停地向php-apache的svc资源，发送ok</span><br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# while true; do wget -q -O- http://php-apache.default.svc.cluster.local ; done
+//不停地向php-apache的svc资源，发送ok
+</code></pre>
 <h3 id="端口二">端口二</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get hpa -w<br>//实时查看pod的cpu状态<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# kubectl get hpa -w
+//实时查看pod的cpu状态
+</code></pre>
 <p>![image-20200228133816724](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228133816724.png)</p>
 <p><strong>可以看到php-apache的cpu使用情况已经超过了50%</strong></p>
 <h3 id="端口三">端口三</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">images</span>]<span class="hljs-comment"># kubectl get pod -w</span><br>//实时查看pod的状态<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master images]# kubectl get pod -w
+//实时查看pod的状态
+</code></pre>
 <p>![image-20200228134105507](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228134105507.png)</p>
 <p><strong>可以看到当php-apache的cpu使用情况超过50%后，就会不断生成新的php-apache来进行负载均衡（目前设置的上线时10个），当然，如果cpu使用情况下降到50%，master就会陆续地删除php-apache，这样的使用可以减少不必要的资源浪费、资源分配不均等情况。</strong></p>
 <h1>二、资源限制</h1>
@@ -126,18 +142,22 @@ function activateLightMode(){
 <p><strong>Kubernetes对资源的限制实际上是通过cgroup来控制的，cgroup 是容器的一组用来控制内核如何运行进程的相关属性集合。针对内存、CPU 和各种设备都有对应的cgroup</strong></p>
 <p><strong>默认情况下，Pod运行没有CPU和内存的限额。这意味着系统中的任何 Pod将能够像执行该Pod所在的节点一样，消耗足够多的CPU和内存。一般会针对某些应用的pod资源进行资源限制，这个资源限制是通过</strong></p>
 <p><strong>resources的requests和limits来实现</strong></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# vim</span> cgroup-pod.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim cgroup-pod.yaml
+</code></pre>
 <p>![image-20200228153809932](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153809932.png)</p>
 <p><strong>requests: 要分配的资源，limits为最高请求的资源值。可以简单的理解为初始值和最大值。</strong></p>
 <h2 id="2、基于名称空间"><strong>2、基于名称空间</strong></h2>
 <h3 id="1）-计算资源配额">1） 计算资源配额</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# vim</span> compute-resources.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim compute-resources.yaml
+</code></pre>
 <p>![image-20200228153818288](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153818288.png)</p>
 <h3 id="2）配置对象数量配额限制">2）配置对象数量配额限制</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# vim</span> object-counts.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim object-counts.yaml
+</code></pre>
 <p>![image-20200228153828002](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153828002.png)</p>
 <h3 id="3）-配置CPU和内存的LimitRange">3） 配置CPU和内存的LimitRange</h3>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# vim</span> limitRange.yaml<br></code></pre></td></tr></table></figure>
+<pre><code>[root@master ~]# vim limitRange.yaml
+</code></pre>
 <p>![image-20200228153834705](G:\四期\虚拟化\kubernetes\k8s文档\18 k8s的HPA自动容与缩容.assets\image-20200228153834705.png)</p>
 <p><strong>default 即 limit的值。</strong></p>
 <p><strong>defaultRequest 即 request的值。</strong></p>
