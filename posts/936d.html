@@ -84,7 +84,7 @@ function activateLightMode(){
   opacity: 1
 }
 </style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/666.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">14</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">1</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">Deployment介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用场景"><span class="toc-number">1.1.</span> <span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">Service介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#外部系统访问Service的问题"><span class="toc-number">2.1.</span> <span class="toc-text">外部系统访问Service的问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">3.</span> <span class="toc-text">环境介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">4.</span> <span class="toc-text">一，Delpoyment和service的简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。"><span class="toc-number">4.1.</span> <span class="toc-text">1.练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）执行一下"><span class="toc-number">4.1.1.</span> <span class="toc-text">（1）执行一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）查看一下"><span class="toc-number">4.1.2.</span> <span class="toc-text">（2）查看一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）访问一下"><span class="toc-number">4.1.3.</span> <span class="toc-text">（3）访问一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）更新一下yaml文件，副本加一"><span class="toc-number">4.1.4.</span> <span class="toc-text">（4）更新一下yaml文件，副本加一</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-执行一下"><span class="toc-number">4.1.4.1.</span> <span class="toc-text">&lt;1&gt;执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-查看一下"><span class="toc-number">4.1.4.2.</span> <span class="toc-text">&lt;2&gt;查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-练习写一个service文件"><span class="toc-number">4.2.</span> <span class="toc-text">2.练习写一个service文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）执行一下-2"><span class="toc-number">4.2.1.</span> <span class="toc-text">（1）执行一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）查看一下-2"><span class="toc-number">4.2.2.</span> <span class="toc-text">（2）查看一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）访问一下-2"><span class="toc-number">4.2.3.</span> <span class="toc-text">（3）访问一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-修改yaml文件"><span class="toc-number">4.3.</span> <span class="toc-text">3.修改yaml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#执行一下"><span class="toc-number">4.3.1.</span> <span class="toc-text">执行一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-service文件映射端口"><span class="toc-number">4.4.</span> <span class="toc-text">4.service文件映射端口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#执行一下-2"><span class="toc-number">4.4.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看一下"><span class="toc-number">4.4.2.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问一下"><span class="toc-number">4.4.3.</span> <span class="toc-text">访问一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-修改三个pod页面内容"><span class="toc-number">4.5.</span> <span class="toc-text">5.修改三个pod页面内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）查看一下pod信息"><span class="toc-number">4.5.1.</span> <span class="toc-text">（1）查看一下pod信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）修改POD页面内容（三台不一样）"><span class="toc-number">4.5.2.</span> <span class="toc-text">（2）修改POD页面内容（三台不一样）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进入容器后修改页面内容"><span class="toc-number">4.5.3.</span> <span class="toc-text">进入容器后修改页面内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问一下-2"><span class="toc-number">4.5.4.</span> <span class="toc-text">访问一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">5.</span> <span class="toc-text">二.分析一下k8s负载均衡原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）查看service的暴露IP"><span class="toc-number">5.0.1.</span> <span class="toc-text">（1）查看service的暴露IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）查看一下iptabes规则"><span class="toc-number">5.0.2.</span> <span class="toc-text">（2）查看一下iptabes规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）根据service的暴露IP，查看对应的iptabes规则"><span class="toc-number">5.0.3.</span> <span class="toc-text">（3）根据service的暴露IP，查看对应的iptabes规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）对应一下IP是否一致"><span class="toc-number">5.0.4.</span> <span class="toc-text">（4）对应一下IP是否一致</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">6.</span> <span class="toc-text">三.回滚到指定版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）删除之前创建的delpoy和service"><span class="toc-number">6.0.1.</span> <span class="toc-text">（1）删除之前创建的delpoy和service</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像"><span class="toc-number">6.0.2.</span> <span class="toc-text">（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）运行三个服务，并记录三个版本信息"><span class="toc-number">6.0.3.</span> <span class="toc-text">（3）运行三个服务，并记录三个版本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）查看有哪些版本信息"><span class="toc-number">6.0.4.</span> <span class="toc-text">（4）查看有哪些版本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（5）运行之前的service文件"><span class="toc-number">6.0.5.</span> <span class="toc-text">（5）运行之前的service文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（6）查看service暴露端口"><span class="toc-number">6.0.6.</span> <span class="toc-text">（6）查看service暴露端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（7）测试访问"><span class="toc-number">6.0.7.</span> <span class="toc-text">（7）测试访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（8）回滚到指定版本"><span class="toc-number">6.0.8.</span> <span class="toc-text">（8）回滚到指定版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-访问一下"><span class="toc-number">6.0.8.1.</span> <span class="toc-text">&lt;1&gt;访问一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-查看有哪些版本信息"><span class="toc-number">6.0.8.2.</span> <span class="toc-text">&lt;2&gt;查看有哪些版本信息</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">7.</span> <span class="toc-text">四.用label控制pod的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#首先我们给node1节点打上一个ssd的标签"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">首先我们给node1节点打上一个ssd的标签</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）查看标签"><span class="toc-number">7.0.1.</span> <span class="toc-text">（1）查看标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）删除副本一"><span class="toc-number">7.0.2.</span> <span class="toc-text">（2）删除副本一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）修改副本一的yaml文件"><span class="toc-number">7.0.3.</span> <span class="toc-text">（3）修改副本一的yaml文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）执行一下"><span class="toc-number">7.0.4.</span> <span class="toc-text">（4）执行一下</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-2"><span class="toc-number">7.0.4.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（5）删除标签"><span class="toc-number">7.0.5.</span> <span class="toc-text">（5）删除标签</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-3"><span class="toc-number">7.0.5.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">8.</span> <span class="toc-text">五，小实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。"><span class="toc-number">8.0.1.</span> <span class="toc-text">1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）用label控制pod的位置"><span class="toc-number">8.0.1.1.</span> <span class="toc-text">（1）用label控制pod的位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）编写源yaml文件"><span class="toc-number">8.0.1.2.</span> <span class="toc-text">（2）编写源yaml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）编写源service文件"><span class="toc-number">8.0.1.3.</span> <span class="toc-text">（3）编写源service文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（4）执行yaml文件，创建控制器。执行service文件创建映射端口"><span class="toc-number">8.0.1.4.</span> <span class="toc-text">（4）执行yaml文件，创建控制器。执行service文件创建映射端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（5）查看一下pod节点"><span class="toc-number">8.0.1.5.</span> <span class="toc-text">（5）查看一下pod节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（6）记录一个版本"><span class="toc-number">8.0.1.6.</span> <span class="toc-text">（6）记录一个版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（7）访问一下"><span class="toc-number">8.0.1.7.</span> <span class="toc-text">（7）访问一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2）根据上述Deployment，升级为v2版本，记录一个版本。"><span class="toc-number">8.0.2.</span> <span class="toc-text">2）根据上述Deployment，升级为v2版本，记录一个版本。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）修改yaml文件镜像版本"><span class="toc-number">8.0.2.1.</span> <span class="toc-text">（1）修改yaml文件镜像版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）刷新一下yaml文件"><span class="toc-number">8.0.2.2.</span> <span class="toc-text">（2）刷新一下yaml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）访问一下-3"><span class="toc-number">8.0.2.3.</span> <span class="toc-text">（3）访问一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（4）记录一个版本"><span class="toc-number">8.0.2.4.</span> <span class="toc-text">（4）记录一个版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。"><span class="toc-number">8.0.3.</span> <span class="toc-text">3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1）修改yaml文件镜像版本"><span class="toc-number">8.0.3.1.</span> <span class="toc-text">1）修改yaml文件镜像版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）刷新一下yaml文件-2"><span class="toc-number">8.0.3.2.</span> <span class="toc-text">（2）刷新一下yaml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）访问一下-4"><span class="toc-number">8.0.3.3.</span> <span class="toc-text">（3）访问一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（5）分析访问流量的负载均衡详细情况"><span class="toc-number">8.0.3.4.</span> <span class="toc-text">（5）分析访问流量的负载均衡详细情况</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-查看一下service映射端口"><span class="toc-number">8.0.3.4.1.</span> <span class="toc-text">&lt;1&gt;查看一下service映射端口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-以ip为起点，分析访问流量的负载均衡详细情况"><span class="toc-number">8.0.3.4.2.</span> <span class="toc-text">&lt;2&gt;以ip为起点，分析访问流量的负载均衡详细情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-对应一下IP是否一致"><span class="toc-number">8.0.3.4.3.</span> <span class="toc-text">&lt;3&gt;对应一下IP是否一致</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4）回滚到指定版本v1，并作验证。"><span class="toc-number">8.0.4.</span> <span class="toc-text">4）回滚到指定版本v1，并作验证。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-回滚到指定版本"><span class="toc-number">8.0.4.1.</span> <span class="toc-text">&lt;1&gt;回滚到指定版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-访问一下"><span class="toc-number">8.0.4.2.</span> <span class="toc-text">&lt;2&gt;访问一下</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">05 Delpoyment、service</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-01 21:20:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-01</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-01 21:22:44"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-01</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon far fa-file-word" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">3.1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon far fa-clock" aria-hidden="true"></i><span>阅读时长: 13 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1>Deployment介绍</h1>
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/666.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">14</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">1</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">1</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">Deployment介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用场景"><span class="toc-number">1.1.</span> <span class="toc-text">使用场景</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">Service介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#外部系统访问Service的问题"><span class="toc-number">2.1.</span> <span class="toc-text">外部系统访问Service的问题</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">3.</span> <span class="toc-text">环境介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">4.</span> <span class="toc-text">一，Delpoyment和service的简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。"><span class="toc-number">4.1.</span> <span class="toc-text">1.练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）执行一下"><span class="toc-number">4.1.1.</span> <span class="toc-text">（1）执行一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）查看一下"><span class="toc-number">4.1.2.</span> <span class="toc-text">（2）查看一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）访问一下"><span class="toc-number">4.1.3.</span> <span class="toc-text">（3）访问一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）更新一下yaml文件，副本加一"><span class="toc-number">4.1.4.</span> <span class="toc-text">（4）更新一下yaml文件，副本加一</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-执行一下"><span class="toc-number">4.1.4.1.</span> <span class="toc-text">&lt;1&gt;执行一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-查看一下"><span class="toc-number">4.1.4.2.</span> <span class="toc-text">&lt;2&gt;查看一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-练习写一个service文件"><span class="toc-number">4.2.</span> <span class="toc-text">2.练习写一个service文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）执行一下-2"><span class="toc-number">4.2.1.</span> <span class="toc-text">（1）执行一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）查看一下-2"><span class="toc-number">4.2.2.</span> <span class="toc-text">（2）查看一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）访问一下-2"><span class="toc-number">4.2.3.</span> <span class="toc-text">（3）访问一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-修改yaml文件"><span class="toc-number">4.3.</span> <span class="toc-text">3.修改yaml文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#执行一下"><span class="toc-number">4.3.1.</span> <span class="toc-text">执行一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-service文件映射端口"><span class="toc-number">4.4.</span> <span class="toc-text">4.service文件映射端口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#执行一下-2"><span class="toc-number">4.4.1.</span> <span class="toc-text">执行一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看一下"><span class="toc-number">4.4.2.</span> <span class="toc-text">查看一下</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问一下"><span class="toc-number">4.4.3.</span> <span class="toc-text">访问一下</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-修改三个pod页面内容"><span class="toc-number">4.5.</span> <span class="toc-text">5.修改三个pod页面内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）查看一下pod信息"><span class="toc-number">4.5.1.</span> <span class="toc-text">（1）查看一下pod信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）修改POD页面内容（三台不一样）"><span class="toc-number">4.5.2.</span> <span class="toc-text">（2）修改POD页面内容（三台不一样）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进入容器后修改页面内容"><span class="toc-number">4.5.3.</span> <span class="toc-text">进入容器后修改页面内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问一下-2"><span class="toc-number">4.5.4.</span> <span class="toc-text">访问一下</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">5.</span> <span class="toc-text">二.分析一下k8s负载均衡原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）查看service的暴露IP"><span class="toc-number">5.0.1.</span> <span class="toc-text">（1）查看service的暴露IP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）查看一下iptabes规则"><span class="toc-number">5.0.2.</span> <span class="toc-text">（2）查看一下iptabes规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）根据service的暴露IP，查看对应的iptabes规则"><span class="toc-number">5.0.3.</span> <span class="toc-text">（3）根据service的暴露IP，查看对应的iptabes规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）对应一下IP是否一致"><span class="toc-number">5.0.4.</span> <span class="toc-text">（4）对应一下IP是否一致</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">6.</span> <span class="toc-text">三.回滚到指定版本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）删除之前创建的delpoy和service"><span class="toc-number">6.0.1.</span> <span class="toc-text">（1）删除之前创建的delpoy和service</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像"><span class="toc-number">6.0.2.</span> <span class="toc-text">（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）运行三个服务，并记录三个版本信息"><span class="toc-number">6.0.3.</span> <span class="toc-text">（3）运行三个服务，并记录三个版本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）查看有哪些版本信息"><span class="toc-number">6.0.4.</span> <span class="toc-text">（4）查看有哪些版本信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（5）运行之前的service文件"><span class="toc-number">6.0.5.</span> <span class="toc-text">（5）运行之前的service文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（6）查看service暴露端口"><span class="toc-number">6.0.6.</span> <span class="toc-text">（6）查看service暴露端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（7）测试访问"><span class="toc-number">6.0.7.</span> <span class="toc-text">（7）测试访问</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（8）回滚到指定版本"><span class="toc-number">6.0.8.</span> <span class="toc-text">（8）回滚到指定版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-访问一下"><span class="toc-number">6.0.8.1.</span> <span class="toc-text">&lt;1&gt;访问一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-查看有哪些版本信息"><span class="toc-number">6.0.8.2.</span> <span class="toc-text">&lt;2&gt;查看有哪些版本信息</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">7.</span> <span class="toc-text">四.用label控制pod的位置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#首先我们给node1节点打上一个ssd的标签"><span class="toc-number">7.0.0.1.</span> <span class="toc-text">首先我们给node1节点打上一个ssd的标签</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）查看标签"><span class="toc-number">7.0.1.</span> <span class="toc-text">（1）查看标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）删除副本一"><span class="toc-number">7.0.2.</span> <span class="toc-text">（2）删除副本一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）修改副本一的yaml文件"><span class="toc-number">7.0.3.</span> <span class="toc-text">（3）修改副本一的yaml文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（4）执行一下"><span class="toc-number">7.0.4.</span> <span class="toc-text">（4）执行一下</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-2"><span class="toc-number">7.0.4.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（5）删除标签"><span class="toc-number">7.0.5.</span> <span class="toc-text">（5）删除标签</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#查看一下-3"><span class="toc-number">7.0.5.1.</span> <span class="toc-text">查看一下</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">8.</span> <span class="toc-text">五，小实验</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。"><span class="toc-number">8.0.1.</span> <span class="toc-text">1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）用label控制pod的位置"><span class="toc-number">8.0.1.1.</span> <span class="toc-text">（1）用label控制pod的位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）编写源yaml文件"><span class="toc-number">8.0.1.2.</span> <span class="toc-text">（2）编写源yaml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）编写源service文件"><span class="toc-number">8.0.1.3.</span> <span class="toc-text">（3）编写源service文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（4）执行yaml文件，创建控制器。执行service文件创建映射端口"><span class="toc-number">8.0.1.4.</span> <span class="toc-text">（4）执行yaml文件，创建控制器。执行service文件创建映射端口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（5）查看一下pod节点"><span class="toc-number">8.0.1.5.</span> <span class="toc-text">（5）查看一下pod节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（6）记录一个版本"><span class="toc-number">8.0.1.6.</span> <span class="toc-text">（6）记录一个版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（7）访问一下"><span class="toc-number">8.0.1.7.</span> <span class="toc-text">（7）访问一下</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2）根据上述Deployment，升级为v2版本，记录一个版本。"><span class="toc-number">8.0.2.</span> <span class="toc-text">2）根据上述Deployment，升级为v2版本，记录一个版本。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）修改yaml文件镜像版本"><span class="toc-number">8.0.2.1.</span> <span class="toc-text">（1）修改yaml文件镜像版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）刷新一下yaml文件"><span class="toc-number">8.0.2.2.</span> <span class="toc-text">（2）刷新一下yaml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）访问一下-3"><span class="toc-number">8.0.2.3.</span> <span class="toc-text">（3）访问一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（4）记录一个版本"><span class="toc-number">8.0.2.4.</span> <span class="toc-text">（4）记录一个版本</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。"><span class="toc-number">8.0.3.</span> <span class="toc-text">3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1）修改yaml文件镜像版本"><span class="toc-number">8.0.3.1.</span> <span class="toc-text">1）修改yaml文件镜像版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）刷新一下yaml文件-2"><span class="toc-number">8.0.3.2.</span> <span class="toc-text">（2）刷新一下yaml文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）访问一下-4"><span class="toc-number">8.0.3.3.</span> <span class="toc-text">（3）访问一下</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（5）分析访问流量的负载均衡详细情况"><span class="toc-number">8.0.3.4.</span> <span class="toc-text">（5）分析访问流量的负载均衡详细情况</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-查看一下service映射端口"><span class="toc-number">8.0.3.4.1.</span> <span class="toc-text">&lt;1&gt;查看一下service映射端口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-以ip为起点，分析访问流量的负载均衡详细情况"><span class="toc-number">8.0.3.4.2.</span> <span class="toc-text">&lt;2&gt;以ip为起点，分析访问流量的负载均衡详细情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-对应一下IP是否一致"><span class="toc-number">8.0.3.4.3.</span> <span class="toc-text">&lt;3&gt;对应一下IP是否一致</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4）回滚到指定版本v1，并作验证。"><span class="toc-number">8.0.4.</span> <span class="toc-text">4）回滚到指定版本v1，并作验证。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-回滚到指定版本"><span class="toc-number">8.0.4.1.</span> <span class="toc-text">&lt;1&gt;回滚到指定版本</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-访问一下"><span class="toc-number">8.0.4.2.</span> <span class="toc-text">&lt;2&gt;访问一下</span></a></li></ol></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> About</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> List</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> Movie</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">05 Delpoyment、service</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-05-01 21:20:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-05-01</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-05-01 21:22:44"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-05-01</span></time></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon far fa-file-word" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">3.1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon far fa-clock" aria-hidden="true"></i><span>阅读时长: 14 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h1>Deployment介绍</h1>
 <p><strong>Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。Deployment可以理解为RC的升级版（RC+Reolicat Set）。特点在于可以随时知道Pod的部署进度，即对Pod的创建、调度、绑定节点、启动容器完整过程的进度展示。</strong></p>
 <h2 id="使用场景">使用场景</h2>
 <blockquote>
@@ -149,9 +149,9 @@ function activateLightMode(){
 </table>
 <h1>一，Delpoyment和service的简单使用</h1>
 <h2 id="1-练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。">1.练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。</h2>
-<pre><code>[root@master ~]# vim xgp.yaml
+<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: extensions&#x2F;v1beta1
 metadata:
   name: xgp-web
 spec:
@@ -163,23 +163,19 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v1
-</code></pre>
+        image: 192.168.1.21:5000&#x2F;web:v1</code></pre>
 <h3 id="（1）执行一下">（1）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml  --recore
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml  --recore</code></pre>
 <h3 id="（2）查看一下">（2）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get pod
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get pod</code></pre>
 <p>![image-20200108090638488](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090638488.png)</p>
 <h3 id="（3）访问一下">（3）访问一下</h3>
-<pre><code>[root@master ~]# curl 10.244.2.16
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# curl 10.244.2.16</code></pre>
 <p>![image-20200108090817058](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090817058.png)</p>
 <h3 id="（4）更新一下yaml文件，副本加一">（4）更新一下yaml文件，副本加一</h3>
-<pre><code>[root@master ~]# vim xgp.yaml
+<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: extensions&#x2F;v1beta1
 metadata:
   name: xgp-web
 spec:
@@ -191,18 +187,15 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v1
-</code></pre>
+        image: 192.168.1.21:5000&#x2F;web:v1</code></pre>
 <h4 id="1-执行一下">&lt;1&gt;执行一下</h4>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre>
 <h4 id="2-查看一下">&lt;2&gt;查看一下</h4>
-<pre><code>[root@master ~]# kubectl get pod
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get pod</code></pre>
 <p>![image-20200108091104534](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091104534.png)</p>
 <p><em><strong>副本数量加一，如果yaml文件的副本为0，则副本数量还是之前的状态，并不会更新。</strong></em></p>
 <h2 id="2-练习写一个service文件">2.练习写一个service文件</h2>
-<pre><code>[root@master ~]# vim xgp-svc.yaml
+<pre><code class="highlight plain">[root@master ~]# vim xgp-svc.yaml
 kind: Service
 apiVersion: v1
 metadata:
@@ -213,23 +206,19 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
-</code></pre>
+      targetPort: 80</code></pre>
 <h3 id="（1）执行一下-2">（1）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml 
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre>
 <h3 id="（2）查看一下-2">（2）查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
 <p>![image-20200108091909396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091909396.png)</p>
 <h3 id="（3）访问一下-2">（3）访问一下</h3>
-<pre><code>[root@master ~]# curl 10.107.119.49
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# curl 10.107.119.49</code></pre>
 <p>![image-20200108092011164](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108092011164.png)</p>
 <h2 id="3-修改yaml文件">3.修改yaml文件</h2>
-<pre><code>[root@master ~]# vim xgp.yaml 
+<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml 
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: extensions&#x2F;v1beta1
 metadata:
   name: xgp-web
 spec:
@@ -241,16 +230,14 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v1
+        image: 192.168.1.21:5000&#x2F;web:v1
         ports:
-          - containerPort: 80  #提示端口
-</code></pre>
+          - containerPort: 80  #提示端口</code></pre>
 <p><em><strong>注意：在Delpoyment资源对象中，可以添加Port字段，但此字段仅供用户查看，并不实际生效</strong></em></p>
 <h3 id="执行一下">执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre>
 <h2 id="4-service文件映射端口">4.service文件映射端口</h2>
-<pre><code>[root@master ~]# vim xgp-svc.yaml 
+<pre><code class="highlight plain">[root@master ~]# vim xgp-svc.yaml 
 kind: Service
 apiVersion: v1
 metadata:
@@ -263,75 +250,60 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30123
-</code></pre>
+      nodePort: 30123</code></pre>
 <h3 id="执行一下-2">执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml 
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre>
 <h3 id="查看一下">查看一下</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
 <p>![image-20200108094404773](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094404773.png)</p>
 <h3 id="访问一下">访问一下</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
 <p>![image-20200108094439682](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094439682.png)</p>
 <p>![image-20200108094501253](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094501253.png)</p>
 <h2 id="5-修改三个pod页面内容">5.修改三个pod页面内容</h2>
 <h3 id="（1）查看一下pod信息">（1）查看一下pod信息</h3>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
 <p>![image-20200108094953119](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094953119.png)</p>
 <h3 id="（2）修改POD页面内容（三台不一样）">（2）修改POD页面内容（三台不一样）</h3>
-<pre><code>[root@master ~]# kubectl exec -it xgp-web-8d5f9656f-8z7d9 /bin/bash
-//根据pod名称进入pod之中
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl exec -it xgp-web-8d5f9656f-8z7d9 &#x2F;bin&#x2F;bash
+&#x2F;&#x2F;根据pod名称进入pod之中</code></pre>
 <h3 id="进入容器后修改页面内容">进入容器后修改页面内容</h3>
-<pre><code>root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# echo xgp-v1 &gt; htdocs/index.html 
-root@xgp-web-8d5f9656f-8z7d9:/usr/local/apache2# exit
-</code></pre>
+<pre><code class="highlight plain">root@xgp-web-8d5f9656f-8z7d9:&#x2F;usr&#x2F;local&#x2F;apache2# echo xgp-v1 &gt; htdocs&#x2F;index.html 
+root@xgp-web-8d5f9656f-8z7d9:&#x2F;usr&#x2F;local&#x2F;apache2# exit</code></pre>
 <h3 id="访问一下-2">访问一下</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
 <p>![image-20200108095626532](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108095626532.png)</p>
 <h1>二.分析一下k8s负载均衡原理</h1>
 <h3 id="（1）查看service的暴露IP">（1）查看service的暴露IP</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
 <p>![image-20200108101539835](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101539835.png)</p>
 <h3 id="（2）查看一下iptabes规则">（2）查看一下iptabes规则</h3>
-<pre><code>[root@master ~]# iptables-save 
-//查看已配置的规则
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# iptables-save 
+&#x2F;&#x2F;查看已配置的规则</code></pre>
 <blockquote>
 <p>SNAT：Source NAT（源地址转换）</p>
 <p>DNAT：Destination NAT（目标地址转换）</p>
 <p>MASQ：动态的源地址转换</p>
 </blockquote>
 <h3 id="（3）根据service的暴露IP，查看对应的iptabes规则">（3）根据service的暴露IP，查看对应的iptabes规则</h3>
-<pre><code>[root@master ~]# iptables-save | grep 10.107.119.49
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# iptables-save | grep 10.107.119.49</code></pre>
 <p>![image-20200108101726315](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101726315.png)</p>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S</code></pre>
 <p>![image-20200108102003596](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102003596.png)</p>
 <h3 id="（4）对应一下IP是否一致">（4）对应一下IP是否一致</h3>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-ZHDQ73ZKUBMELLJB
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# iptables-save | grep KUBE-SEP-ZHDQ73ZKUBMELLJB</code></pre>
 <p>![image-20200108102137062](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102137062.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
 <p>![image-20200108102203144](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102203144.png)</p>
 <p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
 <h1>三.回滚到指定版本</h1>
 <h3 id="（1）删除之前创建的delpoy和service">（1）删除之前创建的delpoy和service</h3>
-<pre><code>[root@master ~]# kubectl  delete -f xgp.yaml 
-[root@master ~]# kubectl  delete -f xgp-svc.yaml 
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl  delete -f xgp.yaml 
+[root@master ~]# kubectl  delete -f xgp-svc.yaml</code></pre>
 <h3 id="（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像">（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像</h3>
-<pre><code>[root@master ~]# vim xgp1.yaml  （三个文件名不相同）
+<pre><code class="highlight plain">[root@master ~]# vim xgp1.yaml  （三个文件名不相同）
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: extensions&#x2F;v1beta1
 metadata:
   name: xgp-web
 spec:
@@ -344,42 +316,33 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v1  （三台版本不同）
+        image: 192.168.1.21:5000&#x2F;web:v1  （三台版本不同）
         ports:
-          - containerPort: 80
-</code></pre>
+          - containerPort: 80</code></pre>
 <p>此处3个yaml文件 指定不同版本的镜像</p>
 <h3 id="（3）运行三个服务，并记录三个版本信息">（3）运行三个服务，并记录三个版本信息</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml --record 
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-1.yaml --record 
 [root@master ~]# kubectl apply -f xgp-2.yaml --record 
-[root@master ~]# kubectl apply -f xgp-3.yaml --record 
-</code></pre>
+[root@master ~]# kubectl apply -f xgp-3.yaml --record</code></pre>
 <h3 id="（4）查看有哪些版本信息">（4）查看有哪些版本信息</h3>
-<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web 
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl rollout history deployment xgp-web</code></pre>
 <p>![image-20200108105842447](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108105842447.png)</p>
 <h3 id="（5）运行之前的service文件">（5）运行之前的service文件</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-svc.yaml
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre>
 <h3 id="（6）查看service暴露端口">（6）查看service暴露端口</h3>
-<pre><code>[root@master ~]# kubectl get svc
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
 <p>![image-20200108110014614](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110014614.png)</p>
 <h3 id="（7）测试访问">（7）测试访问</h3>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
 <p>![image-20200108110049396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110049396.png)</p>
 <h3 id="（8）回滚到指定版本">（8）回滚到指定版本</h3>
-<pre><code>[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision=1
-//这里指定的是版本信息的编号
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision&#x3D;1
+&#x2F;&#x2F;这里指定的是版本信息的编号</code></pre>
 <h4 id="1-访问一下">&lt;1&gt;访问一下</h4>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
 <p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
 <h4 id="2-查看有哪些版本信息">&lt;2&gt;查看有哪些版本信息</h4>
-<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web 
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl rollout history deployment xgp-web</code></pre>
 <p>![image-20200108110443558](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110443558.png)</p>
 <p><em><strong>编号1已经被编号2替代，从而生的是一个新的编号4</strong></em></p>
 <h1>四.用label控制pod的位置</h1>
@@ -389,22 +352,19 @@ spec:
 <p>label 是 key-value 对，各种资源都可以设置 label，灵活添加各种<strong>自定义属性</strong>。比如执行如下命令标注 k8s-node1 是配置了 SSD 的节点</p>
 </blockquote>
 <h4 id="首先我们给node1节点打上一个ssd的标签">首先我们给node1节点打上一个ssd的标签</h4>
-<pre><code>[root@master ~]# kubectl label nodes node02 disk=ssd
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl label nodes node02 disk&#x3D;ssd</code></pre>
 <h3 id="（1）查看标签">（1）查看标签</h3>
-<pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get nodes --show-labels | grep node02</code></pre>
 <p>![image-20200108111354832](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108111354832.png)</p>
 <h3 id="（2）删除副本一">（2）删除副本一</h3>
-<pre><code>[root@master ~]# kubectl delete -f xgp-1.yaml 
+<pre><code class="highlight plain">[root@master ~]# kubectl delete -f xgp-1.yaml 
 deployment.extensions &quot;xgp-web&quot; deleted
-[root@master ~]# kubectl delete svc xgp-svc 
-</code></pre>
+[root@master ~]# kubectl delete svc xgp-svc</code></pre>
 <h3 id="（3）修改副本一的yaml文件">（3）修改副本一的yaml文件</h3>
-<pre><code>[root@master ~]# vim xgp-1.yaml 
+<pre><code class="highlight plain">[root@master ~]# vim xgp-1.yaml 
 
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: extensions&#x2F;v1beta1
 metadata:
   name: xgp-web
 spec:
@@ -417,37 +377,31 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v1
+        image: 192.168.1.21:5000&#x2F;web:v1
         ports:
           - containerPort: 80
       nodeSelector:    #添加节点选择器
-        disk: ssd      #和标签内容一致
-</code></pre>
+        disk: ssd      #和标签内容一致</code></pre>
 <h3 id="（4）执行一下">（4）执行一下</h3>
-<pre><code>[root@master ~]# kubectl apply -f xgp-1.yaml 
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-1.yaml</code></pre>
 <h4 id="查看一下-2">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
 <p>![image-20200108112059395](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112059395.png)</p>
 <p><em><strong>现在pod都在node02上运行</strong></em></p>
 <h3 id="（5）删除标签">（5）删除标签</h3>
-<pre><code>[root@master ~]# kubectl  label nodes node02 disk-
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl  label nodes node02 disk-</code></pre>
 <h4 id="查看一下-3">查看一下</h4>
-<pre><code>[root@master ~]# kubectl get nodes --show-labels | grep node02
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get nodes --show-labels | grep node02</code></pre>
 <p>![image-20200108112245347](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112245347.png)</p>
 <p><em><strong>没有disk标签了</strong></em></p>
 <h1>五，小实验</h1>
 <h3 id="1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。"><strong>1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。</strong></h3>
 <h4 id="（1）用label控制pod的位置">（1）用label控制pod的位置</h4>
-<pre><code>[root@master ~]# kubectl label nodes node01 disk=ssd
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl label nodes node01 disk&#x3D;ssd</code></pre>
 <h4 id="（2）编写源yaml文件">（2）编写源yaml文件</h4>
-<pre><code>[root@master ~]# vim xgp.yaml
+<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: extensions&#x2F;v1beta1
 metadata:
   name: xgp-web
 spec:
@@ -459,14 +413,13 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v1
+        image: 192.168.1.21:5000&#x2F;web:v1
         ports:
           - containerPort: 80
       nodeSelector:    
-        disk: ssd  
-</code></pre>
+        disk: ssd</code></pre>
 <h4 id="（3）编写源service文件">（3）编写源service文件</h4>
-<pre><code>[root@master ~]# vim xgp-svc.yaml
+<pre><code class="highlight plain">[root@master ~]# vim xgp-svc.yaml
 kind: Service
 apiVersion: v1
 metadata:
@@ -479,28 +432,24 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30123
-</code></pre>
+      nodePort: 30123</code></pre>
 <h4 id="（4）执行yaml文件，创建控制器。执行service文件创建映射端口">（4）执行yaml文件，创建控制器。执行service文件创建映射端口</h4>
-<pre><code>[root@master ~]# kubectl apply -f  xgp.yaml 
-[root@master ~]# kubectl apply -f xgp-svc.yaml 
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f  xgp.yaml 
+[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre>
 <h4 id="（5）查看一下pod节点">（5）查看一下pod节点</h4>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
 <p>![image-20200108122424654](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122424654.png)</p>
 <h4 id="（6）记录一个版本">（6）记录一个版本</h4>
-<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt</code></pre>
 <p>![image-20200108142016701](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142016701.png)</p>
 <h4 id="（7）访问一下">（7）访问一下</h4>
 <p>![image-20200108122518278](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122518278.png)</p>
 <p>![image-20200108122534683](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122534683.png)</p>
 <h3 id="2）根据上述Deployment，升级为v2版本，记录一个版本。"><strong>2）根据上述Deployment，升级为v2版本，记录一个版本。</strong></h3>
 <h4 id="（1）修改yaml文件镜像版本">（1）修改yaml文件镜像版本</h4>
-<pre><code>[root@master ~]# vim xgp.yaml 
+<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml 
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: extensions&#x2F;v1beta1
 metadata:
   name: xgp-web
 spec:
@@ -512,26 +461,23 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v2    #修改版本为二
+        image: 192.168.1.21:5000&#x2F;web:v2    #修改版本为二
         ports:
           - containerPort: 80
       nodeSelector:
-        disk: ssd
-</code></pre>
+        disk: ssd</code></pre>
 <h4 id="（2）刷新一下yaml文件">（2）刷新一下yaml文件</h4>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre>
 <h4 id="（3）访问一下-3">（3）访问一下</h4>
 <p>![image-20200108141825924](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108141825924.png)</p>
 <h4 id="（4）记录一个版本">（4）记录一个版本</h4>
-<pre><code>[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt</code></pre>
 <p>![image-20200108142030157](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142030157.png)</p>
 <h3 id="3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。"><strong>3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。</strong></h3>
 <h4 id="1）修改yaml文件镜像版本">1）修改yaml文件镜像版本</h4>
-<pre><code>[root@master ~]# vim xgp.yaml 
+<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml 
 kind: Deployment
-apiVersion: extensions/v1beta1
+apiVersion: extensions&#x2F;v1beta1
 metadata:
   name: xgp-web
 spec:
@@ -543,15 +489,13 @@ spec:
     spec:
       containers:
       - name: web
-        image: 192.168.1.21:5000/web:v3   #修改版本为二
+        image: 192.168.1.21:5000&#x2F;web:v3   #修改版本为二
         ports:
           - containerPort: 80
       nodeSelector:
-        disk: ssd
-</code></pre>
+        disk: ssd</code></pre>
 <h4 id="（2）刷新一下yaml文件-2">（2）刷新一下yaml文件</h4>
-<pre><code>[root@master ~]# kubectl apply -f xgp.yaml --recore
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre>
 <h4 id="（3）访问一下-4">（3）访问一下</h4>
 <p>![image-20200108142329749](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142329749.png)</p>
 <h4 id="（5）分析访问流量的负载均衡详细情况">（5）分析访问流量的负载均衡详细情况</h4>
@@ -559,36 +503,29 @@ spec:
 <p>![image-20200108142504637](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142504637.png)</p>
 <h5 id="2-以ip为起点，分析访问流量的负载均衡详细情况">&lt;2&gt;以ip为起点，分析访问流量的负载均衡详细情况</h5>
 <p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
-<pre><code>[root@master ~]# iptables-save | grep 10.107.27.229
-//根据service的暴露IP，查看对应的iptabes规则
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# iptables-save | grep 10.107.27.229
+&#x2F;&#x2F;根据service的暴露IP，查看对应的iptabes规则</code></pre>
 <p>![image-20200108143052433](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143052433.png)</p>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S</code></pre>
 <p>![image-20200108143359463](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143359463.png)</p>
 <p><em><strong>这里显示了各节点的负载比例</strong></em></p>
 <h5 id="3-对应一下IP是否一致">&lt;3&gt;对应一下IP是否一致</h5>
-<pre><code>[root@master ~]# iptables-save | grep KUBE-SEP-VDKW5WQIWOLZMJ6G
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# iptables-save | grep KUBE-SEP-VDKW5WQIWOLZMJ6G</code></pre>
 <p>![image-20200108143547946](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143547946.png)</p>
-<pre><code>[root@master ~]# kubectl get pod -o wide
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
 <p>![image-20200108143608942](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143608942.png)</p>
 <h3 id="4）回滚到指定版本v1，并作验证。"><strong>4）回滚到指定版本v1，并作验证。</strong></h3>
 <h4 id="1-回滚到指定版本">&lt;1&gt;回滚到指定版本</h4>
-<pre><code>[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision=1
-//这里指定的是版本信息的编号
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision&#x3D;1
+&#x2F;&#x2F;这里指定的是版本信息的编号</code></pre>
 <h4 id="2-访问一下">&lt;2&gt;访问一下</h4>
-<pre><code>[root@master ~]# curl 127.0.0.1:30123
-</code></pre>
+<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
 <p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
 <blockquote>
 <p><strong>排错思路</strong></p>
-<pre><code>[root@master ~]# less /var/log/messages  | grep kubelet
+<pre><code class="highlight plain">[root@master ~]# less &#x2F;var&#x2F;log&#x2F;messages  | grep kubelet
 [root@master ~]# kubectl  logs -n  kube-system kube-scheduler-master 
-[root@master ~]# kubectl describe pod xgp-web-7d478f5bb7-bd4bj 
-</code></pre>
+[root@master ~]# kubectl describe pod xgp-web-7d478f5bb7-bd4bj </code></pre>
 </blockquote>
 </div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wu Shao Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wsdlxgp.top/posts/936d.html">https://wsdlxgp.top/posts/936d.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wsdlxgp.top" target="_blank">Xgp & Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/3.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/1.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/2.jpg" alt="QQ支付"/><div class="post-qr-code__desc">QQ支付</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/posts/cf38.html"><img class="prev_cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">06 pod资源对象</div></div></a></div><div class="next-post pull_right"><a href="/posts/748b.html"><img class="next_cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">04 配置清单</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="lv-container" data-id="city" data-uid="MTAyMC80OTM0NS8yNTgzNw=="><script>(function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
