@@ -127,97 +127,87 @@ function activateLightMode(){
 <h1>一，用命令行的方式创建资源</h1>
 <h3 id="仅接受json格式"><em>仅接受json格式</em></h3>
 <h2 id="配置清单（yml、yaml）">配置清单（yml、yaml）</h2>
-<pre><code class="highlight plain">[root@master ~]# cd &#x2F;etc&#x2F;kubernetes&#x2F;manifests&#x2F;
-&#x2F;&#x2F;k8s的yml、yaml文件</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# cd</span> /etc/kubernetes/manifests/<br>//k8s的yml、yaml文件<br></code></pre></td></tr></table></figure>
 <h2 id="1-node01和node02下载nginx镜像">1.node01和node02下载nginx镜像</h2>
-<pre><code class="highlight plain">docker pull nginx
-&#x2F;&#x2F;下载nginx镜像</code></pre>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs 1c">docker pull nginx<br><span class="hljs-comment">//下载nginx镜像</span><br></code></pre></td></tr></table></figure>
 <h2 id="2-master创建Pod控制器（test-web），deployment">2.master创建Pod控制器（test-web），deployment</h2>
-<pre><code class="highlight plain">[root@master ~]# kubectl run test-web --image&#x3D;nginx --replicas&#x3D;5
-&#x2F;&#x2F;创建Pod控制器，deployment</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# kubectl run test-web --image=nginx --replicas=<span class="hljs-number">5</span><br><span class="hljs-comment">//创建Pod控制器，deployment</span><br></code></pre></td></tr></table></figure>
 <h2 id="3-查看控制器情况">3.查看控制器情况</h2>
 <h3 id="（1）">（1）</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments.
-&#x2F;&#x2F;查看控制器情况</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments.<br>//查看控制器情况<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093615852.png" alt="image-20200106093615852"></p>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod --all-namespaces -o wide
-&#x2F;&#x2F;显示pod的节点信息</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod --all-namespaces -o wide<br>//显示pod的节点信息<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093922849.png" alt="image-20200106093922849"></p>
 <h3 id="（2）">（2）</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get namespaces 
-&#x2F;&#x2F;查看k8s名称空间</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get namespaces <br>//查看k8s名称空间<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093850247.png" alt="image-20200106093850247"></p>
-<pre><code class="highlight plain">[root@master ~]# kubectl describe deployments. test-web
-&#x2F;&#x2F;查看资源详细信息</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> describe deployments. test-web<br>//查看资源详细信息<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106093723330.png" alt="image-20200106093723330"></p>
 <p><em><strong>查看某种资源对象，没有指定名称空间，默认是在default名称空间。可以加上-n选项，查看指定名称空间的资源。</strong></em></p>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod -n kube-system</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -n kube-system<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106094343401.png" alt="image-20200106094343401"></p>
 <h2 id="3-删除test-web控制器">3.删除test-web控制器</h2>
-<pre><code class="highlight plain">[root@master ~]# kubectl delete deployments. test-web</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> delete deployments. test-web<br></code></pre></td></tr></table></figure>
 <h2 id="4-master创建Pod控制器（web），deployment">4.master创建Pod控制器（web），deployment</h2>
-<pre><code class="highlight plain">[root@master ~]# kubectl run web --image&#x3D;nginx --replicas&#x3D;5</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@master ~]# kubectl <span class="hljs-builtin-name">run</span> web <span class="hljs-attribute">--image</span>=nginx <span class="hljs-attribute">--replicas</span>=5<br></code></pre></td></tr></table></figure>
 <h3 id="查看一下pod信息">查看一下pod信息</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide
-&#x2F;&#x2F;查看一下pod的节点信息</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br>//查看一下pod的节点信息<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106095722353.png" alt="image-20200106095722353"></p>
-<pre><code class="highlight plain">[root@master ~]# kubectl describe deployments. web 
-&#x2F;&#x2F;查看资源详细信息</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> describe deployments. web <br>//查看资源详细信息<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100606861.png" alt="image-20200106100606861"></p>
 <p><em><strong>注意：直接运行创建的deployment资源对象，是经常使用的一个控制器资源类型，除了deployment，还有rc、rs等等pod控制器，deployment是一个高级的pod控制器。</strong></em></p>
 <h3 id="本机测试访问nginx">本机测试访问nginx</h3>
-<pre><code class="highlight plain">[root@master ~]# curl 10.244.1.7</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">10.244</span><span class="hljs-number">.1</span><span class="hljs-number">.7</span><br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106100827131.png" alt="image-20200106100827131"></p>
 <h2 id="5-创建service资源类型">5.创建service资源类型</h2>
-<pre><code class="highlight plain">[root@master ~]# kubectl expose deployment web --name&#x3D;web-xgp --port&#x3D;80 --type&#x3D;NodePort
-&#x2F;&#x2F;创建service资源类型，这里我们设置了映射端口</code></pre>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs scala">[root<span class="hljs-meta">@master</span> ~]# kubectl expose deployment web --name=web-xgp --port=<span class="hljs-number">80</span> --<span class="hljs-class"><span class="hljs-keyword">type</span><span class="hljs-title">=NodePort</span></span><br><span class="hljs-class"><span class="hljs-title">//创建service资源类型，这里我们设置了映射端口</span></span><br></code></pre></td></tr></table></figure>
 <p><em><strong>如果想要外网能够访问服务，可以暴露deployment资源，得到service资源，但svc资源的类型必须为NodePort。</strong></em></p>
 <p><strong>映射端口范围：30000-32767</strong></p>
 <h3 id="查看service信息">查看service信息</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get svc<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101443348.png" alt="image-20200106101443348"></p>
 <h3 id="浏览器测试访问http-192-168-1-21-30493">浏览器测试访问http://192.168.1.21:30493/</h3>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106101624954.png" alt="image-20200106101624954"></p>
 <h1>二、服务的扩容与缩容</h1>
 <h2 id="1-查看控制器信息">1. 查看控制器信息</h2>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments. -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o wide<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104638757.png" alt="image-20200106104638757"></p>
 <h2 id="2-扩容">2.扩容</h2>
-<pre><code class="highlight plain">[root@master ~]# kubectl scale deployment web --replicas&#x3D;8</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> scale deployment web --<span class="hljs-attr">replicas=</span><span class="hljs-number">8</span><br></code></pre></td></tr></table></figure>
 <h3 id="查看一下">查看一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments. -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o wide<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106104757123.png" alt="image-20200106104757123"></p>
 <h2 id="3-缩容">3.缩容</h2>
-<pre><code class="highlight plain">[root@master ~]# kubectl scale deployment web --replicas&#x3D;4</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> scale deployment web --<span class="hljs-attr">replicas=</span><span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
 <h3 id="查看一下-2">查看一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments. -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o wide<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105536316.png" alt="image-20200106105536316"></p>
 <h2 id="3-通过修改web的yaml文件进行扩容缩容">3.通过修改web的yaml文件进行扩容缩容</h2>
 <h3 id="备份web的yaml文件">备份web的yaml文件</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments. -o yaml &gt; web.yaml</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o yaml &gt; web.yaml<br></code></pre></td></tr></table></figure>
 <h3 id="使用edit修改web的yaml文件">使用edit修改web的yaml文件</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl edit deployments. web</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> edit deployments. web<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531"></p>
 <h3 id="查看一下-3">查看一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments. -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o wide<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105816339.png" alt="image-20200106105816339"></p>
 <h1>三、服务的升级与回滚</h1>
 <h2 id="node01和node02下载1-15版本的nginx">node01和node02下载1.15版本的nginx</h2>
-<pre><code class="highlight plain">[root@master ~]# docker pull nginx:1.15</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull nginx:<span class="hljs-number">1.15</span><br></code></pre></td></tr></table></figure>
 <h2 id="1-master设置服务升级">1.master设置服务升级</h2>
-<pre><code class="highlight plain">[root@master ~]#  kubectl set image deployment web web&#x3D;nginx:1.15</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@master ~]#  kubectl <span class="hljs-builtin-name">set</span> image deployment web <span class="hljs-attribute">web</span>=nginx:1.15<br></code></pre></td></tr></table></figure>
 <h3 id="查看一下-4">查看一下</h3>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111227960.png" alt="image-20200106111227960"></p>
 <h2 id="2-master设置服务回滚">2.master设置服务回滚</h2>
 <h3 id="（1）修改配置文件回滚">（1）修改配置文件回滚</h3>
 <h3 id="使用edit修改web的yaml文件-2">使用edit修改web的yaml文件</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl edit deployments. web</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> edit deployments. web<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111523148.png" alt="image-20200106111523148"></p>
 <h3 id="查看一下-5">查看一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments. -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o wide<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111319699.png" alt="image-20200106111319699"></p>
 <h3 id="（2）命令回滚">（2）命令回滚</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl rollout undo deployment web</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> rollout undo deployment web<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106111733617.png" alt="image-20200106111733617"></p>
 <p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
 <h1>四、实验环境</h1>
@@ -249,96 +239,87 @@ function activateLightMode(){
 </table>
 <h2 id="1-master-基于httpd制作自己的镜像，需要3个版本，v1-v2-v3-并且对应的版本镜像，访问的主目录内容不一样">1.master 基于httpd制作自己的镜像，需要3个版本，v1,v2,v3.并且对应的版本镜像，访问的主目录内容不一样</h2>
 <h3 id="（1）master下载httpd镜像">（1）master下载httpd镜像</h3>
-<pre><code class="highlight plain">[root@master ~]# docker pull httpd</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull httpd<br></code></pre></td></tr></table></figure>
 <h3 id="（2）编写Dockerfile">（2）编写Dockerfile</h3>
-<pre><code class="highlight plain">[root@master xgp]# vim Dockerfile
-FROM httpd
-COPY index.html &#x2F;usr&#x2F;local&#x2F;apache2&#x2F;htdocs&#x2F;index.html</code></pre>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">[root@master xgp]<span class="hljs-comment"># vim Dockerfile</span><br><span class="hljs-keyword">FROM</span> httpd<br><span class="hljs-keyword">COPY</span><span class="bash"> index.html /usr/<span class="hljs-built_in">local</span>/apache2/htdocs/index.html</span><br></code></pre></td></tr></table></figure>
 <h3 id="（3）创建测试网页v1">（3）创建测试网页v1</h3>
-<pre><code class="highlight plain">[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment">#echo "&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;" &gt; index.html</span><br></code></pre></td></tr></table></figure>
 <h3 id="（4）基于Dockerfile创建镜像-web1">（4）基于Dockerfile创建镜像 web1</h3>
-<pre><code class="highlight plain">[root@master xgp]# docker build -t web1 .</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># docker build -t web1 .</span><br></code></pre></td></tr></table></figure>
 <h3 id="（5）创建测试网页v2">（5）创建测试网页v2</h3>
-<pre><code class="highlight plain">[root@master xgp]#echo &quot;&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;&quot; &gt; index.html</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment">#echo "&lt;h1&gt;xgp | test-web | httpd:v1&lt;h1&gt;" &gt; index.html</span><br></code></pre></td></tr></table></figure>
 <h3 id="（6）基于Dockerfile创建镜像-web2">（6）基于Dockerfile创建镜像 web2</h3>
-<pre><code class="highlight plain">[root@master xgp]# docker build -t web2 .</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># docker build -t web2 .</span><br></code></pre></td></tr></table></figure>
 <h3 id="（7）创建测试网页v3">（7）创建测试网页v3</h3>
-<pre><code class="highlight plain">[root@master xgp]# echo &quot;&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;&quot; &gt; index.html</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># echo "&lt;h1&gt;xgp | test-web | httpd:v3&lt;h1&gt;" &gt; index.html</span><br></code></pre></td></tr></table></figure>
 <h3 id="（8）基于Dockerfile创建镜像-web3">（8）基于Dockerfile创建镜像 web3</h3>
-<pre><code class="highlight plain">[root@master xgp]# docker build -t web3 .</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># docker build -t web3 .</span><br></code></pre></td></tr></table></figure>
 <h2 id="2-master部署私有仓库">2.master部署私有仓库</h2>
 <h3 id="（1）master下载registry镜像">（1）master下载registry镜像</h3>
-<pre><code class="highlight plain">[root@master ~]# docker pull registry</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# docker</span> pull registry<br></code></pre></td></tr></table></figure>
 <h3 id="（2）启动registry">（2）启动registry</h3>
-<pre><code class="highlight plain">[root@master xgp]# docker run -itd --name registry -p 5000:5000 --restart&#x3D;always registry:latest</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># docker run -itd --name registry -p 5000:5000 --restart=always registry:latest</span><br></code></pre></td></tr></table></figure>
 <h3 id="（3）修改docker配置文件，加入私有仓库（三台）">（3）修改docker配置文件，加入私有仓库（三台）</h3>
-<pre><code class="highlight plain">[root@master xgp]# vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;docker.service
-ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd --insecure-registry 192.168.1.21:5000</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master xgp]# vim /usr/lib/systemd/system/docker.service<br>ExecStart=/usr/bin/dockerd --insecure-registry <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span><br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106120848869.png" alt="image-20200106120848869"></p>
 <h3 id="（4）重启docker（三台）">（4）重启docker（三台）</h3>
-<pre><code class="highlight plain">[root@master xgp]# systemctl daemon-reload 
-[root@master xgp]# systemctl restart docker</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># systemctl daemon-reload </span><br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># systemctl restart docker</span><br></code></pre></td></tr></table></figure>
 <h2 id="3-上传之前创建的三个web镜像到私有仓库">3.上传之前创建的三个web镜像到私有仓库</h2>
 <h3 id="（1）修改镜像标签">（1）修改镜像标签</h3>
-<pre><code class="highlight plain">[root@master xgp]# docker tag web1:latest 192.168.1.21:5000&#x2F;web1:latest
-[root@master xgp]# docker tag web2:latest 192.168.1.21:5000&#x2F;web2:latest
-[root@master xgp]# docker tag web3:latest 192.168.1.21:5000&#x2F;web3:latest</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master xgp]# docker tag web1:latest <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span>/web1:latest<br>[<span class="hljs-symbol">root@</span>master xgp]# docker tag web2:latest <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span>/web2:latest<br>[<span class="hljs-symbol">root@</span>master xgp]# docker tag web3:latest <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span>/web3:latest<br></code></pre></td></tr></table></figure>
 <h3 id="（2）将三个web镜像上传到私有仓库">（2）将三个web镜像上传到私有仓库</h3>
-<pre><code class="highlight plain">[root@master xgp]# docker push  192.168.1.21:5000&#x2F;web1:latest 
-[root@master xgp]# docker push  192.168.1.21:5000&#x2F;web2:latest
-[root@master xgp]# docker push  192.168.1.21:5000&#x2F;web3:latest</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master xgp]# docker push  <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span>/web1:latest <br>[<span class="hljs-symbol">root@</span>master xgp]# docker push  <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span>/web2:latest<br>[<span class="hljs-symbol">root@</span>master xgp]# docker push  <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span>/web3:latest<br></code></pre></td></tr></table></figure>
 <h2 id="4-部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。">4.部署一个Deployment资源对象，要求镜像使用上述私有镜像v1版本。6个副本Pod。</h2>
-<pre><code class="highlight plain">[root@master xgp]# kubectl run www1 --image&#x3D;192.168.1.21:5000&#x2F;web1:latest --replicas&#x3D;6</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master xgp]# kubectl run www1 --image=<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span>/web1:latest --replicas=<span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
 <h3 id="查看一下-6">查看一下</h3>
-<pre><code class="highlight plain">[root@master xgp]# kubectl get pod</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># kubectl get pod</span><br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122026271.png" alt="image-20200106122026271"></p>
 <h3 id="本地访问一下">本地访问一下</h3>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122426308.png" alt="image-20200106122426308"></p>
 <h3 id="5-将上述Deployment暴露一个service资源对象，使外网能否访问服务。">5.将上述Deployment暴露一个service资源对象，使外网能否访问服务。</h3>
-<pre><code class="highlight plain">[root@master xgp]#  kubectl expose deployment www1 --name&#x3D;web-xgp --port&#x3D;80 --type&#x3D;NodePort</code></pre>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[root@master xgp]#  kubectl expose deployment www1 <span class="hljs-attribute">--name</span>=web-xgp <span class="hljs-attribute">--port</span>=80 <span class="hljs-attribute">--type</span>=NodePort<br></code></pre></td></tr></table></figure>
 <h3 id="查看一下-7">查看一下</h3>
-<pre><code class="highlight plain">[root@master xgp]# kubectl get svc</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># kubectl get svc</span><br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122313996.png" alt="image-20200106122313996"></p>
 <h3 id="浏览器访问一下">浏览器访问一下</h3>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122340747.png" alt="image-20200106122340747"></p>
 <h2 id="6-将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。">6.将上述Deployment进行扩容和缩容操作，扩容为8个副本Pod，然后缩容为4个副本Pod。</h2>
 <h2 id="（1）扩容">（1）扩容</h2>
-<pre><code class="highlight plain">[root@master xgp]# kubectl scale deployment www1 --replicas&#x3D;8</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># kubectl scale deployment www1 --replicas=8</span><br></code></pre></td></tr></table></figure>
 <h3 id="查看一下-8">查看一下</h3>
-<pre><code class="highlight plain">[root@master xgp]# kubectl get deployments. -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># kubectl get deployments. -o wide</span><br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122722977.png" alt="image-20200106122722977"></p>
 <h2 id="（2）缩容">（2）缩容</h2>
 <h3 id="修改k8s配置文件">修改k8s配置文件</h3>
 <h3 id="备份web的yaml文件-2">备份web的yaml文件</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments. -o yaml &gt; www1.yaml</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o yaml &gt; www1.yaml<br></code></pre></td></tr></table></figure>
 <h3 id="使用edit修改web的yaml文件-3">使用edit修改web的yaml文件</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl edit deployments. www1</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> edit deployments. www1<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106105924531.png" alt="image-20200106105924531"></p>
 <h3 id="查看一下-9">查看一下</h3>
-<pre><code class="highlight plain">[root@master xgp]# kubectl get deployments. -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">xgp</span>]<span class="hljs-comment"># kubectl get deployments. -o wide</span><br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106122953397.png" alt="image-20200106122953397"></p>
 <h2 id="7-将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。">7.将上述Deployment进行升级与回滚操作，将v1版本，升级到v2版本。</h2>
 <h2 id="（1）升级版本为web2">（1）升级版本为web2</h2>
-<pre><code class="highlight plain">[root@master ~]# kubectl set image deployment www1 www1&#x3D;192.168.1.21:5000&#x2F;web2</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# kubectl <span class="hljs-keyword">set</span> image deployment www1 www1=<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span>:<span class="hljs-number">5000</span>/web2<br></code></pre></td></tr></table></figure>
 <h3 id="本机测试访问">本机测试访问</h3>
-<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30996
-&lt;h1&gt;xgp | test-web | httpd:v2&lt;h1&gt;</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">30996</span><br>&lt;h1&gt;xgp | test-web | httpd:v2&lt;h1&gt;<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125722931.png" alt="image-20200106125722931"></p>
 <h3 id="浏览器测试访问">浏览器测试访问</h3>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106125750021.png" alt="image-20200106125750021"></p>
 <h2 id="（2）回滚版本到web1">（2）回滚版本到web1</h2>
 <h3 id="1-修改配置文件回滚">&lt;1&gt;修改配置文件回滚</h3>
 <h3 id="使用edit修改web的yaml文件-4">使用edit修改web的yaml文件</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl edit deployments. www1</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> edit deployments. www1<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130010344.png" alt="image-20200106130010344"></p>
 <h3 id="查看一下-10">查看一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get deployments. -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get deployments. -o wide<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130304423.png" alt="image-20200106130304423"></p>
 <h3 id="访问一下">访问一下</h3>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130435212.png" alt="image-20200106130435212"></p>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130447693.png" alt="image-20200106130447693"></p>
 <h3 id="2-命令回滚">&lt;2&gt;命令回滚</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl rollout undo deployment www1</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> rollout undo deployment www1<br></code></pre></td></tr></table></figure>
 <p><img src="http://xgp-cunchu.test.upcdn.net/k8s/image-20200106130317956.png" alt="image-20200106130317956"></p>
 <p><em><strong>注意:只能回滚到上一次操作的状态</strong></em></p>
 <h3 id="访问一下-2">访问一下</h3>

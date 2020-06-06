@@ -149,200 +149,108 @@ function activateLightMode(){
 </table>
 <h1>一，Delpoyment和service的简单使用</h1>
 <h2 id="1-练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。">1.练习写一个yaml文件，要求使用自己的私有镜像，要求副本数量为三个。</h2>
-<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml
-kind: Deployment
-apiVersion: extensions&#x2F;v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000&#x2F;web:v1</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-web</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v1</span><br></code></pre></td></tr></table></figure>
 <h3 id="（1）执行一下">（1）执行一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml  --recore</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp.yaml  --recore<br></code></pre></td></tr></table></figure>
 <h3 id="（2）查看一下">（2）查看一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod<br></code></pre></td></tr></table></figure>
 <p>![image-20200108090638488](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090638488.png)</p>
 <h3 id="（3）访问一下">（3）访问一下</h3>
-<pre><code class="highlight plain">[root@master ~]# curl 10.244.2.16</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">10.244</span><span class="hljs-number">.2</span><span class="hljs-number">.16</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108090817058](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108090817058.png)</p>
 <h3 id="（4）更新一下yaml文件，副本加一">（4）更新一下yaml文件，副本加一</h3>
-<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml
-kind: Deployment
-apiVersion: extensions&#x2F;v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 4
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000&#x2F;web:v1</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-web</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">4</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v1</span><br></code></pre></td></tr></table></figure>
 <h4 id="1-执行一下">&lt;1&gt;执行一下</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp.yaml --recore<br></code></pre></td></tr></table></figure>
 <h4 id="2-查看一下">&lt;2&gt;查看一下</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod<br></code></pre></td></tr></table></figure>
 <p>![image-20200108091104534](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091104534.png)</p>
 <p><em><strong>副本数量加一，如果yaml文件的副本为0，则副本数量还是之前的状态，并不会更新。</strong></em></p>
 <h2 id="2-练习写一个service文件">2.练习写一个service文件</h2>
-<pre><code class="highlight plain">[root@master ~]# vim xgp-svc.yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: xgp-svc
-spec:
-  selector:
-    app: xgp-server
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp-svc.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-svc</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
 <h3 id="（1）执行一下-2">（1）执行一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp-svc.yaml<br></code></pre></td></tr></table></figure>
 <h3 id="（2）查看一下-2">（2）查看一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get svc<br></code></pre></td></tr></table></figure>
 <p>![image-20200108091909396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108091909396.png)</p>
 <h3 id="（3）访问一下-2">（3）访问一下</h3>
-<pre><code class="highlight plain">[root@master ~]# curl 10.107.119.49</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">10.107</span><span class="hljs-number">.119</span><span class="hljs-number">.49</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108092011164](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108092011164.png)</p>
 <h2 id="3-修改yaml文件">3.修改yaml文件</h2>
-<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml 
-kind: Deployment
-apiVersion: extensions&#x2F;v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000&#x2F;web:v1
-        ports:
-          - containerPort: 80  #提示端口</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp.yaml</span> <br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-web</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v1</span><br>        <span class="hljs-attr">ports:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span>  <span class="hljs-comment">#提示端口</span><br></code></pre></td></tr></table></figure>
 <p><em><strong>注意：在Delpoyment资源对象中，可以添加Port字段，但此字段仅供用户查看，并不实际生效</strong></em></p>
 <h3 id="执行一下">执行一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp.yaml --recore<br></code></pre></td></tr></table></figure>
 <h2 id="4-service文件映射端口">4.service文件映射端口</h2>
-<pre><code class="highlight plain">[root@master ~]# vim xgp-svc.yaml 
-kind: Service
-apiVersion: v1
-metadata:
-  name: xgp-svc
-spec:
-  type: NodePort
-  selector:
-    app: xgp-server
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30123</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp-svc.yaml</span> <br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-svc</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">nodePort:</span> <span class="hljs-number">30123</span><br></code></pre></td></tr></table></figure>
 <h3 id="执行一下-2">执行一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp-svc.yaml<br></code></pre></td></tr></table></figure>
 <h3 id="查看一下">查看一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get svc<br></code></pre></td></tr></table></figure>
 <p>![image-20200108094404773](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094404773.png)</p>
 <h3 id="访问一下">访问一下</h3>
-<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">30123</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108094439682](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094439682.png)</p>
 <p>![image-20200108094501253](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094501253.png)</p>
 <h2 id="5-修改三个pod页面内容">5.修改三个pod页面内容</h2>
 <h3 id="（1）查看一下pod信息">（1）查看一下pod信息</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br></code></pre></td></tr></table></figure>
 <p>![image-20200108094953119](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108094953119.png)</p>
 <h3 id="（2）修改POD页面内容（三台不一样）">（2）修改POD页面内容（三台不一样）</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl exec -it xgp-web-8d5f9656f-8z7d9 &#x2F;bin&#x2F;bash
-&#x2F;&#x2F;根据pod名称进入pod之中</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# kubectl exec -it xgp-web<span class="hljs-number">-8</span>d5f9656f<span class="hljs-number">-8</span>z7d9 /bin/bash<br><span class="hljs-comment">//根据pod名称进入pod之中</span><br></code></pre></td></tr></table></figure>
 <h3 id="进入容器后修改页面内容">进入容器后修改页面内容</h3>
-<pre><code class="highlight plain">root@xgp-web-8d5f9656f-8z7d9:&#x2F;usr&#x2F;local&#x2F;apache2# echo xgp-v1 &gt; htdocs&#x2F;index.html 
-root@xgp-web-8d5f9656f-8z7d9:&#x2F;usr&#x2F;local&#x2F;apache2# exit</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-symbol">root@</span>xgp-web<span class="hljs-number">-8</span>d5f9656f<span class="hljs-number">-8</span>z7d9:/usr/local/apache2# echo xgp-v1 &gt; htdocs/index.html <br><span class="hljs-symbol">root@</span>xgp-web<span class="hljs-number">-8</span>d5f9656f<span class="hljs-number">-8</span>z7d9:/usr/local/apache2# exit<br></code></pre></td></tr></table></figure>
 <h3 id="访问一下-2">访问一下</h3>
-<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">30123</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108095626532](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108095626532.png)</p>
 <h1>二.分析一下k8s负载均衡原理</h1>
 <h3 id="（1）查看service的暴露IP">（1）查看service的暴露IP</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get svc<br></code></pre></td></tr></table></figure>
 <p>![image-20200108101539835](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101539835.png)</p>
 <h3 id="（2）查看一下iptabes规则">（2）查看一下iptabes规则</h3>
-<pre><code class="highlight plain">[root@master ~]# iptables-save 
-&#x2F;&#x2F;查看已配置的规则</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# iptables-save</span> <br>//查看已配置的规则<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>SNAT：Source NAT（源地址转换）</p>
 <p>DNAT：Destination NAT（目标地址转换）</p>
 <p>MASQ：动态的源地址转换</p>
 </blockquote>
 <h3 id="（3）根据service的暴露IP，查看对应的iptabes规则">（3）根据service的暴露IP，查看对应的iptabes规则</h3>
-<pre><code class="highlight plain">[root@master ~]# iptables-save | grep 10.107.119.49</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# iptables-save | grep <span class="hljs-number">10.107</span><span class="hljs-number">.119</span><span class="hljs-number">.49</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108101726315](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108101726315.png)</p>
-<pre><code class="highlight plain">[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# iptables-save</span> | grep KUBE-SVC-ESI7C72YHAUGMG5S<br></code></pre></td></tr></table></figure>
 <p>![image-20200108102003596](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102003596.png)</p>
 <h3 id="（4）对应一下IP是否一致">（4）对应一下IP是否一致</h3>
-<pre><code class="highlight plain">[root@master ~]# iptables-save | grep KUBE-SEP-ZHDQ73ZKUBMELLJB</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# iptables-save</span> | grep KUBE-SEP-ZHDQ73ZKUBMELLJB<br></code></pre></td></tr></table></figure>
 <p>![image-20200108102137062](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102137062.png)</p>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br></code></pre></td></tr></table></figure>
 <p>![image-20200108102203144](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108102203144.png)</p>
 <p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
 <h1>三.回滚到指定版本</h1>
 <h3 id="（1）删除之前创建的delpoy和service">（1）删除之前创建的delpoy和service</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl  delete -f xgp.yaml 
-[root@master ~]# kubectl  delete -f xgp-svc.yaml</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span>  delete -f xgp.yaml <br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span>  delete -f xgp-svc.yaml<br></code></pre></td></tr></table></figure>
 <h3 id="（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像">（2）准备三个版本所使用的私有镜像，来模拟每次升级不同的镜像</h3>
-<pre><code class="highlight plain">[root@master ~]# vim xgp1.yaml  （三个文件名不相同）
-kind: Deployment
-apiVersion: extensions&#x2F;v1beta1
-metadata:
-  name: xgp-web
-spec:
-  revisionHistoryLimit: 10
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000&#x2F;web:v1  （三台版本不同）
-        ports:
-          - containerPort: 80</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp1.yaml</span>  <span class="hljs-string">（三个文件名不相同）</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-web</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">revisionHistoryLimit:</span> <span class="hljs-number">10</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v1</span>  <span class="hljs-string">（三台版本不同）</span><br>        <span class="hljs-attr">ports:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
 <p>此处3个yaml文件 指定不同版本的镜像</p>
 <h3 id="（3）运行三个服务，并记录三个版本信息">（3）运行三个服务，并记录三个版本信息</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-1.yaml --record 
-[root@master ~]# kubectl apply -f xgp-2.yaml --record 
-[root@master ~]# kubectl apply -f xgp-3.yaml --record</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp-<span class="hljs-number">1</span>.yaml --record <br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp-<span class="hljs-number">2</span>.yaml --record <br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp-<span class="hljs-number">3</span>.yaml --record<br></code></pre></td></tr></table></figure>
 <h3 id="（4）查看有哪些版本信息">（4）查看有哪些版本信息</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl rollout history deployment xgp-web</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> rollout history deployment xgp-web<br></code></pre></td></tr></table></figure>
 <p>![image-20200108105842447](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108105842447.png)</p>
 <h3 id="（5）运行之前的service文件">（5）运行之前的service文件</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp-svc.yaml<br></code></pre></td></tr></table></figure>
 <h3 id="（6）查看service暴露端口">（6）查看service暴露端口</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get svc</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get svc<br></code></pre></td></tr></table></figure>
 <p>![image-20200108110014614](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110014614.png)</p>
 <h3 id="（7）测试访问">（7）测试访问</h3>
-<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">30123</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108110049396](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110049396.png)</p>
 <h3 id="（8）回滚到指定版本">（8）回滚到指定版本</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision&#x3D;1
-&#x2F;&#x2F;这里指定的是版本信息的编号</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# kubectl rollout undo deployment xgp-web --to-revision=<span class="hljs-number">1</span><br><span class="hljs-comment">//这里指定的是版本信息的编号</span><br></code></pre></td></tr></table></figure>
 <h4 id="1-访问一下">&lt;1&gt;访问一下</h4>
-<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">30123</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
 <h4 id="2-查看有哪些版本信息">&lt;2&gt;查看有哪些版本信息</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl rollout history deployment xgp-web</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> rollout history deployment xgp-web<br></code></pre></td></tr></table></figure>
 <p>![image-20200108110443558](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110443558.png)</p>
 <p><em><strong>编号1已经被编号2替代，从而生的是一个新的编号4</strong></em></p>
 <h1>四.用label控制pod的位置</h1>
@@ -352,150 +260,60 @@ spec:
 <p>label 是 key-value 对，各种资源都可以设置 label，灵活添加各种<strong>自定义属性</strong>。比如执行如下命令标注 k8s-node1 是配置了 SSD 的节点</p>
 </blockquote>
 <h4 id="首先我们给node1节点打上一个ssd的标签">首先我们给node1节点打上一个ssd的标签</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl label nodes node02 disk&#x3D;ssd</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> label nodes node02 <span class="hljs-attr">disk=</span>ssd<br></code></pre></td></tr></table></figure>
 <h3 id="（1）查看标签">（1）查看标签</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl get nodes --show-labels | grep node02</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get nodes --show-labels | grep node02<br></code></pre></td></tr></table></figure>
 <p>![image-20200108111354832](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108111354832.png)</p>
 <h3 id="（2）删除副本一">（2）删除副本一</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl delete -f xgp-1.yaml 
-deployment.extensions &quot;xgp-web&quot; deleted
-[root@master ~]# kubectl delete svc xgp-svc</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> delete -f xgp-<span class="hljs-number">1</span>.yaml <br>deployment.extensions <span class="hljs-string">"xgp-web"</span> deleted<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> delete svc xgp-svc<br></code></pre></td></tr></table></figure>
 <h3 id="（3）修改副本一的yaml文件">（3）修改副本一的yaml文件</h3>
-<pre><code class="highlight plain">[root@master ~]# vim xgp-1.yaml 
-
-kind: Deployment
-apiVersion: extensions&#x2F;v1beta1
-metadata:
-  name: xgp-web
-spec:
-  revisionHistoryLimit: 10
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000&#x2F;web:v1
-        ports:
-          - containerPort: 80
-      nodeSelector:    #添加节点选择器
-        disk: ssd      #和标签内容一致</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp-1.yaml</span> <br><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-web</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">revisionHistoryLimit:</span> <span class="hljs-number">10</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v1</span><br>        <span class="hljs-attr">ports:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">nodeSelector:</span>    <span class="hljs-comment">#添加节点选择器</span><br>        <span class="hljs-attr">disk:</span> <span class="hljs-string">ssd</span>      <span class="hljs-comment">#和标签内容一致</span><br></code></pre></td></tr></table></figure>
 <h3 id="（4）执行一下">（4）执行一下</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp-1.yaml</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp-<span class="hljs-number">1</span>.yaml<br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-2">查看一下</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br></code></pre></td></tr></table></figure>
 <p>![image-20200108112059395](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112059395.png)</p>
 <p><em><strong>现在pod都在node02上运行</strong></em></p>
 <h3 id="（5）删除标签">（5）删除标签</h3>
-<pre><code class="highlight plain">[root@master ~]# kubectl  label nodes node02 disk-</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span>  label nodes node02 disk-<br></code></pre></td></tr></table></figure>
 <h4 id="查看一下-3">查看一下</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl get nodes --show-labels | grep node02</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get nodes --show-labels | grep node02<br></code></pre></td></tr></table></figure>
 <p>![image-20200108112245347](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108112245347.png)</p>
 <p><em><strong>没有disk标签了</strong></em></p>
 <h1>五，小实验</h1>
 <h3 id="1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。"><strong>1）使用私有镜像v1版本部署一个Deployment资源对象，要求副本Pod数量为3个，并创建一个Service资源对象相互关联，指定要求3个副本Pod全部运行在node01节点上，记录一个版本。</strong></h3>
 <h4 id="（1）用label控制pod的位置">（1）用label控制pod的位置</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl label nodes node01 disk&#x3D;ssd</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> label nodes node01 <span class="hljs-attr">disk=</span>ssd<br></code></pre></td></tr></table></figure>
 <h4 id="（2）编写源yaml文件">（2）编写源yaml文件</h4>
-<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml
-kind: Deployment
-apiVersion: extensions&#x2F;v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000&#x2F;web:v1
-        ports:
-          - containerPort: 80
-      nodeSelector:    
-        disk: ssd</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-web</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v1</span><br>        <span class="hljs-attr">ports:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">nodeSelector:</span>    <br>        <span class="hljs-attr">disk:</span> <span class="hljs-string">ssd</span><br></code></pre></td></tr></table></figure>
 <h4 id="（3）编写源service文件">（3）编写源service文件</h4>
-<pre><code class="highlight plain">[root@master ~]# vim xgp-svc.yaml
-kind: Service
-apiVersion: v1
-metadata:
-  name: xgp-svc
-spec:
-  type: NodePort
-  selector:
-    app: xgp-server
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-      nodePort: 30123</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp-svc.yaml</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Service</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-svc</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">type:</span> <span class="hljs-string">NodePort</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>  <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>      <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">targetPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">nodePort:</span> <span class="hljs-number">30123</span><br></code></pre></td></tr></table></figure>
 <h4 id="（4）执行yaml文件，创建控制器。执行service文件创建映射端口">（4）执行yaml文件，创建控制器。执行service文件创建映射端口</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f  xgp.yaml 
-[root@master ~]# kubectl apply -f xgp-svc.yaml</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f  xgp.yaml <br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp-svc.yaml<br></code></pre></td></tr></table></figure>
 <h4 id="（5）查看一下pod节点">（5）查看一下pod节点</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br></code></pre></td></tr></table></figure>
 <p>![image-20200108122424654](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122424654.png)</p>
 <h4 id="（6）记录一个版本">（6）记录一个版本</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> rollout history deployment xgp-web &gt; pod.txt<br></code></pre></td></tr></table></figure>
 <p>![image-20200108142016701](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142016701.png)</p>
 <h4 id="（7）访问一下">（7）访问一下</h4>
 <p>![image-20200108122518278](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122518278.png)</p>
 <p>![image-20200108122534683](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108122534683.png)</p>
 <h3 id="2）根据上述Deployment，升级为v2版本，记录一个版本。"><strong>2）根据上述Deployment，升级为v2版本，记录一个版本。</strong></h3>
 <h4 id="（1）修改yaml文件镜像版本">（1）修改yaml文件镜像版本</h4>
-<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml 
-kind: Deployment
-apiVersion: extensions&#x2F;v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000&#x2F;web:v2    #修改版本为二
-        ports:
-          - containerPort: 80
-      nodeSelector:
-        disk: ssd</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp.yaml</span> <br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-web</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v2</span>    <span class="hljs-comment">#修改版本为二</span><br>        <span class="hljs-attr">ports:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">nodeSelector:</span><br>        <span class="hljs-attr">disk:</span> <span class="hljs-string">ssd</span><br></code></pre></td></tr></table></figure>
 <h4 id="（2）刷新一下yaml文件">（2）刷新一下yaml文件</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp.yaml --recore<br></code></pre></td></tr></table></figure>
 <h4 id="（3）访问一下-3">（3）访问一下</h4>
 <p>![image-20200108141825924](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108141825924.png)</p>
 <h4 id="（4）记录一个版本">（4）记录一个版本</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl rollout history deployment xgp-web &gt; pod.txt</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> rollout history deployment xgp-web &gt; pod.txt<br></code></pre></td></tr></table></figure>
 <p>![image-20200108142030157](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142030157.png)</p>
 <h3 id="3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。"><strong>3）最后升级到v3版本，这时，查看Service关联，并且分析访问流量的负载均衡详细情况。</strong></h3>
 <h4 id="1）修改yaml文件镜像版本">1）修改yaml文件镜像版本</h4>
-<pre><code class="highlight plain">[root@master ~]# vim xgp.yaml 
-kind: Deployment
-apiVersion: extensions&#x2F;v1beta1
-metadata:
-  name: xgp-web
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        app: xgp-server
-    spec:
-      containers:
-      - name: web
-        image: 192.168.1.21:5000&#x2F;web:v3   #修改版本为二
-        ports:
-          - containerPort: 80
-      nodeSelector:
-        disk: ssd</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">[root@master</span> <span class="hljs-string">~]#</span> <span class="hljs-string">vim</span> <span class="hljs-string">xgp.yaml</span> <br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">extensions/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">xgp-web</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">3</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">xgp-server</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">web</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.21</span><span class="hljs-string">:5000/web:v3</span>   <span class="hljs-comment">#修改版本为二</span><br>        <span class="hljs-attr">ports:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">nodeSelector:</span><br>        <span class="hljs-attr">disk:</span> <span class="hljs-string">ssd</span><br></code></pre></td></tr></table></figure>
 <h4 id="（2）刷新一下yaml文件-2">（2）刷新一下yaml文件</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl apply -f xgp.yaml --recore</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> apply -f xgp.yaml --recore<br></code></pre></td></tr></table></figure>
 <h4 id="（3）访问一下-4">（3）访问一下</h4>
 <p>![image-20200108142329749](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142329749.png)</p>
 <h4 id="（5）分析访问流量的负载均衡详细情况">（5）分析访问流量的负载均衡详细情况</h4>
@@ -503,29 +321,25 @@ spec:
 <p>![image-20200108142504637](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108142504637.png)</p>
 <h5 id="2-以ip为起点，分析访问流量的负载均衡详细情况">&lt;2&gt;以ip为起点，分析访问流量的负载均衡详细情况</h5>
 <p><strong>Service实现的负载均衡：默认使用的是iptables规则。IPVS</strong></p>
-<pre><code class="highlight plain">[root@master ~]# iptables-save | grep 10.107.27.229
-&#x2F;&#x2F;根据service的暴露IP，查看对应的iptabes规则</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# iptables-save | grep <span class="hljs-number">10.107</span><span class="hljs-number">.27</span><span class="hljs-number">.229</span><br><span class="hljs-comment">//根据service的暴露IP，查看对应的iptabes规则</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108143052433](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143052433.png)</p>
-<pre><code class="highlight plain">[root@master ~]# iptables-save | grep KUBE-SVC-ESI7C72YHAUGMG5S</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# iptables-save</span> | grep KUBE-SVC-ESI7C72YHAUGMG5S<br></code></pre></td></tr></table></figure>
 <p>![image-20200108143359463](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143359463.png)</p>
 <p><em><strong>这里显示了各节点的负载比例</strong></em></p>
 <h5 id="3-对应一下IP是否一致">&lt;3&gt;对应一下IP是否一致</h5>
-<pre><code class="highlight plain">[root@master ~]# iptables-save | grep KUBE-SEP-VDKW5WQIWOLZMJ6G</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# iptables-save</span> | grep KUBE-SEP-VDKW5WQIWOLZMJ6G<br></code></pre></td></tr></table></figure>
 <p>![image-20200108143547946](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143547946.png)</p>
-<pre><code class="highlight plain">[root@master ~]# kubectl get pod -o wide</code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> get pod -o wide<br></code></pre></td></tr></table></figure>
 <p>![image-20200108143608942](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108143608942.png)</p>
 <h3 id="4）回滚到指定版本v1，并作验证。"><strong>4）回滚到指定版本v1，并作验证。</strong></h3>
 <h4 id="1-回滚到指定版本">&lt;1&gt;回滚到指定版本</h4>
-<pre><code class="highlight plain">[root@master ~]# kubectl rollout undo deployment xgp-web --to-revision&#x3D;1
-&#x2F;&#x2F;这里指定的是版本信息的编号</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# kubectl rollout undo deployment xgp-web --to-revision=<span class="hljs-number">1</span><br><span class="hljs-comment">//这里指定的是版本信息的编号</span><br></code></pre></td></tr></table></figure>
 <h4 id="2-访问一下">&lt;2&gt;访问一下</h4>
-<pre><code class="highlight plain">[root@master ~]# curl 127.0.0.1:30123</code></pre>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">[<span class="hljs-symbol">root@</span>master ~]# curl <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">30123</span><br></code></pre></td></tr></table></figure>
 <p>![image-20200108110337266](G:\四期\虚拟化\kubernetes\k8s文档\05 Delpoyment、service.assets\image-20200108110337266.png)</p>
 <blockquote>
 <p><strong>排错思路</strong></p>
-<pre><code class="highlight plain">[root@master ~]# less &#x2F;var&#x2F;log&#x2F;messages  | grep kubelet
-[root@master ~]# kubectl  logs -n  kube-system kube-scheduler-master 
-[root@master ~]# kubectl describe pod xgp-web-7d478f5bb7-bd4bj </code></pre>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# less</span> /var/log/messages  | grep kubelet<br>[root@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span>  logs -n  kube-system kube-scheduler-<span class="hljs-keyword">master</span> <span class="hljs-title"></span><br><span class="hljs-title">[root</span>@<span class="hljs-keyword">master</span> <span class="hljs-title">~]# kubectl</span> describe pod xgp-web-<span class="hljs-number">7</span>d478f5bb7-bd4bj <br></code></pre></td></tr></table></figure>
 </blockquote>
 </div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wu Shao Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wsdlxgp.top/posts/936d.html">https://wsdlxgp.top/posts/936d.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wsdlxgp.top" target="_blank">Xgp & Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/3.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/1.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/2.jpg" alt="QQ支付"/><div class="post-qr-code__desc">QQ支付</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/posts/cf38.html"><img class="prev_cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">06 pod资源对象</div></div></a></div><div class="next-post pull_right"><a href="/posts/748b.html"><img class="next_cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">04 配置清单</div></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="lv-container" data-id="city" data-uid="MTAyMC80OTM0NS8yNTgzNw=="><script>(function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
