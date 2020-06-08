@@ -660,9 +660,9 @@
       <category term="Kubernetes" scheme="https://wsdlxgp.top/categories/Kubernetes/"/>
     
     
-      <category term="service" scheme="https://wsdlxgp.top/tags/service/"/>
-    
       <category term="Deployment" scheme="https://wsdlxgp.top/tags/Deployment/"/>
+    
+      <category term="service" scheme="https://wsdlxgp.top/tags/service/"/>
     
   </entry>
   
