@@ -82,11 +82,11 @@
     
       <category term="nfs" scheme="https://wsdlxgp.top/tags/nfs/"/>
     
-      <category term="StorageClass" scheme="https://wsdlxgp.top/tags/StorageClass/"/>
-    
       <category term="pv" scheme="https://wsdlxgp.top/tags/pv/"/>
     
       <category term="pvc" scheme="https://wsdlxgp.top/tags/pvc/"/>
+    
+      <category term="StorageClass" scheme="https://wsdlxgp.top/tags/StorageClass/"/>
     
       <category term="dashboard" scheme="https://wsdlxgp.top/tags/dashboard/"/>
     
