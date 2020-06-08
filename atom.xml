@@ -88,9 +88,9 @@
     
       <category term="StorageClass" scheme="https://wsdlxgp.top/tags/StorageClass/"/>
     
-      <category term="dashboard" scheme="https://wsdlxgp.top/tags/dashboard/"/>
-    
       <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
+    
+      <category term="dashboard" scheme="https://wsdlxgp.top/tags/dashboard/"/>
     
       <category term="deployment" scheme="https://wsdlxgp.top/tags/deployment/"/>
     
