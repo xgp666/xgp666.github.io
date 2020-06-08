@@ -149,9 +149,9 @@
       <category term="Kubernetes" scheme="https://wsdlxgp.top/categories/Kubernetes/"/>
     
     
-      <category term="chares" scheme="https://wsdlxgp.top/tags/chares/"/>
-    
       <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
+    
+      <category term="chares" scheme="https://wsdlxgp.top/tags/chares/"/>
     
       <category term="url" scheme="https://wsdlxgp.top/tags/url/"/>
     
@@ -180,9 +180,9 @@
       <category term="Kubernetes" scheme="https://wsdlxgp.top/categories/Kubernetes/"/>
     
     
-      <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
-    
       <category term="chart" scheme="https://wsdlxgp.top/tags/chart/"/>
+    
+      <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
     
       <category term="tiller" scheme="https://wsdlxgp.top/tags/tiller/"/>
     
