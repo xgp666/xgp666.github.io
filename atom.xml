@@ -84,15 +84,15 @@
     
       <category term="pv" scheme="https://wsdlxgp.top/tags/pv/"/>
     
-      <category term="StorageClass" scheme="https://wsdlxgp.top/tags/StorageClass/"/>
-    
       <category term="pvc" scheme="https://wsdlxgp.top/tags/pvc/"/>
+    
+      <category term="StorageClass" scheme="https://wsdlxgp.top/tags/StorageClass/"/>
     
       <category term="dashboard" scheme="https://wsdlxgp.top/tags/dashboard/"/>
     
-      <category term="deployment" scheme="https://wsdlxgp.top/tags/deployment/"/>
-    
       <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
+    
+      <category term="deployment" scheme="https://wsdlxgp.top/tags/deployment/"/>
     
   </entry>
   
@@ -180,9 +180,9 @@
       <category term="Kubernetes" scheme="https://wsdlxgp.top/categories/Kubernetes/"/>
     
     
-      <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
-    
       <category term="chart" scheme="https://wsdlxgp.top/tags/chart/"/>
+    
+      <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
     
       <category term="tiller" scheme="https://wsdlxgp.top/tags/tiller/"/>
     
@@ -660,9 +660,9 @@
       <category term="Kubernetes" scheme="https://wsdlxgp.top/categories/Kubernetes/"/>
     
     
-      <category term="Deployment" scheme="https://wsdlxgp.top/tags/Deployment/"/>
-    
       <category term="service" scheme="https://wsdlxgp.top/tags/service/"/>
+    
+      <category term="Deployment" scheme="https://wsdlxgp.top/tags/Deployment/"/>
     
   </entry>
   
