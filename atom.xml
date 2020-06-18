@@ -619,9 +619,9 @@
     
       <category term="pvc" scheme="https://wsdlxgp.top/tags/pvc/"/>
     
-      <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
-    
       <category term="dashboard" scheme="https://wsdlxgp.top/tags/dashboard/"/>
+    
+      <category term="helm" scheme="https://wsdlxgp.top/tags/helm/"/>
     
       <category term="deployment" scheme="https://wsdlxgp.top/tags/deployment/"/>
     
