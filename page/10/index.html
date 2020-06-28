@@ -1,59 +1,62 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Xgp &amp; Blog - Today is still beautiful</title><meta name="description" content="Small steel gun article"><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://gitee.com/xgpqq/tuchuang/raw/master/img/Yun.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="rPK0WSwqdm"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Xgp &amp; Blog"><meta name="twitter:description" content="Small steel gun article"><meta name="twitter:image" content="https://gitee.com/xgpqq/tuchuang/raw/master/img/666.jpg"><meta property="og:type" content="website"><meta property="og:title" content="Xgp &amp; Blog"><meta property="og:url" content="https://wsdlxgp.top/page/10/"><meta property="og:site_name" content="Xgp &amp; Blog"><meta property="og:description" content="Small steel gun article"><meta property="og:image" content="https://gitee.com/xgpqq/tuchuang/raw/master/img/666.jpg"><meta property="article:published_time" content="2020-06-28T11:52:41.969Z"><meta property="article:modified_time" content="2020-06-28T11:52:41.969Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
-var t = Cookies.get("theme")
-if (autoChangeMode == '1'){
-  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
-  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
-  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Xgp &amp; Blog - Today is still beautiful</title><meta name="description" content="Small steel gun article"><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wsdlxgp.top/page/10/"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="website"><meta property="og:title" content="Xgp &amp; Blog"><meta property="og:url" content="https://wsdlxgp.top/page/10/"><meta property="og:site_name" content="Xgp &amp; Blog"><meta property="og:description" content="Small steel gun article"><meta property="og:image" content="https://wsdlxgp.top/img/avatar.png"><meta property="article:published_time" content="2020-06-28T12:02:04.913Z"><meta property="article:modified_time" content="2020-06-28T12:02:04.913Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
   var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
 
-  if (t === undefined){
+  if (t === undefined) {
     if (isLightMode) activateLightMode()
     else if (isDarkMode) activateDarkMode()
-    else if (isNotSpecified || hasNoSupport){
+    else if (isNotSpecified || hasNoSupport) {
       console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
       var now = new Date()
       var hour = now.getHours()
-      var isNight = hour < 6 || hour >= 18
+      var isNight = hour <= 6 || hour >= 18
       isNight ? activateDarkMode() : activateLightMode()
-  }
-  } else if (t == 'light') activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
   else activateDarkMode()
-
-} else if (autoChangeMode == '2'){
-  now = new Date();
-  hour = now.getHours();
-  isNight = hour < 6 || hour >= 18
-  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
   else if (t === 'light') activateLightMode()
-  else activateDarkMode() 
+  else activateDarkMode()
 } else {
-  if ( t == 'dark' ) activateDarkMode()
-  else if ( t == 'light') activateLightMode()
-}
-
-function activateDarkMode(){
-  document.documentElement.setAttribute('data-theme', 'dark')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
-  }
-}
-function activateLightMode(){
-  document.documentElement.setAttribute('data-theme', 'light')
-  if (document.querySelector('meta[name="theme-color"]') !== null){
-  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
-  }
-}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://wsdlxgp.top/page/10/"><script>var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?cad0cd04042fcca2c687648c42a45fc9";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
   root: '/',
   algolia: undefined,
-  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
-  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
   copy: {
     success: '复制成功',
     error: '复制错误',
@@ -64,34 +67,36 @@ function activateLightMode(){
     message_next: '键将本页加入书签'
   },
   runtime_unit: '天',
-  runtime: true,
+  runtime: false,
   copyright: undefined,
   ClickShowText: undefined,
   medium_zoom: false,
   fancybox: true,
   Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
   baiduPush: false,
   highlightCopy: true,
   highlightLang: true,
-  highlightShrink: 'false',
-  isFontAwesomeV5: true,
   isPhotoFigcaption: false,
-  islazyload: false,
-  isanchor: false
-  
+  islazyload: true,
+  isanchor: false    
 }</script><script>var GLOBAL_CONFIG_SITE = { 
   isPost: false,
   isHome: true,
-  isSidebar: false  
+  isHighlightShrink: false,
+  isSidebar: false
   }</script><noscript><style>
-#page-header {
+#nav {
   opacity: 1
 }
 .justified-gallery img{
   opacity: 1
 }
 </style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
-</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/666.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">123</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">87</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 我</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 其他</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 视频</span></a></li></ul></div></div></div></div><div id="body-wrap"><div class="full_page" id="nav" style="background-image: url(/img/ss.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 我</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 其他</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 视频</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="site-info"><h1 id="site_title">Xgp &amp; Blog</h1><div id="site_subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/xgp666" target="_blank" title="Github"><i class="fab fa-github" aria-hidden="true"></i></a><a class="social-icon" href="mailto:2877364346@qq.com" target="_blank" title="Email"><i class="fa fa-envelope" aria-hidden="true"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fa fa-rss" aria-hidden="true"></i></a><a class="social-icon" href="https://blog.51cto.com/14320361?type=1" target="_blank" title="51cto"><i class="fab fa-cuttlefish" aria-hidden="true"></i></a></div></div><div id="scroll_down"><i class="fa fa-angle-down scroll-down-effects"></i></div></div><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/fehv.html" title="k8s复习">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (33).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s复习"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/fehv.html" title="k8s复习">k8s复习</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-09-02 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-09-02</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:04:45"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/swarm/">swarm</a></span></div><div class="content">虚拟化
+</head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">123</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">87</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div id="body-wrap"><header class="full_page" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/IuWi8QbHvzjlOPw.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="site-info"><h1 id="site_title">Xgp &amp; Blog</h1><div id="site_subtitle"><span id="subtitle"></span></div><div id="site_social_icons"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div id="scroll_down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout_page" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/fehv.html" title="k8s复习">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (33).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s复习"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/fehv.html" title="k8s复习">k8s复习</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-09-02 00:00:00"><i class="far fa-calendar-alt"></i>2019-09-02</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">虚拟化
 云计算的分类:
 
 基础及服务: laas
@@ -103,13 +108,46 @@ function activateLightMode(){
 
 IPC:  共享内存,消息列队
 MNT:  挂载点 文件系统
-NET:  网络 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/fbf7.html" title="k8s的Job/CronJob资源对象及添加api版本">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (32).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s的Job/CronJob资源对象及添加api版本"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/fbf7.html" title="k8s的Job/CronJob资源对象及添加api版本">k8s的Job/CronJob资源对象及添加api版本</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-09-01 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-09-01</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:04:29"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Job/">Job</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/apiVersion/">apiVersion</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/CronJob/">CronJob</a></span></div><div class="content">Job资源对象
+NET:  网络栈
+PID:  进程编号
+USER:  用户 组
+UTS:  主机名 域名
+namespace 六项隔离 实现了容器与宿主机 容器与容器之间的隔离
+
+**Cgroup 四项作用: **
+
+**1） 资源的限制: **cgroup可以对进程组使用的资源总额进行限制
+**2） 优先级分配: **通过分配的cpu时间片数量以及硬盘IO带宽的大小，实际上相当于控制了进程运行的优先级别
+**3） 资源统计: ** group可以统计系统资源使用量，比如gpu使用时间，内存使用量等，用于按量计费。同时还支持挂起动能，也就是说通过cgroup把所有 资源限制起来,对资源都不能使用，注意着并不是说我们的程序不能使用了,知识不能使用资源，处于等待状态。
+**4） 进程控制: **可以对进程组执行挂起、恢复等操 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/fbf7.html" title="k8s的Job/CronJob资源对象及添加api版本">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (32).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s的Job/CronJob资源对象及添加api版本"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/fbf7.html" title="k8s的Job/CronJob资源对象及添加api版本">k8s的Job/CronJob资源对象及添加api版本</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-09-01 00:00:00"><i class="far fa-calendar-alt"></i>2019-09-01</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">Job资源对象
 
 **服务类的Pod容器：**RC、RS、DS、Deployment
 **工作类的Pod容器：**Job—&gt;执行一次，或者批量执行处理程序，完成之后退出容器。
 
 注意： 如果容器内执行任务有误，会根据容器的重启策略操作容器，不过这里
-的容器重启策略只能是: Never和 OnF ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/5281.html" title="k8s的ReplicaSet，DaemonSet及标签">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (31).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s的ReplicaSet，DaemonSet及标签"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5281.html" title="k8s的ReplicaSet，DaemonSet及标签">k8s的ReplicaSet，DaemonSet及标签</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-08-31 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-08-31</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:04:23"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Replica/">Replica</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/SetDaemonSet/">SetDaemonSet</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/%E6%A0%87%E7%AD%BE/">标签</a></span></div><div class="content">环境介绍
+的容器重启策略只能是: Never和 OnFailure。
+概念
+在有些场景下，是想要运行一些容器执行某种特定的任务，任务一旦执行完成，容器也就没有存在的必要了。在这种场景下，创建pod就显得不那么合适。于是就是了Job，Job指的就是那些一次性任务。通过Job运行一个容器，当其任务执行完以后，就自动退出，集群也不再重新将其唤醒。
+从程序的运行形态上来区分，可以将Pod分为两类：长时运行服务（jboss、mysql等）和一次性任务（数据计算、测试）。RC创建的Pod都是长时运行的服务，Job多用于执行一次性任务、批处理工作等，执行完成后便会停止（status.phase变为Succeeded）。
+环境介绍
+
+
+
+主机
+IP地址
+服务
+
+
+
+
+master
+192.168.1.21
+k8s
+
+
+node01
+192.168.1.22
+k ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/5281.html" title="k8s的ReplicaSet，DaemonSet及标签">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (31).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s的ReplicaSet，DaemonSet及标签"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/5281.html" title="k8s的ReplicaSet，DaemonSet及标签">k8s的ReplicaSet，DaemonSet及标签</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-08-31 00:00:00"><i class="far fa-calendar-alt"></i>2019-08-31</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">环境介绍
 
 
 
@@ -136,7 +174,27 @@ k8s
 
 
 
-基于 https://blog.51cto.com/14320361/2464655 的实验继续 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/af5b.html" title="pod健康检查详解（liveness，readiness，滚动更新）">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (30).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="pod健康检查详解（liveness，readiness，滚动更新）"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/af5b.html" title="pod健康检查详解（liveness，readiness，滚动更新）">pod健康检查详解（liveness，readiness，滚动更新）</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-08-30 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-08-30</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:04:16"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/liveness/">liveness</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/readiness/">readiness</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/%E6%BB%9A%E5%8A%A8%E6%9B%B4%E6%96%B0/">滚动更新</a></span></div><div class="content">环境介绍
+基于 https://blog.51cto.com/14320361/2464655 的实验继续进行
+ReplicaSet简单介绍
+1. RC：ReplicationController（老一代的pod控制器）
+用来确保由其管控的Pod对象副本数量，能够满足用户期望，多则删除，少则通过模本创建
+特点：
+
+确保Pod资源对象的数量精准。
+确保pod健康运行。
+弹性伸缩
+
+同样，它也可以通过yaml或json格式的资源清单来创建。其中spec字段一般嵌套以下字段：
+
+replicas：期望的Pod对象副本数量。
+selector：当前控制器匹配Pod对此项副本的标签选择器
+template：pod副本的模板
+
+与RC相比而言，RS不仅支持*基于等值*的标签选择器，而且还支持*基于集合*的标签选择器。
+2. 标签：解决同类型的资源对象，为了更好的管理，按照标签分组。
+常用的标签分类：
+
+re ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/af5b.html" title="pod健康检查详解（liveness，readiness，滚动更新）">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (30).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="pod健康检查详解（liveness，readiness，滚动更新）"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/af5b.html" title="pod健康检查详解（liveness，readiness，滚动更新）">pod健康检查详解（liveness，readiness，滚动更新）</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-08-30 00:00:00"><i class="far fa-calendar-alt"></i>2019-08-30</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">环境介绍
 
 
 
@@ -163,13 +221,36 @@ k8s
 
 
 
-基于 https://blog.51cto.com/14320361/2 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/74b2.html" title="k8s中pod的资源对象（名称空间，获取策略，重启策略，健康检查）">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (29).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s中pod的资源对象（名称空间，获取策略，重启策略，健康检查）"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/74b2.html" title="k8s中pod的资源对象（名称空间，获取策略，重启策略，健康检查）">k8s中pod的资源对象（名称空间，获取策略，重启策略，健康检查）</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-08-29 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-08-29</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:04:09"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Namespace/">Namespace</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/PodRestart/">PodRestart</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Policy/">Policy</a></span></div><div class="content">一，k8s的资源对象
+基于 https://blog.51cto.com/14320361/2464655 的实验继续进行
+一、Pod的liveness和readiness探针
+Kubelet使用liveness probe（存活探针）来确定何时重启容器。例如，当应用程序处于运行状态但无法做进一步操作，liveness探针将捕获到deadlock，重启处于该状态下的容器，使应用程序在存在bug的情况下依然能够继续运行下去
+Kubelet使用readiness probe（就绪探针）来确定容器是否已经就绪可以接受流量。只有当Pod中的容器都处于就绪状态时kubelet才会认定该Pod处于就绪状态。该信号的作用是控制哪些Pod应该作为service的后端。如果Pod处于非就绪状态，那么它们将会被从service的load balancer中移除。
+Probe支持以下三种检查方法：
+&lt ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/74b2.html" title="k8s中pod的资源对象（名称空间，获取策略，重启策略，健康检查）">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (29).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s中pod的资源对象（名称空间，获取策略，重启策略，健康检查）"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/74b2.html" title="k8s中pod的资源对象（名称空间，获取策略，重启策略，健康检查）">k8s中pod的资源对象（名称空间，获取策略，重启策略，健康检查）</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-08-29 00:00:00"><i class="far fa-calendar-alt"></i>2019-08-29</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">一，k8s的资源对象
 Deployment、Service、Pod是k8s最核心的3个资源对象
 
 **Deployment：**最常见的无状态应用的控制器，支持应用的扩缩容、滚动升级等操作。
-**Service：**为弹性变动且存在生命周期的Pod对象提供了一个固定的访问接口，用于服务发现和服务访问 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/c3bf.html" title="k8s创建资源(3)（负载均衡原理，回滚指定版本，label控制pod的位置）">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (28).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s创建资源(3)（负载均衡原理，回滚指定版本，label控制pod的位置）"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/c3bf.html" title="k8s创建资源(3)（负载均衡原理，回滚指定版本，label控制pod的位置）">k8s创建资源(3)（负载均衡原理，回滚指定版本，label控制pod的位置）</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-08-28 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-08-28</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:04:03"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/service/">service</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/Deployment/">Deployment</a></span></div><div class="content">Deployment介绍
+**Service：**为弹性变动且存在生命周期的Pod对象提供了一个固定的访问接口，用于服务发现和服务访问。
+**Pod：**是运行容器以及调度的最小单位。同一个pod可以同时运行多个容器，这些容器共享net、UTS、IPC，除此之外还有USER、PID、MOUNT。
+**ReplicationController：**用于确保每个Pod副本在任意时刻都能满足目标数量，简单来说，它用于每个容器或容器组总是运行并且可以访问的：老一代无状态的Pod应用控制器。
+**RwplicatSet：**新一代的无状态的Pod应用控制器，它与RC的不同之处在于支持的标签选择器不同，RC只支持等值选择器（键值对），RS还额外支持基于集合的选择器。
+**StatefulSet：**用于管理有状态的持久化应用，如database服务程序，它与Deployment不同之处在于，它会为每一个pod创建一个独有的持久性标识 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/c3bf.html" title="k8s创建资源(3)（负载均衡原理，回滚指定版本，label控制pod的位置）">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (28).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s创建资源(3)（负载均衡原理，回滚指定版本，label控制pod的位置）"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/c3bf.html" title="k8s创建资源(3)（负载均衡原理，回滚指定版本，label控制pod的位置）">k8s创建资源(3)（负载均衡原理，回滚指定版本，label控制pod的位置）</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-08-28 00:00:00"><i class="far fa-calendar-alt"></i>2019-08-28</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">Deployment介绍
 Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。Deployment可以理解为RC的升级版（RC+Reolicat Set）。特点在于可以随时知道Pod的部署进度，即对Pod的创建、调度、绑定节点、启动容器完整过程的进度展示。
-使用场 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/9569.html" title="k8s创建资源(2)&lt;基于配置清单&gt;">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (27).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s创建资源(2)&lt;基于配置清单&gt;"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/9569.html" title="k8s创建资源(2)&lt;基于配置清单&gt;">k8s创建资源(2)&lt;基于配置清单&gt;</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-08-27 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-08-27</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:03:53"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/service/">service</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/yaml/">yaml</a></span></div><div class="content">一，两种创建资源的方法
+使用场景
+
+创建一个Deployment对象来生成对应的Replica Set并完成Pod副本的创建过程。
+检查Deployment的状态来确认部署动作是否完成（Pod副本的数量是否达到预期值）。
+更新Deployment以创建新的Pod(例如镜像升级的场景)。
+如果当前Deployment不稳定，回退到上一个Deployment版本。
+挂起或恢复一个Deployment。
+
+Service介绍
+
+Service定义了一个服务的访问入口地址，前端应用通过这个入口地址访问其背后的一组由Pod副本组成的集群实例，Service与其后端的Pod副本集群之间是通过Label Selector来实现“无缝对接”。RC保证Service的Pod副本实例数目保持预期水平。
+外部系统访问Service的问题
+
+
+ ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/9569.html" title="k8s创建资源(2)&lt;基于配置清单&gt;">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (27).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s创建资源(2)&lt;基于配置清单&gt;"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/9569.html" title="k8s创建资源(2)&lt;基于配置清单&gt;">k8s创建资源(2)&lt;基于配置清单&gt;</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-08-27 00:00:00"><i class="far fa-calendar-alt"></i>2019-08-27</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">一，两种创建资源的方法
 1. 基于命令的方式：
 
 简单直观快捷，上手快。
@@ -181,7 +262,41 @@ Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。De
 配置文件提供了创建资源的模板，能够重复部署。
 可以像管理代码一样管理部署。
 适合正式的、跨环境的、规模化部署。
-这种方式 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/dbea.html" title="k8s创建资源(1)、&lt;扩容与缩容&gt;和&lt;升级与回滚&gt;">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (26).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s创建资源(1)、&lt;扩容与缩容&gt;和&lt;升级与回滚&gt;"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/dbea.html" title="k8s创建资源(1)、&lt;扩容与缩容&gt;和&lt;升级与回滚&gt;">k8s创建资源(1)、&lt;扩容与缩容&gt;和&lt;升级与回滚&gt;</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-08-26 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-08-26</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:03:46"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/deployments/">deployments</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/registry/">registry</a></span></div><div class="content">两种创建资源的方法
+这种方式要求熟悉配置文件的语法，有一定难度。
+
+环境介绍
+
+
+
+主机
+IP地址
+服务
+
+
+
+
+master
+192.168.1.21
+k8s
+
+
+node01
+192.168.1.22
+k8s
+
+
+node02
+192.168.1.23
+k8s
+
+
+
+二. 配置清单（yam，yaml）
+在k8s中，一般使用yaml格式的文件来创建符合我们预期期望的pod，这样的yaml文件我们一般称为资源清单
+
+/etc/kubernetes/manifests/ k8s存放（yam、yaml）文件的地方
+kubectl explain deployment（通过explain参数加上资源类别就能看到该资源应该怎么定义）
+kubectl explain deployment.metadata 通过资源类别加上带有O ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/dbea.html" title="k8s创建资源(1)、&lt;扩容与缩容&gt;和&lt;升级与回滚&gt;">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (26).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s创建资源(1)、&lt;扩容与缩容&gt;和&lt;升级与回滚&gt;"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/dbea.html" title="k8s创建资源(1)、&lt;扩容与缩容&gt;和&lt;升级与回滚&gt;">k8s创建资源(1)、&lt;扩容与缩容&gt;和&lt;升级与回滚&gt;</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-08-26 00:00:00"><i class="far fa-calendar-alt"></i>2019-08-26</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">两种创建资源的方法
 基于命令的方式：
 
 简单直观快捷，上手快。
@@ -193,7 +308,38 @@ Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。De
 配置文件提供了创建资源的模板，能够重复部署。
 可以像管理代码一样管理部署。
 适合正式的、跨环境的、规模化部署。
-这种方式要求熟悉配置文件 ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/e863.html" title="k8s架构，基本概念">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (25).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s架构，基本概念"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/e863.html" title="k8s架构，基本概念">k8s架构，基本概念</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-08-25 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-08-25</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:03:40"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/docker/">docker</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/kubeadml/">kubeadml</a></span></div><div class="content">
+这种方式要求熟悉配置文件的语法，有一定难度。
+
+一，用命令行的方式创建资源
+
+
+
+主机
+IP地址
+
+
+
+
+master
+192.168.1.21
+
+
+node01
+192.168.1.22
+
+
+node02
+192.168.1.23
+
+
+
+仅接受json格式
+配置清单（yml、yaml）
+12[root@master ~]# cd /etc/kubernetes/manifests///k8s的yml、yaml文件
+1.node01和node02下载nginx镜像
+12docker pull nginx//下载nginx镜像
+2.master创建Pod控制器（test-web），deployment
+12[root@master ~]# kubectl run test-web --image=nginx --re ...</div></div></div><div class="recent-post-item"><div class="post_cover left_radius"><a href="/posts/e863.html" title="k8s架构，基本概念">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (25).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="k8s架构，基本概念"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/e863.html" title="k8s架构，基本概念">k8s架构，基本概念</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-08-25 00:00:00"><i class="far fa-calendar-alt"></i>2019-08-25</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">
 
 
 主机名
@@ -222,27 +368,38 @@ node02
 kubernetes架构
 
 在这张系统架构图中，我们把服务分为运行在工作节点上的服务和组成集群级别控制板的服务。
-Kube ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/6489.html" title="部署k8s集群">     <img class="post_bg" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (24).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="部署k8s集群"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/6489.html" title="部署k8s集群">部署k8s集群</a><div class="article-meta-wrap"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-08-24 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i>2019-08-24</span><span class="article-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-19 13:03:31"><i class="fa fa-history" aria-hidden="true"></i>2020-06-19</span></time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fa fa-inbox article-meta__icon" aria-hidden="true"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span><span class="article-meta tags"><span class="article-meta__separator">|</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/docker/">docker</a><span class="article-meta__link">-</span><i class="fa fa-tag article-meta__icon" aria-hidden="true"></i><a class="article-meta__tags" href="/tags/kubeadml/">kubeadml</a></span></div><div class="content">一. Kubernetes 系统简介
-首先，他是一个全新的基于容器技术的分布式架构领先方案。Kubernetes(k8s)是Google开源的容器集群管理系统（内部:Borg）。在Docker技术的基础上，为容器化的应用提供部署运行、资源调度、服务发现和动态伸缩等一系列完整功能，提高了大规模容器集群 ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-fw fa-chevron-left" aria-hidden="true"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-fw fa-chevron-right" aria-hidden="true"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/666.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Wu Shao Dong</div><div class="author-info__description">Small steel gun article</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives"><div class="headline">文章</div><div class="length_num">123</div></a></div><div class="card-info-data-item is-center">      <a href="/tags"><div class="headline">标签</div><div class="length_num">87</div></a></div><div class="card-info-data-item is-center">     <a href="/categories"><div class="headline">分类</div><div class="length_num">4</div></a></div></div><div class="card-info-bookmark is-center"><a class="bookmark button--primary button--animated" id="bookmark-it" href="javascript:;" title="加入书签" target="_self"><i class="fa fa-bookmark" aria-hidden="true"></i><span>加入书签</span></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xgp666" target="_blank" title="Github"><i class="fab fa-github" aria-hidden="true"></i></a><a class="social-icon" href="mailto:2877364346@qq.com" target="_blank" title="Email"><i class="fa fa-envelope" aria-hidden="true"></i></a><a class="social-icon" href="/atom.xml" target="_blank" title="RSS"><i class="fa fa-rss" aria-hidden="true"></i></a><a class="social-icon" href="https://blog.51cto.com/14320361?type=1" target="_blank" title="51cto"><i class="fab fa-cuttlefish" aria-hidden="true"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fa fa-bullhorn card-announcement-animation" aria-hidden="true"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fa fa-history" aria-hidden="true"></i><span>最新文章</span></div><div class="aside-recent-item"><div class="aside-recent-post"><a href="/posts/49er.html"><div class="aside-post-cover"><img class="aside-post-bg" src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(11).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="nnobackupex全库备份+innobackupex增量备份" alt="nnobackupex全库备份+innobackupex增量备份"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49er.html" title="nnobackupex全库备份+innobackupex增量备份">nnobackupex全库备份+innobackupex增量备份</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-26 00:02:00">2020-06-26</time></div></a></div><div class="aside-recent-post"><a href="/posts/49lt.html"><div class="aside-post-cover"><img class="aside-post-bg" src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(9).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Xtrabackup备份还原" alt="Xtrabackup备份还原"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49lt.html" title="Xtrabackup备份还原">Xtrabackup备份还原</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-25 00:02:00">2020-06-25</time></div></a></div><div class="aside-recent-post"><a href="/posts/49et.html"><div class="aside-post-cover"><img class="aside-post-bg" src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(7).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="mysqldump备份还原" alt="mysqldump备份还原"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49et.html" title="mysqldump备份还原">mysqldump备份还原</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-24 00:02:00">2020-06-24</time></div></a></div><div class="aside-recent-post"><a href="/posts/49wn.html"><div class="aside-post-cover"><img class="aside-post-bg" src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(5).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="MySQL配置参数优化" alt="MySQL配置参数优化"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49wn.html" title="MySQL配置参数优化">MySQL配置参数优化</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-23 00:02:00">2020-06-23</time></div></a></div><div class="aside-recent-post"><a href="/posts/49an.html"><div class="aside-post-cover"><img class="aside-post-bg" src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(3).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="MySQL配置参数优化" alt="MySQL配置参数优化"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49an.html" title="MySQL配置参数优化">MySQL配置参数优化</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-22 00:02:00">2020-06-22</time></div></a></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fa fa-folder-open" aria-hidden="true"></i><span>分类</span></div><ul class="card-category-list">
-            <li class="card-category-list-item"><a class="card-category-list-link" href="/categories/Kubernetes/"><span class="card-category-list-name">Kubernetes</span><span class="card-category-list-count">22</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/docker/"><span class="card-category-list-name">docker</span><span class="card-category-list-count">23</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/mysql/"><span class="card-category-list-name">mysql</span><span class="card-category-list-count">29</span></a></li><li class="card-category-list-item"><a class="card-category-list-link" href="/categories/python/"><span class="card-category-list-name">python</span><span class="card-category-list-count">49</span></a></li>
+Kubernetes节点有运行应用容器必备的服务，而这些都是受Master的控制。
+每次个节点上当然都要运行Docker。Docker来负责所有具体的映像下载和容器运行。
+Kubernetes主要由以下几个核心组件组成：
+kubectl：k8s是命令行端，用来发送客户的操作指令。
+master节点
+1. API server[资源操作入口]：是k8s集群的前端接口，各种各样客户端工具以及k8s的其他组件可以通过它管理k8s集群的各种资源。它提供了HTTP/HTTPS RESTful API,即K8S API。
+
+
+提供了资源对象的唯一操作入口，其他所有组件都必须通过它提供的API来操作资源数据，只有API Server与存储通信，其他模块通过API Server访问集群状态。
+
+第一，是为了保证集群 ...</div></div></div><div class="recent-post-item"><div class="post_cover right_radius"><a href="/posts/6489.html" title="部署k8s集群">     <img class="post_bg" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/5 (24).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="部署k8s集群"></a></div><div class="recent-post-info"><a class="article-title" href="/posts/6489.html" title="部署k8s集群">部署k8s集群</a><div class="article-meta-wrap"><time class="post-meta__date" title="发表于 2019-08-24 00:00:00"><i class="far fa-calendar-alt"></i>2019-08-24</time><span class="article-meta"><span class="article-meta__separator">|</span><i class="fas fa-inbox article-meta__icon"></i><a class="article-meta__categories" href="/categories/Kubernetes/">Kubernetes</a></span></div><div class="content">一. Kubernetes 系统简介
+首先，他是一个全新的基于容器技术的分布式架构领先方案。Kubernetes(k8s)是Google开源的容器集群管理系统（内部:Borg）。在Docker技术的基础上，为容器化的应用提供部署运行、资源调度、服务发现和动态伸缩等一系列完整功能，提高了大规模容器集群管理的便捷性。
+　　Kubernetes是一个完备的分布式系统支撑平台，具有完备的集群管理能力，多扩多层次的安全防护和准入机制、多租户应用支撑能力、透明的服务注册和发现机制、內建智能负载均衡器、强大的故障发现和自我修复能力、服务滚动升级和在线扩容能力、可扩展的资源自动调度机制以及多粒度的资源配额管理能力。同时Kubernetes提供完善的管理工具，涵盖了包括开发、部署测试、运维监控在内的各个环节。
+Kubernetes中，Service是分布式集群架构的核心，一个Service对象拥有如下关键特征：
+
+拥有一个唯一指定的名字
+拥有一个虚拟IP（Cluster IP、Service IP、或VIP）和端口号
+能够体统某种远程服务能力
+被映射到了提供这种服务能力的一组容器应用上
+
+Service ...</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/page/9/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Wu Shao Dong</div><div class="author-info__description">Small steel gun article</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives"><div class="headline">文章</div><div class="length_num">123</div></a></div><div class="card-info-data-item is-center">      <a href="/tags"><div class="headline">标签</div><div class="length_num">87</div></a></div><div class="card-info-data-item is-center">     <a href="/categories"><div class="headline">分类</div><div class="length_num">4</div></a></div></div><div class="card-info-bookmark is-center"><button class="button--animated" id="bookmark-it" title="加入书签"><i class="fas fa-bookmark"></i><span>加入书签</span></button></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/xxxxx" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div></div><div class="card-widget card-announcement"><div class="card-content"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div></div><div class="card-widget card-recent-post"><div class="card-content"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-recent-item"><div class="aside-recent-post"><a href="/posts/49er.html"><div class="aside-post-cover"><img class="aside-post-bg" data-src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(11).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="nnobackupex全库备份+innobackupex增量备份" alt="nnobackupex全库备份+innobackupex增量备份"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49er.html" title="nnobackupex全库备份+innobackupex增量备份">nnobackupex全库备份+innobackupex增量备份</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-26 00:02:00">2020-06-26</time></div></a></div><div class="aside-recent-post"><a href="/posts/49lt.html"><div class="aside-post-cover"><img class="aside-post-bg" data-src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(9).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="Xtrabackup备份还原" alt="Xtrabackup备份还原"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49lt.html" title="Xtrabackup备份还原">Xtrabackup备份还原</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-25 00:02:00">2020-06-25</time></div></a></div><div class="aside-recent-post"><a href="/posts/49et.html"><div class="aside-post-cover"><img class="aside-post-bg" data-src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(7).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="mysqldump备份还原" alt="mysqldump备份还原"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49et.html" title="mysqldump备份还原">mysqldump备份还原</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-24 00:02:00">2020-06-24</time></div></a></div><div class="aside-recent-post"><a href="/posts/49wn.html"><div class="aside-post-cover"><img class="aside-post-bg" data-src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(5).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="MySQL配置参数优化" alt="MySQL配置参数优化"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49wn.html" title="MySQL配置参数优化">MySQL配置参数优化</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-23 00:02:00">2020-06-23</time></div></a></div><div class="aside-recent-post"><a href="/posts/49an.html"><div class="aside-post-cover"><img class="aside-post-bg" data-src="http://xgp-cunchu.test.upcdn.net/k8s/qq%20(3).jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" title="MySQL配置参数优化" alt="MySQL配置参数优化"/></div><div class="aside-post-title"><div class="aside-post_title" href="/posts/49an.html" title="MySQL配置参数优化">MySQL配置参数优化</div><time class="aside-post_meta post-meta__date" title="发表于 2020-06-22 00:02:00">2020-06-22</time></div></a></div></div></div></div><div class="card-widget card-categories"><div class="card-content"><div class="item-headline"><i class="fas fa-folder-open"></i><span>分类</span></div><ul class="card-category-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Kubernetes/"><span class="card-category-list-name">Kubernetes</span><span class="card-category-list-count">22</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/docker/"><span class="card-category-list-name">docker</span><span class="card-category-list-count">23</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/mysql/"><span class="card-category-list-name">mysql</span><span class="card-category-list-count">29</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/python/"><span class="card-category-list-name">python</span><span class="card-category-list-count">49</span></a></li>
                        
-            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fa fa-tags" aria-hidden="true"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/prompt/" style="font-size: 16px; color: #999">--prompt</a> <a href="/tags/tee/" style="font-size: 16px; color: #999">--tee</a> <a href="/tags/CronJob/" style="font-size: 16px; color: #999">CronJob</a> <a href="/tags/Deployment/" style="font-size: 16px; color: #999">Deployment</a> <a href="/tags/HPA/" style="font-size: 16px; color: #999">HPA</a> <a href="/tags/Job/" style="font-size: 16px; color: #999">Job</a> <a href="/tags/MySQL%E4%BC%98%E5%8C%96/" style="font-size: 18.57px; color: #99a0a9">MySQL优化</a> <a href="/tags/Namespace/" style="font-size: 16px; color: #999">Namespace</a> <a href="/tags/PodRestart/" style="font-size: 16px; color: #999">PodRestart</a> <a href="/tags/Policy/" style="font-size: 16px; color: #999">Policy</a> <a href="/tags/Prometheus/" style="font-size: 16px; color: #999">Prometheus</a> <a href="/tags/Replica/" style="font-size: 16px; color: #999">Replica</a> <a href="/tags/SetDaemonSet/" style="font-size: 16px; color: #999">SetDaemonSet</a> <a href="/tags/StatefulSet/" style="font-size: 16px; color: #999">StatefulSet</a> <a href="/tags/Storage-Class/" style="font-size: 19.43px; color: #99a2af">Storage Class</a> <a href="/tags/StorageClass/" style="font-size: 20.29px; color: #99a4b4">StorageClass</a> <a href="/tags/Weave-Scope/" style="font-size: 16px; color: #999">Weave Scope</a> <a href="/tags/alertmanager/" style="font-size: 16px; color: #999">alertmanager</a> <a href="/tags/apiVersion/" style="font-size: 16px; color: #999">apiVersion</a> <a href="/tags/bash/" style="font-size: 16px; color: #999">bash</a> <a href="/tags/bind-mount/" style="font-size: 16px; color: #999">bind mount</a> <a href="/tags/bridge/" style="font-size: 16px; color: #999">bridge</a> <a href="/tags/ca/" style="font-size: 16px; color: #999">ca</a> <a href="/tags/chares/" style="font-size: 16px; color: #999">chares</a> <a href="/tags/chart/" style="font-size: 16px; color: #999">chart</a> <a href="/tags/configmap/" style="font-size: 16px; color: #999">configmap</a> <a href="/tags/consul/" style="font-size: 16.86px; color: #999b9e">consul</a> <a href="/tags/dashboard/" style="font-size: 22px; color: #99a9bf">dashboard</a> <a href="/tags/deployment/" style="font-size: 21.14px; color: #99a7ba">deployment</a> <a href="/tags/deployments/" style="font-size: 16px; color: #999">deployments</a> <a href="/tags/docker/" style="font-size: 17.71px; color: #999ea4">docker</a> <a href="/tags/docker-manager-volu/" style="font-size: 16px; color: #999">docker manager volu</a> <a href="/tags/docker-compose/" style="font-size: 16.86px; color: #999b9e">docker-compose</a> <a href="/tags/docker-registry/" style="font-size: 16px; color: #999">docker-registry</a> <a href="/tags/dockerfile/" style="font-size: 16px; color: #999">dockerfile</a> <a href="/tags/dockerfile%E5%8F%82%E6%95%B0/" style="font-size: 16px; color: #999">dockerfile参数</a> <a href="/tags/docker%E5%91%BD%E4%BB%A4/" style="font-size: 16.86px; color: #999b9e">docker命令</a> <a href="/tags/docker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" style="font-size: 16px; color: #999">docker私有仓库</a> <a href="/tags/docker%E7%BD%91%E7%BB%9C/" style="font-size: 17.71px; color: #999ea4">docker网络</a> <a href="/tags/emptyDir/" style="font-size: 16px; color: #999">emptyDir</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fa fa-archive" aria-hidden="true"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">六月 2020</span><span class="card-archive-list-count">29</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/11/"><span class="card-archive-list-date">十一月 2019</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">15</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/09/"><span class="card-archive-list-date">九月 2019</span><span class="card-archive-list-count">45</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/08/"><span class="card-archive-list-date">八月 2019</span><span class="card-archive-list-count">31</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line" aria-hidden="true"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">文章数目 :</div><div class="webinfo-article-count">123</div></div><div class="webinfo-item"><div class="webinfo-runtime-name">已运行时间 :</div><div class="webinfo-runtime-count" id="webinfo-runtime-count" start_date="6/7/2018 00:00:00">     </div></div><div class="webinfo-item"><div class="webinfo-site-wordcount-name">本站总字数 :</div><div class="webinfo-site-wordcount">386.3k</div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">本站访客数 :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">本站总访问量 :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(/img/ss.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By Wu Shao Dong</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="ypy"><a href="https://console.upyun.com/services/file/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/1591433700(1).png"/><span></span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
- <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script id="ribbon_piao" mobile="false" src="/js/third-party/piao.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = true;
-document.body.addEventListener('input', POWERMODE);
-</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@3/instantpage.min.js" type="module"></script><script src="/js/search/local-search.js"></script><script src="https://cdn.jsdelivr.net/npm/typed.js"></script><script>var subtitleEffect = true
+            </ul></div></div><div class="card-widget card-tags"><div class="card-content"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/prompt/" style="font-size: 16px; color: #999">--prompt</a> <a href="/tags/tee/" style="font-size: 16px; color: #999">--tee</a> <a href="/tags/CronJob/" style="font-size: 16px; color: #999">CronJob</a> <a href="/tags/Deployment/" style="font-size: 16px; color: #999">Deployment</a> <a href="/tags/HPA/" style="font-size: 16px; color: #999">HPA</a> <a href="/tags/Job/" style="font-size: 16px; color: #999">Job</a> <a href="/tags/MySQL%E4%BC%98%E5%8C%96/" style="font-size: 18.57px; color: #99a0a9">MySQL优化</a> <a href="/tags/Namespace/" style="font-size: 16px; color: #999">Namespace</a> <a href="/tags/PodRestart/" style="font-size: 16px; color: #999">PodRestart</a> <a href="/tags/Policy/" style="font-size: 16px; color: #999">Policy</a> <a href="/tags/Prometheus/" style="font-size: 16px; color: #999">Prometheus</a> <a href="/tags/Replica/" style="font-size: 16px; color: #999">Replica</a> <a href="/tags/SetDaemonSet/" style="font-size: 16px; color: #999">SetDaemonSet</a> <a href="/tags/StatefulSet/" style="font-size: 16px; color: #999">StatefulSet</a> <a href="/tags/Storage-Class/" style="font-size: 19.43px; color: #99a2af">Storage Class</a> <a href="/tags/StorageClass/" style="font-size: 20.29px; color: #99a4b4">StorageClass</a> <a href="/tags/Weave-Scope/" style="font-size: 16px; color: #999">Weave Scope</a> <a href="/tags/alertmanager/" style="font-size: 16px; color: #999">alertmanager</a> <a href="/tags/apiVersion/" style="font-size: 16px; color: #999">apiVersion</a> <a href="/tags/bash/" style="font-size: 16px; color: #999">bash</a> <a href="/tags/bind-mount/" style="font-size: 16px; color: #999">bind mount</a> <a href="/tags/bridge/" style="font-size: 16px; color: #999">bridge</a> <a href="/tags/ca/" style="font-size: 16px; color: #999">ca</a> <a href="/tags/chares/" style="font-size: 16px; color: #999">chares</a> <a href="/tags/chart/" style="font-size: 16px; color: #999">chart</a> <a href="/tags/configmap/" style="font-size: 16px; color: #999">configmap</a> <a href="/tags/consul/" style="font-size: 16.86px; color: #999b9e">consul</a> <a href="/tags/dashboard/" style="font-size: 22px; color: #99a9bf">dashboard</a> <a href="/tags/deployment/" style="font-size: 21.14px; color: #99a7ba">deployment</a> <a href="/tags/deployments/" style="font-size: 16px; color: #999">deployments</a> <a href="/tags/docker/" style="font-size: 17.71px; color: #999ea4">docker</a> <a href="/tags/docker-manager-volu/" style="font-size: 16px; color: #999">docker manager volu</a> <a href="/tags/docker-compose/" style="font-size: 16.86px; color: #999b9e">docker-compose</a> <a href="/tags/docker-registry/" style="font-size: 16px; color: #999">docker-registry</a> <a href="/tags/dockerfile/" style="font-size: 16px; color: #999">dockerfile</a> <a href="/tags/dockerfile%E5%8F%82%E6%95%B0/" style="font-size: 16px; color: #999">dockerfile参数</a> <a href="/tags/docker%E5%91%BD%E4%BB%A4/" style="font-size: 16.86px; color: #999b9e">docker命令</a> <a href="/tags/docker%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/" style="font-size: 16px; color: #999">docker私有仓库</a> <a href="/tags/docker%E7%BD%91%E7%BB%9C/" style="font-size: 17.71px; color: #999ea4">docker网络</a> <a href="/tags/emptyDir/" style="font-size: 16px; color: #999">emptyDir</a></div></div></div><div class="card-widget card-archives"><div class="card-content"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/06/"><span class="card-archive-list-date">六月 2020</span><span class="card-archive-list-count">29</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/11/"><span class="card-archive-list-date">十一月 2019</span><span class="card-archive-list-count">3</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/10/"><span class="card-archive-list-date">十月 2019</span><span class="card-archive-list-count">15</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/09/"><span class="card-archive-list-date">九月 2019</span><span class="card-archive-list-count">45</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2019/08/"><span class="card-archive-list-date">八月 2019</span><span class="card-archive-list-count">31</span></a></li></ul></div></div><div class="card-widget card-webinfo"><div class="card-content"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="webinfo-article-name">文章数目 :</div><div class="webinfo-article-count">123</div></div><div class="webinfo-item">      <div class="webinfo-site-uv-name">本站访客数 :</div><div class="webinfo-site-uv-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="webinfo-site-name">本站总访问量 :</div><div class="webinfo-site-pv-count" id="busuanzi_value_site_pv"></div></div></div></div></div></div></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By Wu Shao Dong</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="https://cdn.jsdelivr.net/npm/typed.js"></script><script>var subtitleEffect = true
 if (subtitleEffect) { 
   var typed = new Typed("#subtitle", {
-    strings: '今日事&#44;今日畢,Never put off till tomorrow what you can do today'.split(","),
+    strings: "今日事&#44;今日畢,Never put off till tomorrow what you can do today".split(","),
     startDelay: 300,
     typeSpeed: 150,
-    loop: false,
+    loop: true,
     backSpeed: 50
   })
 } else {
   document.getElementById("subtitle").innerHTML = '今日事&#44;今日畢'
-}</script><script>var endLoading = function () {
-  document.body.style.overflow = 'auto';
-  document.getElementById('loading-box').classList.add("loaded")
-}
-window.addEventListener('load',endLoading)</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
+}</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
