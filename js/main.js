@@ -1,6 +1,6 @@
 $(function () {
   const isSnackbar = GLOBAL_CONFIG.Snackbar !== undefined
-  const $nav = $('#nav')
+  const $pageHead = $('#page-header')
   const $rightside = $('#rightside')
   const $body = $('body')
 
@@ -9,16 +9,16 @@ $(function () {
     * 傳入 1 sidebar打開時
    * 傳入 2 正常狀態下
    */
-  const blogNameWidth = $('#blog_name').width()
-  const menusWidth = $('.menus').width()
-  const sidebarWidth = $('#sidebar').width()
+  var blogNameWidth = $('#blog_name').width()
+  var menusWidth = $('.menus').width()
+  var sidebarWidth = $('#sidebar').width()
 
   function isAdjust (n) {
-    let t
+    var t
     if (n === 1) {
-      t = blogNameWidth + menusWidth > $nav.width() - sidebarWidth - 20
+      t = blogNameWidth + menusWidth > $pageHead.width() - sidebarWidth - 20
     } else if (n === 2) {
-      t = blogNameWidth + menusWidth > $nav.width() - 20
+      t = blogNameWidth + menusWidth > $pageHead.width() - 20
     }
 
     if (t) headerAdjust()
@@ -26,15 +26,15 @@ $(function () {
   }
 
   function headerAdjust () {
-    $nav.find('.toggle-menu').addClass('is-visible-inline')
-    $nav.find('.menus_items').addClass('is-invisible')
-    $nav.find('#search_button span').addClass('is-invisible')
+    $pageHead.find('.toggle-menu').addClass('is-visible-inline')
+    $pageHead.find('.menus_items').addClass('is_invisible')
+    $pageHead.find('#search_button span').addClass('is_invisible')
   }
 
   function headerAdjustBack () {
-    $nav.find('.toggle-menu').removeClass('is-visible-inline')
-    $nav.find('.menus_items').removeClass('is-invisible')
-    $nav.find('#search_button span').removeClass('is-invisible')
+    $pageHead.find('.toggle-menu').removeClass('is-visible-inline')
+    $pageHead.find('.menus_items').removeClass('is_invisible')
+    $pageHead.find('#search_button span').removeClass('is_invisible')
   }
 
   // 初始化header
@@ -44,15 +44,25 @@ $(function () {
   }
 
   initAjust()
-  $('#nav').css({ opacity: '1', animation: 'headerNoOpacity 1s' })
+  $('#page-header').css({ opacity: '1', animation: 'headerNoOpacity 1s' })
 
   $(window).on('resize', function () {
-    if ($('#sidebar').hasClass('tocOpenPc') && $nav.hasClass('fixed')) {
+    if ($('#sidebar').hasClass('tocOpenPc') && $pageHead.hasClass('fixed')) {
       isAdjust(1)
     } else {
       initAjust()
     }
   })
+
+  /**
+   * windows時 設置主頁top_img 為 fixed
+   */
+  if (GLOBAL_CONFIG_SITE.isHome) {
+    var isSafari = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent)
+    if (!isSafari && isDesktop()) {
+      $('#nav').css('background-attachment', 'fixed')
+    }
+  }
 
   /**
    * 進入post頁sidebar處理
@@ -106,8 +116,8 @@ $(function () {
       color: '#99a9bf',
       opacity: '1'
     })
-    const isAdjustTimeCount = window.setInterval(function () {
-      if ($nav.hasClass('fixed')) isAdjust(1)
+    var isAdjustTimeCount = window.setInterval(function () {
+      if ($pageHead.hasClass('fixed')) isAdjust(1)
       else isAdjust(2)
     }, 100)
     setTimeout(function () {
@@ -116,7 +126,7 @@ $(function () {
   }
 
   $('#toggle-sidebar').on('click', function () {
-    const isOpen = $(this).hasClass('on')
+    var isOpen = $(this).hasClass('on')
     isOpen ? $(this).removeClass('on') : $(this).addClass('on')
     if (isOpen) {
       closeSidebar()
@@ -130,10 +140,10 @@ $(function () {
    * 顯示menu和toc的sidebar
    */
 
-  const $toggleMenu = $('.toggle-menu')
-  const $mobileSidebarMenus = $('#mobile-sidebar-menus')
-  const $mobileTocButton = $('#mobile-toc-button')
-  const $menuMask = $('#menu_mask')
+  var $toggleMenu = $('.toggle-menu')
+  var $mobileSidevarMenus = $('#mobile-sidebar-menus')
+  var $mobileTocButton = $('#mobile-toc-button')
+  var $menuMask = $('#menu_mask')
 
   function openMobileSidebar (name) {
     sidebarPaddingR()
@@ -142,11 +152,11 @@ $(function () {
 
     if (name === 'menu') {
       $toggleMenu.removeClass('close').addClass('open')
-      $mobileSidebarMenus.css('transform', 'translate3d(-100%,0,0)')
-      const $mobileSidebarMenusChild = $mobileSidebarMenus.children()
-      for (let i = 0; i <= $mobileSidebarMenusChild.length; i++) {
+      $mobileSidevarMenus.css('transform', 'translate3d(-100%,0,0)')
+      var $mobileSidevarMenusChild = $mobileSidevarMenus.children()
+      for (let i = 0; i <= $mobileSidevarMenusChild.length; i++) {
         const duration = i / 5 + 0.2
-        $mobileSidebarMenusChild.eq(i).css('animation', 'sidebarItem ' + duration + 's')
+        $mobileSidevarMenusChild.eq(i).css('animation', 'sidebarItem ' + duration + 's')
       }
     }
 
@@ -163,7 +173,7 @@ $(function () {
 
     if (name === 'menu') {
       $toggleMenu.removeClass('open').addClass('close')
-      $mobileSidebarMenus.css('transform', '')
+      $mobileSidevarMenus.css('transform', '')
       $('#mobile-sidebar-menus > div,#mobile-sidebar-menus > hr').css('animation', '')
     }
 
@@ -211,7 +221,7 @@ $(function () {
    * 首頁top_img底下的箭頭
    */
   $('#scroll_down').on('click', function () {
-    scrollToDest('#content-inner')
+    scrollTo('#content-inner')
   })
 
   /**
@@ -227,7 +237,7 @@ $(function () {
       return true
     } else { // webkit - safari/chrome
       if (isSnackbar) {
-        const bookmarkText = GLOBAL_CONFIG.Snackbar.bookmark.message_prev + ' ' + (navigator.userAgent.toLowerCase().indexOf('mac') !== -1 ? 'Command/Cmd' : 'CTRL') + '+ D ' + GLOBAL_CONFIG.Snackbar.bookmark.message_next + '.'
+        var bookmarkText = GLOBAL_CONFIG.Snackbar.bookmark.message_prev + ' ' + (navigator.userAgent.toLowerCase().indexOf('mac') !== -1 ? 'Command/Cmd' : 'CTRL') + '+ D ' + GLOBAL_CONFIG.Snackbar.bookmark.message_next + '.'
         snackbarShow(bookmarkText)
       } else {
         alert(GLOBAL_CONFIG.bookmark.message_prev + ' ' + (navigator.userAgent.toLowerCase().indexOf('mac') !== -1 ? 'Command/Cmd' : 'CTRL') + '+ D ' + GLOBAL_CONFIG.bookmark.message_next + '.')
@@ -244,52 +254,51 @@ $(function () {
   if ($figureHighlight.length) {
     const isHighlightCopy = GLOBAL_CONFIG.highlightCopy
     const isHighlightLang = GLOBAL_CONFIG.highlightLang
-    const isHighlightShrink = GLOBAL_CONFIG_SITE.isHighlightShrink
+    const isHighlightShrink = GLOBAL_CONFIG.highlightShrink
 
-    if (isHighlightCopy || isHighlightLang || isHighlightShrink !== undefined) {
-      $figureHighlight.prepend('<div class="highlight-tools"></div>')
+    if (isHighlightCopy || isHighlightLang || isHighlightShrink !== 'none') {
+      $figureHighlight.wrap('<div class="code-area-wrap"></div>').before('<div class="highlight-tools"></div>')
     }
 
     /**
    * 代碼收縮
    */
     const $highlightTools = $('.highlight-tools')
-    if (isHighlightShrink === true) {
-      $highlightTools.append('<i class="fas fa-angle-down code-expand code-closed"></i>')
-    } else if (isHighlightShrink === false) {
-      $highlightTools.append('<i class="fas fa-angle-down code-expand"></i>')
+    if (isHighlightShrink === 'true') {
+      $highlightTools.append('<i class="fa fa-angle-down code-expand code-closed" aria-hidden="true"></i>')
+    } else if (isHighlightShrink === 'false') {
+      $highlightTools.append('<i class="fa fa-angle-down code-expand" aria-hidden="true"></i>')
     }
 
     $(document).on('click', '.highlight-tools >.code-expand', function () {
-      const $hideItem = $(this).parent().nextAll()
+      var $table = $(this).parent().next()
       if ($(this).hasClass('code-closed')) {
-        $hideItem.css('display', 'block')
+        $table.css('display', 'block')
         $(this).removeClass('code-closed')
       } else {
-        $hideItem.css('display', 'none')
+        $table.css('display', 'none')
         $(this).addClass('code-closed')
       }
     })
 
     /**
     * 代碼語言
-    */
+  */
     if (isHighlightLang) {
-      let langNameIndex, langName
+      var langNameIndex, langName
       $figureHighlight.each(function () {
         langNameIndex = langName = $(this).attr('class').split(' ')[1]
-        if (langNameIndex === 'plain' || langNameIndex === undefined) langName = 'Code'
-        $(this).find('.highlight-tools').append('<div class="code-lang">' + langName + '</div>')
+        if (langNameIndex === 'plain') langName = 'Code'
+        $(this).prev().append('<div class="code-lang">' + langName + '</div>')
       })
     }
-
     /**
-    * 代碼copy
-    * copy function
-    */
+   * 代碼copy
+   * copy function
+   */
     if (isHighlightCopy) {
-      $highlightTools.append('<div class="copy-notice"></div><i class="fas fa-paste copy-button"></i>')
-      const copy = function (text, ctx) {
+      $highlightTools.append('<div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i>')
+      var copy = function (text, ctx) {
         if (document.queryCommandSupported && document.queryCommandSupported('copy')) {
           try {
             document.execCommand('copy') // Security exception may be thrown by some browsers.
@@ -299,11 +308,13 @@ $(function () {
               $(ctx).prev('.copy-notice')
                 .text(GLOBAL_CONFIG.copy.success)
                 .animate({
-                  opacity: 1
+                  opacity: 1,
+                  right: 30
                 }, 450, function () {
                   setTimeout(function () {
                     $(ctx).prev('.copy-notice').animate({
-                      opacity: 0
+                      opacity: 0,
+                      right: 0
                     }, 650)
                   }, 400)
                 })
@@ -315,11 +326,13 @@ $(function () {
               $(ctx).prev('.copy-notice')
                 .text(GLOBAL_CONFIG.copy.error)
                 .animate({
-                  opacity: 1
+                  opacity: 1,
+                  right: 30
                 }, 650, function () {
                   setTimeout(function () {
                     $(ctx).prev('.copy-notice').animate({
-                      opacity: 0
+                      opacity: 0,
+                      right: 0
                     }, 650)
                   }, 400)
                 })
@@ -336,18 +349,15 @@ $(function () {
       }
 
       // click events
-      $(document).on('click', '.highlight-tools>.copy-button', function () {
-        const $buttonParent = $(this).parents('figure.highlight')
-        $buttonParent.addClass('copy-true')
-        const selection = window.getSelection()
-        const range = document.createRange()
-        range.selectNodeContents($buttonParent.find('table .code pre')[0])
+      $(document).on('click', '.highlight-tools>.fa-clipboard', function () {
+        var selection = window.getSelection()
+        var range = document.createRange()
+        range.selectNodeContents($(this).parent().next().find('.code pre')[0])
         selection.removeAllRanges()
         selection.addRange(range)
-        const text = selection.toString()
+        var text = selection.toString()
         copy(text, this)
         selection.removeAllRanges()
-        $buttonParent.removeClass('copy-true')
       })
     }
   }
@@ -356,11 +366,11 @@ $(function () {
  * PhotoFigcaption
  */
   function addPhotoFigcaption () {
-    const images = $('#article-container img').not('.justified-gallery img')
+    var images = $('#article-container img')
     images.each(function (i, o) {
-      const $this = $(o)
+      var $this = $(o)
       if ($this.attr('alt')) {
-        const t = $('<div class="img-alt is-center">' + $this.attr('alt') + '</div>')
+        var t = $('<div class="img-alt is-center">' + $this.attr('alt') + '</div>')
         $this.after(t)
       }
     })
@@ -370,11 +380,11 @@ $(function () {
   /**
    * justified-gallery 圖庫排版
    */
-  const $justifiedGallery = $('.justified-gallery')
-  let isJustifiedGallery = false
+  var $justifiedGallery = $('.justified-gallery')
+  var isJustifiedGallery = false
   if ($justifiedGallery.length) {
     isJustifiedGallery = true
-    const $imgList = $justifiedGallery.find('img')
+    var $imgList = $justifiedGallery.find('img')
     $imgList.unwrap()
     if ($imgList.length) {
       $imgList.each(function (i, o) {
@@ -382,23 +392,40 @@ $(function () {
         $(o).wrap('<div></div>')
       })
     }
-    $('head').append(`<link rel="stylesheet" type="text/css" href="${GLOBAL_CONFIG.justifiedGallery.css}">`)
-    loadScript(`${GLOBAL_CONFIG.justifiedGallery.js}`, function () {
+    $('head').append('<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css">')
+    loadScript('https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js', function () {
       initJustifiedGallery($justifiedGallery)
     })
+
+    var initJustifiedGallery = function (selector) {
+      selector.each(function (i, o) {
+        if ($(this).is(':visible')) {
+          $(this).justifiedGallery({
+            rowHeight: 220,
+            margins: 4
+          })
+        }
+      })
+    }
   }
 
   /**
    * fancybox和 mediumZoom
    */
 
-  const isMediumZoom = GLOBAL_CONFIG.medium_zoom
-  const isFancybox = GLOBAL_CONFIG.fancybox
+  var isMediumZoom = GLOBAL_CONFIG.medium_zoom
+  var isFancybox = GLOBAL_CONFIG.fancybox
   if (isFancybox) {
-    const images = $('#article-container img:not(.gallery-group-img)').not($('a>img'))
+    var images = $('#article-container img:not(.gallery-group-img)').not($('a>img'))
     images.each(function (i, o) {
-      const lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
-      $(o).wrap(`<a href="${lazyloadSrc}" data-fancybox="group" data-caption="${$(o).attr('alt')}" class="fancybox"></a>`)
+      var lazyloadSrc = $(o).attr('data-src') ? $(o).attr('data-src') : $(o).attr('src')
+      $(o).wrap(
+        '<a href="' +
+        lazyloadSrc +
+        '" data-fancybox="group" data-caption="' +
+        $(o).attr('alt') +
+        '" class="fancybox"></a>'
+      )
     })
 
     $().fancybox({
@@ -411,7 +438,7 @@ $(function () {
   } else if (isMediumZoom) {
     const zoom = mediumZoom(document.querySelectorAll('#article-container :not(a)>img'))
     zoom.on('open', function (event) {
-      const photoBg = $(document.documentElement).attr('data-theme') === 'dark' ? '#121212' : '#fff'
+      var photoBg = $(document.documentElement).attr('data-theme') === 'dark' ? '#121212' : '#fff'
       zoom.update({
         background: photoBg
       })
@@ -419,44 +446,40 @@ $(function () {
   }
 
   /**
+   * lazyload
+   */
+  if (GLOBAL_CONFIG.islazyload) {
+    window.lozad('img').observe()
+  }
+
+  /**
    * 滾動處理
    */
-  let initTop = 0
-  let isChatShow = true
-  const isChatBtnHide = typeof chatBtnHide === 'function'
-  const isChatBtnShow = typeof chatBtnShow === 'function'
-  $(window).scroll(throttle(function (event) {
-    const currentTop = $(this).scrollTop()
-    const isDown = scrollDirection(currentTop)
+  var initTop = 0
+  $(window).scroll(function (event) {
+    var currentTop = $(this).scrollTop()
+    var isUp = scrollDirection(currentTop)
     if (currentTop > 56) {
-      if (isDown) {
-        if ($nav.hasClass('visible')) $nav.removeClass('visible')
-        if (isChatBtnShow && isChatShow === true) {
-          chatBtnHide()
-          isChatShow = false
-        }
+      if (isUp) {
+        if ($pageHead.hasClass('visible')) $pageHead.removeClass('visible')
       } else {
-        if (!$nav.hasClass('visible')) $nav.addClass('visible')
-        if (isChatBtnHide && isChatShow === false) {
-          window.chatBtnShow()
-          isChatShow = true
-        }
+        if (!$pageHead.hasClass('visible')) $pageHead.addClass('visible')
       }
-      $nav.addClass('fixed')
+      $pageHead.addClass('fixed')
       if ($rightside.css('opacity') === '0') {
         $rightside.css({ opacity: '1', transform: 'translateX(-38px)' })
       }
     } else {
       if (currentTop === 0) {
-        $nav.removeClass('fixed').removeClass('visible')
+        $pageHead.removeClass('fixed').removeClass('visible')
       }
       $rightside.css({ opacity: '', transform: '' })
     }
-  }, 200))
+  })
 
   // find the scroll direction
   function scrollDirection (currentTop) {
-    const result = currentTop > initTop // true is down & false is up
+    var result = currentTop > initTop // true is down & false is up
     initTop = currentTop
     return result
   }
@@ -465,7 +488,7 @@ $(function () {
    * 點擊滾回頂部
    */
   $('#go-up').on('click', function () {
-    scrollToDest('body')
+    scrollTo('body')
   })
 
   /**
@@ -477,7 +500,7 @@ $(function () {
 
     // main of scroll
     $(window).scroll(throttle(function (event) {
-      const currentTop = $(this).scrollTop()
+      var currentTop = $(this).scrollTop()
       scrollPercent(currentTop)
       findHeadPosition(currentTop)
       autoScrollToc(currentTop)
@@ -489,25 +512,25 @@ $(function () {
         closeMobileSidebar('toc')
       } else {
         e.preventDefault()
-        scrollToDest($(this).attr('href'))
+        scrollTo($(this).attr('href'))
       }
     })
 
     // expand toc-item
-    const expandToc = function ($item) {
+    var expandToc = function ($item) {
       if ($item.is(':visible')) {
         return
       }
       $item.fadeIn(400)
     }
 
-    const scrollPercent = function (currentTop) {
-      const docHeight = $('#article-container').height()
-      const winHeight = $(window).height()
-      const contentMath = (docHeight > winHeight) ? (docHeight - winHeight) : ($(document).height() - winHeight)
-      const scrollPercent = (currentTop) / (contentMath)
-      const scrollPercentRounded = Math.round(scrollPercent * 100)
-      const percentage = (scrollPercentRounded > 100) ? 100
+    var scrollPercent = function (currentTop) {
+      var docHeight = $('#article-container').height()
+      var winHeight = $(window).height()
+      var contentMath = (docHeight > winHeight) ? (docHeight - winHeight) : ($(document).height() - winHeight)
+      var scrollPercent = (currentTop) / (contentMath)
+      var scrollPercentRounded = Math.round(scrollPercent * 100)
+      var percentage = (scrollPercentRounded > 100) ? 100
         : (scrollPercentRounded <= 0) ? 0
           : scrollPercentRounded
       $('.progress-num').text(percentage)
@@ -517,8 +540,8 @@ $(function () {
     }
 
     // anchor
-    const isanchor = GLOBAL_CONFIG.isanchor
-    const updateAnchor = function (anchor) {
+    var isanchor = GLOBAL_CONFIG.isanchor
+    var updateAnchor = function (anchor) {
       if (window.history.replaceState && anchor !== window.location.hash) {
         window.history.replaceState(undefined, undefined, anchor)
       }
@@ -528,17 +551,17 @@ $(function () {
     // DOM Hierarchy:
     // ol.toc > (li.toc-item, ...)
     // li.toc-item > (a.toc-link, ol.toc-child > (li.toc-item, ...))
-    const findHeadPosition = function (top) {
+    var findHeadPosition = function (top) {
     // assume that we are not in the post page if no TOC link be found,
     // thus no need to update the status
       if ($('.toc-link').length === 0) {
         return false
       }
 
-      const list = $('#article-container').find('h1,h2,h3,h4,h5,h6')
-      let currentId = ''
+      var list = $('#article-container').find('h1,h2,h3,h4,h5,h6')
+      var currentId = ''
       list.each(function () {
-        const head = $(this)
+        var head = $(this)
         if (top > head.offset().top - 25) {
           currentId = '#' + $(this).attr('id')
         }
@@ -549,20 +572,20 @@ $(function () {
         $('.toc-child').hide()
       }
 
-      const currentActive = $('.toc-link.active')
+      var currentActive = $('.toc-link.active')
       if (currentId && currentActive.attr('href') !== currentId) {
         if (isanchor) updateAnchor(currentId)
 
         $('.toc-link').removeClass('active')
 
-        const _this = $('.toc-link[href="' + currentId + '"]')
+        var _this = $('.toc-link[href="' + currentId + '"]')
         _this.addClass('active')
 
-        const parents = _this.parents('.toc-child')
+        var parents = _this.parents('.toc-child')
         // Returned list is in reverse order of the DOM elements
         // Thus `parents.last()` is the outermost .toc-child container
         // i.e. list of subsections
-        const topLink = (parents.length > 0) ? parents.last() : _this
+        var topLink = (parents.length > 0) ? parents.last() : _this
         expandToc(topLink.closest('.toc-item').find('.toc-child'))
         topLink
           // Find all top-level .toc-item containers, i.e. sections
@@ -573,10 +596,10 @@ $(function () {
       }
     }
 
-    const autoScrollToc = function (currentTop) {
+    var autoScrollToc = function (currentTop) {
       if ($('.toc-link').hasClass('active')) {
-        const activePosition = $('.active').offset().top
-        const sidebarScrolltop = $('#sidebar .sidebar-toc__content').scrollTop()
+        var activePosition = $('.active').offset().top
+        var sidebarScrolltop = $('#sidebar .sidebar-toc__content').scrollTop()
         if (activePosition > (currentTop + $(window).height() - 100)) {
           $('#sidebar .sidebar-toc__content').scrollTop(sidebarScrolltop + 100)
         }
@@ -620,7 +643,7 @@ $(function () {
   })
 
   $(window).on('touchmove', function (e) {
-    const $menusChild = $('#nav .menus_item_child')
+    var $menusChild = $('#page-header .menus_item_child')
     if ($menusChild.is(':visible')) {
       $menusChild.css('display', 'none')
     }
@@ -640,7 +663,7 @@ $(function () {
   /**
    * 複製時加上版權信息
    */
-  const copyright = GLOBAL_CONFIG.copyright
+  var copyright = GLOBAL_CONFIG.copyright
   if (copyright !== undefined) {
     document.body.oncopy = function (event) {
       event.preventDefault()
@@ -666,16 +689,31 @@ $(function () {
   /**
    * Darkmode
    */
-  const $darkModeButtom = $('#darkmode')
+  var isFontAwesomeV5 = GLOBAL_CONFIG.isFontAwesomeV5
+  var $darkModeButtom = $('#darkmode')
+  if (typeof autoChangeMode !== 'undefined') {
+    document.documentElement.getAttribute('data-theme') === 'dark' ? changeLightIcon() : changeDarkIcon()
+  }
+
+  function changeLightIcon () {
+    isFontAwesomeV5 ? $darkModeButtom.removeClass('fa-moon').addClass('fa-sun') : $darkModeButtom.removeClass('fa-moon-o').addClass('fa-sun-o')
+  }
+
+  function changeDarkIcon () {
+    isFontAwesomeV5 ? $darkModeButtom.removeClass('fa-sun').addClass('fa-moon') : $darkModeButtom.removeClass('fa-sun-o').addClass('fa-moon-o')
+  }
+
   function switchReadMode () {
-    const nowMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+    var nowMode = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
     if (nowMode === 'light') {
+      changeLightIcon()
       activateDarkMode()
-      Cookies.set('theme', 'dark', 2)
+      Cookies.set('theme', 'dark', { expires: 2 })
       if (isSnackbar) snackbarShow(GLOBAL_CONFIG.Snackbar.day_to_night)
     } else {
+      changeDarkIcon()
       activateLightMode()
-      Cookies.set('theme', 'light', 2)
+      Cookies.set('theme', 'light', { expires: 2 })
       if (isSnackbar) snackbarShow(GLOBAL_CONFIG.Snackbar.night_to_day)
     }
   }
@@ -690,41 +728,34 @@ $(function () {
    */
   if (GLOBAL_CONFIG.runtime) {
     // get user config
-    const $runtimeCount = $('#webinfo-runtime-count')
-    const startDate = $runtimeCount.attr('publish_date')
-    const showDateTime = function () {
-      const BirthDay = new Date(startDate)
-      const today = new Date()
-      const timeold = (today.getTime() - BirthDay.getTime())
-      const daysold = Math.floor(timeold / (24 * 60 * 60 * 1000))
+    var $runtimeCount = $('#webinfo-runtime-count')
+    var startDate = $runtimeCount.attr('start_date')
+    var showDateTime = function () {
+      var BirthDay = new Date(startDate)
+      var today = new Date()
+      var timeold = (today.getTime() - BirthDay.getTime())
+      var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000))
       $runtimeCount.text(daysold + ' ' + GLOBAL_CONFIG.runtime_unit)
     }
+    var interval
     showDateTime()
-    setInterval(showDateTime, 10000)
+    clearInterval(interval)
+    interval = setInterval(showDateTime, 10000)
   }
-
-  /**
-   * table overflow
-   */
-
-  const $table = $('#article-container table').not($('figure.highlight > table'))
-  $table.each(function () {
-    $(this).wrap('<div class="table-wrap"></div>')
-  })
 
   /**
    * 百度推送
    */
   if (GLOBAL_CONFIG.baiduPush) {
     (function () {
-      const bp = document.createElement('script')
-      const curProtocol = window.location.protocol.split(':')[0]
+      var bp = document.createElement('script')
+      var curProtocol = window.location.protocol.split(':')[0]
       if (curProtocol === 'https') {
         bp.src = 'https://zz.bdstatic.com/linksubmit/push.js'
       } else {
         bp.src = 'http://push.zhanzhang.baidu.com/push.js'
       }
-      const s = document.getElementsByTagName('script')[0]
+      var s = document.getElementsByTagName('script')[0]
       s.parentNode.insertBefore(bp, s)
     })()
   }
@@ -732,11 +763,12 @@ $(function () {
   /**
    * tag-hide
    */
-  const $hideInline = $('.hide-button')
+  var $hideInline = $('.hide-button')
   if ($hideInline.length) {
     $hideInline.on('click', function (e) {
-      const $this = $(this)
-      const $hideContent = $(this).next('.hide-content')
+      e.preventDefault()
+      var $this = $(this)
+      var $hideContent = $(this).next('.hide-content')
       $this.toggleClass('open')
       $hideContent.toggle()
       if ($this.hasClass('open')) {
@@ -745,72 +777,5 @@ $(function () {
         }
       }
     })
-  }
-
-  const $tab = $('#article-container .tabs')
-  $tab.find('.tab button').on('click', function (e) {
-    const $this = $(this)
-    const $tabItem = $this.parent()
-
-    if (!$tabItem.hasClass('active')) {
-      const $tacbContent = $this.parents('.nav-tabs').next()
-      $tabItem.siblings('.active').removeClass('active')
-      $tabItem.addClass('active')
-      const tabId = $this.attr('data-href')
-      $tacbContent.find('> .tab-item-content').removeClass('active')
-      $tacbContent.find(`> ${tabId}`).addClass('active')
-      const $isTabJustifiedGallery = $tacbContent.find(tabId).find('.justified-gallery')
-      if (isJustifiedGallery && $isTabJustifiedGallery.length > 0) {
-        initJustifiedGallery($isTabJustifiedGallery)
-      }
-    }
-  })
-
-  const $cardCategory = $('.card-category-list-item.parent a')
-  $cardCategory.on('click', function (e) {
-    if ($(event.target).hasClass('card-category-list-icon')) {
-      const $this = $(this)
-      $this.find('.card-category-list-icon').toggleClass('expand')
-      $this.parent().next().toggle()
-      return false
-    }
-  })
-
-  let switchDone = false
-  $('#switch-comments-btn').change(function () {
-    $('#post-comment > .comment-wrap > div').each(function () {
-      if ($(this).is(':visible')) {
-        $(this).hide()
-      } else {
-        $(this).css({
-          display: 'block',
-          animation: 'tabshow .5s'
-        })
-      }
-    })
-    if (!switchDone && typeof loadOtherComment === 'function') {
-      switchDone = true
-      loadOtherComment()
-    }
-  })
-
-  if (GLOBAL_CONFIG_SITE.isPost && GLOBAL_CONFIG.noticeOutdate !== undefined) {
-    const data = GLOBAL_CONFIG.noticeOutdate
-    const diffDate = function (d) {
-      const dateNow = new Date()
-      const datePost = new Date(d.replace(/-/g, '/'))
-      const dateDiff = dateNow.getTime() - datePost.getTime()
-      const dayDiff = Math.floor(dateDiff / (24 * 3600 * 1000))
-      return dayDiff
-    }
-    var diffDay = diffDate(GLOBAL_CONFIG_SITE.postUpdate)
-    if (diffDay >= data.limitDay) {
-      const code = `<div class="post-outdate-notice">${data.messagePrev + ' ' + diffDay + ' ' + data.messageNext}</div>`
-      if (data.position === 'top') {
-        $('#article-container').prepend(code)
-      } else {
-        $('#article-container').append(code)
-      }
-    }
   }
 })

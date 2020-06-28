@@ -13,7 +13,7 @@ $(function () {
     })
   })
 
-  const closeSearch = function () {
+  var closeSearch = function () {
     $('body').css('width', '')
     $('body').css('overflow', '')
     $('.search-dialog').css({
@@ -33,13 +33,13 @@ $(function () {
   }
   $('.search-mask, .search-close-button').on('click touchstart', closeSearch)
 
-  const algolia = GLOBAL_CONFIG.algolia
-  const isAlgoliaValid = algolia.appId && algolia.apiKey && algolia.indexName
+  var algolia = GLOBAL_CONFIG.algolia
+  var isAlgoliaValid = algolia.appId && algolia.apiKey && algolia.indexName
   if (!isAlgoliaValid) {
     return console.error('Algolia setting is invalid!')
   }
 
-  const search = instantsearch({
+  var search = instantsearch({
     appId: algolia.appId,
     apiKey: algolia.apiKey,
     indexName: algolia.indexName,
@@ -47,7 +47,7 @@ $(function () {
       hitsPerPage: algolia.hits.per_page || 10
     },
     searchFunction: function (helper) {
-      const searchInput = $('#algolia-search-input').find('input')
+      var searchInput = $('#algolia-search-input').find('input')
 
       if (searchInput.val()) {
         helper.search()
@@ -68,7 +68,7 @@ $(function () {
       container: '#algolia-hits',
       templates: {
         item: function (data) {
-          const link = data.permalink ? data.permalink : (GLOBAL_CONFIG.root + data.path)
+          var link = data.permalink ? data.permalink : (GLOBAL_CONFIG.root + data.path)
           return (
             '<a href="' + link + '" class="algolia-hit-item-link">' +
             data._highlightResult.title.value +
@@ -94,13 +94,13 @@ $(function () {
       container: '#algolia-stats',
       templates: {
         body: function (data) {
-          const stats = GLOBAL_CONFIG.algolia.languages.hits_stats
+          var stats = GLOBAL_CONFIG.algolia.languages.hits_stats
             .replace(/\$\{hits}/, data.nbHits)
             .replace(/\$\{time}/, data.processingTimeMS)
           return (
             '<hr>' +
             stats +
-            '<span class="algolia-logo pull-right">' +
+            '<span class="algolia-logo pull_right">' +
             '  <img src="' + GLOBAL_CONFIG.root + 'img/algolia.svg" alt="Algolia" />' +
             '</span>'
           )
@@ -115,10 +115,10 @@ $(function () {
       scrollTo: false,
       showFirstLast: false,
       labels: {
-        first: '<i class="fas fa-angle-double-left"></i>',
-        last: '<i class="fas fa-angle-double-right"></i>',
-        previous: '<i class="fas fa-angle-left"></i>',
-        next: '<i class="fas fa-angle-right"></i>'
+        first: '<i class="fa fa-angle-double-left"></i>',
+        last: '<i class="fa fa-angle-double-right"></i>',
+        previous: '<i class="fa fa-angle-left"></i>',
+        next: '<i class="fa fa-angle-right"></i>'
       },
       cssClasses: {
         root: 'pagination',
