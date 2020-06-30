@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://wsdlxgp.top/"/>
-  <updated>2020-06-30T04:02:23.396Z</updated>
+  <updated>2020-06-30T04:06:23.429Z</updated>
   <id>https://wsdlxgp.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://wsdlxgp.top/posts/b9c4.html"/>
     <id>https://wsdlxgp.top/posts/b9c4.html</id>
     <published>2020-06-29T10:28:11.818Z</published>
-    <updated>2020-06-30T04:02:23.396Z</updated>
+    <updated>2020-06-30T04:06:23.429Z</updated>
     
     <content type="html"><![CDATA[<h1>五、Keepalived高可用</h1><h4 id="1、Keepalived简介">1、Keepalived简介</h4><p>keepalived是集群管理中保证集群高可用的一个软件解决方案，其功能类似于heartbeat，用来防止单点故障 keepalived是以VRRP协议为实现基础的，VRRP全称Virtual RouterRedundancy Protocol，即虚拟路由冗余协议。</p><p>虚拟路由冗余协议，可以认为是实现路由器高可用的协议，即将N台提供相同功能的路由器组成一个路由器组，这个组里面有一个master和多个backup，master上面有一个对外提供服务的vip，master会发组播（组播地址为224.0.0.18），当backup收不到vrrp包时就认为master宕掉了，这时就需要根据VRRP的优先级来选举一个backup当master。这样的话就可以保证路由器的高可用了。</p><p>keepalived主要有三个模块，分别是core 、check和vrrp。</p><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs tex">(1)core模块为keepalived的核心，负责主进程的启动、维护以及全局配置文件的加载和解析。<br>(2)check负责健康检查，包括常见的各种检查方式。<br>(3)vrrp模块是来实现VRRP协议的。<br></code></pre></td></tr></table></figure><h4 id="2、keepalived的安装配置">2、keepalived的安装配置</h4><p>（1）在master1和master2上安装软件包keepalived</p><p>（2）修改Keepalived的配置文件</p>]]></content>
     
