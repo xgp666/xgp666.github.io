@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySQL索引 | Xgp &amp; Blog</title><meta name="description" content="A: 为什么要使用索引 索引是 MySQL 中一种十分重要的数据库对象。它是数据库性能调优技术的基础，常用于实现数据的快速检索。 索引就是根据表中的一列或若干列按照一定顺序建立的列值与记录行之间的对应关系表，实质上是一张描述索引列的列值与原表中记录行之间一一对应关系的有序表。 在 MySQL 中，通常有以下两种方式访问数据库表的行数据： 1) 顺序访问 顺序访问是在表中实行全表扫描，从头到尾逐行遍"><meta name="keywords" content="sql结构化查询语句,数值类型"><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="https://gitee.com/xgpqq/tuchuang/raw/master/img/Yun.png"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="dns-prefetch" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="https://hm.baidu.com"/><link rel="dns-prefetch" href="https://hm.baidu.com"/><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="crossorigin"/><link rel="dns-prefetch" href="https://fonts.googleapis.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="dns-prefetch" href="//busuanzi.ibruce.info"/><meta name="baidu-site-verification" content="rPK0WSwqdm"/><meta name="twitter:card" content="summary"><meta name="twitter:title" content="MySQL索引"><meta name="twitter:description" content="A: 为什么要使用索引 索引是 MySQL 中一种十分重要的数据库对象。它是数据库性能调优技术的基础，常用于实现数据的快速检索。 索引就是根据表中的一列或若干列按照一定顺序建立的列值与记录行之间的对应关系表，实质上是一张描述索引列的列值与原表中记录行之间一一对应关系的有序表。 在 MySQL 中，通常有以下两种方式访问数据库表的行数据： 1) 顺序访问 顺序访问是在表中实行全表扫描，从头到尾逐行遍"><meta name="twitter:image" content="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq102p.jpg"><meta property="og:type" content="article"><meta property="og:title" content="MySQL索引"><meta property="og:url" content="https://wsdlxgp.top/posts/8338.html"><meta property="og:site_name" content="Xgp &amp; Blog"><meta property="og:description" content="A: 为什么要使用索引 索引是 MySQL 中一种十分重要的数据库对象。它是数据库性能调优技术的基础，常用于实现数据的快速检索。 索引就是根据表中的一列或若干列按照一定顺序建立的列值与记录行之间的对应关系表，实质上是一张描述索引列的列值与原表中记录行之间一一对应关系的有序表。 在 MySQL 中，通常有以下两种方式访问数据库表的行数据： 1) 顺序访问 顺序访问是在表中实行全表扫描，从头到尾逐行遍"><meta property="og:image" content="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq102p.jpg"><meta property="article:published_time" content="2020-06-07T16:00:00.000Z"><meta property="article:modified_time" content="2020-06-30T06:49:36.301Z"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>var autoChangeMode = '1'
+var t = Cookies.get("theme")
+if (autoChangeMode == '1'){
+  var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+  var isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+  var isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined){
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport){
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour < 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+  }
+  } else if (t == 'light') activateLightMode()
+  else activateDarkMode()
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://wsdlxgp.top/posts/8338.html"><link rel="prev" title="MySQL 事务(1)" href="https://wsdlxgp.top/posts/b0d5.html"><link rel="next" title="MySQL视图" href="https://wsdlxgp.top/posts/a0ec.html"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?cad0cd04042fcca2c687648c42a45fc9";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: Wu Shao Dong","link":"链接: ","source":"来源: Xgp & Blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  highlightShrink: 'false',
+  isFontAwesomeV5: true,
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+  
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isSidebar: true  
+  }</script><noscript><style>
+#page-header {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><link rel="stylesheet" href="/self/Kimbiedark.css"><meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism.css" type="text/css"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
+</head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><canvas class="fireworks"></canvas><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/666.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">132</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">76</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 我</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 其他</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 视频</span></a></li></ul></div></div></div></div><i class="fa fa-arrow-right on" id="toggle-sidebar" aria-hidden="true">     </i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-为什么要使用索引"><span class="toc-number">1.</span> <span class="toc-text">A: 为什么要使用索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-顺序访问"><span class="toc-number">1.0.1.</span> <span class="toc-text">1) 顺序访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-索引访问"><span class="toc-number">1.0.2.</span> <span class="toc-text">2) 索引访问</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-索引的分类"><span class="toc-number">2.</span> <span class="toc-text">B: 索引的分类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-B-树索引"><span class="toc-number">2.0.1.</span> <span class="toc-text">1) B-树索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-哈希索引"><span class="toc-number">2.0.2.</span> <span class="toc-text">2) 哈希索引</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-常用索引类型"><span class="toc-number">3.</span> <span class="toc-text">C: 常用索引类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D-索引的使用原则和注意事项"><span class="toc-number">4.</span> <span class="toc-text">D: 索引的使用原则和注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">一、MySQL创建索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、MySQL-提供了三种创建索引的方法："><span class="toc-number">1.</span> <span class="toc-text">1、MySQL 提供了三种创建索引的方法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-使用-CREATE-INDEX-语句"><span class="toc-number">1.1.</span> <span class="toc-text">1) 使用 CREATE INDEX 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式："><span class="toc-number">1.1.0.1.</span> <span class="toc-text">语法格式：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用-CREATE-TABLE-语句"><span class="toc-number">1.2.</span> <span class="toc-text">2) 使用 CREATE TABLE 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-2"><span class="toc-number">1.2.0.1.</span> <span class="toc-text">语法格式：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-3"><span class="toc-number">1.2.0.2.</span> <span class="toc-text">语法格式：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-4"><span class="toc-number">1.2.0.3.</span> <span class="toc-text">语法格式：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-使用-ALTER-TABLE-语句"><span class="toc-number">1.2.1.</span> <span class="toc-text">3) 使用 ALTER TABLE 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-5"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">语法格式：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-6"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">语法格式：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-7"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">语法格式：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-8"><span class="toc-number">1.2.1.4.</span> <span class="toc-text">语法格式：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、创建一般索引"><span class="toc-number">2.</span> <span class="toc-text">2、创建一般索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、创建唯一索引"><span class="toc-number">3.</span> <span class="toc-text">3、创建唯一索引</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">二、查看索引</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-9"><span class="toc-number">0.0.0.1.</span> <span class="toc-text">语法格式：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#【实例-】"><span class="toc-number">0.1.</span> <span class="toc-text">【实例 】</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">三、MySQL修改和删除索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本语法"><span class="toc-number">1.</span> <span class="toc-text">基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-使用-DROP-INDEX-语句"><span class="toc-number">1.0.1.</span> <span class="toc-text">1) 使用 DROP INDEX 语句</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#语法格式：-10"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">语法格式：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#语法说明如下："><span class="toc-number">1.0.2.</span> <span class="toc-text">语法说明如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-使用-ALTER-TABLE-语句"><span class="toc-number">1.0.3.</span> <span class="toc-text">2) 使用 ALTER TABLE 语句</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除索引"><span class="toc-number">2.</span> <span class="toc-text">删除索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#【实例-1】"><span class="toc-number">2.1.</span> <span class="toc-text">【实例 1】</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#【实例-2】"><span class="toc-number">2.2.</span> <span class="toc-text">【实例 2】</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">四、MySQL索引的设计原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-选择唯一性索引"><span class="toc-number">0.0.1.</span> <span class="toc-text">1. 选择唯一性索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-为经常需要排序、分组和联合操作的字段建立索引"><span class="toc-number">0.0.2.</span> <span class="toc-text">2. 为经常需要排序、分组和联合操作的字段建立索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-为常作为查询条件的字段建立索引"><span class="toc-number">0.0.3.</span> <span class="toc-text">3. 为常作为查询条件的字段建立索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-限制索引的数目"><span class="toc-number">0.0.4.</span> <span class="toc-text">4. 限制索引的数目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-尽量使用数据量少的索引"><span class="toc-number">0.0.5.</span> <span class="toc-text">**5. **尽量使用数据量少的索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-数据量小的表最好不要使用索引"><span class="toc-number">0.0.6.</span> <span class="toc-text">6. 数据量小的表最好不要使用索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-尽量使用前缀来索引"><span class="toc-number">0.0.7.</span> <span class="toc-text">7. 尽量使用前缀来索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-删除不再使用或者很少使用的索引"><span class="toc-number">0.0.8.</span> <span class="toc-text">**8. **删除不再使用或者很少使用的索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">0.0.9.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">小练习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建索引的指导原则"><span class="toc-number">1.</span> <span class="toc-text">创建索引的指导原则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#按照下列标准选择建立索引的列"><span class="toc-number">1.1.</span> <span class="toc-text">按照下列标准选择建立索引的列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#请不要使用下面的列创建索引"><span class="toc-number">1.2.</span> <span class="toc-text">请不要使用下面的列创建索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用索引时注意事项"><span class="toc-number">2.</span> <span class="toc-text">使用索引时注意事项</span></a></li></ol></div></div></div><div id="body-wrap"><div class="post-bg" id="nav" style="background-image: url(https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq102p.jpg)"><div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull_right menus"><div id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 我</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fa fa-list" aria-hidden="true"></i><span> 其他</span><i class="fa fa-chevron-down menus-expand" aria-hidden="true"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fa fa-music"></i><span> 音乐</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fa fa-film"></i><span> 视频</span></a></li></ul></div></div><span class="toggle-menu close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span></span></div><div id="post-info"><div id="post-title"><div class="posttitle">MySQL索引</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-08 00:00:00"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2020-06-08</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-30 14:49:36"><i class="fa fa-history" aria-hidden="true"></i> 更新于 2020-06-30</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/mysql/">mysql</a></span></div><div class="meta-secondline"> <span class="post-meta-wordcount"><i class="post-meta__icon far fa-file-word" aria-hidden="true"></i><span>字数总计:</span><span class="word-count">5.1k</span><span class="post-meta__separator">|</span><i class="post-meta__icon far fa-clock" aria-hidden="true"></i><span>阅读时长: 17 分钟</span></span></div><div class="meta-thirdline"><span class="post-meta-pv-cv"><span class="post-meta__separator">|</span><i class="fa fa-eye post-meta__icon" aria-hidden="true"> </i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></div><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="A-为什么要使用索引">A: 为什么要使用索引</h2>
+<p><strong>索引是 MySQL 中一种十分重要的数据库对象。它是数据库性能调优技术的基础，常用于实现数据的快速检索。</strong></p>
+<p><strong>索引就是根据表中的一列或若干列按照一定顺序建立的列值与记录行之间的对应关系表，实质上是一张描述索引列的列值与原表中记录行之间一一对应关系的有序表。</strong></p>
+<p><strong>在 MySQL 中，通常有以下两种方式访问数据库表的行数据：</strong></p>
+<h4 id="1-顺序访问">1) 顺序访问</h4>
+<p><strong>顺序访问是在表中实行全表扫描，从头到尾逐行遍历，直到在无序的行数据中找到符合条件的目标数据。这种方式实现比较简单，但是当表中有大量数据的时候，效率非常低下。例如，在几千万条数据中查找少量的数据时，使用顺序访问方式将会遍历所有的数据，花费大量的时间，显然会影响数据库的处理性能。</strong></p>
+<h4 id="2-索引访问">2) 索引访问</h4>
+<p><strong>索引访问是通过遍历索引来直接访问表中记录行的方式。使用这种方式的前提是对表建立一个索引，在列上创建了索引之后，查找数据时可以直接根据该列上的索引找到对应记录行的位置，从而快捷地查找到数据。索引存储了指定列数据值的指针，根据指定的排序顺序对这些指针排序。</strong></p>
+<p><strong>例如，在学生基本信息表 students 中，如果基于 student_id 建立了索引，系统就建立了一张索引列到实际记录的映射表，当用户需要查找 student_id 为 12022 的数据的时候，系统先在 student_id 索引上找到该记录，然后通过映射表直接找到数据行，并且返回该行数据。因为扫描索引的速度一般远远大于扫描实际数据行的速度，所以采用索引的方式可以大大提高数据库的工作效率。</strong></p>
+<h2 id="B-索引的分类">B: 索引的分类</h2>
+<p><strong>索引的类型和存储引擎有关，每种存储引擎所支持的索引类型不一定完全相同。根据存储方式的不同，MySQL 中常用的索引在物理上分为以下两类。</strong></p>
+<h4 id="1-B-树索引">1) B-树索引</h4>
+<p><strong>B-树索引又称为 BTREE 索引，目前大部分的索引都是采用 B-树索引来存储的。B-树索引是一个典型的<a href="http://c.biancheng.net/data_structure/" target="_blank" rel="noopener">数据结构</a>，其包含的组件主要有以下几个：</strong></p>
+<ul>
+<li><strong>叶子节点：包含的条目直接指向表里的数据行。叶子节点之间彼此相连，一个叶子节点有一个指向下一个叶子节点的指针。</strong></li>
+<li><strong>分支节点：包含的条目指向索引里其他的分支节点或者叶子节点。</strong></li>
+<li><strong>根节点：一个 B-树索引只有一个根节点，实际上就是位于树的最顶端的分支节点。</strong></li>
+</ul>
+<h4 id="2-哈希索引">2) 哈希索引</h4>
+<p><strong>哈希（Hash）一般翻译为“散列”，也有直接音译成“哈希”的，就是把任意长度的输入（又叫作预映射，pre-image）通过散列算法变换成固定长度的输出，该输出就是散列值。</strong></p>
+<p><strong>哈希索引也称为散列索引或 HASH 索引。MySQL 目前仅有 MEMORY 存储引擎和 HEAP 存储引擎支持这类索引。其中，MEMORY 存储引擎可以支持 B- 树索引和 HASH 索引，且将 HASH 当成默认索引。</strong></p>
+<h2 id="C-常用索引类型">C: 常用索引类型</h2>
+<table>
+<thead>
+<tr>
+<th>普通索引</th>
+<th>●基本索引类型<br>●允许在定义索引的列中插入重复值和空值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>唯一索引</td>
+<td>●索引列数据不重复<br>●允许有空值</td>
+</tr>
+<tr>
+<td>主键索引</td>
+<td>●主键列中的每个值是非空、唯一的</td>
+</tr>
+<tr>
+<td>复合索引</td>
+<td>●一个主键将自动创建主键索引<br>●将多个列组合作为索引</td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>●支持值的全文查找</td>
+</tr>
+<tr>
+<td>空间索引</td>
+<td>●允许重复值和空值<br>●对空间数据类型的列建立的索引</td>
+</tr>
+</tbody>
+</table>
+<h2 id="D-索引的使用原则和注意事项">D: 索引的使用原则和注意事项</h2>
+<p><strong>虽然索引可以加快查询速度，提高 MySQL 的处理性能，但是过多地使用索引也会造成以下弊端：</strong></p>
+<ul>
+<li><strong>创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加。</strong></li>
+<li><strong>除了数据表占数据空间之外，每一个索引还要占一定的物理空间。如果要建立聚簇索引，那么需要的空间就会更大。</strong></li>
+<li><strong>当对表中的数据进行增加、删除和修改的时候，索引也要动态地维护，这样就降低了数据的维护速度。</strong></li>
+</ul>
+<blockquote>
+<p><strong>注意：索引可以在一些情况下加速查询，但是在某些情况下，会降低效率。</strong></p>
+</blockquote>
+<p><strong>索引只是提高效率的一个因素，因此在建立索引的时候应该遵循以下原则：</strong></p>
+<ul>
+<li><strong>在经常需要搜索的列上建立索引，可以加快搜索的速度。</strong></li>
+<li><strong>在作为主键的列上创建索引，强制该列的唯一性，并组织表中数据的排列结构。</strong></li>
+<li><strong>在经常使用表连接的列上创建索引，这些列主要是一些外键，可以加快表连接的速度。</strong></li>
+<li><strong>在经常需要根据范围进行搜索的列上创建索引，因为索引已经排序，所以其指定的范围是连续的。</strong></li>
+<li><strong>在经常需要排序的列上创建索引，因为索引已经排序，所以查询时可以利用索引的排序，加快排序查询。</strong></li>
+<li><strong>在经常使用 WHERE 子句的列上创建索引，加快条件的判断速度。</strong></li>
+</ul>
+<p><strong>与此对应，在某些应用场合下建立索引不能提高 MySQL 的工作效率，甚至在一定程度上还带来负面效应，降低了数据库的工作效率，一般来说不适合创建索引的环境如下：</strong></p>
+<ul>
+<li><strong>对于那些在查询中很少使用或参考的列不应该创建索引。因为这些列很少使用到，所以有索引或者无索引并不能提高查询速度。相反，由于增加了索引，反而降低了系统的维护速度，并增大了空间要求。</strong></li>
+<li><strong>对于那些只有很少数据值的列也不应该创建索引。因为这些列的取值很少，例如人事表的性别列。查询结果集的数据行占了表中数据行的很大比例，增加索引并不能明显加快检索速度。</strong></li>
+<li><strong>对于那些定义为 TEXT、IMAGE 和 BIT 数据类型的列不应该创建索引。因为这些列的数据量要么相当大，要么取值很少。</strong></li>
+<li><strong>当修改性能远远大于检索性能时，不应该创建索引。因为修改性能和检索性能是互相矛盾的。当创建索引时，会提高检索性能，降低修改性能。当减少索引时，会提高修改性能，降低检索性能。因此，当修改性能远远大于检索性能时，不应该创建索引。</strong></li>
+</ul>
+<h1>一、MySQL创建索引</h1>
+<h2 id="1、MySQL-提供了三种创建索引的方法：">1、MySQL 提供了三种创建索引的方法：</h2>
+<h3 id="1-使用-CREATE-INDEX-语句">1) 使用 CREATE INDEX 语句</h3>
+<p><strong>可以使用专门用于创建索引的 CREATE INDEX 语句在一个已有的表上创建索引，但该语句不能创建主键。</strong></p>
+<h5 id="语法格式：">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">CREATE <索引名> ON <表名> (<列名> [<长度>] [ ASC | DESC])<br></code></pre></td></tr></table></figure>
+<h3 id="2-使用-CREATE-TABLE-语句">2) 使用 CREATE TABLE 语句</h3>
+<p><strong>索引也可以在创建表（CREATE TABLE）的同时创建。在 CREATE TABLE 语句中添加以下语句。语法格式：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">CONSTRAINT PRIMARY KEY [索引类型] (<列名>,…)<br></code></pre></td></tr></table></figure>
+<h5 id="语法格式：-2">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">KEY | INDEX [<索引名>] [<索引类型>] (<列名>,…)<br></code></pre></td></tr></table></figure>
+<p><strong>在 CREATE TABLE 语句中添加此语句，表示在创建新表的同时创建该表的索引。</strong></p>
+<h5 id="语法格式：-3">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">UNIQUE [ INDEX | KEY] [<索引名>] [<索引类型>] (<列名>,…)<br></code></pre></td></tr></table></figure>
+<p><strong>在 CREATE TABLE 语句中添加此语句，表示在创建新表的同时创建该表的唯一性索引。</strong></p>
+<h5 id="语法格式：-4">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">FOREIGN KEY <索引名> <列名><br></code></pre></td></tr></table></figure>
+<p><strong>在 CREATE TABLE 语句中添加此语句，表示在创建新表的同时创建该表的外键。</strong></p>
+<p><strong>在使用 CREATE TABLE 语句定义列选项的时候，可以通过直接在某个列定义后面添加 PRIMARY KEY 的方式创建主键。而当主键是由多个列组成的多列索引时，则不能使用这种方法，只能用在语句的最后加上一个 PRIMARY KRY(&lt;列名&gt;，…) 子句的方式来实现。</strong></p>
+<h4 id="3-使用-ALTER-TABLE-语句">3) 使用 ALTER TABLE 语句</h4>
+<p><strong>CREATE INDEX 语句可以在一个已有的表上创建索引，ALTER TABLE 语句也可以在一个已有的表上创建索引。在使用 ALTER TABLE 语句修改表的同时，可以向已有的表添加索引。具体的做法是在 ALTER TABLE 语句中添加以下语法成分的某一项或几项。</strong></p>
+<h5 id="语法格式：-5">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">ADD INDEX [<索引名>] [<索引类型>] (<列名>,…)<br></code></pre></td></tr></table></figure>
+<p><strong>在 ALTER TABLE 语句中添加此语法成分，表示在修改表的同时为该表添加索引。</strong></p>
+<h5 id="语法格式：-6">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">ADD PRIMARY KEY [<索引类型>] (<列名>,…)<br></code></pre></td></tr></table></figure>
+<p><strong>在 ALTER TABLE 语句中添加此语法成分，表示在修改表的同时为该表添加主键。</strong></p>
+<h5 id="语法格式：-7">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">ADD UNIQUE [ INDEX | KEY] [<索引名>] [<索引类型>] (<列名>,…)<br></code></pre></td></tr></table></figure>
+<p><strong>在 ALTER TABLE 语句中添加此语法成分，表示在修改表的同时为该表添加唯一性索引。</strong></p>
+<h5 id="语法格式：-8">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">ADD FOREIGN KEY [<索引名>] (<列名>,…)<br></code></pre></td></tr></table></figure>
+<p><strong>在 ALTER TABLE 语句中添加此语法成分，表示在修改表的同时为该表添加外键。</strong></p>
+<h2 id="2、创建一般索引">2、创建一般索引</h2>
+<p><strong>创建一个表 tb_stu_info，在该表的 height 字段创建一般索引。输入的 SQL 语句和执行过程如下所示。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> CREATE TABLE tb_stu_info<br>    -> (<br>    -> id INT NOT NULL,<br>    -> name CHAR(45) DEFAULT NULL,<br>    -> dept_id INT DEFAULT NULL,<br>    -> age INT DEFAULT NULL,<br>    -> height INT DEFAULT NULL,<br>    -> INDEX(height)<br>    -> );<br>Query OK，0 rows affected (0.40 sec)<br>mysql> SHOW CREATE TABLE tb_stu_info\G<br>*************************** 1. row ***************************<br>       Table: tb_stu_info<br>Create Table: CREATE TABLE &#96;tb_stu_info&#96; (<br>  &#96;id&#96; int(11) NOT NULL,<br>  &#96;name&#96; char(45) DEFAULT NULL,<br>  &#96;dept_id&#96; int(11) DEFAULT NULL,<br>  &#96;age&#96; int(11) DEFAULT NULL,<br>  &#96;height&#96; int(11) DEFAULT NULL,<br>  KEY &#96;height&#96; (&#96;height&#96;)<br>) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;gb2312<br>1 row in set (0.01 sec)<br></code></pre></td></tr></table></figure>
+<h2 id="3、创建唯一索引">3、创建唯一索引</h2>
+<p><strong>创建一个表 tb_stu_info2，在该表的 id 字段上使用 UNIQUE 关键字创建唯一索引。输入的 SQL 语句和执行过程如下所示。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> CREATE TABLE tb_stu_info2<br>    -> (<br>    -> id INT NOT NULL,<br>    -> name CHAR(45) DEFAULT NULL,<br>    -> dept_id INT DEFAULT NULL,<br>    -> age INT DEFAULT NULL,<br>    -> height INT DEFAULT NULL,<br>    -> UNIQUE INDEX(height)<br>    -> );<br>Query OK，0 rows affected (0.40 sec)<br><br>mysql> SHOW CREATE TABLE tb_stu_info2\G<br>*************************** 1. row ***************************<br>       Table: tb_stu_info2<br>Create Table: CREATE TABLE &#96;tb_stu_info2&#96; (<br>  &#96;id&#96; int(11) NOT NULL,<br>  &#96;name&#96; char(45) DEFAULT NULL,<br>  &#96;dept_id&#96; int(11) DEFAULT NULL,<br>  &#96;age&#96; int(11) DEFAULT NULL,<br>  &#96;height&#96; int(11) DEFAULT NULL,<br>  UNIQUE KEY &#96;height&#96; (&#96;height&#96;)<br>) ENGINE&#x3D;InnoDB DEFAULT CHARSET&#x3D;gb2312<br>1 row in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h1>二、查看索引</h1>
+<p><strong>在 MySQL 中，如果要查看已创建的索引的情况，可以使用 SHOW INDEX 语句查看表中创建的索引。</strong></p>
+<h5 id="语法格式：-9">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs MySQL"><code class="language-hljs MySQL">SHOW INDEX FROM <表名> [ FROM <数据库名>]<br></code></pre></td></tr></table></figure>
+<p><strong>语法说明如下：</strong></p>
+<ul>
+<li><strong><code>&lt;表名&gt;</code>：要显示索引的表。</strong></li>
+<li><strong><code>&lt;数据库名&gt;</code>：要显示的表所在的数据库。</strong></li>
+</ul>
+<p><strong>显示数据库 mytest 的表 course 的索引情况。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs MySQL"><code class="language-hljs MySQL">mysql> SHOW INDEX FROM course FROM mytest;<br></code></pre></td></tr></table></figure>
+<p><strong>该语句会返回一张结果表，该表有如下几个字段，每个字段所显示的内容说明如下。</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Table</td>
+<td>表示创建索引的数据表名，这里是 tb_stu_info2 数据表。</td>
+</tr>
+<tr>
+<td>Non_unique</td>
+<td>表示该索引是否是唯一索引。若不是唯一索引，则该列的值为 1；若是唯一索引，则该列的值为 0。</td>
+</tr>
+<tr>
+<td>Key_name</td>
+<td>表示索引的名称。</td>
+</tr>
+<tr>
+<td>Seq_in_index</td>
+<td>表示该列在索引中的位置，如果索引是单列的，则该列的值为 1；如果索引是组合索引，则该列的值为每列在索引定义中的顺序。</td>
+</tr>
+<tr>
+<td>Column_name</td>
+<td>表示定义索引的列字段。</td>
+</tr>
+<tr>
+<td>Collation</td>
+<td>表示列以何种顺序存储在索引中。在 MySQL 中，升序显示值“A”（升序），若显示为 NULL，则表示无分类。</td>
+</tr>
+<tr>
+<td>Cardinality</td>
+<td>索引中唯一值数目的估计值。基数根据被存储为整数的统计数据计数，所以即使对于小型表，该值也没有必要是精确的。基数越大，当进行联合时，MySQL 使用该索引的机会就越大。</td>
+</tr>
+<tr>
+<td>Sub_part</td>
+<td>表示列中被编入索引的字符的数量。若列只是部分被编入索引，则该列的值为被编入索引的字符的数目；若整列被编入索引，则该列的值为 NULL。</td>
+</tr>
+<tr>
+<td>Packed</td>
+<td>指示关键字如何被压缩。若没有被压缩，值为 NULL。</td>
+</tr>
+<tr>
+<td>Null</td>
+<td>用于显示索引列中是否包含 NULL。若列含有 NULL，该列的值为 YES。若没有，则该列的值为 NO。</td>
+</tr>
+<tr>
+<td>Index_type</td>
+<td>显示索引使用的类型和方法（BTREE、FULLTEXT、HASH、RTREE）。</td>
+</tr>
+<tr>
+<td>Comment</td>
+<td>显示评注。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="【实例-】">【实例 】</h3>
+<p><strong>使用 SHOW INDEX 语句查看表 tb_stu_info2 的索引信息，输入的 SQL 语句和执行结果如下所示。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> SHOW INDEX FROM tb_stu_info2\G<br>*************************** 1. row ***************************<br>        Table: tb_stu_info2<br>   Non_unique: 0<br>     Key_name: height<br>Seq_in_index: 1<br>  Column_name: height<br>    Collation: A<br>  Cardinality: 0<br>     Sub_part: NULL<br>       Packed: NULL<br>         Null: YES<br>   Index_type: BTREE<br>      Comment:<br>Index_comment:<br>1 row in set (0.03 sec)<br></code></pre></td></tr></table></figure>
+<h1>三、MySQL修改和删除索引</h1>
+<h2 id="基本语法">基本语法</h2>
+<p><strong>当不再需要索引时，可以使用 DROP INDEX 语句或 ALTER TABLE 语句来对索引进行删除。</strong></p>
+<h4 id="1-使用-DROP-INDEX-语句">1) 使用 DROP INDEX 语句</h4>
+<h5 id="语法格式：-10">语法格式：</h5>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">DROP INDEX <索引名> ON <表名><br></code></pre></td></tr></table></figure>
+<h4 id="语法说明如下：">语法说明如下：</h4>
+<ul>
+<li><strong><code>&lt;索引名&gt;</code>：要删除的索引名。</strong></li>
+<li><strong><code>&lt;表名&gt;</code>：指定该索引所在的表名。</strong></li>
+</ul>
+<h4 id="2-使用-ALTER-TABLE-语句">2) 使用 ALTER TABLE 语句</h4>
+<p><strong>根据 ALTER TABLE 语句的语法可知，该语句也可以用于删除索引。具体使用方法是将 ALTER TABLE 语句的语法中部分指定为以下子句中的某一项。</strong></p>
+<ul>
+<li><strong>DROP PRIMARY KEY：表示删除表中的主键。一个表只有一个主键，主键也是一个索引。</strong></li>
+<li><strong>DROP INDEX index_name：表示删除名称为 index_name 的索引。</strong></li>
+<li><strong>DROP FOREIGN KEY fk_symbol：表示删除外键。</strong></li>
+</ul>
+<blockquote>
+<p><strong>注意：如果删除的列是索引的组成部分，那么在删除该列时，也会将该列从索引中删除；如果组成索引的所有列都被删除，那么整个索引将被删除。</strong></p>
+</blockquote>
+<h2 id="删除索引">删除索引</h2>
+<h3 id="【实例-1】">【实例 1】</h3>
+<p><strong>删除表 tb_stu_info 中的索引，输入的 SQL 语句和执行结果如下所示。</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre class=" language-hljs routeros">mysql&gt; DROP INDEX height<br>    -&gt; ON tb_stu_info;<br>Query OK, 0 rows affected (0.27 sec)<br>Records: 0  Duplicates: 0  Warnings: 0<br>mysql&gt; SHOW CREATE TABLE tb_stu_info\G<br>*************************** 1. row ***************************<br>       Table: tb_stu_info<br>Create Table: CREATE TABLE `tb_stu_info` (<br>  `id` int(11) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,<br>  `name` char(45)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `dept_id` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `age` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `height` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span><br>) <span class="hljs-attribute">ENGINE</span>=InnoDB<span class="hljs-built_in"> DEFAULT </span><span class="hljs-attribute">CHARSET</span>=gb2312<br>1 row <span class="hljs-keyword">in</span> <span class="hljs-builtin-name"><code class="language-hljs routeros">mysql&gt; DROP INDEX height<br>    -&gt; ON tb_stu_info;<br>Query OK, 0 rows affected (0.27 sec)<br>Records: 0  Duplicates: 0  Warnings: 0<br>mysql&gt; SHOW CREATE TABLE tb_stu_info\G<br>*************************** 1. row ***************************<br>       Table: tb_stu_info<br>Create Table: CREATE TABLE `tb_stu_info` (<br>  `id` int(11) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,<br>  `name` char(45)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `dept_id` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `age` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `height` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span><br>) <span class="hljs-attribute">ENGINE</span>=InnoDB<span class="hljs-built_in"> DEFAULT </span><span class="hljs-attribute">CHARSET</span>=gb2312<br>1 row <span class="hljs-keyword">in</span> <span class="hljs-builtin-name">set</span> (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h3 id="【实例-2】">【实例 2】</h3>
+<p><strong>删除表 tb_stu_info2 中名称为 id 的索引，输入的 SQL 语句和执行结果如下所示。</strong></p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre class=" language-hljs routeros">mysql&gt; ALTER TABLE tb_stu_info2<br>    -&gt; DROP INDEX height;<br>Query OK, 0 rows affected (0.13 sec)<br>Records: 0  Duplicates: 0  Warnings: 0<br>mysql&gt; SHOW CREATE TABLE tb_stu_info2\G<br>*************************** 1. row ***************************<br>       Table: tb_stu_info2<br>Create Table: CREATE TABLE `tb_stu_info2` (<br>  `id` int(11) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,<br>  `name` char(45)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `dept_id` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `age` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `height` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span><br>) <span class="hljs-attribute">ENGINE</span>=InnoDB<span class="hljs-built_in"> DEFAULT </span><span class="hljs-attribute">CHARSET</span>=gb2312<br>1 row <span class="hljs-keyword">in</span> <span class="hljs-builtin-name"><code class="language-hljs routeros">mysql&gt; ALTER TABLE tb_stu_info2<br>    -&gt; DROP INDEX height;<br>Query OK, 0 rows affected (0.13 sec)<br>Records: 0  Duplicates: 0  Warnings: 0<br>mysql&gt; SHOW CREATE TABLE tb_stu_info2\G<br>*************************** 1. row ***************************<br>       Table: tb_stu_info2<br>Create Table: CREATE TABLE `tb_stu_info2` (<br>  `id` int(11) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,<br>  `name` char(45)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `dept_id` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `age` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span>,<br>  `height` int(11)<span class="hljs-built_in"> DEFAULT </span><span class="hljs-literal">NULL</span><br>) <span class="hljs-attribute">ENGINE</span>=InnoDB<span class="hljs-built_in"> DEFAULT </span><span class="hljs-attribute">CHARSET</span>=gb2312<br>1 row <span class="hljs-keyword">in</span> <span class="hljs-builtin-name">set</span> (0.00 sec)<br></code></pre></td></tr></table></figure>
+<h1>四、MySQL索引的设计原则</h1>
+<p><strong>索引的设计可以遵循一些已有的原则，创建索引的时候应尽量考虑符合这些原则，便于提升索引的使用效率，更高效的使用索引。本节将介绍一些索引的设计原则。</strong></p>
+<h4 id="1-选择唯一性索引">1. 选择唯一性索引</h4>
+<p><strong>唯一性索引的值是唯一的，可以更快速的通过该索引来确定某条记录。例如，学生表中学号是具有唯一性的字段。为该字段建立唯一性索引可以很快的确定某个学生的信息。如果使用姓名的话，可能存在同名现象，从而降低查询速度。</strong></p>
+<h4 id="2-为经常需要排序、分组和联合操作的字段建立索引">2. 为经常需要排序、分组和联合操作的字段建立索引</h4>
+<p><strong>经常需要 ORDER BY、GROUP BY、DISTINCT 和 UNION 等操作的字段，排序操作会浪费很多时间。如果为其建立索引，可以有效地避免排序操作。</strong></p>
+<h4 id="3-为常作为查询条件的字段建立索引">3. 为常作为查询条件的字段建立索引</h4>
+<p><strong>如果某个字段经常用来做查询条件，那么该字段的查询速度会影响整个表的查询速度。因此，为这样的字段建立索引，可以提高整个表的查询速度。</strong></p>
+<p><strong>注意：常查询条件的字段不一定是所要选择的列，换句话说，最适合索引的列是出现在 WHERE 子句中的列，或连接子句中指定的列，而不是出现在 SELECT 关键字后的选择列表中的列。</strong></p>
+<h4 id="4-限制索引的数目">4. 限制索引的数目</h4>
+<p><strong>索引的数目不是“越多越好”。每个索引都需要占用磁盘空间，索引越多，需要的磁盘空间就越大。在修改表的内容时，索引必须进行更新，有时还可能需要重构。因此，索引越多，更新表的时间就越长。</strong></p>
+<p><strong>如果有一个索引很少利用或从不使用，那么会不必要地减缓表的修改速度。此外，MySQL 在生成一个执行计划时，要考虑各个索引，这也要花费时间。创建多余的索引给查询优化带来了更多的工作。索引太多，也可能会使 MySQL 选择不到所要使用的最佳索引。</strong></p>
+<h4 id="5-尽量使用数据量少的索引">**5. **尽量使用数据量少的索引</h4>
+<p><strong>如果索引的值很长，那么查询的速度会受到影响。例如，对一个 CHAR(100) 类型的字段进行全文检索需要的时间肯定要比对 CHAR(10) 类型的字段需要的时间要多。</strong></p>
+<h4 id="6-数据量小的表最好不要使用索引">6. 数据量小的表最好不要使用索引</h4>
+<p><strong>由于数据较小，查询花费的时间可能比遍历索引的时间还要短，索引可能不会产生优化效果。</strong></p>
+<h4 id="7-尽量使用前缀来索引">7. 尽量使用前缀来索引</h4>
+<p><strong>如果索引字段的值很长，最好使用值的前缀来索引。例如，TEXT 和 BLOG 类型的字段，进行全文检索会很浪费时间。如果只检索字段的前面的若干个字符，这样可以提高检索速度。</strong></p>
+<h4 id="8-删除不再使用或者很少使用的索引">**8. **删除不再使用或者很少使用的索引</h4>
+<p><strong>表中的数据被大量更新，或者数据的使用方式被改变后，原有的一些索引可能不再需要。应该定期找出这些索引，将它们删除，从而减少索引对更新操作的影响。</strong></p>
+<h4 id="总结">总结</h4>
+<p><strong>选择索引的最终目的是为了使查询的速度变快，上面给出的原则是最基本的准则，但不能只拘泥于上面的准则。应该在学习和工作中不断的实践，根据应用的实际情况进行分析和判断，选择最合适的索引方式。</strong></p>
+<h1>小练习</h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">create index index_fruit<br>on fruit(sid);<br><br>show index from fruit;<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200611180313902.png" alt="image-20200611180313902"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">drop index index_fruit on fruit;<br>show index from fruit;<br></code></pre></td></tr></table></figure>
+<p><img src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200611180351884.png" alt="image-20200611180351884"></p>
+<h2 id="创建索引的指导原则">创建索引的指导原则</h2>
+<h3 id="按照下列标准选择建立索引的列">按照下列标准选择建立索引的列</h3>
+<p><strong>◆频繁搜索的列</strong><br>
+<strong>◆经常用作查询选择的列</strong><br>
+<strong>◆经常排序、分组的列</strong><br>
+<strong>◆经常用作连接的列(主键/外键)</strong></p>
+<h3 id="请不要使用下面的列创建索引">请不要使用下面的列创建索引</h3>
+<p><strong>◆仅包含几个不同值的列</strong><br>
+<strong>◆表中仅包含几行</strong></p>
+<h2 id="使用索引时注意事项">使用索引时注意事项</h2>
+<ul>
+<li><strong>查询时减少使用*返回全部列，不要返回不需要的列</strong></li>
+<li><strong>索引应该尽量小，在字节数小的列上建立索引</strong></li>
+<li><strong>WHERE子句中有多个条件表达式时，包含索引列的表达式应置3 F其他条件表达式之前</strong></li>
+<li><strong>避免在ORDER BY子句中使用表达式</strong></li>
+</ul>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wu Shao Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wsdlxgp.top/posts/8338.html">https://wsdlxgp.top/posts/8338.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wsdlxgp.top" target="_blank">Xgp & Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/sql%E7%BB%93%E6%9E%84%E5%8C%96%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/">sql结构化查询语句</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B/">数值类型</a></div><div class="post_share"><div class="social-share" data-image="http://xgp-cunchu.test.upcdn.net/k8s/325738.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/3.jpg" alt="微信"/><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/1.jpg" alt="支付寶"/><div class="post-qr-code__desc">支付寶</div></li><li class="reward-item"><img class="post-qr-code__img" src="http://xgp-cunchu.test.upcdn.net/k8s/2.jpg" alt="QQ支付"/><div class="post-qr-code__desc">QQ支付</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull_left"><a href="/posts/b0d5.html"><img class="prev_cover" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq103p.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MySQL 事务(1)</div></div></a></div><div class="next-post pull_right"><a href="/posts/a0ec.html"><img class="next_cover" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq101p.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MySQL视图</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/b19d.html" title="MySQL子查询"><img class="relatedPosts_cover" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq100p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-history fa-fw" aria-hidden="true"></i> 2020-06-30</div><div class="relatedPosts_title">MySQL子查询</div></div></a></div><div class="relatedPosts_item"><a href="/posts/b0d5.html" title="MySQL 事务(1)"><img class="relatedPosts_cover" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq103p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-history fa-fw" aria-hidden="true"></i> 2020-06-30</div><div class="relatedPosts_title">MySQL 事务(1)</div></div></a></div><div class="relatedPosts_item"><a href="/posts/40d5.html" title="MySQL 事务(2)"><img class="relatedPosts_cover" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq104p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-history fa-fw" aria-hidden="true"></i> 2020-06-30</div><div class="relatedPosts_title">MySQL 事务(2)</div></div></a></div><div class="relatedPosts_item"><a href="/posts/66c1.html" title="MySQL用户管理（2）"><img class="relatedPosts_cover" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq106p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-history fa-fw" aria-hidden="true"></i> 2020-06-30</div><div class="relatedPosts_title">MySQL用户管理（2）</div></div></a></div><div class="relatedPosts_item"><a href="/posts/22c1.html" title="MySQL用户管理（1）"><img class="relatedPosts_cover" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq105p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-history fa-fw" aria-hidden="true"></i> 2020-06-30</div><div class="relatedPosts_title">MySQL用户管理（1）</div></div></a></div><div class="relatedPosts_item"><a href="/posts/a0ec.html" title="MySQL视图"><img class="relatedPosts_cover" src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq101p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-history fa-fw" aria-hidden="true"></i> 2020-06-30</div><div class="relatedPosts_title">MySQL视图</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div id="lv-container" data-id="city" data-uid="MTAyMC80OTM0NS8yNTgzNw=="><script>(function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+})(document, 'script');</script></div></div></article></main><footer id="footer" style="background-image: url(https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq102p.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By Wu Shao Dong</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="ypy"><a href="https://console.upyun.com/services/file/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/1591433700(1).png"/><span></span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode far fa-moon" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css"><script>$(function () {
+  $('span.katex-display').wrap('<div class="katex-wrap"></div>')
+})</script><script src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script src="/js/third-party/fireworks.js"></script><script id="ribbon_piao" mobile="false" src="/js/third-party/piao.js"></script><script id="canvas_nest" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="/js/third-party/canvas-nest.js"></script><script src="/js/third-party/activate-power-mode.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@3/instantpage.min.js" type="module"></script><script src="/js/search/local-search.js"></script><script>var endLoading = function () {
+  document.body.style.overflow = 'auto';
+  document.getElementById('loading-box').classList.add("loaded")
+}
+window.addEventListener('load',endLoading)</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
