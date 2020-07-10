@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://wsdlxgp.top/"/>
-  <updated>2020-07-10T02:19:06.295Z</updated>
+  <updated>2020-07-10T06:49:16.944Z</updated>
   <id>https://wsdlxgp.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://wsdlxgp.top/posts/eac4.html"/>
     <id>https://wsdlxgp.top/posts/eac4.html</id>
     <published>2020-07-10T02:17:06.891Z</published>
-    <updated>2020-07-10T02:19:06.295Z</updated>
+    <updated>2020-07-10T06:49:16.944Z</updated>
     
     <content type="html"><![CDATA[<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">[<span class="hljs-type">root</span>@<span class="hljs-type">www</span> ~]<span class="hljs-comment"># vim /usr/local/http-2.4.23/conf/httpd.conf</span><br>LoadModule mpm_prefork_module modules/mod_mpm_prefork.so <span class="hljs-comment">#67取消注释</span><br>Include conf/extra/httpd<span class="hljs-literal">-mpm</span>.conf <span class="hljs-comment">#468取消注释</span><br></code></pre></td></tr></table></figure>]]></content>
     
