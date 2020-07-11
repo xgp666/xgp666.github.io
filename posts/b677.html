@@ -1,0 +1,458 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>python的os模块 | Xgp &amp; Blog</title><meta name="description" content="什么是os模块 os模块提供了多数操作系统的功能接口函数。当os模块被导入后，它会自适应于不同的操作系统平台，根据不同的平台进行相应的操作，在python编程时，经常和文件、目录打交道，这时就离不了os模块，本节内容将对os模块提供的函数进行详细的解读 一、使用脚本自动安装Python版本 要求：没有安装过Python3的系统 如果已经安装过Python3，只能选择一个不用的版本安装 1、PyCh"><meta name="keywords" content="nfs,deployment,pv,pvc,Storage Class,dashboard,helm"><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wsdlxgp.top/posts/b677.html"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="python的os模块"><meta property="og:url" content="https://wsdlxgp.top/posts/b677.html"><meta property="og:site_name" content="Xgp &amp; Blog"><meta property="og:description" content="什么是os模块 os模块提供了多数操作系统的功能接口函数。当os模块被导入后，它会自适应于不同的操作系统平台，根据不同的平台进行相应的操作，在python编程时，经常和文件、目录打交道，这时就离不了os模块，本节内容将对os模块提供的函数进行详细的解读 一、使用脚本自动安装Python版本 要求：没有安装过Python3的系统 如果已经安装过Python3，只能选择一个不用的版本安装 1、PyCh"><meta property="og:image" content="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq68p.jpg"><meta property="article:published_time" content="2019-09-13T16:23:00.000Z"><meta property="article:modified_time" content="2020-06-30T06:56:37.445Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="python使用ConfigParser类解析配置文件" href="https://wsdlxgp.top/posts/cbc8.html"><link rel="next" title="python的pep8编码规范和代码调试" href="https://wsdlxgp.top/posts/8e56.html"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">132</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">76</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是os模块"><span class="toc-number">1.</span> <span class="toc-text">什么是os模块</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">一、使用脚本自动安装Python版本</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、PyCharm连接Linux"><span class="toc-number"></span> <span class="toc-text">1、PyCharm连接Linux</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、os模块执行shell命令"><span class="toc-number"></span> <span class="toc-text">2、os模块执行shell命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#编写自动安装Python的脚本"><span class="toc-number">0.0.1.</span> <span class="toc-text">编写自动安装Python的脚本</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）实现步骤："><span class="toc-number">1.</span> <span class="toc-text">（1）实现步骤：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）伪代码："><span class="toc-number">2.</span> <span class="toc-text">（2）伪代码：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）脚本内容如下（基于Python2）："><span class="toc-number">3.</span> <span class="toc-text">（3）脚本内容如下（基于Python2）：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、上传到Linux并执行"><span class="toc-number"></span> <span class="toc-text">3、上传到Linux并执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux执行"><span class="toc-number">1.</span> <span class="toc-text">Linux执行</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">二、Python的os模块shell</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、安装ipython"><span class="toc-number"></span> <span class="toc-text">1、安装ipython</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#启动ipython"><span class="toc-number">0.1.</span> <span class="toc-text">启动ipython</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如果启动不了使用："><span class="toc-number">0.2.</span> <span class="toc-text">如果启动不了使用：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如果要使用ipython命令来启动，可以在用户目录下的-bash-profile中增加如下："><span class="toc-number">0.3.</span> <span class="toc-text">如果要使用ipython命令来启动，可以在用户目录下的 .bash_profile中增加如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#再次启动ipython"><span class="toc-number">0.4.</span> <span class="toc-text">再次启动ipython</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、例子"><span class="toc-number"></span> <span class="toc-text">2、例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#看看例子："><span class="toc-number">1.</span> <span class="toc-text">看看例子：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#（1）os-path-abspath：获取文件或目录的绝对路径"><span class="toc-number">1.1.</span> <span class="toc-text">（1）os.path.abspath：获取文件或目录的绝对路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（2）os-path-dirname：获取文件或文件夹的路径"><span class="toc-number">1.2.</span> <span class="toc-text">（2）os.path.dirname：获取文件或文件夹的路径</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（3）os-path-basename：获取文件名或文件夹名"><span class="toc-number">1.3.</span> <span class="toc-text">（3）os.path.basename：获取文件名或文件夹名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（4）os-path-splitext：分离文件名与扩展名"><span class="toc-number">1.4.</span> <span class="toc-text">（4）os.path.splitext：分离文件名与扩展名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（5）os-path-split：分离目录与文件名"><span class="toc-number">1.5.</span> <span class="toc-text">（5）os.path.split：分离目录与文件名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（6）os-path-isfile：是否是一个文件"><span class="toc-number">1.6.</span> <span class="toc-text">（6）os.path.isfile：是否是一个文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#os-path-isdir：是否是一个目录"><span class="toc-number">1.7.</span> <span class="toc-text">os.path.isdir：是否是一个目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#（7）os-walk：遍历目录"><span class="toc-number">1.8.</span> <span class="toc-text">（7）os.walk：遍历目录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、os模块打开文件"><span class="toc-number"></span> <span class="toc-text">3、os模块打开文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#flag参数说明："><span class="toc-number">0.1.</span> <span class="toc-text">flag参数说明：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、os模块对文件进行操作"><span class="toc-number"></span> <span class="toc-text">4、os模块对文件进行操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码演示："><span class="toc-number">0.0.1.</span> <span class="toc-text">代码演示：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#输出结果如下："><span class="toc-number">0.0.2.</span> <span class="toc-text">输出结果如下：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#输出结果如下：-2"><span class="toc-number">0.0.3.</span> <span class="toc-text">输出结果如下：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、os模块管理文件和目录"><span class="toc-number"></span> <span class="toc-text">5、os模块管理文件和目录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常用方法如下："><span class="toc-number">0.1.</span> <span class="toc-text">常用方法如下：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码演示：-2"><span class="toc-number">0.1.1.</span> <span class="toc-text">代码演示：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、os模块管理文件权限"><span class="toc-number"></span> <span class="toc-text">6、os模块管理文件权限</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#代码演示：-3"><span class="toc-number">0.0.1.</span> <span class="toc-text">代码演示：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7、os-path模块管理文件与路径"><span class="toc-number"></span> <span class="toc-text">7、os.path模块管理文件与路径</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#（1）拆分路径"><span class="toc-number">0.0.1.</span> <span class="toc-text">（1）拆分路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码演示：-4"><span class="toc-number">0.0.2.</span> <span class="toc-text">代码演示：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（2）构建路径"><span class="toc-number">0.0.3.</span> <span class="toc-text">（2）构建路径</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码演示：-5"><span class="toc-number">0.0.4.</span> <span class="toc-text">代码演示：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（3）获取文件属性"><span class="toc-number">0.0.5.</span> <span class="toc-text">（3）获取文件属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码演示：-6"><span class="toc-number">0.0.6.</span> <span class="toc-text">代码演示：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#（4）判断文件类型"><span class="toc-number">0.0.7.</span> <span class="toc-text">（4）判断文件类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#代码演示：-7"><span class="toc-number">0.0.8.</span> <span class="toc-text">代码演示：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8、os-walk遍历目录树"><span class="toc-number"></span> <span class="toc-text">8、os.walk遍历目录树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）在Linux用ipython中把-opt目录遍历一下"><span class="toc-number">1.</span> <span class="toc-text">（1）在Linux用ipython中把&#x2F;opt目录遍历一下</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#输出结果如下：-3"><span class="toc-number">1.0.1.</span> <span class="toc-text">输出结果如下：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）打印最常用的10条Linux命令"><span class="toc-number">2.</span> <span class="toc-text">（2）打印最常用的10条Linux命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#步骤："><span class="toc-number">2.1.</span> <span class="toc-text">步骤：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#输出结果如下：-4"><span class="toc-number">2.1.1.</span> <span class="toc-text">输出结果如下：</span></a></li></ol></li></ol></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq68p.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">python的os模块</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-09-14 00:23:00"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2019-09-14</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-30 14:56:37"><i class="fas fa-history fa-fw"></i> 更新于 2020-06-30</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/python/">python</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h3 id="什么是os模块">什么是os模块</h3>
+<p><strong>os模块提供了多数操作系统的功能接口函数。当os模块被导入后，它会自适应于不同的操作系统平台，根据不同的平台进行相应的操作，在python编程时，经常和文件、目录打交道，这时就离不了os模块，本节内容将对os模块提供的函数进行详细的解读</strong></p>
+<h1>一、使用脚本自动安装Python版本</h1>
+<p><strong>要求：没有安装过Python3的系统</strong></p>
+<p><strong>如果已经安装过Python3，只能选择一个不用的版本安装</strong></p>
+<h2 id="1、PyCharm连接Linux">1、PyCharm连接Linux</h2>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200423142429261.png" alt="image-20200423142429261"></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200423142500430.png" alt="image-20200423142500430"></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200423142531948.png" alt="image-20200423142531948"></p>
+<h2 id="2、os模块执行shell命令">2、os模块执行shell命令</h2>
+<p><strong>os.system()的作用：</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre class=" language-hljs tex"><code class="language-hljs tex">执行shell命令<br>返回shell命令的返回值<br>命令的输出会输出到标准输出<br></code></pre></td></tr></table></figure>
+<p>代码演示：</p>
+<blockquote>
+<p><strong>os.system(‘cls’)</strong></p>
+</blockquote>
+<h5 id="编写自动安装Python的脚本">编写自动安装Python的脚本</h5>
+<h3 id="（1）实现步骤：">（1）实现步骤：</h3>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre class=" language-hljs tex"><code class="language-hljs tex">下载Python版本源码<br>安装Python需要的依赖库<br>编译安装Python<br></code></pre></td></tr></table></figure>
+<h3 id="（2）伪代码：">（2）伪代码：</h3>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre class=" language-hljs tex"><code class="language-hljs tex">1. 判断用户是不是root<br>2. 如果是，等待用户输入Python版本<br>3. 执行shell命令下载源码包<br>4. 安装依赖开发包<br>5. 编译安装Python<br></code></pre></td></tr></table></figure>
+<h3 id="（3）脚本内容如下（基于Python2）：">（3）脚本内容如下（基于Python2）：</h3>
+<blockquote>
+<p>auto_install_python.py</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><span class="hljs-meta">#</span><span class="bash"> coding=utf-8</span><br>import os<br><br><span class="hljs-meta">#</span><span class="bash"> 判断用户是否是root用户</span><br>if os.getuid() == 0:<br>    pass<br>else:<br>    print('当前用户不是root用户！')<br>    SystemExit(1)<br><br><span class="hljs-meta">#</span><span class="bash"> 安装Python依赖库</span><br>cmd_module = 'yum -y install wget gcc zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel'<br>res = os.system(cmd_module)<br>if res != 0:<br>    print('Python依赖库安装失败，请重新执行该脚本！')<br>    SystemExit(1)<br>else:<br>    print('Python依赖库安装成功！')<br><br><span class="hljs-meta">#</span><span class="bash"> 输入python版本，下载Python源码包到本地目录</span><br><span class="hljs-meta">#</span><span class="bash"> weget url</span><br>version = raw_input('请输入python版本：（3.6/3.8）')<br>if version == '3.6':<br>    url = 'https://www.python.org/ftp/python/3.6.10/Python-3.6.10.tgz'<br>else:<br>    url = 'https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tgz'<br>cmd = 'wget ' + url<br>res = os.system(cmd)<br>if res != 0:<br>    print('Python源码包下载失败！')<br>    SystemExit(1)<br>else:<br>    print('===============================&gt;&gt;&gt;Python源码包下载成功！')<br><br><span class="hljs-meta">#</span><span class="bash"> 解压Python源码包</span><br><span class="hljs-meta">#</span><span class="bash"> tar zxvf Python-3.8.2.tgz</span><br>if version == '3.6':<br>    package_name = 'Python-3.6.10'<br>else:<br>    package_name = 'Python-3.8.1'<br>res = os.system('tar zxvf ' + package_name + '.tgz')<br>if res != 0:<br>    print('解压失败！')<br>    SystemExit(1)<br>else:<br>    print('=============&lt;&lt;解压成功！&gt;&gt;===============')<br><br><span class="hljs-meta">#</span><span class="bash"> 必要的配置，否则出现错误：“make: *** [pybuilddir.txt] 错误1”</span><br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-built_in">export</span> LANG=zh_CN.UTF-8</span><br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-built_in">export</span> LANGUAGE=zhb_CN.UTF-8</span><br>cmd_export_lang = 'export LANG=zh_CN.UTF-8'<br>cmd_export_language = 'export LANGUAGE=zhb_CN.UTF-8'<br>res1 = os.system(cmd_export_lang)<br>res2 = os.system(cmd_export_language)<br>if res1 != 0 or res2 != 0:<br>    print('配置失败，请检查解脚本后在运行！')<br>    SystemExit(1)<br><br><span class="hljs-meta">#</span><span class="bash"> 切换Python目录</span><br>os.chdir(package_name)<br>os.system('./configure --prefix=/usr/local/python3')<br>res = os.system('make &amp;&amp; make install')<br>if res != 0:<br>    print('源码编译失败！')<br>    SystemExit(1)<br>else:<br>    print('=========&lt;&lt;Python安装成功，请进行验证！&gt;&gt;==========')<br><br><span class="hljs-meta">#</span><span class="bash"><code class="language-hljs shell"><span class="hljs-meta">#</span><span class="bash"> coding=utf-8</span><br>import os<br><br><span class="hljs-meta">#</span><span class="bash"> 判断用户是否是root用户</span><br>if os.getuid() == 0:<br>    pass<br>else:<br>    print('当前用户不是root用户！')<br>    SystemExit(1)<br><br><span class="hljs-meta">#</span><span class="bash"> 安装Python依赖库</span><br>cmd_module = 'yum -y install wget gcc zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel'<br>res = os.system(cmd_module)<br>if res != 0:<br>    print('Python依赖库安装失败，请重新执行该脚本！')<br>    SystemExit(1)<br>else:<br>    print('Python依赖库安装成功！')<br><br><span class="hljs-meta">#</span><span class="bash"> 输入python版本，下载Python源码包到本地目录</span><br><span class="hljs-meta">#</span><span class="bash"> weget url</span><br>version = raw_input('请输入python版本：（3.6/3.8）')<br>if version == '3.6':<br>    url = 'https://www.python.org/ftp/python/3.6.10/Python-3.6.10.tgz'<br>else:<br>    url = 'https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tgz'<br>cmd = 'wget ' + url<br>res = os.system(cmd)<br>if res != 0:<br>    print('Python源码包下载失败！')<br>    SystemExit(1)<br>else:<br>    print('===============================&gt;&gt;&gt;Python源码包下载成功！')<br><br><span class="hljs-meta">#</span><span class="bash"> 解压Python源码包</span><br><span class="hljs-meta">#</span><span class="bash"> tar zxvf Python-3.8.2.tgz</span><br>if version == '3.6':<br>    package_name = 'Python-3.6.10'<br>else:<br>    package_name = 'Python-3.8.1'<br>res = os.system('tar zxvf ' + package_name + '.tgz')<br>if res != 0:<br>    print('解压失败！')<br>    SystemExit(1)<br>else:<br>    print('=============&lt;&lt;解压成功！&gt;&gt;===============')<br><br><span class="hljs-meta">#</span><span class="bash"> 必要的配置，否则出现错误：“make: *** [pybuilddir.txt] 错误1”</span><br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-built_in">export</span> LANG=zh_CN.UTF-8</span><br><span class="hljs-meta">#</span><span class="bash"> <span class="hljs-built_in">export</span> LANGUAGE=zhb_CN.UTF-8</span><br>cmd_export_lang = 'export LANG=zh_CN.UTF-8'<br>cmd_export_language = 'export LANGUAGE=zhb_CN.UTF-8'<br>res1 = os.system(cmd_export_lang)<br>res2 = os.system(cmd_export_language)<br>if res1 != 0 or res2 != 0:<br>    print('配置失败，请检查解脚本后在运行！')<br>    SystemExit(1)<br><br><span class="hljs-meta">#</span><span class="bash"> 切换Python目录</span><br>os.chdir(package_name)<br>os.system('./configure --prefix=/usr/local/python3')<br>res = os.system('make &amp;&amp; make install')<br>if res != 0:<br>    print('源码编译失败！')<br>    SystemExit(1)<br>else:<br>    print('=========&lt;&lt;Python安装成功，请进行验证！&gt;&gt;==========')<br><br><span class="hljs-meta">#</span><span class="bash"> 修改用户环境变量</span><br>os.system('echo "export PYTHON3=/usr/local/python3" >>~/.bash_profile')<br>os.system('echo "export PATH=$PYTHON3/bin:$PATH" >>~/.bash_profile')<br>os.system("source ~/.bash_profile")<br>os.system('cat ~/.bash_profile')<br>print('用户环境变量已更改，请进行验证！')<br>os.system('ln -s /usr/local/python3/bin/*  /usr/local/bin')<br>os.system('python3 --version')<br></code></pre></td></tr></table></figure>
+<h2 id="3、上传到Linux并执行">3、上传到Linux并执行</h2>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200423142821340.png" alt="image-20200423142821340"></p>
+<h3 id="Linux执行">Linux执行</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">[root@python ~]# cd /opt/<br>[root@python opt]# python  test1.py<br></code></pre></td></tr></table></figure>
+<h1>二、Python的os模块shell</h1>
+<p><strong>Python 的 os 模块封装了常见的文件和目录操作，本文只列出部分常用的方法，更多的方法可以查看<a href="https://docs.python.org/3/library/os.path.html" target="_blank" rel="noopener">官方文档</a>。</strong></p>
+<p><strong>下面是部分常见的用法：</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">方法</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>os.mkdir</code></td>
+<td style="text-align:center">创建目录</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.rmdir</code></td>
+<td style="text-align:center">删除目录</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.rename</code></td>
+<td style="text-align:center">重命名</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.remove</code></td>
+<td style="text-align:center">删除文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.getcwd</code></td>
+<td style="text-align:center">获取当前工作路径</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.walk</code></td>
+<td style="text-align:center">遍历目录</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.path.join</code></td>
+<td style="text-align:center">连接目录与文件名</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.path.split</code></td>
+<td style="text-align:center">分割文件名与目录</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.path.abspath</code></td>
+<td style="text-align:center">获取绝对路径</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.path.dirname</code></td>
+<td style="text-align:center">获取路径</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.path.basename</code></td>
+<td style="text-align:center">获取文件名或文件夹名</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.path.splitext</code></td>
+<td style="text-align:center">分离文件名与扩展名</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.path.isfile</code></td>
+<td style="text-align:center">判断给出的路径是否是一个文件</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>os.path.isdir</code></td>
+<td style="text-align:center">判断给出的路径是否是一个目录</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1、安装ipython">1、安装ipython</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">[root@root ~]# pip3 install -i https://pypi.douban.com/simple/ ipython<br></code></pre></td></tr></table></figure>
+<h4 id="启动ipython">启动ipython</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">[root@root ~]# ipython<br></code></pre></td></tr></table></figure>
+<h4 id="如果启动不了使用：">如果启动不了使用：</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">python3 -m IPython --version<br></code></pre></td></tr></table></figure>
+<p><strong>来查看<code>ipython</code>版本，如果看到版本信息，那么就可以使用<code>python -m IPython</code> 命令来启动<code>ipython</code></strong></p>
+<h4 id="如果要使用ipython命令来启动，可以在用户目录下的-bash-profile中增加如下：">如果要使用ipython命令来启动，可以在用户目录下的 .bash_profile中增加如下：</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">alias ipython="python3 -m IPython"<br></code></pre></td></tr></table></figure>
+<h4 id="再次启动ipython">再次启动ipython</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">python3 -m IPython --version<br></code></pre></td></tr></table></figure>
+<p><em><strong>这样就可以了</strong></em></p>
+<h2 id="2、例子">2、例子</h2>
+<p><strong>后文的例子以下面的目录结构为参考，工作目录为 <code>/Users/ethan/coding/python</code>。</strong></p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre class=" language-hljs vim">Users/ethan<br>└── coding<br>    └── <span class="hljs-keyword">python</span><br>        ├── hello.<span class="hljs-keyword"><code class="language-hljs vim">Users/ethan<br>└── coding<br>    └── <span class="hljs-keyword">python</span><br>        ├── hello.<span class="hljs-keyword">py</span>    - 文件<br>        └── web         - 目录<br></code></pre></td></tr></table></figure>
+<h3 id="看看例子：">看看例子：</h3>
+<h4 id="（1）os-path-abspath：获取文件或目录的绝对路径">（1）<code>os.path.abspath</code>：获取文件或目录的绝对路径</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre class=" language-hljs python">$ pwd<br>/Users/ethan/coding/python<br>$ python<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> os                          <span class="hljs-comment"># 记得导入 os 模块</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="hljs-string">'hello.py'</span>)<br><span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="hljs-string">'web'</span>)<br><span class="hljs-string">'/Users/ethan/coding/python/web'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="hljs-string">'.'</span>)                <span class="hljs-comment"># 当前目录的绝对路径</span><br><span class="hljs-string"><code class="language-hljs python">$ pwd<br>/Users/ethan/coding/python<br>$ python<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">import</span> os                          <span class="hljs-comment"># 记得导入 os 模块</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="hljs-string">'hello.py'</span>)<br><span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="hljs-string">'web'</span>)<br><span class="hljs-string">'/Users/ethan/coding/python/web'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.abspath(<span class="hljs-string">'.'</span>)                <span class="hljs-comment"># 当前目录的绝对路径</span><br><span class="hljs-string">'/Users/ethan/coding/python'</span><br></code></pre></td></tr></table></figure>
+<h4 id="（2）os-path-dirname：获取文件或文件夹的路径">（2）<code>os.path.dirname</code>：获取文件或文件夹的路径</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br><span class="hljs-string">'/Users/ethan/coding/python'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br><span class="hljs-string">'/Users/ethan/coding/python'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br><span class="hljs-string"><code class="language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br><span class="hljs-string">'/Users/ethan/coding/python'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br><span class="hljs-string">'/Users/ethan/coding/python'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.dirname(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br><span class="hljs-string">'/Users/ethan/coding'</span><br></code></pre></td></tr></table></figure>
+<h4 id="（3）os-path-basename：获取文件名或文件夹名">（3）<code>os.path.basename</code>：获取文件名或文件夹名</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.basename(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br><span class="hljs-string">'hello.py'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.basename(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br><span class="hljs-string">''</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.basename(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br><span class="hljs-string"><code class="language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.basename(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br><span class="hljs-string">'hello.py'</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.basename(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br><span class="hljs-string">''</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.basename(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br><span class="hljs-string">'python'</span><br></code></pre></td></tr></table></figure>
+<h4 id="（4）os-path-splitext：分离文件名与扩展名">（4）<code>os.path.splitext</code>：分离文件名与扩展名</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python/hello'</span>, <span class="hljs-string">'.py'</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python'</span>, <span class="hljs-string">''</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python/'</span>, <span class="hljs-string"><code class="language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python/hello'</span>, <span class="hljs-string">'.py'</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python'</span>, <span class="hljs-string">''</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.splitext(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python/'</span>, <span class="hljs-string">''</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="（5）os-path-split：分离目录与文件名">（5）<code>os.path.split</code>：分离目录与文件名</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.split(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python'</span>, <span class="hljs-string">'hello.py'</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.split(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python'</span>, <span class="hljs-string">''</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.split(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding'</span>, <span class="hljs-string"><code class="language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.split(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python'</span>, <span class="hljs-string">'hello.py'</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.split(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding/python'</span>, <span class="hljs-string">''</span>)<br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.split(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br>(<span class="hljs-string">'/Users/ethan/coding'</span>, <span class="hljs-string">'python'</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="（6）os-path-isfile：是否是一个文件">（6）<code>os.path.isfile</code>：是否是一个文件</h4>
+<h4 id="os-path-isdir：是否是一个目录"><code>os.path.isdir</code>：是否是一个目录</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.isfile(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.isdir(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.isdir(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.isdir(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br><span class="hljs-literal"><code class="language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.isfile(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.isdir(<span class="hljs-string">'/Users/ethan/coding/python/'</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.isdir(<span class="hljs-string">'/Users/ethan/coding/python'</span>)<br><span class="hljs-literal">True</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>os.path.isdir(<span class="hljs-string">'/Users/ethan/coding/python/hello.py'</span>)<br><span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+<h4 id="（7）os-walk：遍历目录">（7）os.walk：遍历目录</h4>
+<p><strong><code>os.walk</code> 是遍历目录常用的模块，它返回一个包含 3 个元素的元祖：(<code>dirpath</code>, <code>dirnames</code>, <code>filenames</code>)。<code>dirpath</code> 是以 string 字符串形式返回该目录下所有的绝对路径；<code>dirnames</code> 是以列表 list 形式返回每一个绝对路径下的文件夹名字；<code>filesnames</code> 是以列表 list 形式返回该路径下所有文件名字。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os.walk(<span class="hljs-string">'/Users/ethan/coding'</span>):<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">print</span> root<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">print</span> dirs<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">print</span> files<br>...<br>/Users/ethan/coding<br>[<span class="hljs-string">'python'</span>]<br>[]<br>/Users/ethan/coding/python<br>[<span class="hljs-string">'web2'</span>]<br>[<span class="hljs-string"><code class="language-hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os.walk(<span class="hljs-string">'/Users/ethan/coding'</span>):<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">print</span> root<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">print</span> dirs<br><span class="hljs-meta">... </span>    <span class="hljs-keyword">print</span> files<br>...<br>/Users/ethan/coding<br>[<span class="hljs-string">'python'</span>]<br>[]<br>/Users/ethan/coding/python<br>[<span class="hljs-string">'web2'</span>]<br>[<span class="hljs-string">'hello.py'</span>]<br>/Users/ethan/coding/python/web2<br>[]<br>[]<br></code></pre></td></tr></table></figure>
+<h2 id="3、os模块打开文件">3、os模块打开文件</h2>
+<p><strong>方法如下：</strong></p>
+<blockquote>
+<p><strong>os.open(filename, flag, [,mode])</strong></p>
+</blockquote>
+<h4 id="flag参数说明："><strong>flag参数说明：</strong></h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">file # 要打开的文件<br>flags # 该参数可以是以下选项，多个使用 "|" 隔开：<br>os.O_RDONLY # 以只读的方式打开<br>os.O_WRONLY # 以只写的方式打开<br>os.O_RDWR # 以读写的方式打开<br>os.O_NONBLOCK # 打开时不阻塞<br>os.O_APPEND # 以追加的方式打开<br>os.O_CREAT # 创建并打开一个新文件<br>os.O_TRUNC # 打开一个文件并截断它的长度为零（必须有写权限）<br>os.O_EXCL # 如果指定的文件存在，返回错误<br>os.O_SHLOCK # 自动获取共享锁<br>os.O_EXLOCK # 自动获取独立锁<br>os.O_DIRECT # 消除或减少缓存效果<br>os.O_FSYNC # 同步写入<br>os.O_NOFOLLOW# 不追踪软链接<br>mode # 类似 chmod()。<br></code></pre></td></tr></table></figure>
+<h2 id="4、os模块对文件进行操作">4、os模块对文件进行操作</h2>
+<p><strong>常用方法如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># 读取文件</span><br>os.read(fd, buffersize)<br><span class="hljs-comment"># 写入文件</span><br>os.write(fd, string)<br><span class="hljs-comment"># 文件指针操作</span><br>os.lseek(fd, pos, how)<br><span class="hljs-comment"><code class="language-hljs python"><span class="hljs-comment"># 读取文件</span><br>os.read(fd, buffersize)<br><span class="hljs-comment"># 写入文件</span><br>os.write(fd, string)<br><span class="hljs-comment"># 文件指针操作</span><br>os.lseek(fd, pos, how)<br><span class="hljs-comment"># 关闭文件</span><br>os.close(fd)<br></code></pre></td></tr></table></figure>
+<h5 id="代码演示：">代码演示：</h5>
+<blockquote>
+<p><strong>文件创建和写入</strong></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># 打开文件</span><br>fd = os.open(<span class="hljs-string">"abc.txt"</span>, os.O_RDWR | os.O_CREAT)<br><br><span class="hljs-comment"># 写入字符串</span><br>str = <span class="hljs-string">"Hello Python!"</span><br>ret = os.write(fd, bytes(str, <span class="hljs-string">'UTF-8'</span>))<br><br><span class="hljs-comment"># 输入返回值</span><br>print(<span class="hljs-string">"写入的位数为: "</span>)<br>print(ret)<br><br>print(<span class="hljs-string">"写入成功"</span>)<br><br><span class="hljs-comment"># 关闭文件</span><br>os.close(fd)<br>print(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># 打开文件</span><br>fd = os.open(<span class="hljs-string">"abc.txt"</span>, os.O_RDWR | os.O_CREAT)<br><br><span class="hljs-comment"># 写入字符串</span><br>str = <span class="hljs-string">"Hello Python!"</span><br>ret = os.write(fd, bytes(str, <span class="hljs-string">'UTF-8'</span>))<br><br><span class="hljs-comment"># 输入返回值</span><br>print(<span class="hljs-string">"写入的位数为: "</span>)<br>print(ret)<br><br>print(<span class="hljs-string">"写入成功"</span>)<br><br><span class="hljs-comment"># 关闭文件</span><br>os.close(fd)<br>print(<span class="hljs-string">"关闭文件成功!!"</span>)<br></code></pre></td></tr></table></figure>
+<h5 id="输出结果如下：">输出结果如下：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre class=" language-hljs python">写入的位数为: <br><span class="hljs-number"><code class="language-hljs python">写入的位数为: <br><span class="hljs-number">13</span><br>写入成功<br>关闭文件成功!!<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>文件读取</strong></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># 打开文件</span><br>fd = os.open(<span class="hljs-string">"abc.txt"</span>, os.O_RDWR)<br><br><span class="hljs-comment"># 读取文本</span><br>ret = os.read(fd, <span class="hljs-number">6</span>)<br>print(ret)<br><br><span class="hljs-comment"># 关闭文件</span><br>os.close(fd)<br>print(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">import</span> os<br><br><span class="hljs-comment"># 打开文件</span><br>fd = os.open(<span class="hljs-string">"abc.txt"</span>, os.O_RDWR)<br><br><span class="hljs-comment"># 读取文本</span><br>ret = os.read(fd, <span class="hljs-number">6</span>)<br>print(ret)<br><br><span class="hljs-comment"># 关闭文件</span><br>os.close(fd)<br>print(<span class="hljs-string">"关闭文件成功!!"</span>)<br></code></pre></td></tr></table></figure>
+<h5 id="输出结果如下：-2">输出结果如下：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-string"><code class="language-hljs python"><span class="hljs-string">b'Hello '</span><br>关闭文件成功!!<br></code></pre></td></tr></table></figure>
+<h2 id="5、os模块管理文件和目录">5、os模块管理文件和目录</h2>
+<h4 id="常用方法如下：">常用方法如下：</h4>
+<table>
+<thead>
+<tr>
+<th>os方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>remove(path)</td>
+<td>删除文件</td>
+</tr>
+<tr>
+<td>rename(old, new)</td>
+<td>修改文件或者目录名</td>
+</tr>
+<tr>
+<td>getcwd()</td>
+<td>获取当前目录</td>
+</tr>
+<tr>
+<td>listdir(path)</td>
+<td>返回当前目录下所有文件组成的列表</td>
+</tr>
+<tr>
+<td>mkdir(path [,mode])</td>
+<td>创建目录</td>
+</tr>
+<tr>
+<td>makedirs(path [,mode])</td>
+<td>创建多级目录</td>
+</tr>
+<tr>
+<td>rmdir(path)</td>
+<td>删除目录（目录必须为空目录）</td>
+</tr>
+<tr>
+<td>removedirs(path)</td>
+<td>删除多级目录（目录必须为空目录）</td>
+</tr>
+</tbody>
+</table>
+<h5 id="代码演示：-2">代码演示：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># coding=utf-8</span><br><br><span class="hljs-keyword">import</span> os<br><br><br>print(os.getcwd())  <span class="hljs-comment"># pwd</span><br>print(os.listdir()) <span class="hljs-comment"># ls</span><br>os.rename(<span class="hljs-string">'abc.txt'</span>,<span class="hljs-string">'test.txt'</span>) <span class="hljs-comment"># mv abc.txt test.txt</span><br>os.remove(<span class="hljs-string">'read.py'</span>)    <span class="hljs-comment"># rm -f abc.txt</span><br><br>os.mkdir(<span class="hljs-string">'test'</span>)    <span class="hljs-comment"># mkdir dir1</span><br>os.makedirs(<span class="hljs-string">'demo/abc'</span>) <span class="hljs-comment"># mkdir -p dir2/dir22</span><br>os.rmdir(<span class="hljs-string">'test'</span>)    <span class="hljs-comment"># 目录必须为空</span><br>os.removedirs(<span class="hljs-string">'demo'</span>)   <span class="hljs-comment"><code class="language-hljs python"><span class="hljs-comment"># coding=utf-8</span><br><br><span class="hljs-keyword">import</span> os<br><br><br>print(os.getcwd())  <span class="hljs-comment"># pwd</span><br>print(os.listdir()) <span class="hljs-comment"># ls</span><br>os.rename(<span class="hljs-string">'abc.txt'</span>,<span class="hljs-string">'test.txt'</span>) <span class="hljs-comment"># mv abc.txt test.txt</span><br>os.remove(<span class="hljs-string">'read.py'</span>)    <span class="hljs-comment"># rm -f abc.txt</span><br><br>os.mkdir(<span class="hljs-string">'test'</span>)    <span class="hljs-comment"># mkdir dir1</span><br>os.makedirs(<span class="hljs-string">'demo/abc'</span>) <span class="hljs-comment"># mkdir -p dir2/dir22</span><br>os.rmdir(<span class="hljs-string">'test'</span>)    <span class="hljs-comment"># 目录必须为空</span><br>os.removedirs(<span class="hljs-string">'demo'</span>)   <span class="hljs-comment">#目录必须为空</span><br></code></pre></td></tr></table></figure>
+<h2 id="6、os模块管理文件权限">6、os模块管理文件权限</h2>
+<table>
+<thead>
+<tr>
+<th>os方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access(path, mode)</td>
+<td>判断该文件权限：F_OK存在；<br>权限：R_OK，W_OK，X_OK</td>
+</tr>
+<tr>
+<td>chmod(path, mode)</td>
+<td>修改文件权限：0o755</td>
+</tr>
+<tr>
+<td>chown(path, uid, gid)</td>
+<td>更改文件所有者，如果不修改可以设置为 -1</td>
+</tr>
+</tbody>
+</table>
+<h5 id="代码演示：-3">代码演示：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">import</span> os<br><br><br><span class="hljs-comment"># 测试路径是否存在：os.F_OK</span><br>res = os.access(<span class="hljs-string">'test.txt'</span>,os.F_OK)<br>print(res)<br><br><span class="hljs-comment"># 测试当前用户对该文件是否有读的权限</span><br>res = os.access(<span class="hljs-string">'test.txt'</span>,os.R_OK)<br>print(res)<br><br><span class="hljs-comment"># 测试当前用户对该文件是否有写的权限</span><br>res = os.access(<span class="hljs-string">'test.txt'</span>,os.W_OK)<br>print(res)<br><br><span class="hljs-comment"># 测试当前用户对该文件是否有执行的权限</span><br>res = os.access(<span class="hljs-string">'test.txt'</span>,os.X_OK)<br>print(res)<br><br><span class="hljs-comment"># 更改当前用户的权限</span><br>os.chmod(<span class="hljs-string">'test.txt'</span>,<span class="hljs-number">0o755</span>)<br><br><span class="hljs-comment"># 更改文件的所有者</span><br>os.chown(<span class="hljs-string">'test.txt'</span>, <span class="hljs-number">1001</span>, <span class="hljs-number"><code class="language-hljs python"><span class="hljs-keyword">import</span> os<br><br><br><span class="hljs-comment"># 测试路径是否存在：os.F_OK</span><br>res = os.access(<span class="hljs-string">'test.txt'</span>,os.F_OK)<br>print(res)<br><br><span class="hljs-comment"># 测试当前用户对该文件是否有读的权限</span><br>res = os.access(<span class="hljs-string">'test.txt'</span>,os.R_OK)<br>print(res)<br><br><span class="hljs-comment"># 测试当前用户对该文件是否有写的权限</span><br>res = os.access(<span class="hljs-string">'test.txt'</span>,os.W_OK)<br>print(res)<br><br><span class="hljs-comment"># 测试当前用户对该文件是否有执行的权限</span><br>res = os.access(<span class="hljs-string">'test.txt'</span>,os.X_OK)<br>print(res)<br><br><span class="hljs-comment"># 更改当前用户的权限</span><br>os.chmod(<span class="hljs-string">'test.txt'</span>,<span class="hljs-number">0o755</span>)<br><br><span class="hljs-comment"># 更改文件的所有者</span><br>os.chown(<span class="hljs-string">'test.txt'</span>, <span class="hljs-number">1001</span>, <span class="hljs-number">1002</span>)<br></code></pre></td></tr></table></figure>
+<p><em><strong>执行前提，确保需要文件存在。</strong></em></p>
+<h2 id="7、os-path模块管理文件与路径">7、os.path模块管理文件与路径</h2>
+<h5 id="（1）拆分路径">（1）拆分路径</h5>
+<table>
+<thead>
+<tr>
+<th>os.path方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>split</td>
+<td>返回一个二元组，包含文件的路径和文件名</td>
+</tr>
+<tr>
+<td>dirname</td>
+<td>返回文件的路径</td>
+</tr>
+<tr>
+<td>basename</td>
+<td>返回文件名</td>
+</tr>
+<tr>
+<td>splitext</td>
+<td>返回一个去掉文件扩展名的部分和扩展名的二元组</td>
+</tr>
+</tbody>
+</table>
+<h5 id="代码演示：-4">代码演示：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre class=" language-hljs python">In [<span class="hljs-number">10</span>]: os.getcwd()<br>Out[<span class="hljs-number">10</span>]: <span class="hljs-string">'/opt/os_demo'</span><br><br>In [<span class="hljs-number">11</span>]: os.listdir()<br>Out[<span class="hljs-number">11</span>]: [<span class="hljs-string">'os_access.py'</span>, <span class="hljs-string">'test.txt'</span>]<br><br>In [<span class="hljs-number">12</span>]: path = <span class="hljs-string">'/opt/os_demo/test.txt'</span><br>    <br>In [<span class="hljs-number">13</span>]: os.path.split(path)<br>Out[<span class="hljs-number">13</span>]: (<span class="hljs-string">'/opt/os_demo'</span>, <span class="hljs-string">'test.txt'</span>)<br><br>In [<span class="hljs-number">14</span>]: os.path.dirname(path)<br>Out[<span class="hljs-number">14</span>]: <span class="hljs-string">'/opt/os_demo'</span><br><br>In [<span class="hljs-number">15</span>]: os.path.basename(path)<br>Out[<span class="hljs-number">15</span>]: <span class="hljs-string">'test.txt'</span><br><br>In [<span class="hljs-number">16</span>]: os.path.splitext(path) <br>Out[<span class="hljs-number">16</span>]: (<span class="hljs-string">'/opt/os_demo/test'</span>, <span class="hljs-string"><code class="language-hljs python">In [<span class="hljs-number">10</span>]: os.getcwd()<br>Out[<span class="hljs-number">10</span>]: <span class="hljs-string">'/opt/os_demo'</span><br><br>In [<span class="hljs-number">11</span>]: os.listdir()<br>Out[<span class="hljs-number">11</span>]: [<span class="hljs-string">'os_access.py'</span>, <span class="hljs-string">'test.txt'</span>]<br><br>In [<span class="hljs-number">12</span>]: path = <span class="hljs-string">'/opt/os_demo/test.txt'</span><br>    <br>In [<span class="hljs-number">13</span>]: os.path.split(path)<br>Out[<span class="hljs-number">13</span>]: (<span class="hljs-string">'/opt/os_demo'</span>, <span class="hljs-string">'test.txt'</span>)<br><br>In [<span class="hljs-number">14</span>]: os.path.dirname(path)<br>Out[<span class="hljs-number">14</span>]: <span class="hljs-string">'/opt/os_demo'</span><br><br>In [<span class="hljs-number">15</span>]: os.path.basename(path)<br>Out[<span class="hljs-number">15</span>]: <span class="hljs-string">'test.txt'</span><br><br>In [<span class="hljs-number">16</span>]: os.path.splitext(path) <br>Out[<span class="hljs-number">16</span>]: (<span class="hljs-string">'/opt/os_demo/test'</span>, <span class="hljs-string">'.txt'</span>)<br></code></pre></td></tr></table></figure>
+<h5 id="（2）构建路径">（2）构建路径</h5>
+<table>
+<thead>
+<tr>
+<th>os.path方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>expanduser</td>
+<td>展开用户的HOME目录，如~，~oracle</td>
+</tr>
+<tr>
+<td>abspath</td>
+<td>得到文件或路径的绝对路径</td>
+</tr>
+<tr>
+<td>join</td>
+<td>根据不同的操作系统平台，使用不同的路径分隔符拼接路径</td>
+</tr>
+<tr>
+<td>isabs</td>
+<td>检查一个路径是不是一个绝对路径</td>
+</tr>
+</tbody>
+</table>
+<h5 id="代码演示：-5">代码演示：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre class=" language-hljs python">In [<span class="hljs-number">19</span>]: os.path.expanduser(<span class="hljs-string">'~'</span>) <br>Out[<span class="hljs-number">19</span>]: <span class="hljs-string">'/root'</span><br><br>In [<span class="hljs-number">20</span>]: os.path.expanduser(<span class="hljs-string">'~oracle'</span>) <br>Out[<span class="hljs-number">20</span>]: <span class="hljs-string">'/home/oracle'</span><br><br>In [<span class="hljs-number">21</span>]: os.path.expanduser(<span class="hljs-string">'~accp'</span>)<br>Out[<span class="hljs-number">21</span>]: <span class="hljs-string">'/home/accp'</span><br><br>In [<span class="hljs-number">22</span>]: os.path.expanduser(<span class="hljs-string">'~acp'</span>) <br>Out[<span class="hljs-number">22</span>]: <span class="hljs-string">'~acp'</span><br><br>In [<span class="hljs-number">23</span>]: os.path.abspath(<span class="hljs-string">'.'</span>)<br>Out[<span class="hljs-number">23</span>]: <span class="hljs-string">'/opt/os_demo'</span><br><br>In [<span class="hljs-number">24</span>]: os.path.abspath(<span class="hljs-string">'..'</span>)<br>Out[<span class="hljs-number">24</span>]: <span class="hljs-string">'/opt'</span><br><br>In [<span class="hljs-number">25</span>]: os.path.join(<span class="hljs-string">'/opt/os_demo'</span>,<span class="hljs-string">'test.txt'</span>)<br>Out[<span class="hljs-number">25</span>]: <span class="hljs-string">'/opt/os_demo/test.txt'</span><br><br>In [<span class="hljs-number">26</span>]: os.path.isabs(<span class="hljs-string">'/opt/os_demo/'</span>) <br>Out[<span class="hljs-number">26</span>]: <span class="hljs-literal">True</span><br><br>In [<span class="hljs-number">27</span>]: os.path.isabs(<span class="hljs-string">'.'</span>) <br>Out[<span class="hljs-number">27</span>]: <span class="hljs-literal"><code class="language-hljs python">In [<span class="hljs-number">19</span>]: os.path.expanduser(<span class="hljs-string">'~'</span>) <br>Out[<span class="hljs-number">19</span>]: <span class="hljs-string">'/root'</span><br><br>In [<span class="hljs-number">20</span>]: os.path.expanduser(<span class="hljs-string">'~oracle'</span>) <br>Out[<span class="hljs-number">20</span>]: <span class="hljs-string">'/home/oracle'</span><br><br>In [<span class="hljs-number">21</span>]: os.path.expanduser(<span class="hljs-string">'~accp'</span>)<br>Out[<span class="hljs-number">21</span>]: <span class="hljs-string">'/home/accp'</span><br><br>In [<span class="hljs-number">22</span>]: os.path.expanduser(<span class="hljs-string">'~acp'</span>) <br>Out[<span class="hljs-number">22</span>]: <span class="hljs-string">'~acp'</span><br><br>In [<span class="hljs-number">23</span>]: os.path.abspath(<span class="hljs-string">'.'</span>)<br>Out[<span class="hljs-number">23</span>]: <span class="hljs-string">'/opt/os_demo'</span><br><br>In [<span class="hljs-number">24</span>]: os.path.abspath(<span class="hljs-string">'..'</span>)<br>Out[<span class="hljs-number">24</span>]: <span class="hljs-string">'/opt'</span><br><br>In [<span class="hljs-number">25</span>]: os.path.join(<span class="hljs-string">'/opt/os_demo'</span>,<span class="hljs-string">'test.txt'</span>)<br>Out[<span class="hljs-number">25</span>]: <span class="hljs-string">'/opt/os_demo/test.txt'</span><br><br>In [<span class="hljs-number">26</span>]: os.path.isabs(<span class="hljs-string">'/opt/os_demo/'</span>) <br>Out[<span class="hljs-number">26</span>]: <span class="hljs-literal">True</span><br><br>In [<span class="hljs-number">27</span>]: os.path.isabs(<span class="hljs-string">'.'</span>) <br>Out[<span class="hljs-number">27</span>]: <span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+<h5 id="（3）获取文件属性">（3）获取文件属性</h5>
+<table>
+<thead>
+<tr>
+<th>os.path</th>
+<th>方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>os.path.getmtime(path)</td>
+<td>返回最近文件修改时间</td>
+</tr>
+<tr>
+<td>os.path.getctime(path)</td>
+<td>返回文件 path 创建时间</td>
+</tr>
+<tr>
+<td>os.path.getsize(path)</td>
+<td>返回文件大小，如果文件不存在就返回错误</td>
+</tr>
+</tbody>
+</table>
+<h5 id="代码演示：-6">代码演示：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre class=" language-hljs python">In [<span class="hljs-number">33</span>]: os.path.getatime(path)<br>Out[<span class="hljs-number">33</span>]: <span class="hljs-number">1587547270.7306058</span><br><br>In [<span class="hljs-number">34</span>]: os.path.getmtime(path)<br>Out[<span class="hljs-number">34</span>]: <span class="hljs-number">1587547270.7306058</span><br><br>In [<span class="hljs-number">35</span>]: os.path.getctime(path)<br>Out[<span class="hljs-number">35</span>]: <span class="hljs-number">1587548055.4721448</span><br><br>In [<span class="hljs-number">36</span>]: os.path.getsize(path)<br>Out[<span class="hljs-number">36</span>]: <span class="hljs-number"><code class="language-hljs python">In [<span class="hljs-number">33</span>]: os.path.getatime(path)<br>Out[<span class="hljs-number">33</span>]: <span class="hljs-number">1587547270.7306058</span><br><br>In [<span class="hljs-number">34</span>]: os.path.getmtime(path)<br>Out[<span class="hljs-number">34</span>]: <span class="hljs-number">1587547270.7306058</span><br><br>In [<span class="hljs-number">35</span>]: os.path.getctime(path)<br>Out[<span class="hljs-number">35</span>]: <span class="hljs-number">1587548055.4721448</span><br><br>In [<span class="hljs-number">36</span>]: os.path.getsize(path)<br>Out[<span class="hljs-number">36</span>]: <span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<h5 id="（4）判断文件类型">（4）判断文件类型</h5>
+<table>
+<thead>
+<tr>
+<th>os.path方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>os.path.isfile(path)</td>
+<td>判断路径是否为文件</td>
+</tr>
+<tr>
+<td>os.path.isdir(path)</td>
+<td>判断路径是否为目录</td>
+</tr>
+<tr>
+<td>os.path.islink(path)</td>
+<td>判断路径是否为链接</td>
+</tr>
+<tr>
+<td>os.path.ismount(path)</td>
+<td>判断路径是否为挂载点</td>
+</tr>
+</tbody>
+</table>
+<h5 id="代码演示：-7">代码演示：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre class=" language-hljs python">In [<span class="hljs-number">37</span>]: os.path.isfile(path)<br>Out[<span class="hljs-number">37</span>]: <span class="hljs-literal">True</span><br><br>In [<span class="hljs-number">38</span>]: os.path.isdir(path)<br>Out[<span class="hljs-number">38</span>]: <span class="hljs-literal">False</span><br><br>In [<span class="hljs-number">39</span>]: os.path.islink(path)<br>Out[<span class="hljs-number">39</span>]: <span class="hljs-literal">False</span><br><br>In [<span class="hljs-number">40</span>]: os.path.ismount(path)<br>Out[<span class="hljs-number">40</span>]: <span class="hljs-literal"><code class="language-hljs python">In [<span class="hljs-number">37</span>]: os.path.isfile(path)<br>Out[<span class="hljs-number">37</span>]: <span class="hljs-literal">True</span><br><br>In [<span class="hljs-number">38</span>]: os.path.isdir(path)<br>Out[<span class="hljs-number">38</span>]: <span class="hljs-literal">False</span><br><br>In [<span class="hljs-number">39</span>]: os.path.islink(path)<br>Out[<span class="hljs-number">39</span>]: <span class="hljs-literal">False</span><br><br>In [<span class="hljs-number">40</span>]: os.path.ismount(path)<br>Out[<span class="hljs-number">40</span>]: <span class="hljs-literal">False</span><br></code></pre></td></tr></table></figure>
+<h2 id="8、os-walk遍历目录树">8、<code>os.walk</code>遍历目录树</h2>
+<p><strong>os.walk0方法遍历某个目录及其子目录，对于每一个目录，walk()函数返回一 个三元组(dirpath, dirnames.filenames)。其中dirpath保存的是 当前目录，dirnames是 当前目录下的子目录列表，filenames是 当前目录下的文件列表。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-comment"># coding=utf-8</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os .walk(<span class="hljs-string">"."</span>, topdown=<span class="hljs-literal">False</span>):<br>true<span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> files:<br>truetrue<span class="hljs-keyword">print</span> (os.path.join(root, name))<br>true<span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> dirs:<br>truetrue<span class="hljs-keyword"><code class="language-hljs python"><span class="hljs-comment"># coding=utf-8</span><br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os .walk(<span class="hljs-string">"."</span>, topdown=<span class="hljs-literal">False</span>):<br>true<span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> files:<br>truetrue<span class="hljs-keyword">print</span> (os.path.join(root, name))<br>true<span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> dirs:<br>truetrue<span class="hljs-keyword">print</span> (os.path.join(root, name))<br></code></pre></td></tr></table></figure>
+<h3 id="（1）在Linux用ipython中把-opt目录遍历一下">（1）在Linux用ipython中把/opt目录遍历一下</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre class=" language-hljs python">In [<span class="hljs-number">4</span>]: <span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os .walk(<span class="hljs-string">"/opt"</span>): <br>   ...:     print(root) <br>   ...:     print() <br>   ...:     <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> files: <br>   ...:         print(os.path.join(root,name)) <br>   ...:     <span class="hljs-keyword">for</span> dir <span class="hljs-keyword"><code class="language-hljs python">In [<span class="hljs-number">4</span>]: <span class="hljs-keyword">for</span> root, dirs, files <span class="hljs-keyword">in</span> os .walk(<span class="hljs-string">"/opt"</span>): <br>   ...:     print(root) <br>   ...:     print() <br>   ...:     <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> files: <br>   ...:         print(os.path.join(root,name)) <br>   ...:     <span class="hljs-keyword">for</span> dir <span class="hljs-keyword">in</span> dirs: <br>   ...:         print(os.path.join(root,dir)) <br>   ...:<br></code></pre></td></tr></table></figure>
+<h5 id="输出结果如下：-3">输出结果如下：</h5>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre class=" language-hljs python"><code class="language-hljs python">/opt<br><br>/opt/rh<br>/opt/rh<br></code></pre></td></tr></table></figure>
+<p><strong>os.walk()方法是一个简单易用的文件、目录遍历器，可以帮助我们高效的处理文件、目录方面的事情.</strong></p>
+<h3 id="（2）打印最常用的10条Linux命令">（2）打印最常用的10条Linux命令</h3>
+<h4 id="步骤：">步骤：</h4>
+<ul>
+<li><strong>读取~/.bash_history文件内容</strong></li>
+<li><strong>将读取到的内容格式化（去掉空行）</strong></li>
+<li><strong>获取指令：索引为0的元素</strong></li>
+<li><strong>指令使用次数进行累加</strong></li>
+<li><strong>去除重复的数据</strong></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre class=" language-hljs shell">[root@python opt]# vim find_cmd.py <br><span class="hljs-meta">#</span><span class="bash"><code class="language-hljs shell">[root@python opt]# vim find_cmd.py <br><span class="hljs-meta">#</span><span class="bash"> coding=utf-8</span><br>import os<br>from collections import Counter<br><br>count = Counter()<br>with open(os.path.expanduser('~/.bash_history')) as f:<br>    for line in f:<br>        cmd = line.strip().split()<br>        if cmd:<br>            count[cmd[0]] += 1<br>print(count.most_common(10))<br></code></pre></td></tr></table></figure>
+<h5 id="输出结果如下：-4">输出结果如下：</h5>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">[root@python opt]# python3 find_cmd.py <br>[('ip', 8), ('cd', 8), ('systemctl', 7), ('ls', 6), ('vim', 5), ('ping', 3), ('tar', 3), ('vmware-install.pl', 3), ('rm', 3), ('sh', 2)]<br></code></pre></td></tr></table></figure>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wu Shao Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wsdlxgp.top/posts/b677.html">https://wsdlxgp.top/posts/b677.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wsdlxgp.top" target="_blank">Xgp & Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/nfs/">nfs</a><a class="post-meta__tags" href="/tags/deployment/">deployment</a><a class="post-meta__tags" href="/tags/pv/">pv</a><a class="post-meta__tags" href="/tags/pvc/">pvc</a><a class="post-meta__tags" href="/tags/Storage-Class/">Storage Class</a><a class="post-meta__tags" href="/tags/dashboard/">dashboard</a><a class="post-meta__tags" href="/tags/helm/">helm</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/cbc8.html"><img class="prev-cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq69p.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">python使用ConfigParser类解析配置文件</div></div></a></div><div class="next-post pull-right"><a href="/posts/8e56.html"><img class="next-cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq67p.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">python的pep8编码规范和代码调试</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/e939.html" title="初识python"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq46p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">初识python</div></div></a></div><div class="relatedPosts_item"><a href="/posts/6618.html" title="python的正则表达式"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq57p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">python的正则表达式</div></div></a></div><div class="relatedPosts_item"><a href="/posts/ed47.html" title="python数据可视化"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq59p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">python数据可视化</div></div></a></div><div class="relatedPosts_item"><a href="/posts/5641.html" title="python文本文件的（读、写、追加）"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq58p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">python文本文件的（读、写、追加）</div></div></a></div><div class="relatedPosts_item"><a href="/posts/c970.html" title="Python数据可视化之Pygal图表类型"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq60p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">Python数据可视化之Pygal图表类型</div></div></a></div><div class="relatedPosts_item"><a href="/posts/10c6.html" title="初识Django和宝塔面板"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq61p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">初识Django和宝塔面板</div></div></a></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By Wu Shao Dong</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

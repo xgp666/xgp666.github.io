@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MySQL 事务(1) | Xgp &amp; Blog</title><meta name="description" content="A: MySQL 事务 MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你既需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！  在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部"><meta name="keywords" content="sql结构化查询语句,数值类型"><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wsdlxgp.top/posts/b0d5.html"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="MySQL 事务(1)"><meta property="og:url" content="https://wsdlxgp.top/posts/b0d5.html"><meta property="og:site_name" content="Xgp &amp; Blog"><meta property="og:description" content="A: MySQL 事务 MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你既需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！  在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务。 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部"><meta property="og:image" content="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq103p.jpg"><meta property="article:published_time" content="2020-06-08T16:00:00.000Z"><meta property="article:modified_time" content="2020-06-30T06:49:26.519Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="MySQL 事务(2)" href="https://wsdlxgp.top/posts/40d5.html"><link rel="next" title="MySQL索引" href="https://wsdlxgp.top/posts/8338.html"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">132</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">76</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#A-MySQL-事务"><span class="toc-number">1.</span> <span class="toc-text">A: MySQL 事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#B-关于事务的一些术语"><span class="toc-number">2.</span> <span class="toc-text">B: 关于事务的一些术语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-MYSQL-事务处理主要有两种方法："><span class="toc-number">3.</span> <span class="toc-text">C: MYSQL 事务处理主要有两种方法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、用-BEGIN-ROLLBACK-COMMIT来实现"><span class="toc-number">3.1.</span> <span class="toc-text">1、用 BEGIN, ROLLBACK, COMMIT来实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、直接用-SET-来改变-MySQL-的自动提交模式"><span class="toc-number">3.2.</span> <span class="toc-text">2、直接用 SET 来改变 MySQL 的自动提交模式:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#D-什么是事务"><span class="toc-number">4.</span> <span class="toc-text">D: 什么是事务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#E-为什么需要事务"><span class="toc-number">5.</span> <span class="toc-text">E: 为什么需要事务</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">一、银行转账问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number"></span> <span class="toc-text">二、执行事务的语法和流程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-开始事务"><span class="toc-number">0.0.1.</span> <span class="toc-text">1) 开始事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-提交事务"><span class="toc-number">0.0.2.</span> <span class="toc-text">2) 提交事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-回滚（撤销）事务"><span class="toc-number">0.0.3.</span> <span class="toc-text">3) 回滚（撤销）事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">0.0.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、实例演示"><span class="toc-number">1.</span> <span class="toc-text">1、实例演示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#示例-1"><span class="toc-number">1.1.</span> <span class="toc-text">示例 1</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-在-A-窗口中开启一个事务，并更新-mybank-数据库中-bank-表的数据，SQL-语句和运行结果如下："><span class="toc-number">1.1.1.</span> <span class="toc-text">1) 在 A 窗口中开启一个事务，并更新 mybank 数据库中 bank 表的数据，SQL 语句和运行结果如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-在-B-窗口中查询-bank-数据表中的数据，SQL-语句和运行结果如下："><span class="toc-number">1.1.2.</span> <span class="toc-text">2) 在 B 窗口中查询 bank 数据表中的数据，SQL 语句和运行结果如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-在-A-窗口中继续执行事务并提交事务，SQL-语句和运行结果如下："><span class="toc-number">1.1.3.</span> <span class="toc-text">3) 在 A 窗口中继续执行事务并提交事务，SQL 语句和运行结果如下：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-在-B-窗口中再次查询-bank-数据表的数据，SQL-语句和运行结果如下："><span class="toc-number">1.1.4.</span> <span class="toc-text">4) 在 B 窗口中再次查询 bank 数据表的数据，SQL 语句和运行结果如下：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例-2"><span class="toc-number">1.2.</span> <span class="toc-text">示例 2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拓展"><span class="toc-number">1.3.</span> <span class="toc-text">拓展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、注意事项"><span class="toc-number">2.</span> <span class="toc-text">2、注意事项</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-事务尽可能简短"><span class="toc-number">2.0.1.</span> <span class="toc-text">1) 事务尽可能简短</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-事务中访问的数据量尽量最少"><span class="toc-number">2.0.2.</span> <span class="toc-text">2) 事务中访问的数据量尽量最少</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-查询数据时尽量不要使用事务"><span class="toc-number">2.0.3.</span> <span class="toc-text">3) 查询数据时尽量不要使用事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-在事务处理过程中尽量不要出现等待用户输入的操作"><span class="toc-number">2.0.4.</span> <span class="toc-text">4) 在事务处理过程中尽量不要出现等待用户输入的操作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回滚"><span class="toc-number">2.1.</span> <span class="toc-text">回滚</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq103p.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">MySQL 事务(1)</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2020-06-09 00:00:00"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2020-06-09</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-30 14:49:26"><i class="fas fa-history fa-fw"></i> 更新于 2020-06-30</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/mysql/">mysql</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><h2 id="A-MySQL-事务">A: MySQL 事务</h2>
+<p><strong>MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你既需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</strong></p>
+<ul>
+<li><strong>在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务。</strong></li>
+<li><strong>事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。</strong></li>
+<li><strong>事务用来管理 insert,update,delete 语句</strong></li>
+</ul>
+<p><strong>一般来说，事务是必须满足4个条件（ACID）: :原子性（<code>A</code>tomicity，或称不可分割性）、一致性（<code>C</code>onsistency）、隔离性（<code>I</code>solation，又称独立性）、持久性（<code>D</code>urability）。</strong></p>
+<ul>
+<li><strong><code>原子性</code>:一个事务（transaction）中的所有操作，要么全部完成，要么全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。</strong></li>
+<li><strong><code>一致性</code>:在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设规则，这包含资料的精确度、串联性以及后续数据库可以自发性地完成预定的工作。</strong></li>
+<li><strong><code>隔离性</code>:数据库允许多个并发事务同时对其数据进行读写和修改的能力，隔离性可以防止多个事务并发执行时由于交叉执行而导致数据的不一致。事务隔离分为不同级别，包括读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）。</strong></li>
+<li><strong><code>持久性</code>:事务处理结束后，对数据的修改就是永久的，即便系统故障也不会丢失。</strong></li>
+</ul>
+<blockquote>
+<p><strong>在 MySQL 命令行的默认设置下，事务都是自动提交的，即执行 SQL 语句后就会马上执行 COMMIT 操作。因此要显式地开启一个事务务须使用命令 BEGIN 或 START TRANSACTION，或者执行命令 SET AUTOCOMMIT=0，用来禁止使用当前会话的自动提交。</strong></p>
+</blockquote>
+<h2 id="B-关于事务的一些术语">B: 关于事务的一些术语</h2>
+<ul>
+<li><strong>开启事务：Start Transaction</strong></li>
+<li><strong>事务结束：End Transaction</strong></li>
+<li><strong>提交事务：Commit Transaction</strong></li>
+<li><strong>回滚事务：Rollback Transaction</strong></li>
+</ul>
+<h2 id="C-MYSQL-事务处理主要有两种方法：">C: MYSQL 事务处理主要有两种方法：</h2>
+<h3 id="1、用-BEGIN-ROLLBACK-COMMIT来实现">1、用 BEGIN, ROLLBACK, COMMIT来实现</h3>
+<ul>
+<li><strong>BEGIN</strong> 开始一个事务</li>
+<li><strong>ROLLBACK</strong> 事务回滚</li>
+<li><strong>COMMIT</strong> 事务确认</li>
+</ul>
+<h3 id="2、直接用-SET-来改变-MySQL-的自动提交模式">2、直接用 SET 来改变 MySQL 的自动提交模式:</h3>
+<ul>
+<li><strong>SET AUTOCOMMIT=0</strong> 禁止自动提交</li>
+<li><strong>SET AUTOCOMMIT=1</strong> 开启自动提交</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> use RUNOOB;<br>Database changed<br>mysql> CREATE TABLE runoob_transaction_test( id int(5)) engine&#x3D;innodb;  # 创建数据表<br>Query OK, 0 rows affected (0.04 sec)<br> <br>mysql> select * from runoob_transaction_test;<br>Empty set (0.01 sec)<br> <br>mysql> begin;  # 开始事务<br>Query OK, 0 rows affected (0.00 sec)<br> <br>mysql> insert into runoob_transaction_test value(5);<br>Query OK, 1 rows affected (0.01 sec)<br> <br>mysql> insert into runoob_transaction_test value(6);<br>Query OK, 1 rows affected (0.00 sec)<br> <br>mysql> commit; # 提交事务<br>Query OK, 0 rows affected (0.01 sec)<br> <br>mysql>  select * from runoob_transaction_test;<br>+------+<br>| id   |<br>+------+<br>| 5    |<br>| 6    |<br>+------+<br>2 rows in set (0.01 sec)<br> <br>mysql> begin;    # 开始事务<br>Query OK, 0 rows affected (0.00 sec)<br> <br>mysql>  insert into runoob_transaction_test values(7);<br>Query OK, 1 rows affected (0.00 sec)<br> <br>mysql> rollback;   # 回滚<br>Query OK, 0 rows affected (0.00 sec)<br> <br>mysql>   select * from runoob_transaction_test;   # 因为回滚所以数据没有插入<br>+------+<br>| id   |<br>+------+<br>| 5    |<br>| 6    |<br>+------+<br>2 rows in set (0.01 sec)<br></code></pre></td></tr></table></figure>
+<h2 id="D-什么是事务">D: 什么是事务</h2>
+<ul>
+<li><strong>事务(TRANSACTION)是作为单个逻辑工作单元执行的一系列操作</strong></li>
+<li><strong>多个操作作为一个整体向系统提交，要么都执行、要么都不执行</strong></li>
+<li><strong>事务是一个不可分割的工作逻辑单元</strong></li>
+</ul>
+<blockquote>
+<p><strong>转账过程就是一个整体</strong><br>
+<strong>它需要两条UPDATE语句来完成，这两条语句是一个整体</strong><br>
+<strong>如果其中任一条出现错误， 则整个转账业务也应取消，两个账户中的余额应恢复</strong><br>
+<strong>到原来的数据，从而确保转账前和转账后的余额不变，即都是1001元</strong></p>
+</blockquote>
+<h2 id="E-为什么需要事务">E: 为什么需要事务</h2>
+<p><strong>了解事务之前，先来看看数据库为什么需要有事务，假设没有事务会有什么影响？</strong></p>
+<p><strong>举一个转账的例子，假设你朋友向你借10000元，你打开APP，乐呵呵的把钱转了，你的卡里已经少了10000元，但是你打电话给朋友时，你朋友说没有收到啊，你这时候肯定卖银行怎么不靠谱，没到账怎么把我卡里的钱给扣了。</strong></p>
+<p><strong>我们来捋一捋上述银行发生的过程，简单的分三步：</strong></p>
+<p><strong>A发起转账10000给B -&gt; A银行卡减10000元 -&gt; B银行卡增加10000元。</strong></p>
+<p><strong>上述案例是第三步出现了问题，如果有事务，则不会发生案例中的事情，可以理解为事务就是这三个步骤是一根绳子上的蚂蚱，要么都成功，要么都失败。</strong></p>
+<p><strong>所以数据库引入事务的主要目的是事务会把数据库会从一种一致状态转换到另一种一致状态，数据库提交工作时可以确保要么所有修改都保存，要么所有修改都不保存。</strong></p>
+<p><strong>了解事务，还需要了解事务的理论依据ACID，也可以说事务的几个特性。</strong></p>
+<h1>一、银行转账问题</h1>
+<ul>
+<li><strong>假定资金从账户A转到账户B，至少需要两步</strong></li>
+<li>
+<ul>
+<li><strong>账户A的资金减少</strong></li>
+</ul>
+</li>
+<li>
+<ul>
+<li><strong>然后账户B的资金相应增加</strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">drop database if EXISTS &#96;bankdb&#96;;<br>create database &#96;bankdb&#96;;<br>use &#96;bankdb&#96;;<br><br>drop table IF EXISTS &#96;bank&#96;;<br>create table &#96;bank&#96;(<br>  &#96;cusName&#96; VARCHAR(20),   #用户名<br>  &#96;cusMoney&#96; DECIMAL(10,2)   #用户名<br>)CHARSET &#x3D; 'utf8mb4';<br><br>insert into bank<br>VALUES('张三',1000),('李四',1);<br><br># 模拟转账<br>UPDATE bank<br>set cusMoney&#x3D;cusMoney-500<br>where cusName&#x3D;'张三';<br><br>UPDATE bank<br>set cusMoney&#x3D;cusMoney+500<br>where cusName&#x3D;'李四';<br><br># 查看账户<br>select * from bank;<br></code></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200612144209571.png" alt="image-20200612144209571"></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200612143038859.png" alt="image-20200612143038859"></p>
+<p><strong>下面开始模拟实现转账功能。从张三的账户直接转账 500 元到李四的账户，可以使用 UPDATE 语句分别修改张三的账户和李四的账户。张三的账户减少 500 元，李四的账户增加 500 元， SQL 语句如下所示：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql"># 模拟转账<br>BEGIN;         #开始<br>UPDATE bank<br>set cusMoney&#x3D;cusMoney-500<br>where cusName&#x3D;'张三';<br><br>UPDATE bank<br>set cusMoney&#x3D;cusMoney+500<br>where cusName&#x3D;'李四';<br>COMMIT;        # 结束<br><br># 查看一下<br>select * from bank;<br></code></pre></td></tr></table></figure>
+<p>![image-20200614160258903](G:\四期\数据库\mysql文档\09 MySQL 事务+用户权限.assets\image-20200614160258903.png)</p>
+<p><strong>正常情况下，执行以上的转账操作后，余额总和应保持不变，仍为 1001 元。但是，如果在这个过程的其中一个环节出现差错，如在张三的账户减少 500 元之后，这时发生了服务器故障，李四的账户没有立即增加 500 元，此时，第三方读取到两个账户的余额总和变为 500+1=501 元，即账户总额间少了 500 元。</strong></p>
+<p><strong>MySQL 为了解决此类问题，提供了事务。事务可以将一系列的数据操作捆绑成一个整体进行统一管理，如果某一事务执行成功，则在该事务中进行的所有数据更改均会提交，成为数据库中的永久组成部分。如果事务执行时遇到错误，则就必须取消或回滚。取消或回滚后，数据将全部恢复到操作前的状态，所有数据的更改均被清除。</strong></p>
+<p><strong>MySQL 通过事务保证了数据的一致性。上述提到的转账过程就是一个事务，它需要两条 UPDATE 语句来完成。这两条语句是一个整体，如果其中任何一个环节出现问题，则整个转账业务也应取消，两个账户中的余额应恢复为原来的数据，从而确保转账前和转账后的余额总和不变，即都是 1001 元。</strong></p>
+<h1>二、执行事务的语法和流程</h1>
+<p><strong>SQL 使用下列语句来管理事务。</strong></p>
+<h4 id="1-开始事务">1) 开始事务</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">BEGIN;<br></code></pre></td></tr></table></figure>
+<p><strong>或</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">START TRANSACTION;<br></code></pre></td></tr></table></figure>
+<p><strong>这个语句显式地标记一个事务的起始点。</strong></p>
+<h4 id="2-提交事务">2) 提交事务</h4>
+<p><strong>MySQL 使用下面的语句来提交事务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">COMMIT;<br></code></pre></td></tr></table></figure>
+<p><strong>COMMIT 表示提交事务，即提交事务的所有操作，具体地说，就是将事务中所有对数据库的更新都写到磁盘上的物理数据库中，事务正常结束。</strong></p>
+<p><strong>提交事务，意味着将事务开始以来所执行的所有数据都修改成为数据库的永久部分，因此也标志着一个事务的结束。一旦执行了该命令，将不能回滚事务。只有在所有修改都准备好提交给数据库时，才执行这一操作。</strong></p>
+<h4 id="3-回滚（撤销）事务">3) 回滚（撤销）事务</h4>
+<p><strong>MySQL 使用以下语句回滚事务：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">ROLLBACK;<br></code></pre></td></tr></table></figure>
+<p><strong>ROLLBACK 表示撤销事务，即在事务运行的过程中发生了某种故障，事务不能继续执行，系统将事务中对数据库的所有已完成的操作全部撤销，回滚到事务开始时的状态。这里的操作指对数据库的更新操作。</strong></p>
+<p><strong>当事务执行过程中遇到错误时，使用 ROLLBACK 语句使事务回滚到起点或指定的保持点处。同时，系统将清除自事务起点或到某个保存点所做的所有的数据修改，并且释放由事务控制的资源。因此，这条语句也标志着事务的结束。</strong></p>
+<h4 id="总结">总结</h4>
+<p><strong>BEGIN 或 START TRANSACTION 语句后面的 SQL 语句对数据库数据的更新操作都将记录在事务日志中，直至遇到 ROLLBACK 语句或 COMMIT 语句。如果事务中某一操作失败且执行了 ROLLBACK 语句，那么在开启事务语句之后所有更新的数据都能回滚到事务开始前的状态。如果事务中的所有操作都全部正确完成，并且使用了 COMMIT 语句向数据库提交更新数据，则此时的数据又处在新的一致状态。</strong></p>
+<h2 id="1、实例演示">1、实例演示</h2>
+<p><strong>下面通过两个例子来演示一下 MySQL 事务的具体用法。</strong></p>
+<h3 id="示例-1">示例 1</h3>
+<p><strong>下面模拟在张三的账户减少 500 元后，李四的账户还未增加 500 时，有其他会话访问数据表的场景。由于代码需要在两个窗口中执行，为了方便阅读，这里我们称为 A 窗口和 B 窗口。</strong></p>
+<h4 id="1-在-A-窗口中开启一个事务，并更新-mybank-数据库中-bank-表的数据，SQL-语句和运行结果如下：">1) 在 A 窗口中开启一个事务，并更新 mybank 数据库中 bank 表的数据，SQL 语句和运行结果如下：</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> USE mybank;<br>Database changed<br>mysql> BEGIN;<br>Query OK, 0 rows affected (0.00 sec)<br>mysql> UPDATE bank SET cusMoney &#x3D; cusMoney-500<br>    -> WHERE cusName&#x3D;'张三';<br>Query OK, 1 row affected (0.05 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br></code></pre></td></tr></table></figure>
+<h4 id="2-在-B-窗口中查询-bank-数据表中的数据，SQL-语句和运行结果如下：">2) 在 B 窗口中查询 bank 数据表中的数据，SQL 语句和运行结果如下：</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> SELECT * FROM mybank.bank;<br>+--------------+--------------+<br>| cusName | cusMoney |<br>+--------------+--------------+<br>| 张三         |      1000.00 |<br>| 李四         |         1.00 |<br>+--------------+--------------+<br>2 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<p><strong>从结果可以看出，虽然 A 窗口中的事务已经更改了 bank 表中的数据，但没有立即更新数据，这时其他会话读取到的仍然是更新前的数据。</strong></p>
+<h4 id="3-在-A-窗口中继续执行事务并提交事务，SQL-语句和运行结果如下：">3) 在 A 窗口中继续执行事务并提交事务，SQL 语句和运行结果如下：</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> UPDATE bank SET cusMoney &#x3D; cusMoney+500<br>    -> WHERE cusName&#x3D;'李四';<br>Query OK, 1 row affected (0.05 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br>mysql> COMMIT;<br>Query OK, 0 rows affected (0.07 sec)<br></code></pre></td></tr></table></figure>
+<h4 id="4-在-B-窗口中再次查询-bank-数据表的数据，SQL-语句和运行结果如下：">4) 在 B 窗口中再次查询 bank 数据表的数据，SQL 语句和运行结果如下：</h4>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> SELECT * FROM mybank.bank;<br>+--------------+--------------+<br>| cusName | cusMoney |<br>+--------------+--------------+<br>| 张三         |       500.00 |<br>| 李四         |       501.00 |<br>+--------------+--------------+<br>2 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<p><strong>在 A 窗口中执行 COMMIT 提交事务后，对数据所做的更新将一起提交，其他会话读取到的是更新后的数据。从结果可以看出张三和李四的总账户余额和转账前保持一致，这样数据从一个一致性状态更新到另一个一致性状态。</strong></p>
+<p><strong>前面提到，当事务在执行中出现问题，也就是不能按正常的流程执行一个完整的事务时，可以使用 ROLLBACK 语句进行回滚，使用数据恢复到初始状态。</strong></p>
+<p><strong>在例 1 中，张三的账户余额已经减少到 500 元，如果再转出 1000 元，将会出现余额为负数，因此需要回滚到原始状态。如例 2 所示。</strong></p>
+<h3 id="示例-2">示例 2</h3>
+<p><strong>将张三的账户余额减少 1000 元，并让事务回滚，SQL 语句和运行结果如下所示：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">mysql> BEGIN;<br>Query OK, 0 rows affected (0.00 sec)<br> <br>mysql> UPDATE bank SET cusMoney &#x3D; cusMoney-1000 WHERE cusName&#x3D;'张三';<br>Query OK, 1 row affected (0.04 sec)<br>Rows matched: 1  Changed: 1  Warnings: 0<br> <br>mysql> ROLLBACK;<br>Query OK, 0 rows affected (0.07 sec)<br> <br>mysql> SELECT * FROM mybank.bank;<br>+--------------+--------------+<br>| cusName | cusMoney |<br>+--------------+--------------+<br>| 张三         |       500.00 |<br>| 李四         |       501.00 |<br>+--------------+--------------+<br>2 rows in set (0.00 sec)<br></code></pre></td></tr></table></figure>
+<p><strong>从结果可以看出，执行事务回滚后，账户数据恢复到初始状态，即该事务执行之前的状态。</strong></p>
+<h3 id="拓展">拓展</h3>
+<p><strong>在数据库操作中，为了有效保证并发读取数据的正确性，提出了事务的隔离级别。在例 1 和例 2 的演示中，事务的隔离级别为默认隔离级别。在 MySQL 中，事务的默认隔离级别是 REPEATABLE-READ （可重读）隔离级别，即事务未结束时（未执行 COMMIT 或 ROLLBACK），其它会话只能读取到未提交数据。</strong></p>
+<p><strong>请猛击《<a href="http://c.biancheng.net/view/7265.html" target="_blank" rel="noopener">MySQL事务隔离级别</a>》了解更多内容。</strong></p>
+<h2 id="2、注意事项">2、注意事项</h2>
+<p><strong>MySQL 事务是一项非常消耗资源的功能，大家在使用过程中要注意以下几点。</strong></p>
+<h4 id="1-事务尽可能简短">1) 事务尽可能简短</h4>
+<p><strong>事务的开启到结束会在数据库管理系统中保留大量资源，以保证事务的原子性、一致性、隔离性和持久性。如果在多用户系统中，较大的事务将会占用系统的大量资源，使得系统不堪重负，会影响软件的运行性能，甚至导致系统崩溃。</strong></p>
+<h4 id="2-事务中访问的数据量尽量最少">2) 事务中访问的数据量尽量最少</h4>
+<p><strong>当并发执行事务处理时，事务操作的数据量越少，事务之间对相同数据的操作就越少。</strong></p>
+<h4 id="3-查询数据时尽量不要使用事务">3) 查询数据时尽量不要使用事务</h4>
+<p><strong>对数据进行浏览查询操作并不会更新数据库的数据，因此应尽量不使用事务查询数据，避免占用过量的系统资源。</strong></p>
+<h4 id="4-在事务处理过程中尽量不要出现等待用户输入的操作">4) 在事务处理过程中尽量不要出现等待用户输入的操作</h4>
+<p><strong>在处理事务的过程中，如果需要等待用户输入数据，那么事务会长时间地占用资源，有可能造成系统阻塞。</strong></p>
+<h3 id="回滚">回滚</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">BEGIN;<br>UPDATE bank<br>set cusMoney&#x3D;cusMoney+500<br>where cusName&#x3D;'张三';<br>ROLLBACK;<br><br>select * from bank;<br></code></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200612144437603.png" alt="image-20200612144437603"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">BEGIN;<br>UPDATE bank<br>set cusMoney&#x3D;cusMoney+500<br>where cusName&#x3D;'张三';<br>COMMIT;<br><br>select * from bank;<br></code></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200612144620291.png" alt="image-20200612144620291"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs mysql"><code class="language-hljs mysql">查看事务状态:SHOW VARIABLES LIKE 'AUTOCOMMIT';<br></code></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200612150215912.png" alt="image-20200612150215912"></p>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wu Shao Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wsdlxgp.top/posts/b0d5.html">https://wsdlxgp.top/posts/b0d5.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wsdlxgp.top" target="_blank">Xgp & Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/sql%E7%BB%93%E6%9E%84%E5%8C%96%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5/">sql结构化查询语句</a><a class="post-meta__tags" href="/tags/%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B/">数值类型</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/40d5.html"><img class="prev-cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq104p.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MySQL 事务(2)</div></div></a></div><div class="next-post pull-right"><a href="/posts/8338.html"><img class="next-cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq102p.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MySQL索引</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/b19d.html" title="MySQL子查询"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq100p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-06</div><div class="relatedPosts_title">MySQL子查询</div></div></a></div><div class="relatedPosts_item"><a href="/posts/a0ec.html" title="MySQL视图"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq101p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-07</div><div class="relatedPosts_title">MySQL视图</div></div></a></div><div class="relatedPosts_item"><a href="/posts/8338.html" title="MySQL索引"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq102p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-08</div><div class="relatedPosts_title">MySQL索引</div></div></a></div><div class="relatedPosts_item"><a href="/posts/22c1.html" title="MySQL用户管理（1）"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq105p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-11</div><div class="relatedPosts_title">MySQL用户管理（1）</div></div></a></div><div class="relatedPosts_item"><a href="/posts/40d5.html" title="MySQL 事务(2)"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq104p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-10</div><div class="relatedPosts_title">MySQL 事务(2)</div></div></a></div><div class="relatedPosts_item"><a href="/posts/66c1.html" title="MySQL用户管理（2）"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq106p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2020-06-12</div><div class="relatedPosts_title">MySQL用户管理（2）</div></div></a></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By Wu Shao Dong</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

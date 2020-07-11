@@ -1,0 +1,356 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>初识Django和宝塔面板 | Xgp &amp; Blog</title><meta name="description" content="1234567镜像列表http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple&#x2F; &#x2F;&#x2F;阿里https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple&#x2F; &#x2F;&#x2F;清华http:&#x2F;&#x2F;pypi.douban.com&amp;#x"><meta name="keywords" content="nfs,deployment,pv,pvc,Storage Class,dashboard,helm"><meta name="author" content="Wu Shao Dong"><meta name="copyright" content="Wu Shao Dong"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wsdlxgp.top/posts/10c6.html"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin="crossorigin"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta property="og:type" content="article"><meta property="og:title" content="初识Django和宝塔面板"><meta property="og:url" content="https://wsdlxgp.top/posts/10c6.html"><meta property="og:site_name" content="Xgp &amp; Blog"><meta property="og:description" content="1234567镜像列表http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple&#x2F; &#x2F;&#x2F;阿里https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple&#x2F; &#x2F;&#x2F;清华http:&#x2F;&#x2F;pypi.douban.com&amp;#x"><meta property="og:image" content="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq61p.jpg"><meta property="article:published_time" content="2019-09-13T16:16:00.000Z"><meta property="article:modified_time" content="2020-06-30T06:57:41.796Z"><meta name="twitter:card" content="summary"><script>var activateDarkMode = function () {
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#000')
+  }
+}
+var activateLightMode = function () {
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null) {
+    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#fff')
+  }
+}
+
+var getCookies = function (name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+}
+
+var autoChangeMode = 'false'
+var t = getCookies('theme')
+if (autoChangeMode === '1') {
+  var isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+  var isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+  var isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+  var hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+  if (t === undefined) {
+    if (isLightMode) activateLightMode()
+    else if (isDarkMode) activateDarkMode()
+    else if (isNotSpecified || hasNoSupport) {
+      console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+      var now = new Date()
+      var hour = now.getHours()
+      var isNight = hour <= 6 || hour >= 18
+      isNight ? activateDarkMode() : activateLightMode()
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+      if (Cookies.get('theme') === undefined) {
+        e.matches ? activateDarkMode() : activateLightMode()
+      }
+    })
+  } else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else if (autoChangeMode === '2') {
+  now = new Date()
+  hour = now.getHours()
+  isNight = hour <= 6 || hour >= 18
+  if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode()
+} else {
+  if (t === 'dark') activateDarkMode()
+  else if (t === 'light') activateLightMode()
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="prev" title="windows10安装 mysql数据库和Navicat for MySQL(MySQL管理工具)" href="https://wsdlxgp.top/posts/3eca.html"><link rel="next" title="Python数据可视化之Pygal图表类型" href="https://wsdlxgp.top/posts/c970.html"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web&amp;display=swap"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: false,
+  copyright: undefined,
+  ClickShowText: undefined,
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  baiduPush: false,
+  highlightCopy: true,
+  highlightLang: true,
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false    
+}</script><script>var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isSidebar: true
+  }</script><noscript><style>
+#nav {
+  opacity: 1
+}
+.justified-gallery img{
+  opacity: 1
+}
+</style></noscript><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="Xgp & Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism.css" type="text/css"></head><body><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">132</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">76</div></a></div></div><div class="mobile_data_item is-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><i class="fas fa-arrow-right on" id="toggle-sidebar"></i><div id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">一、linux安装“宝塔面板”</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装完成界面"><span class="toc-number">1.0.1.</span> <span class="toc-text">安装完成界面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#浏览器访问"><span class="toc-number">1.0.2.</span> <span class="toc-text">浏览器访问</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、宝塔面板是什么？"><span class="toc-number">1.1.</span> <span class="toc-text">1、宝塔面板是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、宝塔面板可以做什么？"><span class="toc-number">1.2.</span> <span class="toc-text">2、宝塔面板可以做什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、有哪些特色？"><span class="toc-number">1.3.</span> <span class="toc-text">3、有哪些特色？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、定位"><span class="toc-number">1.4.</span> <span class="toc-text">4、定位</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">二、Django 的简便实用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、简介"><span class="toc-number">2.1.</span> <span class="toc-text">1、简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-特点"><span class="toc-number">2.2.</span> <span class="toc-text">2. 特点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1）-重量级框架"><span class="toc-number">2.2.1.</span> <span class="toc-text">1） 重量级框架</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2）MVT模式"><span class="toc-number">2.2.2.</span> <span class="toc-text">2）MVT模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1、MVC模式说明"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">1、MVC模式说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2、Django的MVT"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">2、Django的MVT</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、windows安装Django"><span class="toc-number">2.3.</span> <span class="toc-text">3、windows安装Django</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）版本对应"><span class="toc-number">2.3.1.</span> <span class="toc-text">（1）版本对应</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）cmd安装"><span class="toc-number">2.3.2.</span> <span class="toc-text">（2）cmd安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（3）检查是否安装成功"><span class="toc-number">2.3.3.</span> <span class="toc-text">（3）检查是否安装成功</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">3.</span> <span class="toc-text">三、Django 创建第一个项目</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、Django-管理工具"><span class="toc-number">3.1.</span> <span class="toc-text">1、Django 管理工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、创建第一个项目"><span class="toc-number">3.2.</span> <span class="toc-text">2、创建第一个项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#目录说明："><span class="toc-number">3.2.0.1.</span> <span class="toc-text">目录说明：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、视图和-URL-配置"><span class="toc-number">3.3.</span> <span class="toc-text">3、视图和 URL 配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">4.</span> <span class="toc-text">四、path() 函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">5.</span> <span class="toc-text">五、Django 模板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模板应用实例"><span class="toc-number">5.1.</span> <span class="toc-text">模板应用实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">6.</span> <span class="toc-text">&amp;#123;&amp;#123; &#39;hello&#39; &amp;#125;&amp;#125;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">7.</span> <span class="toc-text">六、Django 模板标签</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、if-else-标签"><span class="toc-number">7.1.</span> <span class="toc-text">1、if&#x2F;else 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、for-标签"><span class="toc-number">7.2.</span> <span class="toc-text">2、for 标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、ifequal-ifnotequal-标签"><span class="toc-number">7.3.</span> <span class="toc-text">3、ifequal&#x2F;ifnotequal 标签</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">8.</span> <span class="toc-text">Welcome!</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">9.</span> <span class="toc-text">No News Here</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4、注释标签"><span class="toc-number">9.1.</span> <span class="toc-text">4、注释标签</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、过滤器"><span class="toc-number">9.2.</span> <span class="toc-text">5、过滤器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、include-标签"><span class="toc-number">9.3.</span> <span class="toc-text">6、include 标签</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">10.</span> <span class="toc-text">七、模板继承</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">11.</span> <span class="toc-text">Hello World!</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">12.</span> <span class="toc-text">八、Linux开发Django</span></a></li></ol></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq61p.jpg)"><nav id="nav"><span class="pull-left" id="blog_name"><a class="blog_title" id="site-name" href="/">Xgp &amp; Blog</a></span><span class="pull-right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page"><i class="fa-fw fas fa-list"></i><span> List</span><i class="fas fa-chevron-down menus-expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></li><li><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> Movie</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><span class="toggle-menu close"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><div id="post-title"><div class="posttitle">初识Django和宝塔面板</div></div><div id="post-meta"><div class="meta-firstline"><time class="post-meta__date"><span class="post-meta__date-created" title="发表于 2019-09-14 00:16:00"><i class="far fa-calendar-alt fa-fw"></i> 发表于 2019-09-14</span><span class="post-meta__separator">|</span><span class="post-meta__date-updated" title="更新于 2020-06-30 14:57:41"><i class="fas fa-history fa-fw"></i> 更新于 2020-06-30</span></time><span class="post-meta__categories"><span class="post-meta__separator">|</span><i class="fas fa-inbox fa-fw post-meta__icon"></i><a class="post-meta__categories" href="/categories/python/">python</a></span></div><div class="meta-secondline"> </div><div class="meta-thirdline"><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta__icon"></i><span>阅读量:</span><span id="busuanzi_value_page_pv"></span></span><span class="post-meta-commentcount"></span></div></div></div></header><main class="layout_post" id="content-inner"><article id="post"><div class="post-content" id="article-container"><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre class=" language-hljs 中国"><code class="language-hljs 中国">镜像列表<br>http:&#x2F;&#x2F;mirrors.aliyun.com&#x2F;pypi&#x2F;simple&#x2F; &#x2F;&#x2F;阿里<br>https:&#x2F;&#x2F;pypi.tuna.tsinghua.edu.cn&#x2F;simple&#x2F; &#x2F;&#x2F;清华<br>http:&#x2F;&#x2F;pypi.douban.com&#x2F; &#x2F;&#x2F;豆瓣<br>http:&#x2F;&#x2F;pypi.hustunique.com&#x2F; &#x2F;&#x2F;华中理工大学<br>http:&#x2F;&#x2F;pypi.sdutlinux.org&#x2F; &#x2F;&#x2F;山东理工大学<br>http:&#x2F;&#x2F;pypi.mirrors.ustc.edu.cn&#x2F; &#x2F;&#x2F;中国科学技术大学<br></code></pre></td></tr></table></figure>
+<h1>一、linux安装“<a href="https://www.bt.cn/bbs/thread-19376-1-1.html" target="_blank" rel="noopener">宝塔面板</a>”</h1>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre class=" language-hljs linux"><code class="language-hljs linux">[root@python ~]# yum install -y wget && wget -O install.sh http:&#x2F;&#x2F;download.bt.cn&#x2F;install&#x2F;install_6.0.sh && sh install.sh<br>&#x2F;&#x2F;一键安装<br></code></pre></td></tr></table></figure>
+<h3 id="安装完成界面">安装完成界面</h3>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413142432289.png" alt="image-20200413142432289"></p>
+<h3 id="浏览器访问">浏览器<a href="http://192.168.1.80:8888/35142f4b/" target="_blank" rel="noopener">访问</a></h3>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413142632626.png" alt="image-20200413142632626"></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413142720687.png" alt="image-20200413142720687"></p>
+<p><em><strong>接下来就可以在这里体验一下，非常方便的一个工具！！！</strong></em></p>
+<h2 id="1、宝塔面板是什么？">1、宝塔面板是什么？</h2>
+<p><strong>宝塔面板是一款服务器管理软件，支持windows和linux系统，可以通过Web端轻松管理服务器，提升运维效率。例如：创建管理网站、FTP、数据库，拥有可视化文件管理器，可视化软件管理器，可视化CPU、内存、流量监控图表，计划任务等功能。</strong></p>
+<h2 id="2、宝塔面板可以做什么？"><strong>2、宝塔面板可以做什么？</strong></h2>
+<p><strong>宝塔面板拥有极速方便的一键配置与管理，可一键配置服务器环境（LAMP/LNMP/Tomcat/Node.js），一键部署SSL，异地备份；提供SSH开启关闭服务，SSH端口更改，禁ping，防火墙端口放行以及操作日志查看；CPU、内存、磁盘IO、网络IO数据监测，可设置记录保存天数以及任意查看某天数据；计划任务可按周期添加执行，支持SHELL脚本，提供网站、数据库备份以及日志切割，且支持一键备份到又拍云存储空间，或者其他云存储空间里；通过web界面就可以轻松管理安装所用的服务器软件，还有实用的扩展插件；集成方便高效的文件管理器，支持上传、下载、打包、解压以及文件编辑查看。</strong></p>
+<h2 id="3、有哪些特色？"><strong>3、有哪些特色？</strong></h2>
+<p><strong>为了方便用户建立网站，宝塔面板上的一键部署源码插件，可一键部署：discuz,wordpress,ecshop,thinkphp,z-blog,dedecms等程序。还有极其方便的一键迁移，两台服务器安装宝塔Linux面板5.2版本，可实现一键迁移服务器网站、FTP、数据库。</strong></p>
+<h2 id="4、定位"><strong>4、定位</strong></h2>
+<p><strong>总的来说宝塔面板是众多服务器管理软件中拥有友好的界面交互体验、功能完善且每周更新的一款产品。宝塔面板做的就是一款简单好用的服务器管理软件。</strong></p>
+<h1>二、Django 的简便实用</h1>
+<h2 id="1、简介">1、简介</h2>
+<ul>
+<li><strong>Python下有许多款不同的 Web 框架。Django是重量级选手中最有代表性的一位。许多成功的网站和APP都基于Django。</strong></li>
+<li><strong>Django是一个开放源代码的Web应用框架，由Python写成。</strong></li>
+<li><strong>Django遵守BSD版权，初次发布于2005年7月, 并于2008年9月发布了第一个正式版本1.0 。</strong></li>
+<li><strong>Django采用了MVC的软件设计模式，即模型M，视图V和控制器C。</strong></li>
+</ul>
+<h2 id="2-特点">2. 特点</h2>
+<h3 id="1）-重量级框架">1） 重量级框架</h3>
+<p><strong>对比Flask框架，Django原生提供了众多的功能组件，让开发更简便快速。</strong></p>
+<ul>
+<li>
+<p><strong>提供项目工程管理的自动化脚本工具</strong></p>
+</li>
+<li>
+<p><strong>数据库ORM支持（对象关系映射，英语：Object Relational Mapping）</strong></p>
+</li>
+<li>
+<p><strong>模板</strong></p>
+</li>
+<li>
+<p><strong>表单</strong></p>
+</li>
+<li>
+<p><strong>Admin管理站点</strong></p>
+</li>
+<li>
+<p><strong>文件管理</strong></p>
+</li>
+<li>
+<p><strong>认证权限</strong></p>
+</li>
+<li>
+<p><strong>session机制</strong></p>
+</li>
+<li>
+<p><strong>缓存</strong></p>
+</li>
+</ul>
+<h3 id="2）MVT模式">2）MVT模式</h3>
+<p><strong>有一种程序设计模式叫MVC，其核心思想是分工、解耦，让不同的代码块之间降低耦合，增强代码的可扩展性和可移植性，实现向后兼容。</strong></p>
+<blockquote>
+<p><strong>MVC的全拼为Model-View-Controller，最早由TrygveReenskaug在1978年提出，是施乐帕罗奥多研究中心(Xerox PARC)在20世纪80年代为程序语言Smalltalk发明的一种软件设计模式，是为了将传统的输入（input）、处理（processing）、输出（output）任务运用到图形化用户交互模型中而设计的。随着标准输入输出设备的出现，开发人员只需要将精力集中在业务逻辑的分析与实现上。后来被推荐为Oracle旗下Sun公司Java EE平台的设计模式，并且受到越来越多的使用ColdFusion和PHP的开发者的欢迎。现在虽然不再使用原来的分工方式，但是这种分工的思想被沿用下来，广泛应用于软件工程中，是一种典型并且应用广泛的软件架构模式。后来，MVC的思想被应用在了Ｗeb开发方面，被称为Ｗeb MVC框架。</strong></p>
+</blockquote>
+<h4 id="1、MVC模式说明">1、MVC模式说明</h4>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413144343706.png" alt="image-20200413144343706"></p>
+<ul>
+<li><strong>M全拼为Model，主要封装对数据库层的访问，对数据库中的数据进行增、删、改、查操作。</strong></li>
+<li><strong>V全拼为View，用于封装结果，生成页面展示的html内容。</strong></li>
+<li><strong>C全拼为Controller，用于接收请求，处理业务逻辑，与Model和View交互，返回结果。</strong></li>
+</ul>
+<h4 id="2、Django的MVT">2、Django的MVT</h4>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413144359898.png" alt="image-20200413144359898"></p>
+<ul>
+<li><strong>M全拼为Model，与MVC中的M功能相同，负责和数据库交互，进行数据处理。</strong></li>
+<li><strong>V全拼为View，与MVC中的C功能相同，接收请求，进行业务处理，返回应答。</strong></li>
+<li><strong>T全拼为Template，与MVC中的V功能相同，负责封装构造要返回的html。</strong></li>
+</ul>
+<p><strong>注：差异就在于黑线黑箭头标识出来的部分</strong></p>
+<h2 id="3、windows安装Django">3、windows安装Django</h2>
+<h3 id="（1）版本对应">（1）版本对应</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Django 版本</th>
+<th style="text-align:left">Python 版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1.8</td>
+<td style="text-align:left">2.7, 3.2 , 3.3, 3.4, 3.5</td>
+</tr>
+<tr>
+<td style="text-align:left">1.9, 1.10</td>
+<td style="text-align:left">2.7, 3.4, 3.5</td>
+</tr>
+<tr>
+<td style="text-align:left">1.11</td>
+<td style="text-align:left">2.7, 3.4, 3.5, 3.6</td>
+</tr>
+<tr>
+<td style="text-align:left">2.0</td>
+<td style="text-align:left">3.4, 3.5, 3.6, 3.7</td>
+</tr>
+<tr>
+<td style="text-align:left">2.1, 2.2</td>
+<td style="text-align:left">3.5, 3.6, 3.7</td>
+</tr>
+</tbody>
+</table>
+<h3 id="（2）cmd安装">（2）cmd安装</h3>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre class=" language-hljs cmd"><code class="language-hljs cmd">pip install -i https://pypi.douban.com/simple/ django #较快<br>pip install Django #较慢<br></code></pre></td></tr></table></figure>
+<h3 id="（3）检查是否安装成功">（3）检查是否安装成功</h3>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre class=" language-hljs cmd"><span class="hljs-function">C:\<span class="hljs-title">WINDOWS</span>\<span class="hljs-title">system32</span>&gt;<span class="hljs-title">python</span>  #进入<span class="hljs-title">python</span>命令行</span><br><span class="hljs-function"><span class="hljs-title">Python</span> 3.8.2 (<span class="hljs-title">tags</span>/<span class="hljs-title">v3</span>.8.2:7<span class="hljs-title">b3ab59</span>, <span class="hljs-title">Feb</span> 25 2020, 23:03:10) [<span class="hljs-title">MSC</span> <span class="hljs-title">v</span>.1916 64 <span class="hljs-title">bit</span> (<span class="hljs-title">AMD64</span>)] <span class="hljs-title">on</span> <span class="hljs-title">win32</span></span><br><span class="hljs-function"><span class="hljs-title">Type</span> "<span class="hljs-title">help</span>", "<span class="hljs-title">copyright</span>", "<span class="hljs-title">credits</span>" <span class="hljs-title">or</span> "<span class="hljs-title">license</span>" <span class="hljs-title">for</span> <span class="hljs-title">more</span> <span class="hljs-title">information</span>.</span><br><span class="hljs-function">&gt;&gt;&gt; <span class="hljs-title">import</span> <span class="hljs-title">django</span></span><br><span class="hljs-function">&gt;&gt;&gt; <span class="hljs-title">django.VERSION</span>    #查看版本号</span><br><span class="hljs-function">(3, 0, 5, '<span class="hljs-title"><code class="language-hljs cmd"><span class="hljs-function">C:\<span class="hljs-title">WINDOWS</span>\<span class="hljs-title">system32</span>&gt;<span class="hljs-title">python</span>  #进入<span class="hljs-title">python</span>命令行</span><br><span class="hljs-function"><span class="hljs-title">Python</span> 3.8.2 (<span class="hljs-title">tags</span>/<span class="hljs-title">v3</span>.8.2:7<span class="hljs-title">b3ab59</span>, <span class="hljs-title">Feb</span> 25 2020, 23:03:10) [<span class="hljs-title">MSC</span> <span class="hljs-title">v</span>.1916 64 <span class="hljs-title">bit</span> (<span class="hljs-title">AMD64</span>)] <span class="hljs-title">on</span> <span class="hljs-title">win32</span></span><br><span class="hljs-function"><span class="hljs-title">Type</span> "<span class="hljs-title">help</span>", "<span class="hljs-title">copyright</span>", "<span class="hljs-title">credits</span>" <span class="hljs-title">or</span> "<span class="hljs-title">license</span>" <span class="hljs-title">for</span> <span class="hljs-title">more</span> <span class="hljs-title">information</span>.</span><br><span class="hljs-function">&gt;&gt;&gt; <span class="hljs-title">import</span> <span class="hljs-title">django</span></span><br><span class="hljs-function">&gt;&gt;&gt; <span class="hljs-title">django.VERSION</span>    #查看版本号</span><br><span class="hljs-function">(3, 0, 5, '<span class="hljs-title">final</span>', 0)</span><br></code></pre></td></tr></table></figure>
+<p><em><strong>如果输出了Django的版本号说明安装正确。</strong></em></p>
+<h1>三、Django 创建第一个项目</h1>
+<p><strong>本章我们将介绍<code>Django</code> 管理工具及如何使用 <code>Django</code> 来创建项目，第一个项目我们以 <code>HelloWorld</code> 来命令项目。</strong></p>
+<h2 id="1、Django-管理工具">1、Django 管理工具</h2>
+<p><strong>安装 <code>Django</code> 之后，您现在应该已经有了可用的管理工具 <code>django-admin</code>。我们可以使用 <code>django-admin</code> 来创建一个项目:</strong></p>
+<p><strong>我们可以来看下<code>django-admin</code> 的命令介绍:</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413151626181.png" alt="image-20200413151626181"></p>
+<h2 id="2、创建第一个项目">2、创建第一个项目</h2>
+<p><strong>使用 <code>django-admin</code> 来创建 <code>HelloWorld</code> 项目：</strong></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs cmd"><code class="language-hljs cmd">django-admin startproject HelloWorld<br></code></pre></td></tr></table></figure>
+<p><strong>创建完成后我们可以查看下项目的目录结构：</strong></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre class=" language-hljs cmd">PS G:\四期\python\<span class="hljs-number">5</span>\test&gt; <span class="hljs-built_in">cd</span> .\HelloWorld\<br>PS G:\四期\python\<span class="hljs-number">5</span>\test\HelloWorld&gt; <span class="hljs-built_in">tree</span> /f<br>卷 学习 的文件夹 <span class="hljs-built_in">PATH</span> 列表<br>卷序列号为 <span class="hljs-number">7</span>C11-<span class="hljs-number">994</span>A<br><span class="hljs-function">G:.</span><br><span class="hljs-function">│  <span class="hljs-title">manage.py</span></span><br><span class="hljs-function">│</span><br><span class="hljs-function">└─<span class="hljs-title">HelloWorld</span></span><br><span class="hljs-function">        <span class="hljs-title">asgi.py</span></span><br><span class="hljs-function">        <span class="hljs-title">settings.py</span></span><br><span class="hljs-function">        <span class="hljs-title">urls.py</span></span><br><span class="hljs-function">        <span class="hljs-title">wsgi.py</span></span><br><span class="hljs-function">        <span class="hljs-title"><code class="language-hljs cmd">PS G:\四期\python\<span class="hljs-number">5</span>\test&gt; <span class="hljs-built_in">cd</span> .\HelloWorld\<br>PS G:\四期\python\<span class="hljs-number">5</span>\test\HelloWorld&gt; <span class="hljs-built_in">tree</span> /f<br>卷 学习 的文件夹 <span class="hljs-built_in">PATH</span> 列表<br>卷序列号为 <span class="hljs-number">7</span>C11-<span class="hljs-number">994</span>A<br><span class="hljs-function">G:.</span><br><span class="hljs-function">│  <span class="hljs-title">manage.py</span></span><br><span class="hljs-function">│</span><br><span class="hljs-function">└─<span class="hljs-title">HelloWorld</span></span><br><span class="hljs-function">        <span class="hljs-title">asgi.py</span></span><br><span class="hljs-function">        <span class="hljs-title">settings.py</span></span><br><span class="hljs-function">        <span class="hljs-title">urls.py</span></span><br><span class="hljs-function">        <span class="hljs-title">wsgi.py</span></span><br><span class="hljs-function">        <span class="hljs-title">__init__.py</span></span><br></code></pre></td></tr></table></figure>
+<h4 id="目录说明：">目录说明：</h4>
+<ul>
+<li><strong><code>HelloWorld</code>: 项目的容器。</strong></li>
+<li><strong><code>manage.py</code>: 一个实用的命令行工具，可让你以各种方式与该 <code>Django</code> 项目进行交互。</strong></li>
+<li><strong><code>HelloWorld/init.py</code>: 一个空文件，告诉 Python 该目录是一个 Python 包。</strong></li>
+<li><strong><code>HelloWorld/settings.py</code>: 该 <code>Django</code> 项目的设置/配置。</strong></li>
+<li><strong><code>HelloWorld/urls.py</code>: 该 <code>Django</code> 项目的 URL 声明; 一份由 <code>Django</code> 驱动的网站&quot;目录&quot;。</strong></li>
+<li><strong><code>HelloWorld/wsgi.py</code>: 一个 <code>WSGI</code> 兼容的 Web 服务器的入口，以便运行你的项目。</strong></li>
+</ul>
+<p><strong>接下来我们进入 <code>HelloWorld</code> 目录输入以下命令，启动服务器：</strong></p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs cmd">PS G:\四期\python\<span class="hljs-number"><code class="language-hljs cmd">PS G:\四期\python\<span class="hljs-number">5</span>\test\HelloWorld> python  .\manage.py runserver<br></code></pre></td></tr></table></figure>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413152839995.png" alt="image-20200413152839995"></p>
+<p><strong>0.0.0.0 让其它电脑可连接到开发服务器，8000 为端口号。如果不说明，那么端口号默认为 8000。</strong></p>
+<p><strong>在浏览器输入你服务器的 <code>ip</code>（这里我们输入本机 <code>IP</code> 地址： <code>**127.0.0.1:8000**</code>） 及端口号，如果正常启动，输出结果如下：</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413153017415.png" alt="image-20200413153017415"></p>
+<h2 id="3、视图和-URL-配置">3、视图和 URL 配置</h2>
+<p><strong>在先前创建的 <code>HelloWorld</code> 目录下的 <code>HelloWorld</code> 目录新建一个 <code>view.py</code> 文件，并输入代码：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> django.http <span class="hljs-keyword">import</span> HttpResponse<br> <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello</span><span class="hljs-params">(request)</span>:</span><br>    <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> django.http <span class="hljs-keyword">import</span> HttpResponse<br> <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello</span><span class="hljs-params">(request)</span>:</span><br>    <span class="hljs-keyword">return</span> HttpResponse(<span class="hljs-string">"Hello world ! "</span>)<br></code></pre></td></tr></table></figure>
+<p><strong>接着，绑定 URL 与视图函数。打开 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 文件，删除原来代码，将以下代码复制粘贴到 <a href="http://urls.py" target="_blank" rel="noopener">urls.py</a> 文件中：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin<br><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path<br><span class="hljs-keyword">from</span> . <span class="hljs-keyword">import</span> view<br><span class="hljs-comment">#引用之前创建的view文件</span><br><br>urlpatterns = [<br>    path(<span class="hljs-string">'admin/'</span>, admin.site.urls),<br>    <span class="hljs-comment">#关联新创建的view.py</span><br>true<span class="hljs-comment">#在浏览器输入127.0.0.1:8000/hel1o/,输出view. py中he11o函数返回的内容。</span><br>    path(<span class="hljs-string">'hello/'</span>, view.hello)<br>    <span class="hljs-comment"><code class="language-hljs python"><span class="hljs-keyword">from</span> django.contrib <span class="hljs-keyword">import</span> admin<br><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path<br><span class="hljs-keyword">from</span> . <span class="hljs-keyword">import</span> view<br><span class="hljs-comment">#引用之前创建的view文件</span><br><br>urlpatterns = [<br>    path(<span class="hljs-string">'admin/'</span>, admin.site.urls),<br>    <span class="hljs-comment">#关联新创建的view.py</span><br>true<span class="hljs-comment">#在浏览器输入127.0.0.1:8000/hel1o/,输出view. py中he11o函数返回的内容。</span><br>    path(<span class="hljs-string">'hello/'</span>, view.hello)<br>    <span class="hljs-comment">#引用函数</span><br>]<br></code></pre></td></tr></table></figure>
+<p><strong>完成后，启动 <code>Django</code> 开发服务器，并在浏览器访问打开浏览器并访问：</strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413155255661.png" alt="image-20200413155255661"></p>
+<p><strong>我们也可以在 <code>urls.py</code>添加以下规则：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path<br> <br><span class="hljs-keyword">from</span> . <span class="hljs-keyword">import</span> view<br> <br>urlpatterns = [<br>    path(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> path<br> <br><span class="hljs-keyword">from</span> . <span class="hljs-keyword">import</span> view<br> <br>urlpatterns = [<br>    path(<span class="hljs-string">'hello/'</span>, view.hello),<br>]<br></code></pre></td></tr></table></figure>
+<p><em><strong><code>注意：</code>项目中如果代码有改动，服务器会自动监测代码的改动并自动重新载入，所以如果你已经启动了服务器则不需手动重启。</strong></em></p>
+<h1>四、path() 函数</h1>
+<p><strong>Django path() 可以接收四个参数，分别是两个必选参数：route、view 和两个可选参数：kwargs、name。</strong></p>
+<p><strong>语法格式：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs python">path(route, view, kwargs=<span class="hljs-literal">None</span>, name=<span class="hljs-literal"><code class="language-hljs python">path(route, view, kwargs=<span class="hljs-literal">None</span>, name=<span class="hljs-literal">None</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li><strong><code>route</code>: 字符串，表示 <code>URL</code> 规则，与之匹配的 <code>URL</code> 会执行对应的第二个参数 <code>view</code>。</strong></li>
+<li><strong><code>view</code>: 用于执行与正则表达式匹配的 <code>URL</code> 请求。</strong></li>
+<li><strong><code>kwargs</code>: 视图使用的字典类型的参数。</strong></li>
+<li><strong><code>name</code>: 用来反向获取 URL。</strong></li>
+</ul>
+<p><strong><code>Django2. 0</code>中可以使用 <code>re_path()</code> 方法来兼容 1.x 版本中的 <code>url()</code> 方法，一些正则表达式的规则也可以通过 <code>re_path()</code> 来实现 。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> include, re_path<br><br>urlpatterns = [<br>    re_path(<span class="hljs-string">r'^index/$'</span>, views.index, name=<span class="hljs-string">'index'</span>),<br>    re_path(<span class="hljs-string">r'^bio/(?P&lt;username&gt;\w+)/$'</span>, views.bio, name=<span class="hljs-string">'bio'</span>),<br>    re_path(<span class="hljs-string">r'^weblog/'</span>, include(<span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> django.urls <span class="hljs-keyword">import</span> include, re_path<br><br>urlpatterns = [<br>    re_path(<span class="hljs-string">r'^index/$'</span>, views.index, name=<span class="hljs-string">'index'</span>),<br>    re_path(<span class="hljs-string">r'^bio/(?P&lt;username&gt;\w+)/$'</span>, views.bio, name=<span class="hljs-string">'bio'</span>),<br>    re_path(<span class="hljs-string">r'^weblog/'</span>, include(<span class="hljs-string">'blog.urls'</span>)),<br>    ...<br>]<br></code></pre></td></tr></table></figure>
+<h1>五、Django 模板</h1>
+<p><strong>Django 模板的应用，模板是一个文本，用于分离文档的表现形式和内容。</strong></p>
+<h2 id="模板应用实例">模板应用实例</h2>
+<p><strong>我们接着上一章节的项目将在 HelloWorld 目录底下创建 templates 目录并建立 hello.html文件，整个目录结构如下：</strong></p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre class=" language-hljs gherkin">HelloWorld/<br>|<span class="hljs-string">-- HelloWorld</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- __init__.py</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- __init__.pyc</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- settings.py</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- settings.pyc</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- urls.py</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- urls.pyc</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- view.py</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- view.pyc</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- wsgi.py</span><br>|<span class="hljs-string">   `-- wsgi.pyc</span><br>|<span class="hljs-string">-- manage.py</span><br><span class="hljs-string">`-- templates</span><br><span class="hljs-string"><code class="language-hljs gherkin">HelloWorld/<br>|<span class="hljs-string">-- HelloWorld</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- __init__.py</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- __init__.pyc</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- settings.py</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- settings.pyc</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- urls.py</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- urls.pyc</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- view.py</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- view.pyc</span><br>|<span class="hljs-string">   </span>|<span class="hljs-string">-- wsgi.py</span><br>|<span class="hljs-string">   `-- wsgi.pyc</span><br>|<span class="hljs-string">-- manage.py</span><br><span class="hljs-string">`-- templates</span><br><span class="hljs-string">    `-- hello.html</span><br></code></pre></td></tr></table></figure>
+<p><strong>hello.html 文件代码如下：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre class=" language-hljs http"><code class="language-hljs http"><!DOCTYPE html><br><html lang="en"><br><head><br>  <meta charset="UTF-8"><br>  <title>我的第一个Django项目</title><br></head><br><body><br>  <h1>&#123;&#123; 'hello' &#125;&#125;</h1><br></body><br></html><br></code></pre></td></tr></table></figure>
+<p><strong>从模板中我们知道变量使用了双括号。</strong></p>
+<p><strong>接下来我们需要向Django说明模板文件的路径，修改HelloWorld/settings.py，修改 TEMPLATES 中的 DIRS 为 <code>[BASE_DIR+&quot;/templates&quot;,]</code>，如下所示:d</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre class=" language-hljs python">...TEMPLATES = [<br>    &#123;<br>        <span class="hljs-string">'BACKEND'</span>: <span class="hljs-string">'django.template.backends.django.DjangoTemplates'</span>,<br>        <span class="hljs-string">'DIRS'</span>: [BASE_DIR+<span class="hljs-string">"/templates"</span>,],    <span class="hljs-comment"># 修改位置</span><br>        <span class="hljs-string">'APP_DIRS'</span>: <span class="hljs-literal">True</span>,<br>        <span class="hljs-string">'OPTIONS'</span>: &#123;<br>            <span class="hljs-string">'context_processors'</span>: [<br>                <span class="hljs-string">'django.template.context_processors.debug'</span>,<br>                <span class="hljs-string">'django.template.context_processors.request'</span>,<br>                <span class="hljs-string">'django.contrib.auth.context_processors.auth'</span>,<br>                <span class="hljs-string"><code class="language-hljs python">...TEMPLATES = [<br>    &#123;<br>        <span class="hljs-string">'BACKEND'</span>: <span class="hljs-string">'django.template.backends.django.DjangoTemplates'</span>,<br>        <span class="hljs-string">'DIRS'</span>: [BASE_DIR+<span class="hljs-string">"/templates"</span>,],    <span class="hljs-comment"># 修改位置</span><br>        <span class="hljs-string">'APP_DIRS'</span>: <span class="hljs-literal">True</span>,<br>        <span class="hljs-string">'OPTIONS'</span>: &#123;<br>            <span class="hljs-string">'context_processors'</span>: [<br>                <span class="hljs-string">'django.template.context_processors.debug'</span>,<br>                <span class="hljs-string">'django.template.context_processors.request'</span>,<br>                <span class="hljs-string">'django.contrib.auth.context_processors.auth'</span>,<br>                <span class="hljs-string">'django.contrib.messages.context_processors.messages'</span>,<br>            ],<br>        &#125;,<br>    &#125;,<br>]<br>...<br></code></pre></td></tr></table></figure>
+<p><strong>我们现在修改 <code>view.py</code>，增加一个新的对象，用于向模板提交数据：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre class=" language-hljs python"><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render<br> <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello</span><span class="hljs-params">(request)</span>:</span><br>    context          = &#123;&#125;<br>    context[<span class="hljs-string">'hello'</span>] = <span class="hljs-string">'Hello World!'</span><br>    <span class="hljs-keyword">return</span> render(request, <span class="hljs-string"><code class="language-hljs python"><span class="hljs-keyword">from</span> django.shortcuts <span class="hljs-keyword">import</span> render<br> <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">hello</span><span class="hljs-params">(request)</span>:</span><br>    context          = &#123;&#125;<br>    context[<span class="hljs-string">'hello'</span>] = <span class="hljs-string">'Hello World!'</span><br>    <span class="hljs-keyword">return</span> render(request, <span class="hljs-string">'hello.html'</span>, context)<br></code></pre></td></tr></table></figure>
+<p><strong>可以看到，我们这里使用 render 来替代之前使用的 HttpResponse。render 还使用了一个字典 context 作为参数。</strong></p>
+<p><strong>context 字典中元素的键值 “hello” 对应了模板中的变量 “”。</strong></p>
+<p><strong>再访问访问 <a href="http://127.0.0.1:8000/hello%EF%BC%8C%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E9%A1%B5%E9%9D%A2%EF%BC%9A" target="_blank" rel="noopener">http://127.0.0.1:8000/hello，可以看到页面：</a></strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413165003606.png" alt="image-20200413165003606"></p>
+<h1>六、Django 模板标签</h1>
+<h2 id="1、if-else-标签">1、if/else 标签</h2>
+<p><strong>基本语法格式如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;% <span class="hljs-keyword"><code class="language-hljs python">&#123;% <span class="hljs-keyword">if</span> condition %&#125;<br>     ... display<br>&#123;% endif %&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>或者：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;% <span class="hljs-keyword">if</span> condition1 %&#125;<br>   ... display <span class="hljs-number">1</span><br>&#123;% <span class="hljs-keyword">elif</span> condition2 %&#125;<br>   ... display <span class="hljs-number">2</span><br>&#123;% <span class="hljs-keyword">else</span> %&#125;<br>   ... display <span class="hljs-number"><code class="language-hljs python">&#123;% <span class="hljs-keyword">if</span> condition1 %&#125;<br>   ... display <span class="hljs-number">1</span><br>&#123;% <span class="hljs-keyword">elif</span> condition2 %&#125;<br>   ... display <span class="hljs-number">2</span><br>&#123;% <span class="hljs-keyword">else</span> %&#125;<br>   ... display <span class="hljs-number">3</span><br>&#123;% endif %&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>根据条件判断是否输出。if/else 支持嵌套。</strong></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs txt"><code class="language-hljs txt">&#123;% if %&#125; 标签接受 and ， or 或者 not 关键字来对多个变量做判断 ，或者对变量取反（ not )，例如：<br></code></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;% <span class="hljs-keyword">if</span> athlete_list <span class="hljs-keyword"><code class="language-hljs python">&#123;% <span class="hljs-keyword">if</span> athlete_list <span class="hljs-keyword">and</span> coach_list %&#125;<br>     athletes 和 coaches 变量都是可用的。<br>&#123;% endif %&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="2、for-标签">2、for 标签</h2>
+<p><strong>例如，给定一个运动员列表 athlete_list 变量，我们可以使用下面的代码来显示这个列表：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre class=" language-hljs python">&lt;ul&gt;<br>&#123;% <span class="hljs-keyword">for</span> athlete <span class="hljs-keyword"><code class="language-hljs python">&lt;ul&gt;<br>&#123;% <span class="hljs-keyword">for</span> athlete <span class="hljs-keyword">in</span> athlete_list %&#125;<br>    <li>&#123;&#123; athlete.name &#125;&#125;</li><br>&#123;% endfor %&#125;<br></ul><br></code></pre></td></tr></table></figure>
+<p><strong>给标签增加一个 reversed 使得该列表被反向迭代：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;% <span class="hljs-keyword">for</span> athlete <span class="hljs-keyword"><code class="language-hljs python">&#123;% <span class="hljs-keyword">for</span> athlete <span class="hljs-keyword">in</span> athlete_list reversed %&#125;<br>...<br>&#123;% endfor %&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs text"><code class="language-hljs text">可以嵌套使用 &#123;% for %&#125; 标签：<br></code></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;% <span class="hljs-keyword">for</span> athlete <span class="hljs-keyword">in</span> athlete_list %&#125;<br>    &lt;h1&gt;&#123;&#123; athlete.name &#125;&#125;&lt;/h1&gt;<br>    &lt;ul&gt;<br>    &#123;% <span class="hljs-keyword">for</span> sport <span class="hljs-keyword"><code class="language-hljs python">&#123;% <span class="hljs-keyword">for</span> athlete <span class="hljs-keyword">in</span> athlete_list %&#125;<br>    &lt;h1&gt;&#123;&#123; athlete.name &#125;&#125;&lt;/h1&gt;<br>    &lt;ul&gt;<br>    &#123;% <span class="hljs-keyword">for</span> sport <span class="hljs-keyword">in</span> athlete.sports_played %&#125;<br>        <li>&#123;&#123; sport &#125;&#125;</li><br>    &#123;% endfor %&#125;<br>    </ul><br>&#123;% endfor %&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="3、ifequal-ifnotequal-标签">3、ifequal/ifnotequal 标签</h2>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs txt"><code class="language-hljs txt">&#123;% ifequal %&#125; 标签比较两个值，当他们相等时，显示在 &#123;% ifequal %&#125; 和 &#123;% endifequal %&#125; 之中所有的值。<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>下面的例子比较两个模板变量 user 和 currentuser :</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre class=" language-hljs python"><code class="language-hljs python">&#123;% ifequal user currentuser %&#125;<br>    <h1>Welcome!</h1><br>&#123;% endifequal %&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs txt"><code class="language-hljs txt">和 &#123;% if %&#125; 类似， &#123;% ifequal %&#125; 支持可选的 &#123;% else%&#125; 标签：8<br></code></pre></td></tr></table></figure>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;% ifequal section <span class="hljs-string">'sitenews'</span> %&#125;<br>    &lt;h1&gt;Site News&lt;/h1&gt;<br>&#123;% <span class="hljs-keyword"><code class="language-hljs python">&#123;% ifequal section <span class="hljs-string">'sitenews'</span> %&#125;<br>    &lt;h1&gt;Site News&lt;/h1&gt;<br>&#123;% <span class="hljs-keyword">else</span> %&#125;<br>    <h1>No News Here</h1><br>&#123;% endifequal %&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="4、注释标签">4、注释标签</h2>
+<p><strong>Django 注释使用 。</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;<span class="hljs-comment"><code class="language-hljs python">&#123;<span class="hljs-comment"># 这是一个注释 #&#125;</span><br></code></pre></td></tr></table></figure>
+<h2 id="5、过滤器">5、过滤器</h2>
+<p><strong>模板过滤器可以在变量被显示前修改它，过滤器使用管道字符，如下所示：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs python"><code class="language-hljs python">&#123;&#123; name|lower &#125;&#125;<br></code></pre></td></tr></table></figure>
+<p><strong> 变量被过滤器 lower 处理后，文档大写转换文本为小写。</strong></p>
+<p><em><em>过滤管道可以被</em> 套接 <em>，既是说，一个过滤器管道的输出又可以作为下一个管道的输入：</em></em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs python"><code class="language-hljs python">&#123;&#123; my_list|first|upper &#125;&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>以上实例将第一个元素并将其转化为大写。</strong></p>
+<p><strong>有些过滤器有参数。 过滤器的参数跟随冒号之后并且总是以双引号包含。 例如：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;&#123; bio|truncatewords:<span class="hljs-string"><code class="language-hljs python">&#123;&#123; bio|truncatewords:<span class="hljs-string">"30"</span> &#125;&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>这个将显示变量 bio 的前30个词。</strong></p>
+<p><strong>其他过滤器：</strong></p>
+<ul>
+<li>
+<p><strong>addslashes : 添加反斜杠到任何反斜杠、单引号或者双引号前面。</strong></p>
+</li>
+<li>
+<p><strong>date : 按指定的格式字符串参数格式化 date 或者 datetime 对象，实例：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;&#123; pub_date|date:<span class="hljs-string"><code class="language-hljs python">&#123;&#123; pub_date|date:<span class="hljs-string">"F j, Y"</span> &#125;&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>length : 返回变量的长度。</strong></p>
+</li>
+</ul>
+<h2 id="6、include-标签">6、include 标签</h2>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs txt"><code class="language-hljs txt">&#123;% include %&#125; 标签允许在模板中包含其它的模板的内容。<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>下面这个例子都包含了 nav.html 模板：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs python">&#123;% include <span class="hljs-string"><code class="language-hljs python">&#123;% include <span class="hljs-string">"nav.html"</span> %&#125;<br></code></pre></td></tr></table></figure>
+<h1>七、模板继承</h1>
+<p><strong>模板可以用继承的方式来实现复用。</strong></p>
+<p><strong>接下来我们先创建之前项目的 templates 目录中添加 base.html 文件，代码如下：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre class=" language-hljs http"><code class="language-hljs http"><!DOCTYPE html><br><html><br><head><br><meta charset="utf-8"><br><title> xgp </title><br></head><br><body><br>    <h1>Hello World!</h1><br>    <p>xgp Django 测试。</p><br>    &#123;% block mainbody %&#125;<br>       <p>original</p><br>    &#123;% endblock %&#125;<br></body><br></html><br></code></pre></td></tr></table></figure>
+<p><strong>以上代码中，名为 <code>mainbody</code> 的 block 标签是可以被继承者们替换掉的部分。</strong></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre class=" language-hljs txt"><code class="language-hljs txt">所有的 &#123;% block %&#125; 标签告诉模板引擎，子模板可以重载这些部分。<br></code></pre></td></tr></table></figure>
+</blockquote>
+<p><strong>hello.html 中继承 base.html，并替换特定 block，hello.html 修改后的代码如下：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre class=" language-hljs http"><code class="language-hljs http">&#123;%extends "base.html" %&#125;<br> <br>&#123;% block mainbody %&#125;<br><p>xgp 继承了 base.html 文件</p><br>&#123;% endblock %&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>第一行代码说明 <code>hello.html</code> 继承了 <code>base.html</code> 文件。可以看到，这里相同名字的 block 标签用以替换 <code>base.html</code> 的相应 block。</strong></p>
+<p><strong>重新访问地址 <a href="http://127.0.0.1:8000/hello%EF%BC%8C%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E5%A6%82%E4%B8%8B%EF%BC%9A" target="_blank" rel="noopener">http://127.0.0.1:8000/hello，输出结果如下：</a></strong></p>
+<p><img src= "/img/loading.gif" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/image-20200413175404185.png" alt="image-20200413175404185"></p>
+<h1>八、Linux开发Django</h1>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">[root@python ~]# cd /opt/<br>[root@python opt]# mkdir django_prject<br>[root@python opt]# cd django_prject/<br>[root@python django_prject]# pip3 install -i https://pypi.douban.com/simple/ django<br>//下载django工具<br><br>[root@python django_prject]# django-admin startproject HelloWorld<br>//创建第一个项目（HelloWorld）<br><br>[root@python django_prject]# python3  ./manage.py runserver<br>//进入HelloWorld 目录，启动服务器<br></code></pre></td></tr></table></figure>
+<p><strong>报错使用以下命令降低版本</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">pip3 uninstall django<br>pip3 install django==2.1.8<br></code></pre></td></tr></table></figure>
+</div><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Wu Shao Dong</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://wsdlxgp.top/posts/10c6.html">https://wsdlxgp.top/posts/10c6.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://wsdlxgp.top" target="_blank">Xgp & Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/nfs/">nfs</a><a class="post-meta__tags" href="/tags/deployment/">deployment</a><a class="post-meta__tags" href="/tags/pv/">pv</a><a class="post-meta__tags" href="/tags/pvc/">pvc</a><a class="post-meta__tags" href="/tags/Storage-Class/">Storage Class</a><a class="post-meta__tags" href="/tags/dashboard/">dashboard</a><a class="post-meta__tags" href="/tags/helm/">helm</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"/><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/3eca.html"><img class="prev-cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq62p.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">windows10安装 mysql数据库和Navicat for MySQL(MySQL管理工具)</div></div></a></div><div class="next-post pull-right"><a href="/posts/c970.html"><img class="next-cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq60p.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python数据可视化之Pygal图表类型</div></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/posts/e939.html" title="初识python"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq46p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">初识python</div></div></a></div><div class="relatedPosts_item"><a href="/posts/6618.html" title="python的正则表达式"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq57p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">python的正则表达式</div></div></a></div><div class="relatedPosts_item"><a href="/posts/ed47.html" title="python数据可视化"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq59p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">python数据可视化</div></div></a></div><div class="relatedPosts_item"><a href="/posts/5641.html" title="python文本文件的（读、写、追加）"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq58p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">python文本文件的（读、写、追加）</div></div></a></div><div class="relatedPosts_item"><a href="/posts/c970.html" title="Python数据可视化之Pygal图表类型"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq60p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">Python数据可视化之Pygal图表类型</div></div></a></div><div class="relatedPosts_item"><a href="/posts/68e5.html" title="Python3+Django3开发简单的人员管理系统"><img class="relatedPosts_cover" data-src="https://gitee.com/xgpqq/tuchuang/raw/master/img/qweq64p.jpg"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="far fa-calendar-alt fa-fw"></i> 2019-09-14</div><div class="relatedPosts_title">Python3+Django3开发简单的人员管理系统</div></div></a></div></div></div></article></main><footer id="footer" data-type="color"><div id="footer-wrap"><div class="copyright">&copy;2020 By Wu Shao Dong</div><div class="framework-info"><span>驱动 </span><a href="https://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><button id="readmode" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font_plus" title="放大字体"><i class="fas fa-plus"></i></button><button id="font_minus" title="缩小字体"><i class="fas fa-minus"></i></button><button class="translate_chn_to_cht" id="translateLink" title="简繁转换">繁</button><button id="darkmode" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button></div><div id="rightside-config-show"><button id="rightside_config" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module" defer></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js" async></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
