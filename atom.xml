@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://wsdlxgp.top/"/>
-  <updated>2020-07-11T03:56:48.280Z</updated>
+  <updated>2020-07-11T04:05:10.990Z</updated>
   <id>https://wsdlxgp.top/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="https://wsdlxgp.top/posts/eac4.html"/>
     <id>https://wsdlxgp.top/posts/eac4.html</id>
     <published>2020-07-10T15:01:28.309Z</published>
-    <updated>2020-07-11T03:56:48.280Z</updated>
+    <updated>2020-07-11T04:05:10.990Z</updated>
     
-    <content type="html"><![CDATA[<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre class=" language-hljs shell"><code class="language-hljs shell">[root@www ~]# vim /usr/local/http-2.4.23/conf/httpd.conf<br>LoadModule mpm_prefork_module modules/mod_mpm_prefork.so #67取消注释<br>Include conf/extra/httpd-mpm.conf #468取消注释<br></code></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre class=" language-hljs cmd">[root@www ~]# vim /usr/local/http-<span class="hljs-number">2</span>.<span class="hljs-number">4</span>.<span class="hljs-number">23</span>/conf/httpd.conf<br>LoadModule mpm_prefork_module modules/mod_mpm_prefork.so #<span class="hljs-number">67</span>取消注释<br>Include conf/extra/httpd-mpm.conf #<span class="hljs-number"><code class="language-hljs cmd">[root@www ~]# vim /usr/local/http-<span class="hljs-number">2</span>.<span class="hljs-number">4</span>.<span class="hljs-number">23</span>/conf/httpd.conf<br>LoadModule mpm_prefork_module modules/mod_mpm_prefork.so #<span class="hljs-number">67</span>取消注释<br>Include conf/extra/httpd-mpm.conf #<span class="hljs-number">468</span>取消注释<br></code></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+        &lt;figure class=&quot;highlight cmd&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;
       
     
     </summary>
