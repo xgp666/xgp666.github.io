@@ -2,6 +2,41 @@
 vim-hybrid theme by w0ng (https://github.com/w0ng/vim-hybrid)
 */
 
+/*
+    Name:     Kimbie (dark)
+    Author:   Jan T. Sott
+    License:  Creative Commons Attribution-ShareAlike 4.0 Unported License
+    URL:      https://github.com/idleberg/Kimbie-highlight.js
+*/
+
+/* 新添加的内容 */
+/* ------------------------------------- */
+/* 代码框背景色和字体顔色,与hljs一样就行 */
+/* 必须配置(把下面.hljs的color和background复製到这里来) */
+#article-container pre, 
+#article-container figure.highlight {
+  background: #221a0f;  
+  color: #d3af86
+}
+
+/* 代码框工具栏 (如果你关掉了copy、lang和shrink,可不用配置这个 */
+#article-container figure.highlight .highlight-tools {
+  color: #fff;
+  background: #321a0f
+}
+
+/* 代码框行数(如果已经关掉line_number,可以不用配置这个) */
+#article-container figure.highlight .gutter pre {
+  background-color: #221a0f;
+  color: #fff
+}
+
+/* 代码块figcaption配置(hexo自带标签https://hexo.io/zh-tw/docs/tag-plugins.html#Code-Block) */
+/* 不需要可以不用配置这个 */
+#article-container figure.highlight figcaption a {
+  color: #d3af86 !important
+}
+
 /*background color*/
 .hljs {
   display: block;
